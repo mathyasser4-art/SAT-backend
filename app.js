@@ -36,8 +36,9 @@ const whitelist = [
   'https://frontend-pearl-ten-60.vercel.app',
   'https://abacus-2ntk.onrender.com',
   'https://backend-production-6752.up.railway.app',
-  'http://localhost:3000',
-  'http://localhost:3001'
+  'https://sat-dashboard-liart.vercel.app', // <-- Added this
+  'https://sat-frontend-eosin.vercel.app',   // <-- Added this
+  'http://localhost:54112'
 ];
 
 const corsOptions = {
