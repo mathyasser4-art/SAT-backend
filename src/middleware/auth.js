@@ -49,7 +49,7 @@ const adminAuth = async (req, res, next) => {
                 if (userFounded) {
                     if (userFounded.verify) {
                         if (!userFounded.block) {
-                            if (userFounded.role == 'Admin') {
+                            if (userFounded.role == 'admin') {
                                 req.userData = userFounded
                                 next()
                             } else {

@@ -7,7 +7,7 @@ const login = async (req, res) => {
         const { email, password } = req.body
         const findUser = await userModel.findOne({ email })
         if (findUser) {
-            if (findUser.role == 'Admin') {
+            if (findUser.role == 'admin') {
                 const checkPassword = bcrypt.compareSync(password, findUser.password)
                 if (checkPassword) {
                     const userToken = jwt.sign({ id: findUser._id }, process.env.TOKEN_SECRET_KEY);
