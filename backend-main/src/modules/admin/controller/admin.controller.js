@@ -5,11 +5,14 @@ const jwt = require('jsonwebtoken');
 const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        const findUser = await userModel.findOne({ email })
+        // .trim() removes any accidental spaces from the input
+        const findUser = await userModel.findOne({ email: email.trim() })
         
         if (findUser) {
-            // FIX: Changed to lowercase comparison to avoid "Access Denied" errors
-            if (findUser.role && findUser.role.toLowerCase() === 'admin') {
+            // This line helps us debug by printing the role in your Railway logs
+            console.log("Found User Role:", findUser.role);
+
+            if (findUser.role && findUser.role.trim().toLowerCase() === 'admin') {
                 const checkPassword = bcrypt.compareSync(password, findUser.password)
                 
                 if (checkPassword) {
@@ -19,7 +22,6 @@ const login = async (req, res) => {
                     res.json({ message: 'wrong password' })
                 }
             } else {
-                // This triggers if the role in MongoDB is NOT "admin"
                 res.json({ message: 'You do not have access to complete this operation' })
             }
         } else {
