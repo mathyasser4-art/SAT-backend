@@ -1,43 +1,25 @@
-# TODO: Refactor bcrypt usage to async methods
+# Fix ERR_ERL_UNEXPECTED_X_FORWARDED_FOR + Railway Rate Limit Crash
 
-## Steps to Complete
+## Plan Summary
+**Files analyzed:**
+- `backend-main/app.js`: Missing `app.set('trust proxy', 1);` before rate limiter
+- `src/modules/admin/controller/admin.controller.js`: ✅ Uses correct `bcrypt.compareSync(password, findUser.password)`
 
-1. **Validate SALTROUNDS environment variable** ✅
-   - Add validation in app.js or a utility file to ensure SALTROUNDS is a valid number, default to 10 if invalid/missing.
+**Root cause:** Railway proxy sends `X-Forwarded-For` → express-rate-limit crashes without trust proxy.
 
-2. **Refactor login.controller.js** ✅
-   - Change bcrypt.compareSync to bcrypt.compare (async)
-   - Update the login function to handle async bcrypt operation
+## Detailed Update Plan
+### File: `backend-main/app.js`
+- **Location**: After `app.use(express.json())` + DB connection, **before** rate limiter block
+- **Change**: Add `app.set('trust proxy', 1);`
+- **Lines**: ~65, before `const rateLimit = require('express-rate-limit');`
 
-3. **Refactor register.controller.js** ✅
-   - Change bcrypt.hashSync to bcrypt.hash (async)
-   - Update the register function to handle async bcrypt operation
+### Duplicate File: `app.js` (root)
+- **Status**: Identical change needed (duplicated project structure)
 
-4. **Refactor resetPassword.controller.js** ✅
-   - Change bcryptjs.hashSync to bcrypt.hash (async) in resetPassword function
-   - Update the resetPassword function to handle async bcrypt operation
+## Dependent Files
+- None
 
-5. **Refactor teacher.controller.js**
-   - Change bcryptjs.hashSync to bcrypt.hash (async) in addTeacher and updateTeacher functions
-   - Update the functions to handle async bcrypt operations
+✅ **app.js files updated with `app.set('trust proxy', 1);`**
 
-6. **Refactor supervisor.controller.js** ✅
-   - Change bcryptjs.hashSync to bcrypt.hash (async) in relevant functions
-   - Update functions to handle async operations
+Next: Git commit/push/PR
 
-7. **Refactor student.controller.js** ✅
-   - Change bcryptjs.hashSync to bcrypt.hash (async) in relevant functions
-   - Update functions to handle async operations
-
-8. **Refactor school.controller.js**
-   - Change bcryptjs.hashSync to bcrypt.hash (async) in relevant functions
-   - Update functions to handle async operations
-
-9. **Add error handling for bcrypt operations**
-   - Wrap bcrypt calls in try-catch blocks where appropriate
-   - Return appropriate error messages if bcrypt fails
-
-10. **Test the changes**
-    - Run the backend server
-    - Test registration, login, password reset, and user management flows
-    - Ensure no blocking occurs and operations complete successfully
