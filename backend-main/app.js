@@ -64,6 +64,10 @@ fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{metho
 // #endregion
 
 app.use(express.json())
+
+// Fix for Railway proxy + express-rate-limit ERR_ERL_UNEXPECTED_X_FORWARDED_FOR
+app.set('trust proxy', 1);
+
 const connectionDB = require('./DB/connection')
 
 // #region agent log

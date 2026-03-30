@@ -264,4 +264,9 @@ const supervisorAuth = async (req, res, next) => {
     }
 }
 
-module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth }
+const publicAdminAuth = (req, res, next) => {
+  req.userData = { role: 'public-admin' }; // Bypass auth
+  next();
+};
+
+module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth, publicAdminAuth }
