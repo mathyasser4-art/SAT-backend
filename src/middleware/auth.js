@@ -39,6 +39,13 @@ const userAuth = async (req, res, next) => {
 }
 
 const adminAuth = async (req, res, next) => {
+    // Dashboard bypass: set DISABLE_ADMIN_AUTH=true in Railway env to allow
+    // internal dashboard access without a JWT token. Student/teacher routes
+    // are unaffected — they use their own separate middleware.
+    if (process.env.DISABLE_ADMIN_AUTH === 'true') {
+        req.userData = { role: 'admin' };
+        return next();
+    }
     try {
         const { authrization } = req.headers;
         if (authrization) {
