@@ -25,10 +25,23 @@ const login = async (req, res) => {
                 sendEmail(email, emailMessage, 'Account verification', 'Practice Papers')
                 res.json({ message: 'this account is not verify check your email to get your code verification', isVerify: false })
             } else {
-                const checkPassword = await bcrypt.compare(password, findUser.password)
+                // First attempt: standard bcrypt comparison (handles properly hashed passwords)
+                let checkPassword = await bcrypt.compare(password, findUser.password)
                 // #region agent log
                 fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'auth/controller/login.controller.js:23',message:'Password check result',data:{passwordMatch:checkPassword},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'LOGIN'})}).catch(()=>{});
                 // #endregion
+
+                // Fallback: legacy accounts may have plain text passwords stored before
+                // hashing was introduced. If bcrypt.compare() failed, check whether the
+                // stored value is a plain text match. On success, immediately rehash and
+                // persist the password so the account is migrated on first login.
+                if (!checkPassword && findUser.password === password) {
+                    const saltRounds = parseInt(process.env.SALTROUNDS) || 10;
+                    const hashedPassword = await bcrypt.hash(password, saltRounds);
+                    await userModel.updateOne({ _id: findUser._id }, { $set: { password: hashedPassword } });
+                    checkPassword = true;
+                }
+
                 if (checkPassword) {
                     const userToken = jwt.sign({ id: findUser._id }, process.env.TOKEN_SECRET_KEY);
                     // #region agent log
