@@ -25,10 +25,31 @@ const whitelist = [
   'http://localhost:54112'
 ];
 
+const isAllowedOrigin = (origin) => {
+  if (!origin) {
+    return true;
+  }
+
+  if (whitelist.includes(origin)) {
+    return true;
+  }
+
+  try {
+    const parsedOrigin = new URL(origin);
+    const isLocalhost =
+      (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1') &&
+      ['http:', 'https:'].includes(parsedOrigin.protocol);
+
+    return isLocalhost;
+  } catch (error) {
+    return false;
+  }
+};
+
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps, Postman, or same-origin)
-    if (!origin || whitelist.indexOf(origin) !== -1) {
+    if (isAllowedOrigin(origin)) {
       callback(null, true)
     } else {
       console.log('Blocked by CORS:', origin);
