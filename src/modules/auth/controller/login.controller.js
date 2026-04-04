@@ -3,6 +3,7 @@ const sendEmail = require('../../../services/sendEmail')
 const generateCode = require('../../../services/generateVerificationCode')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../../../services/jwtSecret');
 
 const login = async (req, res) => {
     try {
@@ -43,7 +44,7 @@ const login = async (req, res) => {
                 }
 
                 if (checkPassword) {
-                    const userToken = jwt.sign({ id: findUser._id }, process.env.TOKEN_SECRET_KEY);
+                    const userToken = jwt.sign({ id: findUser._id }, getJwtSecret());
                     // #region agent log
                     fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'auth/controller/login.controller.js:25',message:'Login successful',data:{userId:findUser._id?.toString(),userName:findUser.userName,role:findUser.role,hasToken:!!userToken},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'LOGIN'})}).catch(()=>{});
                     // #endregion

@@ -1,6 +1,7 @@
 const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../../../services/jwtSecret');
 
 const register = async (req, res) => {
     try {
@@ -15,7 +16,7 @@ const register = async (req, res) => {
                 const userData = await addUser.save()
                 if (userData) {
                     // Generate token for immediate login
-                    const userToken = jwt.sign({ id: userData._id }, process.env.TOKEN_SECRET_KEY);
+                    const userToken = jwt.sign({ id: userData._id }, getJwtSecret());
                     res.status(201).json({ 
                         message: 'success',
                         userToken,

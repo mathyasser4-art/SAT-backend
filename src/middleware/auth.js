@@ -1,5 +1,6 @@
 const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../services/jwtSecret');
 
 const userAuth = async (req, res, next) => {
     try {
@@ -7,7 +8,7 @@ const userAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -51,7 +52,7 @@ const adminAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -88,7 +89,7 @@ const teacherAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -125,7 +126,7 @@ const studentAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -162,7 +163,7 @@ const schoolAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -199,7 +200,7 @@ const itAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -240,7 +241,7 @@ const supervisorAuth = async (req, res, next) => {
         if (authrization) {
             if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+                const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
