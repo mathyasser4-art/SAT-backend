@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 
+if (!process.env.TOKEN_SECRET_KEY && process.env.JWT_SECRET) {
+    console.warn('TOKEN_SECRET_KEY is missing, falling back to JWT_SECRET');
+    process.env.TOKEN_SECRET_KEY = process.env.JWT_SECRET;
+}
+
 // Validate SALTROUNDS environment variable
 const saltRounds = parseInt(process.env.SALTROUNDS);
 if (isNaN(saltRounds) || saltRounds < 1) {
