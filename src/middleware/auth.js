@@ -2,6 +2,18 @@ const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../services/jwtSecret');
 
+const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
+
+const allowDashboardBypass = (req, next, role = 'admin') => {
+    if (isDashboardAuthDisabled()) {
+        req.userData = { role };
+        next();
+        return true;
+    }
+
+    return false;
+};
+
 const userAuth = async (req, res, next) => {
     try {
         const { authrization } = req.headers;
@@ -40,12 +52,8 @@ const userAuth = async (req, res, next) => {
 }
 
 const adminAuth = async (req, res, next) => {
-    // Dashboard bypass: set DISABLE_ADMIN_AUTH=true in Railway env to allow
-    // internal dashboard access without a JWT token. Student/teacher routes
-    // are unaffected — they use their own separate middleware.
-    if (process.env.DISABLE_ADMIN_AUTH === 'true') {
-        req.userData = { role: 'admin' };
-        return next();
+    if (allowDashboardBypass(req, next, 'admin')) {
+        return;
     }
     try {
         const { authrization } = req.headers;
@@ -84,6 +92,9 @@ const adminAuth = async (req, res, next) => {
 }
 
 const teacherAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'Teacher')) {
+        return;
+    }
     try {
         const { authrization } = req.headers;
         if (authrization) {
@@ -158,6 +169,9 @@ const studentAuth = async (req, res, next) => {
 }
 
 const schoolAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'School')) {
+        return;
+    }
     try {
         const { authrization } = req.headers;
         if (authrization) {
@@ -195,6 +209,9 @@ const schoolAuth = async (req, res, next) => {
 }
 
 const itAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'IT')) {
+        return;
+    }
     try {
         const { authrization } = req.headers;
         if (authrization) {
@@ -236,6 +253,9 @@ const itAuth = async (req, res, next) => {
 }
 
 const supervisorAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'Supervisor')) {
+        return;
+    }
     try {
         const { authrization } = req.headers;
         if (authrization) {
