@@ -33,22 +33,22 @@ const userAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -66,22 +66,22 @@ const adminAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -99,22 +99,22 @@ const teacherAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -132,22 +132,22 @@ const studentAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -165,22 +165,22 @@ const schoolAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -199,25 +199,25 @@ const itAuth = async (req, res, next) => {
                                     req.userData = userFounded
                                     next()
                                 } else {
-                                    res.json({ message: 'You do not have access to complete this operation' })
+                                    res.status(403).json({ message: 'You do not have access to complete this operation' })
                                 }
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -235,19 +235,19 @@ const supervisorAuth = async (req, res, next) => {
                                 req.userData = userFounded
                                 next()
                             } else {
-                                res.json({ message: 'You do not have access to complete this operation' })
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                         }
                     } else {
-                        res.json({ message: 'this account is not verify' })
+                        res.status(401).json({ message: 'this account is not verify' })
                     }
                 } else {
-                    res.json({ message: 'this user is not found' })
+                    res.status(404).json({ message: 'this user is not found' })
                 }
         } else {
-            res.json({ message: 'this user access token is not found' })
+            res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
         res.status(502).json({ message: error.message })
@@ -260,4 +260,3 @@ const publicAdminAuth = (req, res, next) => {
 };
 
 module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth, publicAdminAuth }
-

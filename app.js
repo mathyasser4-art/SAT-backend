@@ -42,10 +42,12 @@ const isAllowedOrigin = (origin) => {
   try {
     const parsedOrigin = new URL(origin);
     const isLocalhost =
-      (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1') &&
+      (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1' || parsedOrigin.hostname.startsWith('192.168.')) &&
       ['http:', 'https:'].includes(parsedOrigin.protocol);
+    
+    const isVercel = parsedOrigin.hostname.endsWith('.vercel.app');
 
-    return isLocalhost;
+    return isLocalhost || isVercel;
   } catch (error) {
     return false;
   }
@@ -63,7 +65,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'auth-token', 'authrization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'authorization', 'auth-token', 'authrization', 'token']
 };
 
 app.use(cors(corsOptions));
