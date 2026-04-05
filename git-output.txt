@@ -1,0 +1,46 @@
+﻿=== git status ===
+git.exe : fatal: not a git repository (or any of the parent 
+directories): .git
+At C:\Users\hp\Desktop\SAT\SAT-backend-master\SAT-backend-master\run-git.
+ps1:5 char:13
++ $result += (& $git status 2>&1)
++             ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories) 
+   : .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+=== git add ===
+git.exe : fatal: not a git repository (or any of the parent 
+directories): .git
+At C:\Users\hp\Desktop\SAT\SAT-backend-master\SAT-backend-master\run-git.
+ps1:7 char:13
++ $result += (& $git add "SAT-backend-master/src/middleware/auth.js" 2> 
+...
++             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories) 
+   : .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+=== git commit ===
+git.exe : fatal: not a git repository (or any of the parent 
+directories): .git
+At C:\Users\hp\Desktop\SAT\SAT-backend-master\SAT-backend-master\run-git.
+ps1:9 char:13
++ $result += (& $git commit -m "fix: adminAuth middleware role check ca 
+...
++             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories) 
+   : .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+=== git push ===
+git.exe : fatal: not a git repository (or any of the parent 
+directories): .git
+At C:\Users\hp\Desktop\SAT\SAT-backend-master\SAT-backend-master\run-git.
+ps1:11 char:13
++ $result += (& $git push 2>&1)
++             ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories) 
+   : .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
