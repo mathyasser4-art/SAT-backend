@@ -4,6 +4,11 @@ const getJwtSecret = require('../services/jwtSecret');
 
 const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
 
+// Get authorization token from either 'authorization' or 'authrization' header (backwards compatibility)
+const getAuthToken = (headers) => {
+    return headers.authorization || headers.authrization;
+};
+
 const allowDashboardBypass = (req, next, role = 'admin') => {
     if (isDashboardAuthDisabled()) {
         req.userData = { role };
@@ -16,7 +21,7 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
 
 const userAuth = async (req, res, next) => {
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -56,7 +61,7 @@ const adminAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -96,7 +101,7 @@ const teacherAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -133,7 +138,7 @@ const teacherAuth = async (req, res, next) => {
 
 const studentAuth = async (req, res, next) => {
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -173,7 +178,7 @@ const schoolAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -213,7 +218,7 @@ const itAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
@@ -257,7 +262,7 @@ const supervisorAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authorization } = req.headers;
+        const authorization = getAuthToken(req.headers);
         if (authorization) {
             if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
                 const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
