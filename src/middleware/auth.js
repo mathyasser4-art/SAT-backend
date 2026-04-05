@@ -16,10 +16,10 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
 
 const userAuth = async (req, res, next) => {
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -56,10 +56,10 @@ const adminAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -96,10 +96,10 @@ const teacherAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -133,10 +133,10 @@ const teacherAuth = async (req, res, next) => {
 
 const studentAuth = async (req, res, next) => {
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -173,10 +173,10 @@ const schoolAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -213,10 +213,10 @@ const itAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
@@ -257,10 +257,10 @@ const supervisorAuth = async (req, res, next) => {
         return;
     }
     try {
-        const { authrization } = req.headers;
-        if (authrization) {
-            if (authrization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authrization.split(process.env.AUTH_SECRET_KEY)[1]
+        const { authorization } = req.headers;
+        if (authorization) {
+            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
+                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
                 const { id } = jwt.verify(userToken, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
