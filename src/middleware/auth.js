@@ -4,11 +4,6 @@ const getJwtSecret = require('../services/jwtSecret');
 
 const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
 
-// Get authorization token from either 'authorization' or 'authrization' header (backwards compatibility)
-const getAuthToken = (headers) => {
-    return headers.authorization || headers.authrization;
-};
-
 const allowDashboardBypass = (req, next, role = 'admin') => {
     if (isDashboardAuthDisabled()) {
         req.userData = { role };
@@ -19,13 +14,30 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
     return false;
 };
 
+const extractTokenFromHeader = (headers) => {
+    return headers.authorization || headers.authrization || headers['auth-token'];
+};
+
+const getTokenFromAuthHeader = (authHeader) => {
+    if (!authHeader) return null;
+    if (process.env.AUTH_SECRET_KEY && authHeader.startsWith(process.env.AUTH_SECRET_KEY)) {
+        return authHeader.slice(process.env.AUTH_SECRET_KEY.length);
+    }
+    if (authHeader.startsWith('Bearer ')) {
+        return authHeader.slice(7);
+    }
+    if (authHeader.startsWith('Token ')) {
+        return authHeader.slice(6);
+    }
+    return authHeader;
+};
+
 const userAuth = async (req, res, next) => {
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -45,9 +57,6 @@ const userAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -61,11 +70,10 @@ const adminAuth = async (req, res, next) => {
         return;
     }
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -85,9 +93,6 @@ const adminAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -101,11 +106,10 @@ const teacherAuth = async (req, res, next) => {
         return;
     }
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -125,9 +129,6 @@ const teacherAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -138,11 +139,10 @@ const teacherAuth = async (req, res, next) => {
 
 const studentAuth = async (req, res, next) => {
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -162,9 +162,6 @@ const studentAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -178,11 +175,10 @@ const schoolAuth = async (req, res, next) => {
         return;
     }
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -202,9 +198,6 @@ const schoolAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -218,11 +211,10 @@ const itAuth = async (req, res, next) => {
         return;
     }
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -246,9 +238,6 @@ const itAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -262,11 +251,10 @@ const supervisorAuth = async (req, res, next) => {
         return;
     }
     try {
-        const authorization = getAuthToken(req.headers);
-        if (authorization) {
-            if (authorization.startsWith(process.env.AUTH_SECRET_KEY)) {
-                const userToken = authorization.split(process.env.AUTH_SECRET_KEY)[1]
-                const { id } = jwt.verify(userToken, getJwtSecret())
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
                 const userFounded = await userModel.findById(id)
                 if (userFounded) {
                     if (userFounded.verify) {
@@ -286,9 +274,6 @@ const supervisorAuth = async (req, res, next) => {
                 } else {
                     res.json({ message: 'this user is not found' })
                 }
-            } else {
-                res.json({ message: 'auth secret key is wrong' })
-            }
         } else {
             res.json({ message: 'this user access token is not found' })
         }
@@ -298,3 +283,4 @@ const supervisorAuth = async (req, res, next) => {
 }
 
 module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth }
+
