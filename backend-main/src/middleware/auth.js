@@ -250,7 +250,7 @@ const supervisorAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
