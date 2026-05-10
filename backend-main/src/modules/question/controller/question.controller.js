@@ -8,15 +8,16 @@ const fs = require('fs');
 const addQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { chapter, index } = req.body
         const findChapter = await chapterModel.findById(chapter)
 
         if (findChapter) {
-            if (req.file) {
-                const imageURI = req.file.path;
+            const uploadedFile = req.file ?? req.files?.[0];
+            if (uploadedFile) {
+                const imageURI = uploadedFile.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'questionPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 req.body.questionPic = secure_url
@@ -46,7 +47,7 @@ const addQuestion = async (req, res) => {
 const addGraphQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصور" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصور" })
         }
 
         const { questionID } = req.params
@@ -88,15 +89,16 @@ const addGraphQuestion = async (req, res) => {
 const updateAnswerPic = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { questionID } = req.params
         const findQuestion = await questionModel.findById(questionID)
 
         if (findQuestion) {
-            if (req.file) {
-                const imageURI = req.file.path;
+            const uploadedFile = req.file ?? req.files?.[0];
+            if (uploadedFile) {
+                const imageURI = uploadedFile.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'answerPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 if (findQuestion.answerPic)
@@ -119,15 +121,16 @@ const updateAnswerPic = async (req, res) => {
 const updateQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { questionID } = req.params
         const findQuestion = await questionModel.findById(questionID)
 
         if (findQuestion) {
-            if (req.file) {
-                const imageURI = req.file.path;
+            const uploadedFile = req.file ?? req.files?.[0];
+            if (uploadedFile) {
+                const imageURI = uploadedFile.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'questionPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 if (findQuestion.questionPicID)
