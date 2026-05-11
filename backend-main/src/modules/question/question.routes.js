@@ -3,9 +3,9 @@ const { addQuestion, updateAnswerPic, updateQuestion, checkTheAnswer, getQuestio
 const upload = require('../../middleware/handleMulter')
 const { publicAdminAuth } = require('../../middleware/auth')
 
-questionRouter.post('/question/addQuestion', publicAdminAuth, upload.any(), addQuestion)
-questionRouter.put('/question/updateAnswerPic/:questionID', publicAdminAuth, upload.any(), updateAnswerPic)
-questionRouter.put('/question/updateQuestion/:questionID', publicAdminAuth, upload.any(), updateQuestion)
+questionRouter.post('/question/addQuestion', publicAdminAuth, upload.single("image"), addQuestion)
+questionRouter.put('/question/updateAnswerPic/:questionID', publicAdminAuth, upload.single("image"), updateAnswerPic)
+questionRouter.put('/question/updateQuestion/:questionID', publicAdminAuth, upload.single("image"), updateQuestion)
 questionRouter.put('/question/addGraphQuestion/:questionID', publicAdminAuth, upload.array("image"), addGraphQuestion)
 questionRouter.post('/question/checkTheAnswer/:questionID', checkTheAnswer)
 questionRouter.get('/question/getQuestionDetails/:questionID', getQuestionDetails)
