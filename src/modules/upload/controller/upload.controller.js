@@ -4,11 +4,45 @@ const fs = require('fs')
 
 cloudinaryConfig()
 
+// Safely serialise any thrown value — Error instances, plain objects, strings, etc.
+const serializeError = (err) => {
+    if (err === null || err === undefined) return String(err)
+    if (typeof err === 'string') return err
+    if (err instanceof Error) {
+        return JSON.stringify({ message: err.message, stack: err.stack, ...err }, null, 2)
+    }
+    try {
+        return JSON.stringify(err, null, 2)
+    } catch {
+        return String(err)
+    }
+}
+
+// Extract the most useful human-readable message from any thrown value.
+const extractMessage = (err) => {
+    if (err === null || err === undefined) return 'Unknown error (null/undefined thrown)'
+    if (typeof err === 'string') return err
+    if (typeof err === 'object') {
+        // Cloudinary API errors surface as { error: { message } } or { message }
+        if (err.error && typeof err.error.message === 'string') return err.error.message
+        if (typeof err.message === 'string' && err.message) return err.message
+        if (err.http_code) return `Cloudinary HTTP ${err.http_code}`
+    }
+    return 'Unexpected error during upload'
+}
+
 const uploadImage = async (req, res) => {
     console.log('[upload] POST /api/upload-image received')
     console.log('[upload] content-type:', req.headers['content-type'])
     console.log('[upload] req.file:', req.file)
     console.log('[upload] req.validationErrorImg:', req.validationErrorImg)
+
+    // Verify Cloudinary credentials are present before attempting an upload.
+    const { CLOUDNAME, CLOUDAPIKEY, CLOUDAPISECRET } = process.env
+    if (!CLOUDNAME || !CLOUDAPIKEY || !CLOUDAPISECRET) {
+        console.error('[upload] Cloudinary credentials missing — CLOUDNAME:', CLOUDNAME ? 'set' : 'MISSING', '| CLOUDAPIKEY:', CLOUDAPIKEY ? 'set' : 'MISSING', '| CLOUDAPISECRET:', CLOUDAPISECRET ? 'set' : 'MISSING')
+        return res.status(500).json({ message: 'Server misconfiguration: Cloudinary credentials are not set.' })
+    }
 
     try {
         if (req.validationErrorImg) {
@@ -42,10 +76,12 @@ const uploadImage = async (req, res) => {
         console.log('[upload] Sending 200 response with url:', result.secure_url)
         return res.status(200).json({ url: result.secure_url })
     } catch (error) {
-        console.error('[upload] ERROR during upload process:', error.message)
-        console.error('[upload] Stack trace:', error.stack)
+        const message = extractMessage(error)
+        console.error('[upload] ERROR during upload process — type:', typeof error, '| constructor:', error && error.constructor && error.constructor.name)
+        console.error('[upload] Full error:', serializeError(error))
+        console.error('[upload] Extracted message:', message)
         if (!res.headersSent) {
-            return res.status(500).json({ message: error.message })
+            return res.status(500).json({ message })
         }
     }
 }
