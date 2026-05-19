@@ -19,4 +19,19 @@ const fileFilter = (req,file,cb) => {
 
 const upload = multer({ storage: storageEngine, fileFilter: fileFilter });
 
-module.exports = upload
+// Wraps a multer middleware so that MulterErrors are caught and returned as
+// JSON instead of falling through to Express's default HTML error handler.
+const wrapMulter = (multerMiddleware) => (req, res, next) => {
+    multerMiddleware(req, res, (err) => {
+        if (err) {
+            if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+                return res.status(400).json({ message: 'Unexpected file field: ' + err.field });
+            }
+            return res.status(400).json({ message: err.message || 'File upload error' });
+        }
+        next();
+    });
+};
+
+module.exports = upload;
+module.exports.wrapMulter = wrapMulter;
