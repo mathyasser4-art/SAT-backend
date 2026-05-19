@@ -8,7 +8,7 @@ const fs = require('fs');
 const addQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { chapter, index } = req.body
@@ -46,7 +46,7 @@ const addQuestion = async (req, res) => {
 const addGraphQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصور" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصور" })
         }
 
         const { questionID } = req.params
@@ -88,7 +88,7 @@ const addGraphQuestion = async (req, res) => {
 const updateAnswerPic = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { questionID } = req.params
@@ -119,7 +119,7 @@ const updateAnswerPic = async (req, res) => {
 const updateQuestion = async (req, res) => {
     try {
         if (req.validationErrorImg) {
-            res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
+            return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
         const { questionID } = req.params
