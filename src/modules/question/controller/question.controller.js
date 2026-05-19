@@ -11,8 +11,19 @@ const addQuestion = async (req, res) => {
             return res.json({ message: "webp او png او jpg او jpeg يجب ان يكون امتداد الصورة" })
         }
 
+        console.log('addQuestion - req.body:', JSON.stringify(req.body));
+        console.log('addQuestion - req.file:', req.file ? { fieldname: req.file.fieldname, originalname: req.file.originalname, mimetype: req.file.mimetype, path: req.file.path } : null);
+
         const { chapter, index } = req.body
+
+        if (!chapter) {
+            console.log('addQuestion - chapter field is missing or empty in req.body');
+            return res.json({ message: "chapter ID is required but was not received by the server" });
+        }
+
+        console.log('addQuestion - looking up chapter ID:', chapter);
         const findChapter = await chapterModel.findById(chapter)
+        console.log('addQuestion - findChapter result:', findChapter ? { _id: findChapter._id, name: findChapter.name } : null);
 
         if (findChapter) {
             console.log('addQuestion - req.file:', req.file);
