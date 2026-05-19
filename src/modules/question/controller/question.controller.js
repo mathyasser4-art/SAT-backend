@@ -15,16 +15,23 @@ const addQuestion = async (req, res) => {
         const findChapter = await chapterModel.findById(chapter)
 
         if (findChapter) {
+            console.log('addQuestion - req.file:', req.file);
             if (req.file) {
                 const imageURI = req.file.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'questionPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 req.body.questionPic = secure_url
                 req.body.questionPicID = public_id
+                console.log('addQuestion - image uploaded to Cloudinary:', secure_url);
             }
-            const addQuestion = new questionModel(req.body)
-            const questionData = await addQuestion.save()
+            const newQuestion = new questionModel(req.body)
+            if (req.body.questionPic) {
+                newQuestion.questionPic = req.body.questionPic
+                newQuestion.questionPicID = req.body.questionPicID
+            }
+            const questionData = await newQuestion.save()
             if (questionData) {
+                console.log('addQuestion - saved questionData:', JSON.stringify({ _id: questionData._id, questionPic: questionData.questionPic }));
                 if (index == 'last') {
                     findChapter.questions.push(questionData._id)
                 } else {
