@@ -24,9 +24,6 @@ const upload = multer({ storage: storageEngine, fileFilter: fileFilter });
 const wrapMulter = (multerMiddleware) => (req, res, next) => {
     multerMiddleware(req, res, (err) => {
         if (err) {
-            if (err.code === 'LIMIT_UNEXPECTED_FILE') {
-                return res.status(400).json({ message: 'Unexpected file field: ' + err.field });
-            }
             return res.status(400).json({ message: err.message || 'File upload error' });
         }
         next();
