@@ -186,7 +186,7 @@ const getAssignment = async (req, res) => {
                 const allAssignment = []
                 for (let index = 0; index < getAssignment.length; index++) {
                     const element = getAssignment[index];
-                    if (element.classes.includes(findStudent.class)) {
+                    if (element.classes.some(c => c.toString() === findStudent.class.toString())) {
                         allAssignment.push(element)
                     }
                 }
