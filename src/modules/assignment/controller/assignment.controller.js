@@ -4,10 +4,22 @@ const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
 const mongoose = require('mongoose')
+const userModel = require('../../../../DB/models/user.model')
 
 const createAssignment = async (req, res) => {
     try {
         const teacherID = req.userData._id
+        
+        // Backend Validation: ensure classes belong to the teacher
+        const findTeacher = await userModel.findById(teacherID).select('classList')
+        if (req.body.classes && req.body.classes.length > 0) {
+            for (let c of req.body.classes) {
+                if (!findTeacher.classList.some(tc => tc.toString() === c.toString())) {
+                    return res.status(403).json({ message: "Forbidden: You cannot assign to a class you do not teach" })
+                }
+            }
+        }
+
         const today = new Date().toISOString().slice(0, 10)
         req.body.createdAt = today
         req.body.createdBy = teacherID
@@ -182,7 +194,7 @@ const getStudentResults = async (req, res) => {
         // #endregion
         
         const answers = await answerModel.find({ assignment: assignmentID })
-            .populate('solveBy', 'userName email')
+            .populate('solveBy', 'userName email class')
             .select('total questionsNumber time createdAt questions');
         
         // #region agent log
@@ -196,7 +208,14 @@ const getStudentResults = async (req, res) => {
             totalPoints = assignment.totalPoints || assignment.questions.reduce((sum, q) => sum + (q.questionPoints || 0), 0);
         }
 
-        const students = answers.map(answer => {
+        const students = answers
+            .filter(answer => {
+                // Backend validation: Only show students who actually belong to the assigned classes
+                if (!answer.solveBy || !answer.solveBy.class) return false;
+                if (!assignment.classes || assignment.classes.length === 0) return false;
+                return assignment.classes.some(c => c.toString() === answer.solveBy.class.toString());
+            })
+            .map(answer => {
             const percentage = totalPoints > 0 ? Math.round((answer.total / totalPoints) * 100) : 0;
             
             return {
