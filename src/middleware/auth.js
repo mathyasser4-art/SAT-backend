@@ -246,6 +246,46 @@ const itAuth = async (req, res, next) => {
     }
 }
 
+const itOrTeacherAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'IT')) {
+        return;
+    }
+    try {
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+                const { id } = jwt.verify(authHeader, getJwtSecret())
+                const userFounded = await userModel.findById(id)
+                if (userFounded) {
+                    if (userFounded.verify) {
+                        if (!userFounded.block) {
+                            if (userFounded.role == 'School' || userFounded.role == 'IT' || userFounded.role == 'Teacher') {
+                                if (userFounded.disable == false) {
+                                    req.userData = userFounded
+                                    next()
+                                } else {
+                                    res.status(403).json({ message: 'You do not have access to complete this operation' })
+                                }
+                            } else {
+                                res.status(403).json({ message: 'You do not have access to complete this operation' })
+                            }
+                        } else {
+                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                        }
+                    } else {
+                        res.status(401).json({ message: 'this account is not verify' })
+                    }
+                } else {
+                    res.status(404).json({ message: 'this user is not found' })
+                }
+        } else {
+            res.status(401).json({ message: 'this user access token is not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
 const supervisorAuth = async (req, res, next) => {
     if (allowDashboardBypass(req, next, 'Supervisor')) {
         return;
@@ -282,4 +322,4 @@ const supervisorAuth = async (req, res, next) => {
     }
 }
 
-module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth }
+module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, itOrTeacherAuth, supervisorAuth }
