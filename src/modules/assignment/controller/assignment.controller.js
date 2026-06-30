@@ -12,8 +12,12 @@ const createAssignment = async (req, res) => {
         
         // Backend Validation: ensure classes belong to the teacher
         const findTeacher = await userModel.findById(teacherID).select('classList')
-        if (req.body.classes && req.body.classes.length > 0) {
-            for (let c of req.body.classes) {
+        if (req.body.classes) {
+            // FormData sends a string if only one item is appended, so we ensure it's an array
+            const classesArray = Array.isArray(req.body.classes) ? req.body.classes : [req.body.classes];
+            req.body.classes = classesArray; // Update req.body.classes to be an array for MongoDB
+            
+            for (let c of classesArray) {
                 if (!findTeacher.classList.some(tc => tc.toString() === c.toString())) {
                     return res.status(403).json({ message: "Forbidden: You cannot assign to a class you do not teach" })
                 }
