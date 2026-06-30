@@ -209,9 +209,15 @@ const getTeacherToClass = async (req, res) => {
 const getTeacherClass = async (req, res) => {
     try {
         const teacherID = req.userData._id
-        let findTeacher = await userModel.findById(teacherID).select('classList').populate({ path: 'classList', select: 'class' })
+        let findTeacher = await userModel.findById(teacherID).select('createdBy').populate({ path: 'createdBy', select: 'userName' })
         if (findTeacher) {
-            res.json({ message: 'success', teacherClasess: findTeacher })
+            const classes = await classModel.find({ teachers: teacherID }).select('class')
+            const teacherClasessObj = {
+                _id: findTeacher._id,
+                createdBy: findTeacher.createdBy,
+                classList: classes
+            }
+            res.json({ message: 'success', teacherClasess: teacherClasessObj })
         } else {
             res.json({ message: 'There are no teacher available with this id' })
         }
