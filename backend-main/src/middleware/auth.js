@@ -7,16 +7,19 @@ const extractTokenFromHeader = (headers) => {
 
 const getTokenFromAuthHeader = (authHeader) => {
     if (!authHeader) return null;
-    if (process.env.AUTH_SECRET_KEY && authHeader.startsWith(process.env.AUTH_SECRET_KEY)) {
-        return authHeader.slice(process.env.AUTH_SECRET_KEY.length);
+    let token = authHeader;
+    if (process.env.AUTH_SECRET_KEY && token.startsWith(process.env.AUTH_SECRET_KEY)) {
+        token = token.slice(process.env.AUTH_SECRET_KEY.length);
+    } else if (token.startsWith('pracYas09')) {
+        token = token.slice('pracYas09'.length);
     }
-    if (authHeader.startsWith('Bearer ')) {
-        return authHeader.slice(7);
+    if (token.startsWith('Bearer ')) {
+        token = token.slice(7);
     }
-    if (authHeader.startsWith('Token ')) {
-        return authHeader.slice(6);
+    if (token.startsWith('Token ')) {
+        token = token.slice(6);
     }
-    return authHeader;
+    return token;
 };
 
 const userAuth = async (req, res, next) => {
