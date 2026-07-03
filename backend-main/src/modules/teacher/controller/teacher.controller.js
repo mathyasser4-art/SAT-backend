@@ -194,6 +194,10 @@ const search = async (req, res) => {
 
 const getTeacherToClass = async (req, res) => {
     try {
+        if (req.userData.role == 'Teacher') {
+            res.json({ message: 'success', allTeachers: [{ _id: req.userData._id, userName: req.userData.userName }] })
+            return;
+        }
         const schoolID = req.userData.role == 'IT' ? req.userData.createdBy : req.userData._id
         const allTeachers = await userModel.find({ role: "Teacher", createdBy: schoolID }).select('userName')
         if (allTeachers.length != 0) {

@@ -216,37 +216,37 @@ const getAssignmentDetails = async (req, res) => {
             }
             const findStudent = assignment.students?.filter(e => String(e.solveBy) == String(studentID))[0]
             if (findStudent) {
-                if (findStudent.attempts >= assignment.attemptsNumber) {
-                    res.json({ message: "Oops!!You can't open this assignment, your number of attempts has expired." })
-                } else {
-                    const findIndex = assignment.students?.findIndex(object => String(object.solveBy) == String(studentID))
-                    const currentAttemptNumber = findStudent.attempts + 1
-                    assignment.students[findIndex].attempts = currentAttemptNumber
-                    await assignment.save()
-                    
-                    // Find answer for current attempt (not previous attempts)
-                    const findAnswer = await answerModel.findOne({ 
-                        solveBy: studentID, 
-                        assignment: assignmentID,
-                        attemptNumber: currentAttemptNumber
-                    }).select('questions')
-                    
-                    assignment = assignment.toObject();
-                    
-                    // Include attempt information in response
-                    assignment.currentAttempt = currentAttemptNumber;
-                    assignment.totalAttempts = assignment.attemptsNumber;
-                    assignment.remainingAttempts = assignment.attemptsNumber - currentAttemptNumber;
-                    
-                    // Only pre-fill answers if this attempt already has saved answers
-                    if (findAnswer) {
-                        assignment.questions.forEach(question => {
-                            const answerObj = findAnswer?.questions.find(e => e.question.toString() === question._id.toString());
-                            if (answerObj && answerObj.firstAnswer !== undefined) {
-                                question.questionAnswer = answerObj.firstAnswer;
-                            }
-                        });
+                // Check if they have already submitted their CURRENT attempt
+                const currentAnswer = await answerModel.findOne({
+                    solveBy: studentID,
+                    assignment: assignmentID,
+                    attemptNumber: findStudent.attempts
+                });
+
+                if (currentAnswer) {
+                    // They HAVE submitted their current attempt. 
+                    if (findStudent.attempts >= assignment.attemptsNumber) {
+                        res.json({ message: "Oops!!You can't open this assignment, your number of attempts has expired." })
+                    } else {
+                        const findIndex = assignment.students?.findIndex(object => String(object.solveBy) == String(studentID))
+                        const currentAttemptNumber = findStudent.attempts + 1
+                        assignment.students[findIndex].attempts = currentAttemptNumber
+                        await assignment.save()
+                        
+                        assignment = assignment.toObject();
+                        assignment.currentAttempt = currentAttemptNumber;
+                        assignment.totalAttempts = assignment.attemptsNumber;
+                        assignment.remainingAttempts = assignment.attemptsNumber - currentAttemptNumber;
+                        
+                        res.json({ message: "success", assignment })
                     }
+                } else {
+                    // They HAVEN'T submitted their current attempt!
+                    // Let them continue their current attempt. DO NOT increment.
+                    assignment = assignment.toObject();
+                    assignment.currentAttempt = findStudent.attempts;
+                    assignment.totalAttempts = assignment.attemptsNumber;
+                    assignment.remainingAttempts = assignment.attemptsNumber - findStudent.attempts;
                     
                     res.json({ message: "success", assignment })
                 }
