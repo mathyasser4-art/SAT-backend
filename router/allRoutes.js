@@ -17,5 +17,6 @@ const answerRouter = require('../src/modules/answer/answer.routes')
 const itRouter = require('../src/modules/IT/it.routes')
 const supervisorRouter = require('../src/modules/supervisor/supervisor.routes')
 const uploadRouter = require('../src/modules/upload/upload.routes')
+const courseRouter = require('../src/modules/course/course.routes')
 
-module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter }
+module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter }
