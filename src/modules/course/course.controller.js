@@ -4,7 +4,7 @@ const userModel = require('../../../DB/models/user.model');
 const createCourse = async (req, res) => {
     try {
         const { name, description, students, sessions } = req.body;
-        const teacherId = req.user._id;
+        const teacherId = req.userData._id;
 
         const course = new courseModel({
             name,
@@ -23,7 +23,7 @@ const createCourse = async (req, res) => {
 
 const getTeacherCourses = async (req, res) => {
     try {
-        const teacherId = req.user._id;
+        const teacherId = req.userData._id;
         const courses = await courseModel.find({ teacher: teacherId }).populate('students', 'userName email');
         res.status(200).json({ courses });
     } catch (error) {
@@ -33,7 +33,7 @@ const getTeacherCourses = async (req, res) => {
 
 const getStudentCourses = async (req, res) => {
     try {
-        const studentId = req.user._id;
+        const studentId = req.userData._id;
         const courses = await courseModel.find({ students: studentId }).populate('teacher', 'userName');
         res.status(200).json({ courses });
     } catch (error) {
@@ -77,7 +77,7 @@ const addSession = async (req, res) => {
 const markSessionCompleted = async (req, res) => {
     try {
         const { courseId, sessionId } = req.params;
-        const studentId = req.user._id;
+        const studentId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
