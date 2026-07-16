@@ -272,4 +272,14 @@ const getAssignmentDetails = async (req, res) => {
 }
 
 
-module.exports = { addStudent, getStudent, updateStudent, deleteStudent, removeStudentFromClass, search, getClass, getAssignment, getAssignmentDetails }
+const getAllStudents = async (req, res) => {
+    try {
+        const schoolID = (req.userData.role == 'IT' || req.userData.role == 'Teacher') ? (req.userData.createdBy?._id || req.userData.createdBy) : req.userData._id;
+        const allStudents = await userModel.find({ role: "Student", createdBy: schoolID }).select('userName email');
+        res.json({ message: "success", allStudents });
+    } catch (error) {
+        res.status(502).json({ message: error.message });
+    }
+};
+
+module.exports = { addStudent, getStudent, updateStudent, deleteStudent, removeStudentFromClass, search, getClass, getAssignment, getAssignmentDetails, getAllStudents }

@@ -7,6 +7,7 @@ const { teacherAuth, studentAuth, userAuth } = require('../../middleware/auth');
 router.post('/course', teacherAuth, courseController.createCourse);
 router.get('/course/teacher', teacherAuth, courseController.getTeacherCourses);
 router.post('/course/:id/session', teacherAuth, courseController.addSession);
+router.put('/course/:id/students', teacherAuth, courseController.addStudents);
 
 // Student routes
 router.get('/course/student', studentAuth, courseController.getStudentCourses);

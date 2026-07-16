@@ -98,11 +98,29 @@ const markSessionCompleted = async (req, res) => {
     }
 };
 
+const addStudents = async (req, res) => {
+    try {
+        const { students } = req.body;
+        const courseId = req.params.id;
+
+        const course = await courseModel.findById(courseId);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        course.students = students;
+
+        await course.save();
+        res.status(200).json({ message: "Students updated successfully", course });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating students", error: error.message });
+    }
+};
+
 module.exports = {
     createCourse,
     getTeacherCourses,
     getStudentCourses,
     getCourseById,
     addSession,
-    markSessionCompleted
+    markSessionCompleted,
+    addStudents
 };
