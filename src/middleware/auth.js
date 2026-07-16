@@ -6,9 +6,12 @@ const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
 
 const allowDashboardBypass = (req, next, role = 'admin') => {
     if (isDashboardAuthDisabled()) {
-        req.userData = { role };
-        next();
-        return true;
+        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['authrization'] || req.headers['token'];
+        if (!rawAuthHeader) {
+            req.userData = { role };
+            next();
+            return true;
+        }
     }
 
     return false;
