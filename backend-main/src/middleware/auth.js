@@ -32,7 +32,7 @@ const userAuth = async (req, res, next) => {
                 if (userFounded) {
                     if (userFounded.verify) {
                         if (!userFounded.block) {
-                            if (userFounded.role == 'User') {
+                            if (['User', 'Teacher', 'Student', 'Admin', 'School', 'IT', 'Supervisor'].includes(userFounded.role)) {
                                 req.userData = userFounded
                                 next()
                             } else {
