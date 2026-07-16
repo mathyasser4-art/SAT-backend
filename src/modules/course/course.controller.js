@@ -34,7 +34,9 @@ const getTeacherCourses = async (req, res) => {
 const getStudentCourses = async (req, res) => {
     try {
         const studentId = req.userData._id;
-        const courses = await courseModel.find({ students: studentId }).populate('teacher', 'userName');
+        const courses = await courseModel.find({ students: studentId })
+            .populate('teacher', 'userName')
+            .populate('sessions.onlineHw');
         res.status(200).json({ courses });
     } catch (error) {
         res.status(500).json({ message: "Error fetching courses", error: error.message });
@@ -68,7 +70,10 @@ const addSession = async (req, res) => {
         });
 
         await course.save();
-        res.status(200).json({ message: "Session added successfully", course });
+        const populatedCourse = await courseModel.findById(courseId)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw');
+        res.status(200).json({ message: "Session added successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error adding session", error: error.message });
     }
@@ -109,9 +114,87 @@ const addStudents = async (req, res) => {
         course.students = students;
 
         await course.save();
-        res.status(200).json({ message: "Students updated successfully", course });
+        const populatedCourse = await courseModel.findById(courseId)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw');
+        res.status(200).json({ message: "Students updated successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error updating students", error: error.message });
+    }
+};
+
+const updateCourse = async (req, res) => {
+    try {
+        const { name, description, students } = req.body;
+        const courseId = req.params.id;
+
+        const course = await courseModel.findById(courseId);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        if (name !== undefined) course.name = name;
+        if (description !== undefined) course.description = description;
+        if (students !== undefined) course.students = students;
+
+        await course.save();
+        const populatedCourse = await courseModel.findById(courseId)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw');
+        res.status(200).json({ message: "Course updated successfully", course: populatedCourse });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating course", error: error.message });
+    }
+};
+
+const updateSession = async (req, res) => {
+    try {
+        const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, onlineHw, order } = req.body;
+        const { id, sessionId } = req.params;
+
+        const course = await courseModel.findById(id);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        const session = course.sessions.id(sessionId);
+        if (!session) return res.status(404).json({ message: "Session not found" });
+
+        if (title !== undefined) session.title = title;
+        if (date !== undefined) session.date = date;
+        if (explanationVideoUrl !== undefined) session.explanationVideoUrl = explanationVideoUrl;
+        if (recordingUrl !== undefined) session.recordingUrl = recordingUrl;
+        if (pdfExercises !== undefined) session.pdfExercises = pdfExercises;
+        if (onlineHw !== undefined) session.onlineHw = onlineHw;
+        if (order !== undefined) session.order = order;
+
+        await course.save();
+        const populatedCourse = await courseModel.findById(id)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw');
+        res.status(200).json({ message: "Session updated successfully", course: populatedCourse });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating session", error: error.message });
+    }
+};
+
+const deleteSession = async (req, res) => {
+    try {
+        const { id, sessionId } = req.params;
+
+        const course = await courseModel.findById(id);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        course.sessions.pull({ _id: sessionId });
+
+        // Clean up completedSessions progress
+        course.progress.forEach(p => {
+            p.completedSessions = p.completedSessions.filter(sid => sid.toString() !== sessionId.toString());
+        });
+
+        await course.save();
+        const populatedCourse = await courseModel.findById(id)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw');
+        res.status(200).json({ message: "Session deleted successfully", course: populatedCourse });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting session", error: error.message });
     }
 };
 
@@ -122,5 +205,8 @@ module.exports = {
     getCourseById,
     addSession,
     markSessionCompleted,
-    addStudents
+    addStudents,
+    updateCourse,
+    updateSession,
+    deleteSession
 };

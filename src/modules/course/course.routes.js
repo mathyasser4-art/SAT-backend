@@ -6,7 +6,10 @@ const { teacherAuth, studentAuth, userAuth } = require('../../middleware/auth');
 // Teacher routes
 router.post('/course', teacherAuth, courseController.createCourse);
 router.get('/course/teacher', teacherAuth, courseController.getTeacherCourses);
+router.put('/course/:id', teacherAuth, courseController.updateCourse);
 router.post('/course/:id/session', teacherAuth, courseController.addSession);
+router.put('/course/:id/session/:sessionId', teacherAuth, courseController.updateSession);
+router.delete('/course/:id/session/:sessionId', teacherAuth, courseController.deleteSession);
 router.put('/course/:id/students', teacherAuth, courseController.addStudents);
 
 // Student routes
