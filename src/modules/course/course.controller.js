@@ -204,6 +204,22 @@ const deleteSession = async (req, res) => {
     }
 };
 
+const deleteCourse = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const teacherId = req.userData._id;
+
+        const course = await courseModel.findOneAndDelete({ _id: id, teacher: teacherId });
+        if (!course) {
+            return res.status(404).json({ message: "Course not found or unauthorized to delete this course" });
+        }
+
+        res.status(200).json({ message: "Course deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting course", error: error.message });
+    }
+};
+
 module.exports = {
     createCourse,
     getTeacherCourses,
@@ -214,5 +230,6 @@ module.exports = {
     addStudents,
     updateCourse,
     updateSession,
-    deleteSession
+    deleteSession,
+    deleteCourse
 };

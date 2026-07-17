@@ -11,6 +11,7 @@ router.post('/course/:id/session', teacherAuth, courseController.addSession);
 router.put('/course/:id/session/:sessionId', teacherAuth, courseController.updateSession);
 router.delete('/course/:id/session/:sessionId', teacherAuth, courseController.deleteSession);
 router.put('/course/:id/students', teacherAuth, courseController.addStudents);
+router.delete('/course/:id', teacherAuth, courseController.deleteCourse);
 
 // Student routes
 router.get('/course/student', studentAuth, courseController.getStudentCourses);

@@ -1,6 +1,7 @@
 const userModel = require('../../../../DB/models/user.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
+const questionModel = require('../../../../DB/models/question.model')
 const checkExpiration = require('../../../services/checkExpiration')
 const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
@@ -282,4 +283,73 @@ const getAllStudents = async (req, res) => {
     }
 };
 
-module.exports = { addStudent, getStudent, updateStudent, deleteStudent, removeStudentFromClass, search, getClass, getAssignment, getAssignmentDetails, getAllStudents }
+const getMyMistakes = async (req, res) => {
+    try {
+        const studentID = req.userData._id;
+
+        // Find all answer documents for this student
+        const attempts = await answerModel.find({ solveBy: studentID }).populate({
+            path: 'assignment',
+            select: 'title'
+        });
+
+        // Collect all wrong questions
+        let wrongQuestionsMap = {};
+        for (const attempt of attempts) {
+            const assignmentTitle = attempt.assignment ? attempt.assignment.title : 'Assignment';
+            for (const qAns of attempt.questions) {
+                if (qAns.isCorrect === false) {
+                    const questionId = qAns.question.toString();
+                    wrongQuestionsMap[questionId] = {
+                        questionId,
+                        assignmentTitle,
+                        firstAnswer: qAns.firstAnswer,
+                        secondAnswer: qAns.secondAnswer,
+                        point: qAns.point
+                    };
+                }
+            }
+        }
+
+        const wrongQuestionIds = Object.keys(wrongQuestionsMap);
+        if (wrongQuestionIds.length === 0) {
+            return res.json({ message: "success", mistakes: [] });
+        }
+
+        // Fetch question details
+        const questions = await questionModel.find({ _id: { $in: wrongQuestionIds } });
+
+        // Map and format the mistakes
+        const mistakes = questions.map(q => {
+            const meta = wrongQuestionsMap[q._id.toString()];
+            return {
+                _id: q._id,
+                question: q.question,
+                questionPic: q.questionPic?.secure_url || null,
+                choices: q.choices || [],
+                correctAnswers: q.correctAnswers || [],
+                explanation: q.explanation || '',
+                assignmentTitle: meta.assignmentTitle,
+                studentAnswers: [meta.firstAnswer, meta.secondAnswer].filter(Boolean)
+            };
+        });
+
+        res.json({ message: "success", mistakes });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching mistakes", error: error.message });
+    }
+};
+
+module.exports = { 
+    addStudent, 
+    getStudent, 
+    updateStudent, 
+    deleteStudent, 
+    removeStudentFromClass, 
+    search, 
+    getClass, 
+    getAssignment, 
+    getAssignmentDetails, 
+    getAllStudents,
+    getMyMistakes
+};
