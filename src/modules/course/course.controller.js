@@ -66,7 +66,13 @@ const addSession = async (req, res) => {
         if (!course) return res.status(404).json({ message: "Course not found" });
 
         course.sessions.push({
-            title, date, explanationVideoUrl, recordingUrl, pdfExercises, onlineHw, order
+            title,
+            date: (date === "" || date === null) ? undefined : date,
+            explanationVideoUrl,
+            recordingUrl,
+            pdfExercises,
+            onlineHw: Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [],
+            order
         });
 
         await course.save();
@@ -157,11 +163,11 @@ const updateSession = async (req, res) => {
         if (!session) return res.status(404).json({ message: "Session not found" });
 
         if (title !== undefined) session.title = title;
-        if (date !== undefined) session.date = date;
+        if (date !== undefined) session.date = (date === "" || date === null) ? undefined : date;
         if (explanationVideoUrl !== undefined) session.explanationVideoUrl = explanationVideoUrl;
         if (recordingUrl !== undefined) session.recordingUrl = recordingUrl;
         if (pdfExercises !== undefined) session.pdfExercises = pdfExercises;
-        if (onlineHw !== undefined) session.onlineHw = onlineHw;
+        if (onlineHw !== undefined) session.onlineHw = Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [];
         if (order !== undefined) session.order = order;
 
         await course.save();
