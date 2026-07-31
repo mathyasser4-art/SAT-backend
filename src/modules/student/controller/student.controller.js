@@ -178,30 +178,51 @@ const getClass = async (req, res) => {
 
 const getAssignment = async (req, res) => {
     try {
-        const studentID = req.userData._id
-        const { teacherID } = req.params
-        let findStudent = await userModel.findById(studentID).select('class')
+        const studentID = req.userData._id;
+        const { teacherID } = req.params;
+        let findStudent = await userModel.findById(studentID).select('class');
         if (findStudent) {
-            const getAssignment = await assignmentModel.find({ createdBy: teacherID }).select('-questions').sort({ _id: -1 })
+            const getAssignment = await assignmentModel.find({ createdBy: teacherID }).select('-questions').sort({ _id: -1 });
             if (getAssignment.length != 0) {
-                const allAssignment = []
+                const allAssignment = [];
                 for (let index = 0; index < getAssignment.length; index++) {
                     const element = getAssignment[index];
-                    if (findStudent.class && element.classes.some(c => c.toString() === findStudent.class.toString())) {
-                        allAssignment.push(element)
+                    if (findStudent.class && element.classes.some(c => (c && c._id ? c._id : c).toString() === findStudent.class.toString())) {
+                        const assignmentObj = element.toObject();
+                        
+                        // Check if student has completed an attempt for this assignment
+                        const studentAnswer = await answerModel.findOne({
+                            solveBy: studentID,
+                            assignment: element._id,
+                            completedAt: { $ne: null }
+                        }).sort({ attemptNumber: -1, createdAt: -1 });
+
+                        if (studentAnswer) {
+                            assignmentObj.isCompleted = true;
+                            assignmentObj.score = studentAnswer.total || 0;
+                            assignmentObj.totalPossible = element.totalPoints || 0;
+                            assignmentObj.timeSpent = studentAnswer.time || '0:00';
+                            assignmentObj.completedAt = studentAnswer.completedAt;
+                        } else {
+                            assignmentObj.isCompleted = false;
+                            assignmentObj.score = 0;
+                            assignmentObj.totalPossible = element.totalPoints || 0;
+                        }
+                        
+                        allAssignment.push(assignmentObj);
                     }
                 }
-                res.json({ message: 'success', allAssignment })
+                res.json({ message: 'success', allAssignment });
             } else {
-                res.json({ message: 'There are no assignment available now' })
+                res.json({ message: 'There are no assignment available now' });
             }
         } else {
-            res.json({ message: 'There are no student available with this id' })
+            res.json({ message: 'There are no student available with this id' });
         }
     } catch (error) {
-        res.status(502).json({ message: error.message })
+        res.status(502).json({ message: error.message });
     }
-}
+};
 
 const getAssignmentDetails = async (req, res) => {
     try {

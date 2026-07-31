@@ -32,15 +32,32 @@ const getResult = async (req, res) => {
         console.log('Getting result for attempt number:', currentAttemptNumber);
 
         // Find answer for THIS specific attempt
-        const findAnswer = await answerModel.findOne({ 
+        let findAnswer = await answerModel.findOne({ 
             solveBy: studentID, 
             assignment: assignmentID,
             attemptNumber: currentAttemptNumber
         });
 
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'answer/controller/answer.controller.js:24',message:'getResult - query result',data:{foundAnswer:!!findAnswer,answerDocId:findAnswer?._id?.toString(),questionsCount:findAnswer?.questions?.length || 0,solveByInDoc:findAnswer?.solveBy?.toString(),assignmentInDoc:findAnswer?.assignment?.toString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'GET_RESULT_QUERY'})}).catch(()=>{});
-        // #endregion
+        // Fallback: search for any existing attempt for this student/assignment or create a new answer document
+        if (!findAnswer) {
+            findAnswer = await answerModel.findOne({
+                solveBy: studentID,
+                assignment: assignmentID
+            }).sort({ createdAt: -1 });
+        }
+
+        if (!findAnswer) {
+            console.log('Creating fallback answer document for student attempt');
+            findAnswer = await answerModel.create({
+                solveBy: studentID,
+                assignment: assignmentID,
+                attemptNumber: currentAttemptNumber,
+                questionsNumber: 0,
+                questions: [],
+                time: time || "0:00",
+                completedAt: new Date()
+            });
+        }
 
         if (findAnswer) {
             console.log('getResult - Previous time in DB:', findAnswer.time);
