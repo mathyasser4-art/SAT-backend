@@ -167,10 +167,6 @@ const getStudentResults = async (req, res) => {
         const { assignmentID } = req.params;
         const teacherID = req.userData._id;
 
-        console.log('=== getStudentResults START ===');
-        console.log('Assignment ID:', assignmentID);
-        console.log('Teacher ID:', teacherID);
-
         // Get the assignment and verify teacher owns it
         const assignment = await assignmentModel.findById(assignmentID)
             .populate('questions');
@@ -184,31 +180,23 @@ const getStudentResults = async (req, res) => {
             return res.status(403).json({ message: "Access denied - You don't own this assignment" });
         }
 
-        // Get all answers for this assignment with student information
-        // #region agent log
-        const mongoose = require('mongoose');
-        fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'assignment/controller/assignment.controller.js:107',message:'getStudentResults - query attempt',data:{assignmentID:assignmentID,assignmentIDType:typeof assignmentID,isValidObjectId:mongoose.Types.ObjectId.isValid(assignmentID)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'STUDENT_RESULTS'})}).catch(()=>{});
-        // #endregion
-        
-        const answers = await answerModel.find({ assignment: assignmentID })
+        // FIX: Only get COMPLETED answers (with completedAt set) to avoid showing in-progress submissions
+        const answers = await answerModel.find({ 
+            assignment: assignmentID,
+            completedAt: { $ne: null }
+        })
             .populate('solveBy', 'userName email class')
-            .select('total questionsNumber time createdAt questions');
-        
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'assignment/controller/assignment.controller.js:111',message:'getStudentResults - query result',data:{answersFound:answers?.length || 0,answersWithQuestions:answers?.filter(a => a.questions?.length > 0).length || 0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'STUDENT_RESULTS'})}).catch(()=>{});
-        // #endregion
+            .select('total questionsNumber time createdAt completedAt questions');
 
         // Calculate total points from assignment questions
         let totalPoints = 0;
         if (assignment.questions && assignment.questions.length > 0) {
-            // You might need to populate questions to get points, or use assignment.totalPoints if available
             totalPoints = assignment.totalPoints || assignment.questions.reduce((sum, q) => sum + (q.questionPoints || 0), 0);
         }
 
         const students = answers
             .filter(answer => {
                 if (!answer.solveBy) return false;
-                // If assignment has no specific class restriction or student class is missing, include answer
                 if (!assignment.classes || assignment.classes.length === 0) return true;
                 if (!answer.solveBy.class) return true;
                 
@@ -231,7 +219,7 @@ const getStudentResults = async (req, res) => {
                 totalPossible: totalPoints,
                 timeSpent: answer.time || '0:00',
                 percentage: percentage,
-                completedAt: answer.createdAt,
+                completedAt: answer.completedAt || answer.createdAt,
                 totalQuestions: assignment.questions ? assignment.questions.length : 0
             };
         });
@@ -248,7 +236,7 @@ const getStudentResults = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Error in getStudentResults:', error);
+        console.error('Error in getStudentResults:', error.message);
         res.status(502).json({ message: error.message });
     }
 };
