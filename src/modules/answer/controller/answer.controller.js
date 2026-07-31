@@ -459,8 +459,44 @@ const getAssignmentAnswer = async (req, res) => {
         });
 
         if (!answers) {
-            console.log('ERROR: No answers found for this student/assignment combination');
-            return res.status(404).json({ message: "the student closed the assignment before completing it" });
+            console.log('No answer document found for student, returning assignment template report');
+            const assignment = await assignmentModel.findById(assignmentID).populate({
+                path: 'questions',
+                select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer'
+            });
+
+            if (!assignment) {
+                return res.status(404).json({ message: "Assignment not found" });
+            }
+
+            const questions = assignment.questions || [];
+            const report = {
+                questions: questions.map(q => ({
+                    _id: q._id,
+                    question: q.question || '',
+                    questionPic: q.questionPic?.secure_url || null,
+                    firstAnswer: 'Not answered',
+                    secondAnswer: '',
+                    stepsPic: null,
+                    isCorrect: false,
+                    notAnswer: true,
+                    questionPoints: q.questionPoints || 0,
+                    correctAnswer: q.correctAnswer || (Array.isArray(q.answer) ? q.answer.join(', ') : 'N/A'),
+                    typeOfAnswer: q.typeOfAnswer
+                }))
+            };
+
+            return res.json({
+                message: "success",
+                answers: {
+                    assignment: {
+                        title: assignment.title,
+                        totalPoints: assignment.totalPoints || 0
+                    },
+                    time: "0:00"
+                },
+                report
+            });
         }
 
         console.log('Answer document found with ID:', answers._id);
