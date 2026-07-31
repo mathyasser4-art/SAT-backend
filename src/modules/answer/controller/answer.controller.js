@@ -434,7 +434,9 @@ const getAssignmentAnswer = async (req, res) => {
         const answers = await answerModel.findOne({ 
             solveBy: studentID, 
             assignment: assignmentID 
-        }).populate({
+        })
+        .sort({ attemptNumber: -1, createdAt: -1 })
+        .populate({
             path: 'assignment',
             select: 'title totalPoints questions'
         });

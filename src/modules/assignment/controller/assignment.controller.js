@@ -207,10 +207,16 @@ const getStudentResults = async (req, res) => {
 
         const students = answers
             .filter(answer => {
-                // Backend validation: Only show students who actually belong to the assigned classes
-                if (!answer.solveBy || !answer.solveBy.class) return false;
-                if (!assignment.classes || assignment.classes.length === 0) return false;
-                return assignment.classes.some(c => c.toString() === answer.solveBy.class.toString());
+                if (!answer.solveBy) return false;
+                // If assignment has no specific class restriction or student class is missing, include answer
+                if (!assignment.classes || assignment.classes.length === 0) return true;
+                if (!answer.solveBy.class) return true;
+                
+                const studentClassStr = answer.solveBy.class.toString();
+                return assignment.classes.some(c => {
+                    const classStr = (c && c._id ? c._id : c).toString();
+                    return classStr === studentClassStr;
+                });
             })
             .map(answer => {
             const percentage = totalPoints > 0 ? Math.round((answer.total / totalPoints) * 100) : 0;
