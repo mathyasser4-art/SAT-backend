@@ -523,6 +523,19 @@ const getAssignmentAnswer = async (req, res) => {
                 const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
                 
+                let correctAnsStr = 'N/A';
+                if (question) {
+                    if (question.typeOfAnswer === 'Graph') {
+                        correctAnsStr = question.correctPicAnswer || 'View Image';
+                    } else if (question.correctAnswer && String(question.correctAnswer).trim() !== '') {
+                        correctAnsStr = String(question.correctAnswer);
+                    } else if (Array.isArray(question.answer) && question.answer.length > 0) {
+                        correctAnsStr = question.answer.filter(Boolean).join(', ');
+                    } else if (typeof question.answer === 'string' && question.answer.trim() !== '') {
+                        correctAnsStr = question.answer;
+                    }
+                }
+
                 return {
                     _id: studentAnswer._id,
                     question: question?.question || '',
@@ -533,7 +546,9 @@ const getAssignmentAnswer = async (req, res) => {
                     isCorrect: studentAnswer.isCorrect || false,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
                     questionPoints: question?.questionPoints || 0,
-                    point: studentAnswer.point || 0
+                    point: studentAnswer.point || 0,
+                    correctAnswer: correctAnsStr,
+                    typeOfAnswer: question?.typeOfAnswer || 'Essay'
                 };
             })
         };
@@ -646,6 +661,19 @@ const getStudentOwnReport = async (req, res) => {
                 const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
                 
+                let correctAnsStr = 'N/A';
+                if (question) {
+                    if (question.typeOfAnswer === 'Graph') {
+                        correctAnsStr = question.correctPicAnswer || 'View Image';
+                    } else if (question.correctAnswer && String(question.correctAnswer).trim() !== '') {
+                        correctAnsStr = String(question.correctAnswer);
+                    } else if (Array.isArray(question.answer) && question.answer.length > 0) {
+                        correctAnsStr = question.answer.filter(Boolean).join(', ');
+                    } else if (typeof question.answer === 'string' && question.answer.trim() !== '') {
+                        correctAnsStr = question.answer;
+                    }
+                }
+
                 return {
                     _id: studentAnswer._id,
                     question: question?.question || '',
@@ -656,7 +684,9 @@ const getStudentOwnReport = async (req, res) => {
                     isCorrect: studentAnswer.isCorrect || false,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
                     questionPoints: question?.questionPoints || 0,
-                    point: studentAnswer.point || 0
+                    point: studentAnswer.point || 0,
+                    correctAnswer: correctAnsStr,
+                    typeOfAnswer: question?.typeOfAnswer || 'Essay'
                 };
             })
         };
