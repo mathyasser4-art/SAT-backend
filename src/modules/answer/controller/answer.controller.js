@@ -14,23 +14,29 @@ const getResult = async (req, res) => {
         const { time } = req.query;
         const studentID = req.userData._id;
 
+        const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
+        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
+
         // Get current attempt number from assignment
         const assignmentDoc = await assignmentModel.findById(assignmentID);
-        const studentRecord = assignmentDoc.students?.find(s => String(s.solveBy) === String(studentID));
+        const studentRecord = assignmentDoc?.students?.find(s => String(s.solveBy) === String(studentID));
         const currentAttemptNumber = studentRecord?.attempts || 1;
 
         // Find answer for THIS specific attempt
         let findAnswer = await answerModel.findOne({ 
-            solveBy: studentID, 
-            assignment: assignmentID,
-            attemptNumber: currentAttemptNumber
+            $or: [
+                { solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber },
+                { solveBy: studentObjId, assignment: assignmentObjId, attemptNumber: currentAttemptNumber }
+            ]
         });
 
         // Fallback: search for any existing attempt for this student/assignment
         if (!findAnswer) {
             findAnswer = await answerModel.findOne({
-                solveBy: studentID,
-                assignment: assignmentID
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID },
+                    { solveBy: studentObjId, assignment: assignmentObjId }
+                ]
             }).sort({ createdAt: -1 });
         }
 
@@ -61,10 +67,10 @@ const getResult = async (req, res) => {
 
             if (assignment && assignment.questions) {
                 assignment.questions.forEach(question => {
-                    totalSummation += question.questionPoints;
+                    totalSummation += (question.questionPoints || 0);
 
                     const studentAnswerForQuestion = findAnswer.questions.find(
-                        (ans) => ans.question.toString() === question._id.toString()
+                        (ans) => ans && ans.question && (ans.question._id || ans.question).toString() === question._id.toString()
                     );
 
                     if (studentAnswerForQuestion) {
@@ -98,7 +104,7 @@ const getResult = async (req, res) => {
                         }
                         
                         if (isCorrect) {
-                            studentTotalScore += question.questionPoints;
+                            studentTotalScore += (question.questionPoints || 0);
                             studentAnswerForQuestion.point = question.questionPoints;
                         } else {
                             studentAnswerForQuestion.point = 0;
@@ -110,11 +116,8 @@ const getResult = async (req, res) => {
 
             findAnswer.total = studentTotalScore;
 
-            // FIX: Update questionsNumber so result popup shows correct count
+            // Update questionsNumber so result popup shows correct count
             findAnswer.questionsNumber = findAnswer.questions.length;
-
-            // FIX: Don't modify attempts when getting result
-            // Attempts are incremented when student OPENS the assignment (in getAssignmentDetails)
 
             // Mark completion time for this attempt
             if (!findAnswer.completedAt) {
@@ -200,7 +203,7 @@ const checkAssinmentAnswer = async (req, res) => {
         const isCorrect = checkAnswer(question, answerToCheck);
 
         // Check if this question was already answered in this attempt
-        const existingQuestion = findAnswer.questions.find(q => q && q.question && q.question.toString() === questionID.toString());
+        const existingQuestion = findAnswer.questions.find(q => q && q.question && (q.question._id || q.question).toString() === questionID.toString());
 
         if (existingQuestion) {
             // Update existing question entry atomically using $set
@@ -254,7 +257,7 @@ const checkAssinmentAnswer = async (req, res) => {
             }
         }
 
-        const savedQuestion = findAnswer.questions.find(q => q && q.question && q.question.toString() === questionID.toString());
+        const savedQuestion = findAnswer.questions.find(q => q && q.question && (q.question._id || q.question).toString() === questionID.toString());
 
         res.status(200).json({ 
             message: "success", 
@@ -309,12 +312,15 @@ function buildCorrectAnswerStr(question) {
 const getAssignmentAnswer = async (req, res) => {
     try {
         const { studentID, assignmentID } = req.params;
+        const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
+        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
 
-        // FIX: Prefer completed answers (with completedAt set)
+        // Prefer completed answers (with completedAt set)
         let answers = await answerModel.findOne({ 
-            solveBy: studentID, 
-            assignment: assignmentID,
-            completedAt: { $ne: null }
+            $or: [
+                { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
+                { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
+            ]
         })
         .sort({ attemptNumber: -1, createdAt: -1 })
         .populate({
@@ -325,8 +331,10 @@ const getAssignmentAnswer = async (req, res) => {
         // Fallback: if no completed answer, get any answer
         if (!answers) {
             answers = await answerModel.findOne({ 
-                solveBy: studentID, 
-                assignment: assignmentID
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID },
+                    { solveBy: studentObjId, assignment: assignmentObjId }
+                ]
             })
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate({
@@ -335,7 +343,7 @@ const getAssignmentAnswer = async (req, res) => {
             });
         }
 
-        // FIX: Always fetch the full assignment with all questions for merging
+        // Always fetch full assignment with all questions for merging
         const assignment = await assignmentModel.findById(assignmentID).populate({
             path: 'questions',
             select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
@@ -343,25 +351,21 @@ const getAssignmentAnswer = async (req, res) => {
 
         if (!answers) {
             // No answer document at all — return template report from assignment questions
-            if (!assignment) {
-                return res.status(404).json({ message: "Assignment not found" });
-            }
-
-            const questions = assignment.questions || [];
+            const questions = assignment?.questions || [];
             const report = {
                 questions: questions.map(q => ({
                     _id: q._id,
                     questionId: q._id,
                     question: q.question || '',
                     questionPic: q.questionPic?.secure_url || null,
-                    firstAnswer: 'Not answered',
+                    firstAnswer: '',
                     secondAnswer: '',
                     stepsPic: null,
                     isCorrect: false,
                     notAnswer: true,
                     questionPoints: q.questionPoints || 0,
                     correctAnswer: buildCorrectAnswerStr(q),
-                    typeOfAnswer: q.typeOfAnswer
+                    typeOfAnswer: q.typeOfAnswer || 'Essay'
                 }))
             };
 
@@ -369,30 +373,28 @@ const getAssignmentAnswer = async (req, res) => {
                 message: "success",
                 answers: {
                     assignment: {
-                        title: assignment.title,
-                        totalPoints: assignment.totalPoints || 0
+                        title: assignment?.title || 'Assignment Report',
+                        totalPoints: assignment?.totalPoints || 0
                     },
-                    time: "0:00"
+                    time: "0:00",
+                    total: 0,
+                    questionsNumber: 0
                 },
                 report
             });
         }
 
-        // FIX: Build report from ALL assignment questions, merging with student answers
-        // This ensures skipped/unanswered questions still appear as "Not Answered"
+        // Build report from ALL assignment questions, merging with student answers
         const allAssignmentQuestions = assignment?.questions || [];
         
-        // Also fetch question details for any answered questions not in the assignment (edge case)
-        const answeredQuestionIds = answers.questions.map(q => q.question);
-        const extraQuestions = await questionModel.find({
-            _id: { $in: answeredQuestionIds }
-        });
-
         // Create a lookup map of student answers by question ID
+        // CRITICAL FIX: Safe extraction of question ID from populated or unpopulated field
         const studentAnswerMap = {};
         (answers.questions || []).forEach(sa => {
-            const qId = sa.question.toString();
-            studentAnswerMap[qId] = sa;
+            if (sa && sa.question) {
+                const qId = (sa.question._id ? sa.question._id : sa.question).toString();
+                studentAnswerMap[qId] = sa;
+            }
         });
 
         // Build report from ALL assignment questions
@@ -406,7 +408,7 @@ const getAssignmentAnswer = async (req, res) => {
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
 
                 return {
-                    _id: studentAnswer._id,
+                    _id: studentAnswer._id || qId,
                     questionId: qId,
                     question: question.question || '',
                     questionPic: question.questionPic?.secure_url || null,
@@ -441,8 +443,6 @@ const getAssignmentAnswer = async (req, res) => {
         });
 
         const report = { questions: reportQuestions };
-
-        // FIX: Null-safe assignment reference
         const assignmentData = answers.assignment || assignment;
 
         res.json({
@@ -484,7 +484,7 @@ const correctAnswer = async (req, res) => {
         }
 
         const questionIndex = findAnswer.questions.findIndex(
-            q => q.question.toString() === questionID
+            q => q && q.question && (q.question._id || q.question).toString() === questionID
         );
 
         if (questionIndex === -1) {
@@ -524,11 +524,15 @@ const getStudentOwnReport = async (req, res) => {
         const { assignmentID } = req.params;
         const studentID = req.userData._id;
 
-        // FIX: Prefer completed answers, sort by latest attempt
+        const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
+        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
+
+        // Prefer completed answers, sort by latest attempt
         let answers = await answerModel.findOne({ 
-            solveBy: studentID, 
-            assignment: assignmentID,
-            completedAt: { $ne: null }
+            $or: [
+                { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
+                { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
+            ]
         })
         .sort({ attemptNumber: -1, createdAt: -1 })
         .populate({
@@ -539,8 +543,10 @@ const getStudentOwnReport = async (req, res) => {
         // Fallback: if no completed answer, get any answer
         if (!answers) {
             answers = await answerModel.findOne({ 
-                solveBy: studentID, 
-                assignment: assignmentID
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID },
+                    { solveBy: studentObjId, assignment: assignmentObjId }
+                ]
             })
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate({
@@ -549,55 +555,53 @@ const getStudentOwnReport = async (req, res) => {
             });
         }
 
-        // FIX: Always fetch full assignment with all questions for merging
+        // Always fetch full assignment with all questions for merging
         const assignment = await assignmentModel.findById(assignmentID).populate({
             path: 'questions',
             select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
         });
 
         if (!answers) {
-            // No answer document — but if assignment exists, show all questions as unanswered
-            if (assignment) {
-                const questions = assignment.questions || [];
-                const report = {
-                    questions: questions.map(q => ({
-                        _id: q._id,
-                        questionId: q._id,
-                        question: q.question || '',
-                        questionPic: q.questionPic?.secure_url || null,
-                        firstAnswer: '',
-                        secondAnswer: '',
-                        stepsPic: null,
-                        isCorrect: false,
-                        notAnswer: true,
-                        questionPoints: q.questionPoints || 0,
-                        point: 0,
-                        correctAnswer: buildCorrectAnswerStr(q),
-                        typeOfAnswer: q.typeOfAnswer || 'Essay'
-                    }))
-                };
-                return res.json({
-                    message: "success",
-                    answers: {
-                        assignment: { _id: assignment._id, title: assignment.title, totalPoints: assignment.totalPoints || 0 },
-                        time: "0:00",
-                        total: 0,
-                        questionsNumber: 0
-                    },
-                    report
-                });
-            }
-            return res.status(404).json({ message: "the student closed the assignment before completing it" });
+            // No answer document — return 200 success with all questions marked as unanswered
+            const questions = assignment?.questions || [];
+            const report = {
+                questions: questions.map(q => ({
+                    _id: q._id,
+                    questionId: q._id,
+                    question: q.question || '',
+                    questionPic: q.questionPic?.secure_url || null,
+                    firstAnswer: '',
+                    secondAnswer: '',
+                    stepsPic: null,
+                    isCorrect: false,
+                    notAnswer: true,
+                    questionPoints: q.questionPoints || 0,
+                    point: 0,
+                    correctAnswer: buildCorrectAnswerStr(q),
+                    typeOfAnswer: q.typeOfAnswer || 'Essay'
+                }))
+            };
+            return res.json({
+                message: "success",
+                answers: {
+                    assignment: { _id: assignment?._id || assignmentID, title: assignment?.title || 'Assignment Report', totalPoints: assignment?.totalPoints || 0 },
+                    time: "0:00",
+                    total: 0,
+                    questionsNumber: 0
+                },
+                report
+            });
         }
 
-        // FIX: Build report from ALL assignment questions, merging with student answers
+        // Build report from ALL assignment questions, merging with student answers
         const allAssignmentQuestions = assignment?.questions || [];
 
         // Create a lookup map of student answers by question ID
+        // CRITICAL FIX: Safe extraction of question ID from populated or unpopulated field
         const studentAnswerMap = {};
         (answers.questions || []).forEach(sa => {
             if (sa && sa.question) {
-                const qId = (sa.question._id || sa.question).toString();
+                const qId = (sa.question._id ? sa.question._id : sa.question).toString();
                 studentAnswerMap[qId] = sa;
             }
         });
@@ -647,8 +651,6 @@ const getStudentOwnReport = async (req, res) => {
         });
 
         const report = { questions: reportQuestions };
-
-        // FIX: Null-safe assignment reference
         const assignmentData = answers.assignment || assignment;
 
         res.json({
