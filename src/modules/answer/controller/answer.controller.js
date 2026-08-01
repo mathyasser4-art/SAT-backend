@@ -155,45 +155,43 @@ const checkAssinmentAnswer = async (req, res) => {
 
         // Get current attempt number from assignment
         const assignment = await assignmentModel.findById(assignmentID);
-        const studentRecord = assignment.students?.find(s => String(s.solveBy) === String(studentID));
+        const studentRecord = assignment?.students?.find(s => String(s.solveBy) === String(studentID));
         const currentAttemptNumber = studentRecord?.attempts || 1;
 
-        // Find answer document for THIS specific attempt
-        let findAnswer = await answerModel.findOne({ 
-            solveBy: studentID, 
-            assignment: assignmentID,
-            attemptNumber: currentAttemptNumber
-        });
+        // Atomic upsert to ensure the answer document for THIS attempt exists
+        let findAnswer = await answerModel.findOneAndUpdate(
+            { solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber },
+            { $setOnInsert: { questionsNumber: 0, questions: [], time: "0:00" } },
+            { upsert: true, new: true }
+        );
 
-        if (!findAnswer) {
-            findAnswer = await answerModel.create({
-                solveBy: studentID,
-                assignment: assignmentID,
-                attemptNumber: currentAttemptNumber,
-                questionsNumber: 0,
-                questions: []
-            });
-        }
-
-        const questionIndex = findAnswer.questions.findIndex(q => q.question.toString() === questionID);
-
-        // Determine the answer to save and check
-        // FIX: Use proper null/undefined check to handle "0" answers
-        const answerToSave = (questionAnswer !== undefined && questionAnswer !== null) ? questionAnswer : firstAnswer;
+        const answerToSave = (questionAnswer !== undefined && questionAnswer !== null) ? String(questionAnswer) : (firstAnswer !== undefined && firstAnswer !== null ? String(firstAnswer) : '');
         
         let answerToCheck;
         let secure_url, public_id;
         
-        if (question.typeOfAnswer === 'Graph' && req.file) {
-            const uploadResult = await cloudinary.uploader.upload(req.file.path, { folder: `abacus-heroes/assignments/${assignmentID}/questions/${questionID}/answers` });
-            secure_url = uploadResult.secure_url;
-            public_id = uploadResult.public_id;
-            answerToCheck = secure_url;
-            
-            if (questionIndex > -1) {
-                findAnswer.questions[questionIndex].stepPicture = { secure_url, public_id };
+        const uploadedFile = req.file || (req.files && req.files[0]);
+
+        if (uploadedFile) {
+            try {
+                const uploadResult = await cloudinary.uploader.upload(uploadedFile.path, { 
+                    folder: `abacus-heroes/assignments/${assignmentID}/questions/${questionID}/answers` 
+                });
+                secure_url = uploadResult.secure_url;
+                public_id = uploadResult.public_id;
+                if (question.typeOfAnswer === 'Graph') {
+                    answerToCheck = secure_url;
+                } else {
+                    answerToCheck = answerToSave;
+                }
+                fs.unlinkSync(uploadedFile.path);
+            } catch (uploadErr) {
+                console.error("Cloudinary upload error:", uploadErr.message);
+                answerToCheck = answerToSave;
+                if (uploadedFile.path && fs.existsSync(uploadedFile.path)) {
+                    fs.unlinkSync(uploadedFile.path);
+                }
             }
-            fs.unlinkSync(req.file.path);
         } else {
             answerToCheck = answerToSave;
         }
@@ -201,56 +199,74 @@ const checkAssinmentAnswer = async (req, res) => {
         // Check if the answer is correct using the checkAnswer service
         const isCorrect = checkAnswer(question, answerToCheck);
 
-        if (questionIndex > -1) {
-            // Update existing answer
-            if (question.typeOfAnswer !== 'Graph' || !req.file) {
-                if (answerToSave !== undefined && answerToSave !== null) {
-                    findAnswer.questions[questionIndex].firstAnswer = answerToSave;
-                }
-                if (secondAnswer !== undefined && secondAnswer !== null) {
-                    findAnswer.questions[questionIndex].secondAnswer = secondAnswer;
-                }
-                if (thirdAnswer !== undefined && thirdAnswer !== null) {
-                    findAnswer.questions[questionIndex].thirdAnswer = thirdAnswer;
-                }
-                if (fourthAnswer !== undefined && fourthAnswer !== null) {
-                    findAnswer.questions[questionIndex].fourthAnswer = fourthAnswer;
-                }
+        // Check if this question was already answered in this attempt
+        const existingQuestion = findAnswer.questions.find(q => q && q.question && q.question.toString() === questionID.toString());
+
+        if (existingQuestion) {
+            // Update existing question entry atomically using $set
+            const updateFields = {
+                "questions.$.isCorrect": isCorrect,
+                "questions.$.point": isCorrect ? (question.questionPoints || 0) : 0
+            };
+            if (answerToSave !== undefined && answerToSave !== null) {
+                updateFields["questions.$.firstAnswer"] = answerToSave;
             }
-            findAnswer.questions[questionIndex].isCorrect = isCorrect;
-            findAnswer.questions[questionIndex].point = isCorrect ? question.questionPoints : 0;
+            if (secondAnswer !== undefined && secondAnswer !== null) {
+                updateFields["questions.$.secondAnswer"] = String(secondAnswer);
+            }
+            if (secure_url) {
+                updateFields["questions.$.stepPicture"] = { secure_url, public_id };
+            }
+
+            findAnswer = await answerModel.findOneAndUpdate(
+                { _id: findAnswer._id, "questions.question": questionID },
+                { $set: updateFields },
+                { new: true }
+            );
         } else {
-            // Add new question answer
+            // Push new question answer entry atomically using $push
             const newQuestionAnswer = {
                 question: questionID,
-                firstAnswer: (answerToSave !== undefined && answerToSave !== null && answerToSave !== '') ? answerToSave : undefined,
-                secondAnswer: (secondAnswer !== undefined && secondAnswer !== null && secondAnswer !== '') ? secondAnswer : undefined,
-                thirdAnswer: (thirdAnswer !== undefined && thirdAnswer !== null && thirdAnswer !== '') ? thirdAnswer : undefined,
-                fourthAnswer: (fourthAnswer !== undefined && fourthAnswer !== null && fourthAnswer !== '') ? fourthAnswer : undefined,
+                firstAnswer: answerToSave,
+                secondAnswer: secondAnswer ? String(secondAnswer) : '',
+                thirdAnswer: thirdAnswer ? String(thirdAnswer) : '',
+                fourthAnswer: fourthAnswer ? String(fourthAnswer) : '',
                 attempts: 1,
                 isCorrect: isCorrect,
-                point: isCorrect ? question.questionPoints : 0
+                point: isCorrect ? (question.questionPoints || 0) : 0
             };
-
-            if (question.typeOfAnswer === 'Graph' && req.file) {
+            if (secure_url) {
                 newQuestionAnswer.stepPicture = { secure_url, public_id };
             }
-            findAnswer.questions.push(newQuestionAnswer);
-            findAnswer.questionsNumber = findAnswer.questions.length;
+
+            findAnswer = await answerModel.findOneAndUpdate(
+                { _id: findAnswer._id, "questions.question": { $ne: questionID } },
+                { 
+                    $push: { questions: newQuestionAnswer },
+                    $inc: { questionsNumber: 1 }
+                },
+                { new: true }
+            );
+
+            // Fallback if concurrent update already added it
+            if (!findAnswer) {
+                findAnswer = await answerModel.findOne({ solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber });
+            }
         }
 
-        await findAnswer.save();
+        const savedQuestion = findAnswer.questions.find(q => q && q.question && q.question.toString() === questionID.toString());
 
         res.status(200).json({ 
             message: "success", 
             isCorrect: isCorrect,
-            answer: findAnswer.questions[questionIndex > -1 ? questionIndex : findAnswer.questions.length - 1]
+            answer: savedQuestion || { question: questionID, firstAnswer: answerToSave, isCorrect }
         });
 
     } catch (error) {
         console.error('checkAssinmentAnswer error:', error.message);
-        if (req.file) {
-            fs.unlinkSync(req.file.path);
+        const uploadedFile = req.file || (req.files && req.files[0]);
+        if (uploadedFile && uploadedFile.path && fs.existsSync(uploadedFile.path)) {
+            fs.unlinkSync(uploadedFile.path);
         }
         res.status(500).json({ message: "Error saving answer", error: error.message });
     }
