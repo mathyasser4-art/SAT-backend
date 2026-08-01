@@ -319,13 +319,14 @@ const getAssignmentAnswer = async (req, res) => {
             });
         }
 
+        // FIX: Always fetch the full assignment with all questions for merging
+        const assignment = await assignmentModel.findById(assignmentID).populate({
+            path: 'questions',
+            select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
+        });
+
         if (!answers) {
             // No answer document at all — return template report from assignment questions
-            const assignment = await assignmentModel.findById(assignmentID).populate({
-                path: 'questions',
-                select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer'
-            });
-
             if (!assignment) {
                 return res.status(404).json({ message: "Assignment not found" });
             }
@@ -361,42 +362,81 @@ const getAssignmentAnswer = async (req, res) => {
             });
         }
 
-        // Get all questions with their details
-        const questionIds = answers.questions.map(q => q.question);
-        const questions = await questionModel.find({
-            _id: { $in: questionIds }
+        // FIX: Build report from ALL assignment questions, merging with student answers
+        // This ensures skipped/unanswered questions still appear as "Not Answered"
+        const allAssignmentQuestions = assignment?.questions || [];
+        
+        // Also fetch question details for any answered questions not in the assignment (edge case)
+        const answeredQuestionIds = answers.questions.map(q => q.question);
+        const extraQuestions = await questionModel.find({
+            _id: { $in: answeredQuestionIds }
         });
 
-        // Build the report with question details
-        const report = {
-            questions: answers.questions.map(studentAnswer => {
-                const question = questions.find(q => q._id.toString() === studentAnswer.question.toString());
-                
+        // Create a lookup map of student answers by question ID
+        const studentAnswerMap = {};
+        (answers.questions || []).forEach(sa => {
+            const qId = sa.question.toString();
+            studentAnswerMap[qId] = sa;
+        });
+
+        // Build report from ALL assignment questions
+        const reportQuestions = allAssignmentQuestions.map(question => {
+            const qId = question._id.toString();
+            const studentAnswer = studentAnswerMap[qId];
+
+            if (studentAnswer) {
+                // Student answered this question
                 const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
 
                 return {
                     _id: studentAnswer._id,
-                    questionId: studentAnswer.question, // FIX: Add questionId for scratchboard lookup
-                    question: question?.question || '',
-                    questionPic: question?.questionPic?.secure_url || null,
+                    questionId: qId,
+                    question: question.question || '',
+                    questionPic: question.questionPic?.secure_url || null,
                     firstAnswer: studentAnswer.firstAnswer || '',
                     secondAnswer: studentAnswer.secondAnswer || '',
                     stepsPic: studentAnswer.stepPicture?.secure_url || null,
                     isCorrect: studentAnswer.isCorrect || false,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
-                    questionPoints: question?.questionPoints || 0,
+                    questionPoints: question.questionPoints || 0,
                     point: studentAnswer.point || 0,
                     correctAnswer: buildCorrectAnswerStr(question),
-                    typeOfAnswer: question?.typeOfAnswer || 'Essay'
+                    typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
-            })
-        };
+            } else {
+                // Student did NOT answer this question
+                return {
+                    _id: qId,
+                    questionId: qId,
+                    question: question.question || '',
+                    questionPic: question.questionPic?.secure_url || null,
+                    firstAnswer: '',
+                    secondAnswer: '',
+                    stepsPic: null,
+                    isCorrect: false,
+                    notAnswer: true,
+                    questionPoints: question.questionPoints || 0,
+                    point: 0,
+                    correctAnswer: buildCorrectAnswerStr(question),
+                    typeOfAnswer: question.typeOfAnswer || 'Essay'
+                };
+            }
+        });
+
+        const report = { questions: reportQuestions };
+
+        // FIX: Null-safe assignment reference
+        const assignmentData = answers.assignment || assignment;
 
         res.json({
             message: "success",
             answers: {
-                assignment: answers.assignment,
+                assignment: assignmentData ? {
+                    _id: assignmentData._id,
+                    title: assignmentData.title,
+                    totalPoints: assignmentData.totalPoints || 0
+                } : { title: 'Assignment', totalPoints: 0 },
                 time: answers.time || "0:00",
                 total: answers.total || 0,
                 questionsNumber: answers.questionsNumber || 0
@@ -493,53 +533,116 @@ const getStudentOwnReport = async (req, res) => {
             });
         }
 
+        // FIX: Always fetch full assignment with all questions for merging
+        const assignment = await assignmentModel.findById(assignmentID).populate({
+            path: 'questions',
+            select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
+        });
+
         if (!answers) {
+            // No answer document — but if assignment exists, show all questions as unanswered
+            if (assignment) {
+                const questions = assignment.questions || [];
+                const report = {
+                    questions: questions.map(q => ({
+                        _id: q._id,
+                        questionId: q._id,
+                        question: q.question || '',
+                        questionPic: q.questionPic?.secure_url || null,
+                        firstAnswer: '',
+                        secondAnswer: '',
+                        stepsPic: null,
+                        isCorrect: false,
+                        notAnswer: true,
+                        questionPoints: q.questionPoints || 0,
+                        point: 0,
+                        correctAnswer: buildCorrectAnswerStr(q),
+                        typeOfAnswer: q.typeOfAnswer || 'Essay'
+                    }))
+                };
+                return res.json({
+                    message: "success",
+                    answers: {
+                        assignment: { _id: assignment._id, title: assignment.title, totalPoints: assignment.totalPoints || 0 },
+                        time: "0:00",
+                        total: 0,
+                        questionsNumber: 0
+                    },
+                    report
+                });
+            }
             return res.status(404).json({ message: "the student closed the assignment before completing it" });
         }
 
-        // Get all questions with their details safely
-        const validQuestionIds = (answers.questions || [])
-            .map(q => q && q.question ? (q.question._id || q.question) : null)
-            .filter(Boolean);
+        // FIX: Build report from ALL assignment questions, merging with student answers
+        const allAssignmentQuestions = assignment?.questions || [];
 
-        const questions = await questionModel.find({
-            _id: { $in: validQuestionIds }
+        // Create a lookup map of student answers by question ID
+        const studentAnswerMap = {};
+        (answers.questions || []).forEach(sa => {
+            if (sa && sa.question) {
+                const qId = (sa.question._id || sa.question).toString();
+                studentAnswerMap[qId] = sa;
+            }
         });
 
-        // Build the report with question details safely
-        const report = {
-            questions: (answers.questions || []).map(studentAnswer => {
-                const qId = studentAnswer && studentAnswer.question 
-                    ? (studentAnswer.question._id || studentAnswer.question).toString() 
-                    : null;
-                
-                const question = questions.find(q => q && q._id && q._id.toString() === qId);
-                
-                const hasFirstAnswer = studentAnswer?.firstAnswer !== undefined && studentAnswer?.firstAnswer !== null && studentAnswer?.firstAnswer !== '';
-                const hasSecondAnswer = studentAnswer?.secondAnswer !== undefined && studentAnswer?.secondAnswer !== null && studentAnswer?.secondAnswer !== '';
+        // Build report from ALL assignment questions
+        const reportQuestions = allAssignmentQuestions.map(question => {
+            const qId = question._id.toString();
+            const studentAnswer = studentAnswerMap[qId];
+
+            if (studentAnswer) {
+                const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
+                const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
 
                 return {
-                    _id: studentAnswer?._id || qId,
-                    questionId: qId, // FIX: Add questionId for scratchboard lookup
-                    question: question?.question || '',
-                    questionPic: question?.questionPic?.secure_url || null,
-                    firstAnswer: studentAnswer?.firstAnswer || '',
-                    secondAnswer: studentAnswer?.secondAnswer || '',
-                    stepsPic: studentAnswer?.stepPicture?.secure_url || null,
-                    isCorrect: studentAnswer?.isCorrect || false,
+                    _id: studentAnswer._id || qId,
+                    questionId: qId,
+                    question: question.question || '',
+                    questionPic: question.questionPic?.secure_url || null,
+                    firstAnswer: studentAnswer.firstAnswer || '',
+                    secondAnswer: studentAnswer.secondAnswer || '',
+                    stepsPic: studentAnswer.stepPicture?.secure_url || null,
+                    isCorrect: studentAnswer.isCorrect || false,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
-                    questionPoints: question?.questionPoints || 0,
-                    point: studentAnswer?.point || 0,
+                    questionPoints: question.questionPoints || 0,
+                    point: studentAnswer.point || 0,
                     correctAnswer: buildCorrectAnswerStr(question),
-                    typeOfAnswer: question?.typeOfAnswer || 'Essay'
+                    typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
-            })
-        };
+            } else {
+                // Student did NOT answer this question
+                return {
+                    _id: qId,
+                    questionId: qId,
+                    question: question.question || '',
+                    questionPic: question.questionPic?.secure_url || null,
+                    firstAnswer: '',
+                    secondAnswer: '',
+                    stepsPic: null,
+                    isCorrect: false,
+                    notAnswer: true,
+                    questionPoints: question.questionPoints || 0,
+                    point: 0,
+                    correctAnswer: buildCorrectAnswerStr(question),
+                    typeOfAnswer: question.typeOfAnswer || 'Essay'
+                };
+            }
+        });
+
+        const report = { questions: reportQuestions };
+
+        // FIX: Null-safe assignment reference
+        const assignmentData = answers.assignment || assignment;
 
         res.json({
             message: "success",
             answers: {
-                assignment: answers.assignment,
+                assignment: assignmentData ? {
+                    _id: assignmentData._id,
+                    title: assignmentData.title,
+                    totalPoints: assignmentData.totalPoints || 0
+                } : { title: 'Assignment', totalPoints: 0 },
                 time: answers.time || "0:00",
                 total: answers.total || 0,
                 questionsNumber: answers.questionsNumber || 0
