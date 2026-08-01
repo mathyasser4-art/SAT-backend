@@ -238,14 +238,17 @@ const getAssignmentDetails = async (req, res) => {
             }
             const findStudent = assignment.students?.filter(e => String(e.solveBy) == String(studentID))[0]
             if (findStudent) {
-                // Check if they have already submitted their CURRENT attempt
-                const currentAnswer = await answerModel.findOne({
+                // Check if they have already COMPLETED their CURRENT attempt
+                // FIX: Only consider an attempt "submitted" if completedAt is set
+                // An answer document without completedAt means student is still in progress
+                const completedAnswer = await answerModel.findOne({
                     solveBy: studentID,
                     assignment: assignmentID,
-                    attemptNumber: findStudent.attempts
+                    attemptNumber: findStudent.attempts,
+                    completedAt: { $ne: null }
                 });
-                if (currentAnswer) {
-                    // They HAVE submitted their current attempt.
+                if (completedAnswer) {
+                    // They HAVE completed their current attempt.
                     if (findStudent.attempts >= assignment.attemptsNumber) {
                         res.json({ message: "Oops!!You can't open this assignment, your number of attempts has expired." })
                     } else {
@@ -262,7 +265,7 @@ const getAssignmentDetails = async (req, res) => {
                         res.json({ message: "success", assignment })
                     }
                 } else {
-                    // They HAVEN'T submitted their current attempt!
+                    // They HAVEN'T completed their current attempt (either no answer doc, or in-progress)
                     // Let them continue their current attempt. DO NOT increment.
                     assignment = assignment.toObject();
                     assignment.currentAttempt = findStudent.attempts;

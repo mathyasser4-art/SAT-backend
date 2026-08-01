@@ -180,10 +180,10 @@ const getStudentResults = async (req, res) => {
             return res.status(403).json({ message: "Access denied - You don't own this assignment" });
         }
 
-        // FIX: Only get COMPLETED answers (with completedAt set) to avoid showing in-progress submissions
+        // FIX: Show ALL answers (including in-progress ones that were submitted via X close)
+        // Previously only showed completedAt != null, which hid partial submissions
         const answers = await answerModel.find({ 
-            assignment: assignmentID,
-            completedAt: { $ne: null }
+            assignment: assignmentID
         })
             .populate('solveBy', 'userName email class')
             .select('total questionsNumber time createdAt completedAt questions');
