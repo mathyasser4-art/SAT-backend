@@ -162,22 +162,34 @@ const checkTheAnswer = async (req, res) => {
         const getQuestion = await questionModel.findById(questionID)
         if (getQuestion) {
             if (getQuestion.typeOfAnswer == 'Essay') {
-                if (getQuestion.answer.includes(questionAnswer)) {
+                // Case-insensitive comparison for Essay
+                const normalizedStudentAnswer = String(questionAnswer || '').toLowerCase().trim();
+                const isCorrect = getQuestion.answer.some(a => String(a).toLowerCase().trim() === normalizedStudentAnswer);
+                if (isCorrect) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.answer.filter(Boolean).join(', ')
+                    });
                 }
             } else if (getQuestion.typeOfAnswer == 'MCQ') {
                 if (getQuestion.correctAnswer == questionAnswer) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.correctAnswer
+                    });
                 }
             } else {
                 if (getQuestion.correctPicAnswer == questionAnswer) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.correctPicAnswer
+                    });
                 }
             }
         } else {
