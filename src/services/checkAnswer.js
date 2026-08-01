@@ -1,7 +1,5 @@
 const normalizeAnswer = require('./normalizeAnswer');
 
-const normalizeAnswer = require('./normalizeAnswer');
-
 const checkAnswer = (questionData, questionAnswer) => {
     if (!questionData) return false;
     const normalizedStudentAnswer = normalizeAnswer(questionAnswer);
