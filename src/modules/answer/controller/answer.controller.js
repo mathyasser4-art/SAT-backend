@@ -497,31 +497,39 @@ const getStudentOwnReport = async (req, res) => {
             return res.status(404).json({ message: "the student closed the assignment before completing it" });
         }
 
-        // Get all questions with their details
+        // Get all questions with their details safely
+        const validQuestionIds = (answers.questions || [])
+            .map(q => q && q.question ? (q.question._id || q.question) : null)
+            .filter(Boolean);
+
         const questions = await questionModel.find({
-            _id: { $in: answers.questions.map(q => q.question) }
+            _id: { $in: validQuestionIds }
         });
 
-        // Build the report with question details
+        // Build the report with question details safely
         const report = {
-            questions: answers.questions.map(studentAnswer => {
-                const question = questions.find(q => q._id.toString() === studentAnswer.question.toString());
+            questions: (answers.questions || []).map(studentAnswer => {
+                const qId = studentAnswer && studentAnswer.question 
+                    ? (studentAnswer.question._id || studentAnswer.question).toString() 
+                    : null;
                 
-                const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
-                const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
+                const question = questions.find(q => q && q._id && q._id.toString() === qId);
+                
+                const hasFirstAnswer = studentAnswer?.firstAnswer !== undefined && studentAnswer?.firstAnswer !== null && studentAnswer?.firstAnswer !== '';
+                const hasSecondAnswer = studentAnswer?.secondAnswer !== undefined && studentAnswer?.secondAnswer !== null && studentAnswer?.secondAnswer !== '';
 
                 return {
-                    _id: studentAnswer._id,
-                    questionId: studentAnswer.question, // FIX: Add questionId for scratchboard lookup
+                    _id: studentAnswer?._id || qId,
+                    questionId: qId, // FIX: Add questionId for scratchboard lookup
                     question: question?.question || '',
                     questionPic: question?.questionPic?.secure_url || null,
-                    firstAnswer: studentAnswer.firstAnswer || '',
-                    secondAnswer: studentAnswer.secondAnswer || '',
-                    stepsPic: studentAnswer.stepPicture?.secure_url || null,
-                    isCorrect: studentAnswer.isCorrect || false,
+                    firstAnswer: studentAnswer?.firstAnswer || '',
+                    secondAnswer: studentAnswer?.secondAnswer || '',
+                    stepsPic: studentAnswer?.stepPicture?.secure_url || null,
+                    isCorrect: studentAnswer?.isCorrect || false,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
                     questionPoints: question?.questionPoints || 0,
-                    point: studentAnswer.point || 0,
+                    point: studentAnswer?.point || 0,
                     correctAnswer: buildCorrectAnswerStr(question),
                     typeOfAnswer: question?.typeOfAnswer || 'Essay'
                 };

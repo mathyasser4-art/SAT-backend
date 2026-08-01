@@ -263,4 +263,13 @@ const updateAutoCorrect = async (req, res) => {
     }
 }
 
-module.exports = { addQuestion, updateAnswerPic, updateQuestion, checkTheAnswer, getQuestionDetails, deleteQuestion, addGraphQuestion, updateAutoCorrect }
+const getAllQuestions = async (req, res) => {
+    try {
+        const questions = await questionModel.find().select('question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer correctAnswer answer');
+        res.json({ message: "success", questions });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { addQuestion, updateAnswerPic, updateQuestion, checkTheAnswer, getQuestionDetails, deleteQuestion, addGraphQuestion, updateAutoCorrect, getAllQuestions }
