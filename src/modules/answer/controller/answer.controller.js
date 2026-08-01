@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const questionModel = require('../../../../DB/models/question.model')
 const answerModel = require('../../../../DB/models/answer.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
