@@ -1,30 +1,30 @@
+const normalizeAnswer = require('./normalizeAnswer');
+
 const checkAnswer = (questionData, questionAnswer) => {
     if (!questionData) return false;
-    const studentAnsStr = String(questionAnswer !== undefined && questionAnswer !== null ? questionAnswer : '').trim();
     
-    if (questionData.typeOfAnswer === 'Essay') {
-        const studentLower = studentAnsStr.toLowerCase();
-        let correctList = [];
-        if (Array.isArray(questionData.answer)) {
-            correctList = questionData.answer;
-        } else if (typeof questionData.answer === 'string' && questionData.answer.trim() !== '') {
-            correctList = [questionData.answer];
-        } else if (questionData.correctAnswer) {
-            correctList = [questionData.correctAnswer];
-        }
+    const studentAns = normalizeAnswer(questionAnswer, { toLowerCase: true });
+    if (studentAns === '') return false;
 
-        return correctList.some(correctAns => {
-            return String(correctAns || '').toLowerCase().trim() === studentLower;
-        });
-        
-    } else if (questionData.typeOfAnswer === 'MCQ') {
-        const correctStr = String(questionData.correctAnswer || '').trim();
-        return correctStr === studentAnsStr;
-        
-    } else {
-        const correctPicStr = String(questionData.correctPicAnswer || '').trim();
-        return correctPicStr === studentAnsStr;
+    let possibleCorrectAnswers = [];
+
+    if (questionData.typeOfAnswer === 'MCQ') {
+        if (questionData.correctAnswer) possibleCorrectAnswers.push(questionData.correctAnswer);
+        if (Array.isArray(questionData.answer)) possibleCorrectAnswers.push(...questionData.answer);
+        else if (typeof questionData.answer === 'string') possibleCorrectAnswers.push(questionData.answer);
+    } else if (questionData.typeOfAnswer === 'Essay') {
+        if (Array.isArray(questionData.answer)) possibleCorrectAnswers.push(...questionData.answer);
+        else if (typeof questionData.answer === 'string') possibleCorrectAnswers.push(questionData.answer);
+        if (questionData.correctAnswer) possibleCorrectAnswers.push(questionData.correctAnswer);
+    } else if (questionData.typeOfAnswer === 'Graph') {
+        if (questionData.correctPicAnswer) possibleCorrectAnswers.push(questionData.correctPicAnswer);
+        if (questionData.correctAnswer) possibleCorrectAnswers.push(questionData.correctAnswer);
     }
+
+    return possibleCorrectAnswers.some(correctAns => {
+        const normCorrect = normalizeAnswer(correctAns, { toLowerCase: true });
+        return normCorrect === studentAns;
+    });
 }
 
 module.exports = checkAnswer;
