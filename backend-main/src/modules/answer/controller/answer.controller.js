@@ -141,21 +141,37 @@ const checkAssinmentAnswer = async (req, res) => {
             return res.status(404).json({ message: "Question not found" });
         }
 
+        const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
+        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
+        const qObjId = mongoose.Types.ObjectId.isValid(questionID) ? new mongoose.Types.ObjectId(questionID) : questionID;
+
         // Get current attempt number from assignment
         const assignment = await assignmentModel.findById(assignmentID);
         const studentRecord = assignment?.students?.find(s => String(s.solveBy) === String(studentID));
         const currentAttemptNumber = studentRecord?.attempts || 1;
 
-        // Atomic upsert to ensure the answer document for THIS attempt exists
-        let findAnswer = await answerModel.findOneAndUpdate(
-            { solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber },
-            { $setOnInsert: { questionsNumber: 0, questions: [], time: "0:00" } },
-            { upsert: true, new: true }
-        );
+        // Find or create answer document for THIS attempt
+        let findAnswer = await answerModel.findOne({ 
+            $or: [
+                { solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber },
+                { solveBy: studentObjId, assignment: assignmentObjId, attemptNumber: currentAttemptNumber }
+            ]
+        });
+
+        if (!findAnswer) {
+            findAnswer = await answerModel.create({
+                solveBy: studentObjId,
+                assignment: assignmentObjId,
+                attemptNumber: currentAttemptNumber,
+                questionsNumber: 0,
+                questions: [],
+                time: "0:00"
+            });
+        }
 
         const answerToSave = (questionAnswer !== undefined && questionAnswer !== null) ? String(questionAnswer) : (firstAnswer !== undefined && firstAnswer !== null ? String(firstAnswer) : '');
         
-        let answerToCheck;
+        let answerToCheck = answerToSave;
         let secure_url, public_id;
         
         const uploadedFile = req.file || (req.files && req.files[0]);
@@ -169,60 +185,33 @@ const checkAssinmentAnswer = async (req, res) => {
                 public_id = uploadResult.public_id;
                 if (question.typeOfAnswer === 'Graph') {
                     answerToCheck = secure_url;
-                } else {
-                    answerToCheck = answerToSave;
                 }
                 fs.unlinkSync(uploadedFile.path);
             } catch (uploadErr) {
                 console.error("Cloudinary upload error:", uploadErr.message);
-                answerToCheck = answerToSave;
                 if (uploadedFile.path && fs.existsSync(uploadedFile.path)) {
                     fs.unlinkSync(uploadedFile.path);
                 }
             }
-        } else {
-            answerToCheck = answerToSave;
         }
 
         // Check if the answer is correct using the checkAnswer service
         const isCorrect = checkAnswer(question, answerToCheck);
 
-        const qObjId = mongoose.Types.ObjectId.isValid(questionID) ? new mongoose.Types.ObjectId(questionID) : questionID;
+        // Update or append question in questions array in JS memory
+        const questionIndex = findAnswer.questions.findIndex(
+            q => q && q.question && (q.question._id || q.question).toString() === questionID.toString()
+        );
 
-        // Check if this question was already answered in this attempt
-        const existingQuestion = findAnswer.questions?.find(q => q && q.question && (q.question._id || q.question).toString() === questionID.toString());
-
-        if (existingQuestion) {
-            // Update existing question entry atomically using $set
-            const updateFields = {
-                "questions.$.isCorrect": isCorrect,
-                "questions.$.point": isCorrect ? (question.questionPoints || 0) : 0
-            };
-            if (answerToSave !== undefined && answerToSave !== null) {
-                updateFields["questions.$.firstAnswer"] = answerToSave;
-            }
-            if (secondAnswer !== undefined && secondAnswer !== null) {
-                updateFields["questions.$.secondAnswer"] = String(secondAnswer);
-            }
-            if (secure_url) {
-                updateFields["questions.$.stepPicture"] = { secure_url, public_id };
-            }
-
-            let updated = await answerModel.findOneAndUpdate(
-                { _id: findAnswer._id, "questions.question": qObjId },
-                { $set: updateFields },
-                { new: true }
-            );
-            if (!updated) {
-                updated = await answerModel.findOneAndUpdate(
-                    { _id: findAnswer._id, "questions.question": questionID },
-                    { $set: updateFields },
-                    { new: true }
-                );
-            }
-            if (updated) findAnswer = updated;
+        if (questionIndex > -1) {
+            findAnswer.questions[questionIndex].firstAnswer = answerToSave;
+            findAnswer.questions[questionIndex].isCorrect = isCorrect;
+            findAnswer.questions[questionIndex].point = isCorrect ? (question.questionPoints || 0) : 0;
+            if (secondAnswer) findAnswer.questions[questionIndex].secondAnswer = String(secondAnswer);
+            if (thirdAnswer) findAnswer.questions[questionIndex].thirdAnswer = String(thirdAnswer);
+            if (fourthAnswer) findAnswer.questions[questionIndex].fourthAnswer = String(fourthAnswer);
+            if (secure_url) findAnswer.questions[questionIndex].stepPicture = { secure_url, public_id };
         } else {
-            // Push new question answer entry atomically using $push
             const newQuestionAnswer = {
                 question: qObjId,
                 firstAnswer: answerToSave,
@@ -233,22 +222,16 @@ const checkAssinmentAnswer = async (req, res) => {
                 isCorrect: isCorrect,
                 point: isCorrect ? (question.questionPoints || 0) : 0
             };
-            if (secure_url) {
-                newQuestionAnswer.stepPicture = { secure_url, public_id };
-            }
-
-            let updated = await answerModel.findOneAndUpdate(
-                { _id: findAnswer._id, "questions.question": { $ne: qObjId } },
-                { 
-                    $push: { questions: newQuestionAnswer },
-                    $inc: { questionsNumber: 1 }
-                },
-                { new: true }
-            );
-            if (updated) findAnswer = updated;
+            if (secure_url) newQuestionAnswer.stepPicture = { secure_url, public_id };
+            findAnswer.questions.push(newQuestionAnswer);
         }
 
-        const savedQuestion = findAnswer?.questions?.find(q => q && q.question && (q.question._id || q.question).toString() === questionID.toString());
+        findAnswer.questionsNumber = findAnswer.questions.length;
+        await findAnswer.save();
+
+        const savedQuestion = findAnswer.questions.find(
+            q => q && q.question && (q.question._id || q.question).toString() === questionID.toString()
+        );
 
         return res.status(200).json({ 
             message: "success", 
