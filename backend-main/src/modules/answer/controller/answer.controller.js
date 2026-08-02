@@ -145,6 +145,12 @@ const checkAssinmentAnswer = async (req, res) => {
         const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
         const qObjId = mongoose.Types.ObjectId.isValid(questionID) ? new mongoose.Types.ObjectId(questionID) : questionID;
 
+        // Cleanup any uploaded temp files if sent in request
+        const uploadedFile = req.file || (req.files && req.files[0]);
+        if (uploadedFile && uploadedFile.path && fs.existsSync(uploadedFile.path)) {
+            try { fs.unlinkSync(uploadedFile.path); } catch (e) {}
+        }
+
         // Get current attempt number from assignment
         const assignment = await assignmentModel.findById(assignmentID);
         const studentRecord = assignment?.students?.find(s => String(s.solveBy) === String(studentID));
@@ -170,33 +176,9 @@ const checkAssinmentAnswer = async (req, res) => {
         }
 
         const answerToSave = (questionAnswer !== undefined && questionAnswer !== null) ? String(questionAnswer) : (firstAnswer !== undefined && firstAnswer !== null ? String(firstAnswer) : '');
-        
-        let answerToCheck = answerToSave;
-        let secure_url, public_id;
-        
-        const uploadedFile = req.file || (req.files && req.files[0]);
 
-        if (uploadedFile) {
-            try {
-                const uploadResult = await cloudinary.uploader.upload(uploadedFile.path, { 
-                    folder: `abacus-heroes/assignments/${assignmentID}/questions/${questionID}/answers` 
-                });
-                secure_url = uploadResult.secure_url;
-                public_id = uploadResult.public_id;
-                if (question.typeOfAnswer === 'Graph') {
-                    answerToCheck = secure_url;
-                }
-                fs.unlinkSync(uploadedFile.path);
-            } catch (uploadErr) {
-                console.error("Cloudinary upload error:", uploadErr.message);
-                if (uploadedFile.path && fs.existsSync(uploadedFile.path)) {
-                    fs.unlinkSync(uploadedFile.path);
-                }
-            }
-        }
-
-        // Check if the answer is correct using the checkAnswer service
-        const isCorrect = checkAnswer(question, answerToCheck);
+        // Check if the answer is correct using practice-style checkAnswer service
+        const isCorrect = checkAnswer(question, answerToSave);
 
         // Update or append question in questions array in JS memory
         const questionIndex = findAnswer.questions.findIndex(
@@ -210,7 +192,6 @@ const checkAssinmentAnswer = async (req, res) => {
             if (secondAnswer) findAnswer.questions[questionIndex].secondAnswer = String(secondAnswer);
             if (thirdAnswer) findAnswer.questions[questionIndex].thirdAnswer = String(thirdAnswer);
             if (fourthAnswer) findAnswer.questions[questionIndex].fourthAnswer = String(fourthAnswer);
-            if (secure_url) findAnswer.questions[questionIndex].stepPicture = { secure_url, public_id };
         } else {
             const newQuestionAnswer = {
                 question: qObjId,
@@ -222,7 +203,6 @@ const checkAssinmentAnswer = async (req, res) => {
                 isCorrect: isCorrect,
                 point: isCorrect ? (question.questionPoints || 0) : 0
             };
-            if (secure_url) newQuestionAnswer.stepPicture = { secure_url, public_id };
             findAnswer.questions.push(newQuestionAnswer);
         }
 
@@ -243,7 +223,7 @@ const checkAssinmentAnswer = async (req, res) => {
         console.error('checkAssinmentAnswer error:', error.message);
         const uploadedFile = req.file || (req.files && req.files[0]);
         if (uploadedFile && uploadedFile.path && fs.existsSync(uploadedFile.path)) {
-            fs.unlinkSync(uploadedFile.path);
+            try { fs.unlinkSync(uploadedFile.path); } catch (e) {}
         }
         return res.status(200).json({ 
             message: "success", 

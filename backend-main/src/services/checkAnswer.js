@@ -1,12 +1,9 @@
-const normalizeAnswer = require('./normalizeAnswer');
-
 const checkAnswer = (questionData, questionAnswer) => {
     if (!questionData) return false;
-    const normalizedStudentAnswer = normalizeAnswer(questionAnswer);
+    const studentAnsStr = String(questionAnswer !== undefined && questionAnswer !== null ? questionAnswer : '').trim();
     
     if (questionData.typeOfAnswer === 'Essay') {
-        const normalizedStudentAnswerLower = normalizedStudentAnswer.toLowerCase();
-        
+        const studentLower = studentAnsStr.toLowerCase();
         let correctList = [];
         if (Array.isArray(questionData.answer)) {
             correctList = questionData.answer;
@@ -17,18 +14,17 @@ const checkAnswer = (questionData, questionAnswer) => {
         }
 
         return correctList.some(correctAns => {
-            const normalizedCorrectAnswer = normalizeAnswer(correctAns, { toLowerCase: true });
-            return normalizedCorrectAnswer === normalizedStudentAnswerLower;
+            return String(correctAns || '').toLowerCase().trim() === studentLower;
         });
         
     } else if (questionData.typeOfAnswer === 'MCQ') {
-        const normalizedCorrectAnswer = normalizeAnswer(questionData.correctAnswer);
-        return normalizedCorrectAnswer === normalizedStudentAnswer;
+        const correctStr = String(questionData.correctAnswer || '').trim();
+        return correctStr === studentAnsStr;
         
     } else {
-        const normalizedCorrectAnswer = normalizeAnswer(questionData.correctPicAnswer);
-        return normalizedCorrectAnswer === normalizedStudentAnswer;
+        const correctPicStr = String(questionData.correctPicAnswer || '').trim();
+        return correctPicStr === studentAnsStr;
     }
 }
 
-module.exports = checkAnswer
+module.exports = checkAnswer;
