@@ -43,26 +43,26 @@ const userAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (['User', 'Teacher', 'Student', 'Admin', 'School', 'IT', 'Supervisor'].includes(userFounded.role)) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (['User', 'Teacher', 'Student', 'Admin', 'School', 'IT', 'Supervisor'].includes(userFounded.role)) {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -79,26 +79,26 @@ const adminAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'admin') {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'admin') {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -115,26 +115,26 @@ const teacherAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'Teacher' && userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'Teacher' && userFounded.disable == false) {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -148,26 +148,26 @@ const studentAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'Student' && userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'Student' && userFounded.disable == false) {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -184,26 +184,26 @@ const schoolAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'School' && userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'School' && userFounded.disable == false) {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -220,30 +220,30 @@ const itAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'School' || userFounded.role == 'IT') {
-                                if (userFounded.disable == false) {
-                                    req.userData = userFounded
-                                    next()
-                                } else {
-                                    res.status(403).json({ message: 'You do not have access to complete this operation' })
-                                }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'School' || userFounded.role == 'IT') {
+                            if (userFounded.disable == false) {
+                                req.userData = userFounded
+                                next()
                             } else {
                                 res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -260,30 +260,30 @@ const itOrTeacherAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'School' || userFounded.role == 'IT' || userFounded.role == 'Teacher') {
-                                if (userFounded.disable == false) {
-                                    req.userData = userFounded
-                                    next()
-                                } else {
-                                    res.status(403).json({ message: 'You do not have access to complete this operation' })
-                                }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'School' || userFounded.role == 'IT' || userFounded.role == 'Teacher') {
+                            if (userFounded.disable == false) {
+                                req.userData = userFounded
+                                next()
                             } else {
                                 res.status(403).json({ message: 'You do not have access to complete this operation' })
                             }
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
@@ -300,26 +300,26 @@ const supervisorAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-                const { id } = jwt.verify(authHeader, getJwtSecret())
-                const userFounded = await userModel.findById(id)
-                if (userFounded) {
-                    if (userFounded.verify) {
-                        if (!userFounded.block) {
-                            if (userFounded.role == 'Supervisor' && userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify) {
+                    if (!userFounded.block) {
+                        if (userFounded.role == 'Supervisor' && userFounded.disable == false) {
+                            req.userData = userFounded
+                            next()
                         } else {
-                            res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
                     } else {
-                        res.status(401).json({ message: 'this account is not verify' })
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
                     }
                 } else {
-                    res.status(404).json({ message: 'this user is not found' })
+                    res.status(401).json({ message: 'this account is not verify' })
                 }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
         } else {
             res.status(401).json({ message: 'this user access token is not found' })
         }
