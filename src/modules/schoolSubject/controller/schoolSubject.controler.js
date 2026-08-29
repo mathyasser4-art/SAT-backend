@@ -1,10 +1,21 @@
 const schoolSubjectModel = require('../../../../DB/models/schoolSubject.model');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
 
+const buildSubjectQuery = (associatedIds) => {
+    return {
+        $or: [
+            { school: { $in: associatedIds } },
+            { createdBy: { $in: associatedIds } },
+            { school: { $exists: false } },
+            { school: null }
+        ]
+    };
+};
+
 const getSchoolSubject = async (req, res) => {
     try {
-        const { schoolId } = await getSchoolHierarchy(req.userData);
-        const allSubject = await schoolSubjectModel.find({ school: schoolId });
+        const { associatedIds } = await getSchoolHierarchy(req.userData);
+        const allSubject = await schoolSubjectModel.find(buildSubjectQuery(associatedIds));
         if (allSubject && allSubject.length !== 0) {
             res.json({ message: "success", allSubject });
         } else {
@@ -19,16 +30,21 @@ const getSchoolSubject = async (req, res) => {
 const addSchoolSubject = async (req, res) => {
     try {
         const { schoolSubjectName } = req.body;
-        const { schoolId } = await getSchoolHierarchy(req.userData);
-        const findSubject = await schoolSubjectModel.findOne({ schoolSubjectName, school: schoolId });
+        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
+        const findSubject = await schoolSubjectModel.findOne({ 
+            schoolSubjectName: { $regex: new RegExp(`^${schoolSubjectName.trim()}$`, 'i') }, 
+            ...buildSubjectQuery(associatedIds) 
+        });
+
         if (findSubject) {
             res.json({ message: "This subject has been added before" });
         } else {
             req.body.school = schoolId;
+            req.body.createdBy = req.userData._id;
             const addSubject = new schoolSubjectModel(req.body);
             const subjectData = await addSubject.save();
             if (subjectData) {
-                const allSubject = await schoolSubjectModel.find({ school: schoolId });
+                const allSubject = await schoolSubjectModel.find(buildSubjectQuery(associatedIds));
                 res.json({ message: "success", allSubject: allSubject || [] });
             } else {
                 res.json({ message: "an error is happend" });
@@ -45,10 +61,10 @@ const updateSchoolSubject = async (req, res) => {
         const { subjectID } = req.params;
         const findSubject = await schoolSubjectModel.findById(subjectID);
         if (findSubject) {
-            const { schoolId } = await getSchoolHierarchy(req.userData);
-            const updateSubject = await schoolSubjectModel.findByIdAndUpdate(subjectID, req.body);
+            const { associatedIds } = await getSchoolHierarchy(req.userData);
+            const updateSubject = await schoolSubjectModel.findByIdAndUpdate(subjectID, req.body, { new: true });
             if (updateSubject) {
-                const allSubject = await schoolSubjectModel.find({ school: schoolId });
+                const allSubject = await schoolSubjectModel.find(buildSubjectQuery(associatedIds));
                 res.json({ message: "success", allSubject: allSubject || [] });
             } else {
                 res.json({ message: "an error is happend" });
@@ -67,10 +83,10 @@ const removeSchoolSubject = async (req, res) => {
         const { subjectID } = req.params;
         const findSubject = await schoolSubjectModel.findById(subjectID);
         if (findSubject) {
-            const { schoolId } = await getSchoolHierarchy(req.userData);
+            const { associatedIds } = await getSchoolHierarchy(req.userData);
             const removeSubject = await schoolSubjectModel.findByIdAndDelete(subjectID);
             if (removeSubject) {
-                const allSubject = await schoolSubjectModel.find({ school: schoolId });
+                const allSubject = await schoolSubjectModel.find(buildSubjectQuery(associatedIds));
                 res.json({ message: "success", allSubject: allSubject || [] });
             } else {
                 res.json({ message: "an error is happend" });
