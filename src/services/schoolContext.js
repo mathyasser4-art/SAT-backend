@@ -47,13 +47,34 @@ const getSchoolHierarchy = async (userData) => {
         }
     });
 
-    // Find all teacher IDs attached to classes belonging to this school (only if DB connected)
+    // Find all teacher IDs attached to classes belonging to this school or with legacy structure
     let assignedTeacherIds = [];
     if (mongoose.connection.readyState === 1) {
         try {
-            const schoolClasses = await classModel.find({ school: schoolId }).select('_id teachers');
+            const schoolClasses = await classModel.find({
+                $or: [
+                    { school: { $in: associatedIds } },
+                    { createdBy: { $in: associatedIds } },
+                    { school: { $exists: false } },
+                    { school: null }
+                ]
+            }).select('_id teachers');
+            
             const rawTeacherIds = schoolClasses.flatMap(c => c.teachers || []);
-            assignedTeacherIds = rawTeacherIds.filter(Boolean).map(id => {
+            const classIds = schoolClasses.map(c => c._id);
+
+            const teachersWithClasses = await userModel.find({
+                role: 'Teacher',
+                classList: { $in: classIds }
+            }).select('_id');
+            const teacherIdsFromList = teachersWithClasses.map(t => t._id);
+
+            const allTeacherIdStrings = Array.from(new Set([
+                ...rawTeacherIds.map(id => id ? id.toString() : ''),
+                ...teacherIdsFromList.map(id => id ? id.toString() : '')
+            ])).filter(Boolean);
+
+            assignedTeacherIds = allTeacherIdStrings.map(id => {
                 try {
                     return mongoose.Types.ObjectId.isValid(id) ? new mongoose.Types.ObjectId(id) : id;
                 } catch (e) {

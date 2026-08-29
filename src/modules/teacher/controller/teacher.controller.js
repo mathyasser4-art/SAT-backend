@@ -16,10 +16,9 @@ const buildTeacherQuery = (associatedIds, assignedTeacherIds, additionalFilter =
     if (assignedTeacherIds && assignedTeacherIds.length > 0) {
         orConditions.push({ _id: { $in: assignedTeacherIds } });
     }
-
-    if (orConditions.length === 0) {
-        return { role: "Teacher", ...additionalFilter };
-    }
+    orConditions.push({ classList: { $exists: true, $ne: [] } });
+    orConditions.push({ createdBy: { $exists: false } });
+    orConditions.push({ createdBy: null });
 
     return {
         role: "Teacher",

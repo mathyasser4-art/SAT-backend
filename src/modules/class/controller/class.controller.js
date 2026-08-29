@@ -2,13 +2,25 @@ const classModel = require('../../../../DB/models/class.model');
 const userModel = require('../../../../DB/models/user.model');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
 
+const buildClassQuery = (associatedIds) => {
+    return {
+        $or: [
+            { school: { $in: associatedIds } },
+            { createdBy: { $in: associatedIds } },
+            { school: { $exists: false } },
+            { school: null }
+        ]
+    };
+};
+
 const addClass = async (req, res) => {
     try {
-        const { schoolId } = await getSchoolHierarchy(req.userData);
+        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
         req.body.school = schoolId;
+        req.body.createdBy = req.userData._id;
         const addClass = new classModel(req.body);
         await addClass.save();
-        const allClasses = await classModel.find({ school: schoolId }).populate({ path: 'teachers', select: 'userName' });
+        const allClasses = await classModel.find(buildClassQuery(associatedIds)).populate({ path: 'teachers', select: 'userName email' });
         res.json({ message: "success", allClasses: allClasses || [] });
     } catch (error) {
         console.error('addClass error:', error);
@@ -18,8 +30,8 @@ const addClass = async (req, res) => {
 
 const getAllClass = async (req, res) => {
     try {
-        const { schoolId } = await getSchoolHierarchy(req.userData);
-        const allClasses = await classModel.find({ school: schoolId }).populate({ path: 'teachers', select: 'userName' });
+        const { associatedIds } = await getSchoolHierarchy(req.userData);
+        const allClasses = await classModel.find(buildClassQuery(associatedIds)).populate({ path: 'teachers', select: 'userName email' });
         if (allClasses && allClasses.length !== 0) {
             res.json({ message: "success", allClasses });
         } else {
@@ -34,12 +46,12 @@ const getAllClass = async (req, res) => {
 const updateClass = async (req, res) => {
     try {
         const { classID } = req.params;
-        const { schoolId } = await getSchoolHierarchy(req.userData);
+        const { associatedIds } = await getSchoolHierarchy(req.userData);
         const findClass = await classModel.findById(classID);
         if (findClass) {
-            const updateClass = await classModel.findByIdAndUpdate(classID, req.body);
+            const updateClass = await classModel.findByIdAndUpdate(classID, req.body, { new: true });
             if (updateClass) {
-                const allClasses = await classModel.find({ school: schoolId }).populate({ path: 'teachers', select: 'userName' });
+                const allClasses = await classModel.find(buildClassQuery(associatedIds)).populate({ path: 'teachers', select: 'userName email' });
                 res.json({ message: "success", allClasses: allClasses || [] });
             } else {
                 res.json({ message: "an error is happend" });
@@ -56,17 +68,12 @@ const updateClass = async (req, res) => {
 const removeClass = async (req, res) => {
     try {
         const { classID } = req.params;
-        const { schoolId } = await getSchoolHierarchy(req.userData);
+        const { associatedIds } = await getSchoolHierarchy(req.userData);
         const findClass = await classModel.findById(classID);
         if (findClass) {
-            // Unassign students from this class
-            await userModel.updateMany({ class: findClass._id }, { $unset: { class: 1 } });
-            // Unassign teachers from this class
-            await userModel.updateMany({ classList: findClass._id }, { $pull: { classList: findClass._id } });
-
             const removeClass = await classModel.findByIdAndDelete(classID);
             if (removeClass) {
-                const allClasses = await classModel.find({ school: schoolId }).populate({ path: 'teachers', select: 'userName' });
+                const allClasses = await classModel.find(buildClassQuery(associatedIds)).populate({ path: 'teachers', select: 'userName email' });
                 res.json({ message: "success", allClasses: allClasses || [] });
             } else {
                 res.json({ message: "an error is happend" });
@@ -83,25 +90,22 @@ const removeClass = async (req, res) => {
 const getStudent = async (req, res) => {
     try {
         const { classID } = req.params;
-        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-        const allStudent = await userModel.find({ 
-            role: "Student",
-            class: classID,
-            $or: [
-                { createdBy: { $in: associatedIds } },
-                { class: classID }
-            ]
-        }).select('userName email');
-
-        if (allStudent && allStudent.length !== 0) {
-            res.json({ message: "success", allStudent });
+        const findStudent = await userModel.find({ classList: classID }).select('userName');
+        if (findStudent && findStudent.length !== 0) {
+            res.json({ message: "success", findStudent });
         } else {
-            res.json({ message: "There are no any student yet.", allStudent: [] });
+            res.json({ message: "There is no student yet", findStudent: [] });
         }
     } catch (error) {
-        console.error('getStudent in class error:', error);
+        console.error('getStudent error:', error);
         res.status(502).json({ message: error.message });
     }
 };
 
-module.exports = { addClass, getAllClass, updateClass, removeClass, getStudent };
+module.exports = {
+    addClass,
+    getAllClass,
+    updateClass,
+    removeClass,
+    getStudent
+};
