@@ -1,4 +1,5 @@
 const userModel = require('../../../../DB/models/user.model')
+const classModel = require('../../../../DB/models/class.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
 const questionModel = require('../../../../DB/models/question.model')
@@ -9,12 +10,42 @@ cloudinaryConfig()
 const bcrypt = require('bcryptjs');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
 
+const buildStudentQuery = async (userData, additionalFilter = {}) => {
+    const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
+    
+    let schoolClassIds = [];
+    try {
+        const classes = await classModel.find({
+            $or: [
+                { school: { $in: associatedIds } },
+                { createdBy: { $in: associatedIds } },
+                { school: { $exists: false } },
+                { school: null }
+            ]
+        }).select('_id');
+        schoolClassIds = classes.map(c => c._id);
+    } catch(e) {}
+
+    const orConditions = [
+        { createdBy: { $in: associatedIds } },
+        { class: { $in: schoolClassIds } },
+        { classList: { $in: schoolClassIds } },
+        { createdBy: { $exists: false } },
+        { createdBy: null }
+    ];
+
+    return {
+        role: "Student",
+        $or: orConditions,
+        ...additionalFilter
+    };
+};
+
 const getStudent = async (req, res) => {
     try {
         const pageNumber = Math.max(1, parseInt(req.params.pageNumber) || 1);
         const skippedNumber = (pageNumber - 1) * 20;
-        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-        const studentQuery = { role: "Student", createdBy: { $in: associatedIds } };
+        const studentQuery = await buildStudentQuery(req.userData);
 
         const allStudent = await userModel.find(studentQuery)
             .select('userName email class')
@@ -61,7 +92,7 @@ const addStudent = async (req, res) => {
             const addStudent = new userModel(req.body);
             await addStudent.save();
 
-            const studentQuery = { role: "Student", createdBy: { $in: associatedIds } };
+            const studentQuery = await buildStudentQuery(req.userData);
             const allStudent = await userModel.find(studentQuery)
                 .select('userName email class')
                 .populate({ path: 'class', select: 'class' })
@@ -101,8 +132,7 @@ const updateStudent = async (req, res) => {
         const updateStudent = await userModel.findByIdAndUpdate(studentID, req.body);
         if (updateStudent) {
             const skippedNumber = (page - 1) * 20;
-            const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-            const studentQuery = { role: "Student", createdBy: { $in: associatedIds } };
+            const studentQuery = await buildStudentQuery(req.userData);
 
             const countStudent = await userModel.countDocuments(studentQuery);
             const allStudent = await userModel.find(studentQuery)
@@ -150,8 +180,7 @@ const deleteStudent = async (req, res) => {
                 await answerModel.deleteMany({ solveBy: deleteStudent._id });
 
                 const skippedNumber = (page - 1) * 20;
-                const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-                const studentQuery = { role: "Student", createdBy: { $in: associatedIds } };
+                const studentQuery = await buildStudentQuery(req.userData);
 
                 const countStudent = await userModel.countDocuments(studentQuery);
                 const allStudent = await userModel.find(studentQuery)
@@ -185,7 +214,7 @@ const removeStudentFromClass = async (req, res) => {
         if (findStudent) {
             const removeFromClass = await userModel.findByIdAndUpdate(studentID, { $unset: { class: 1 } });
             if (removeFromClass) {
-                const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
+                const { associatedIds } = await getSchoolHierarchy(req.userData);
                 const allStudent = await userModel.find({ 
                     createdBy: { $in: associatedIds }, 
                     class: classID 
@@ -206,12 +235,12 @@ const removeStudentFromClass = async (req, res) => {
 const search = async (req, res) => {
     try {
         const { searchKey } = req.params;
-        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-        let findStudent = await userModel.find({ 
-            'userName': { $regex: searchKey, $options: 'i' }, 
-            role: "Student", 
-            createdBy: { $in: associatedIds } 
-        }).select('userName email class').populate({ path: 'class', select: 'class' });
+        const studentQuery = await buildStudentQuery(req.userData, {
+            'userName': { $regex: searchKey, $options: 'i' }
+        });
+        const findStudent = await userModel.find(studentQuery)
+            .select('userName email class')
+            .populate({ path: 'class', select: 'class' });
 
         if (findStudent && findStudent.length !== 0) {
             res.json({ message: 'success', allStudent: findStudent });
@@ -367,8 +396,8 @@ const getAssignmentDetails = async (req, res) => {
 
 const getAllStudents = async (req, res) => {
     try {
-        const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
-        const allStudents = await userModel.find({ role: "Student", createdBy: { $in: associatedIds } }).select('userName email');
+        const studentQuery = await buildStudentQuery(req.userData);
+        const allStudents = await userModel.find(studentQuery).select('userName email class');
         res.json({ message: "success", allStudents: allStudents || [] });
     } catch (error) {
         console.error('getAllStudents error:', error);
