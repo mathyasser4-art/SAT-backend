@@ -20,9 +20,11 @@ const whitelist = [
   'https://frontend-pearl-ten-60.vercel.app',
   'https://abacus-2ntk.onrender.com',
   'https://backend-production-6752.up.railway.app',
+  'https://sat-backend-production.up.railway.app',
   'https://sat-dashboard-liart.vercel.app',
   'https://sat-frontend-eosin.vercel.app',
-  'http://localhost:54112'
+  'http://localhost:54112',
+  'http://localhost:3000'
 ];
 
 const isAllowedOrigin = (origin) => {
@@ -30,10 +32,11 @@ const isAllowedOrigin = (origin) => {
   if (whitelist.includes(origin)) return true;
   try {
     const parsedOrigin = new URL(origin);
-    const isLocalhost = (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1') &&
+    const isLocalhost = (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1' || parsedOrigin.hostname.startsWith('192.168.')) &&
       ['http:', 'https:'].includes(parsedOrigin.protocol);
     const isVercel = parsedOrigin.hostname.endsWith('.vercel.app');
-    return isLocalhost || isVercel;
+    const isRailway = parsedOrigin.hostname.endsWith('.railway.app');
+    return isLocalhost || isVercel || isRailway;
   } catch (e) {
     return false;
   }
