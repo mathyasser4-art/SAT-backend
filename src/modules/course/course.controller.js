@@ -24,7 +24,10 @@ const createCourse = async (req, res) => {
 const getTeacherCourses = async (req, res) => {
     try {
         const teacherId = req.userData._id;
-        const courses = await courseModel.find({ teacher: teacherId }).populate('students', 'userName email');
+        const courses = await courseModel.find({ teacher: teacherId })
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ courses });
     } catch (error) {
         res.status(500).json({ message: "Error fetching courses", error: error.message });
@@ -36,7 +39,8 @@ const getStudentCourses = async (req, res) => {
         const studentId = req.userData._id;
         const courses = await courseModel.find({ students: studentId })
             .populate('teacher', 'userName')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ courses });
     } catch (error) {
         res.status(500).json({ message: "Error fetching courses", error: error.message });
@@ -47,7 +51,8 @@ const getCourseById = async (req, res) => {
     try {
         const course = await courseModel.findById(req.params.id)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         if (!course) {
             return res.status(404).json({ message: "Course not found" });
         }
@@ -59,7 +64,7 @@ const getCourseById = async (req, res) => {
 
 const addSession = async (req, res) => {
     try {
-        const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, onlineHw, order } = req.body;
+        const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const courseId = req.params.id;
 
         const course = await courseModel.findById(courseId);
@@ -70,15 +75,18 @@ const addSession = async (req, res) => {
             date: (date === "" || date === null) ? undefined : date,
             explanationVideoUrl,
             recordingUrl,
-            pdfExercises,
+            pdfExercises: Array.isArray(pdfExercises) ? pdfExercises : [],
+            hwPdfs: Array.isArray(hwPdfs) ? hwPdfs : [],
             onlineHw: Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [],
+            onlineClasswork: Array.isArray(onlineClasswork) ? onlineClasswork.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [],
             order
         });
 
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ message: "Session added successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error adding session", error: error.message });
@@ -122,7 +130,8 @@ const addStudents = async (req, res) => {
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ message: "Students updated successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error updating students", error: error.message });
@@ -144,7 +153,8 @@ const updateCourse = async (req, res) => {
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ message: "Course updated successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error updating course", error: error.message });
@@ -153,7 +163,7 @@ const updateCourse = async (req, res) => {
 
 const updateSession = async (req, res) => {
     try {
-        const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, onlineHw, order } = req.body;
+        const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const { id, sessionId } = req.params;
 
         const course = await courseModel.findById(id);
@@ -166,14 +176,17 @@ const updateSession = async (req, res) => {
         if (date !== undefined) session.date = (date === "" || date === null) ? undefined : date;
         if (explanationVideoUrl !== undefined) session.explanationVideoUrl = explanationVideoUrl;
         if (recordingUrl !== undefined) session.recordingUrl = recordingUrl;
-        if (pdfExercises !== undefined) session.pdfExercises = pdfExercises;
+        if (pdfExercises !== undefined) session.pdfExercises = Array.isArray(pdfExercises) ? pdfExercises : [];
+        if (hwPdfs !== undefined) session.hwPdfs = Array.isArray(hwPdfs) ? hwPdfs : [];
         if (onlineHw !== undefined) session.onlineHw = Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [];
+        if (onlineClasswork !== undefined) session.onlineClasswork = Array.isArray(onlineClasswork) ? onlineClasswork.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [];
         if (order !== undefined) session.order = order;
 
         await course.save();
         const populatedCourse = await courseModel.findById(id)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ message: "Session updated successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error updating session", error: error.message });
@@ -197,7 +210,8 @@ const deleteSession = async (req, res) => {
         await course.save();
         const populatedCourse = await courseModel.findById(id)
             .populate('students', 'userName email')
-            .populate('sessions.onlineHw');
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
         res.status(200).json({ message: "Session deleted successfully", course: populatedCourse });
     } catch (error) {
         res.status(500).json({ message: "Error deleting session", error: error.message });

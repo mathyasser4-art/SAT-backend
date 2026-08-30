@@ -6,7 +6,9 @@ const sessionSchema = new mongoose.Schema({
     explanationVideoUrl: { type: String },
     recordingUrl: { type: String },
     pdfExercises: [{ type: String }],
+    hwPdfs: [{ type: String }],
     onlineHw: [{ type: mongoose.Schema.Types.ObjectId, ref: 'assignment' }],
+    onlineClasswork: [{ type: mongoose.Schema.Types.ObjectId, ref: 'assignment' }],
     order: { type: Number, required: true }
 })
 
