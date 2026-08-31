@@ -336,15 +336,23 @@ const getTeacherToClass = async (req, res) => {
 const getTeacherClass = async (req, res) => {
     try {
         const teacherID = req.userData._id;
+        const { associatedIds } = await getSchoolHierarchy(req.userData);
         let findTeacher = await userModel.findById(teacherID).select('createdBy').populate({ path: 'createdBy', select: 'userName' });
         if (findTeacher) {
-            const classes = await classModel.find({ teachers: teacherID }).select('class');
+            const classes = await classModel.find({
+                $or: [
+                    { teachers: teacherID },
+                    { createdBy: teacherID },
+                    { school: { $in: associatedIds } },
+                    { createdBy: { $in: associatedIds } }
+                ]
+            }).select('class teachers school createdBy');
             const teacherClasessObj = {
                 _id: findTeacher._id,
                 createdBy: findTeacher.createdBy,
                 classList: classes
             };
-            res.json({ message: 'success', teacherClasess: teacherClasessObj });
+            res.json({ message: 'success', teacherClasess: teacherClasessObj, classList: classes });
         } else {
             res.json({ message: 'There are no teacher available with this id' });
         }
