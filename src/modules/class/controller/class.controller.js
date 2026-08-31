@@ -90,11 +90,20 @@ const removeClass = async (req, res) => {
 const getStudent = async (req, res) => {
     try {
         const { classID } = req.params;
-        const findStudent = await userModel.find({ classList: classID }).select('userName');
+        const findStudent = await userModel.find({
+            role: "Student",
+            $or: [
+                { classList: classID },
+                { class: classID }
+            ]
+        })
+        .select('userName email class classList')
+        .populate({ path: 'class', select: 'class' });
+
         if (findStudent && findStudent.length !== 0) {
-            res.json({ message: "success", findStudent });
+            res.json({ message: "success", findStudent, allStudent: findStudent });
         } else {
-            res.json({ message: "There is no student yet", findStudent: [] });
+            res.json({ message: "There is no student yet", findStudent: [], allStudent: [] });
         }
     } catch (error) {
         console.error('getStudent error:', error);
