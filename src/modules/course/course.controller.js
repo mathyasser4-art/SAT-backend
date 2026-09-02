@@ -62,6 +62,15 @@ const getCourseById = async (req, res) => {
     }
 };
 
+const extractValidIds = (arr) => {
+    if (!Array.isArray(arr)) return [];
+    return arr.map(item => {
+        if (!item) return null;
+        if (typeof item === 'object' && item._id) return String(item._id);
+        return String(item);
+    }).filter(id => id && id.match(/^[0-9a-fA-F]{24}$/));
+};
+
 const addSession = async (req, res) => {
     try {
         const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
@@ -77,8 +86,8 @@ const addSession = async (req, res) => {
             recordingUrl,
             pdfExercises: Array.isArray(pdfExercises) ? pdfExercises : [],
             hwPdfs: Array.isArray(hwPdfs) ? hwPdfs : [],
-            onlineHw: Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [],
-            onlineClasswork: Array.isArray(onlineClasswork) ? onlineClasswork.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [],
+            onlineHw: extractValidIds(onlineHw),
+            onlineClasswork: extractValidIds(onlineClasswork),
             order
         });
 
@@ -178,8 +187,8 @@ const updateSession = async (req, res) => {
         if (recordingUrl !== undefined) session.recordingUrl = recordingUrl;
         if (pdfExercises !== undefined) session.pdfExercises = Array.isArray(pdfExercises) ? pdfExercises : [];
         if (hwPdfs !== undefined) session.hwPdfs = Array.isArray(hwPdfs) ? hwPdfs : [];
-        if (onlineHw !== undefined) session.onlineHw = Array.isArray(onlineHw) ? onlineHw.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [];
-        if (onlineClasswork !== undefined) session.onlineClasswork = Array.isArray(onlineClasswork) ? onlineClasswork.filter(id => id && id.toString().match(/^[0-9a-fA-F]{24}$/)) : [];
+        if (onlineHw !== undefined) session.onlineHw = extractValidIds(onlineHw);
+        if (onlineClasswork !== undefined) session.onlineClasswork = extractValidIds(onlineClasswork);
         if (order !== undefined) session.order = order;
 
         await course.save();

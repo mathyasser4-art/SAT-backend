@@ -22,7 +22,7 @@ const createAssignment = async (req, res) => {
         req.body.createdBy = teacherID
         const addAssignment = new assignmentModel(req.body)
         await addAssignment.save()
-        res.json({ message: "success" })
+        res.json({ message: "success", assignment: addAssignment, addAssignment })
     } catch (error) {
         res.status(502).json({ message: error.message })
     }
