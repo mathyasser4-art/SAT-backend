@@ -13,6 +13,10 @@ const cors = require('cors')
 
 // CORS Configuration - Allow requests from frontend domains
 const whitelist = [
+  'https://mrshahin.com',
+  'https://www.mrshahin.com',
+  'http://mrshahin.com',
+  'http://www.mrshahin.com',
   'https://abacusheroes.com',
   'https://www.abacusheroes.com',
   'https://practice-papers.com',
@@ -28,16 +32,26 @@ const whitelist = [
 ];
 
 const isAllowedOrigin = (origin) => {
-  if (!origin) return true;
-  if (whitelist.includes(origin)) return true;
+  if (!origin) {
+    return true;
+  }
+
+  if (whitelist.includes(origin)) {
+    return true;
+  }
+
   try {
     const parsedOrigin = new URL(origin);
-    const isLocalhost = (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1' || parsedOrigin.hostname.startsWith('192.168.')) &&
+    const isLocalhost =
+      (parsedOrigin.hostname === 'localhost' || parsedOrigin.hostname === '127.0.0.1' || parsedOrigin.hostname.startsWith('192.168.')) &&
       ['http:', 'https:'].includes(parsedOrigin.protocol);
+    
     const isVercel = parsedOrigin.hostname.endsWith('.vercel.app');
     const isRailway = parsedOrigin.hostname.endsWith('.railway.app');
-    return isLocalhost || isVercel || isRailway;
-  } catch (e) {
+    const isMrShahin = parsedOrigin.hostname === 'mrshahin.com' || parsedOrigin.hostname.endsWith('.mrshahin.com');
+
+    return isLocalhost || isVercel || isRailway || isMrShahin;
+  } catch (error) {
     return false;
   }
 };

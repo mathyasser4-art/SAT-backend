@@ -18,6 +18,10 @@ const cors = require('cors')
 
 // CORS Configuration - Allow requests from frontend domains
 const whitelist = [
+  'https://mrshahin.com',
+  'https://www.mrshahin.com',
+  'http://mrshahin.com',
+  'http://www.mrshahin.com',
   'https://abacusheroes.com',
   'https://www.abacusheroes.com',
   'https://practice-papers.com',
@@ -49,8 +53,9 @@ const isAllowedOrigin = (origin) => {
     
     const isVercel = parsedOrigin.hostname.endsWith('.vercel.app');
     const isRailway = parsedOrigin.hostname.endsWith('.railway.app');
+    const isMrShahin = parsedOrigin.hostname === 'mrshahin.com' || parsedOrigin.hostname.endsWith('.mrshahin.com');
 
-    return isLocalhost || isVercel || isRailway;
+    return isLocalhost || isVercel || isRailway || isMrShahin;
   } catch (error) {
     return false;
   }
