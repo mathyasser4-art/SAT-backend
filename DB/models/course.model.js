@@ -9,6 +9,16 @@ const sessionSchema = new mongoose.Schema({
     hwPdfs: [{ type: mongoose.Schema.Types.Mixed }],
     onlineHw: [{ type: mongoose.Schema.Types.ObjectId, ref: 'assignment' }],
     onlineClasswork: [{ type: mongoose.Schema.Types.ObjectId, ref: 'assignment' }],
+    studentHwSubmissions: [{
+        studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+        studentName: { type: String },
+        studentEmail: { type: String },
+        hwPdfIndex: { type: Number, default: 0 },
+        hwPdfName: { type: String },
+        fileUrl: { type: String },
+        fileName: { type: String },
+        submittedAt: { type: Date, default: Date.now }
+    }],
     order: { type: Number, required: true }
 })
 

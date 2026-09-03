@@ -231,7 +231,6 @@ const deleteCourse = async (req, res) => {
     try {
         const { id } = req.params;
         const teacherId = req.userData._id;
-
         const course = await courseModel.findOneAndDelete({ _id: id, teacher: teacherId });
         if (!course) {
             return res.status(404).json({ message: "Course not found or unauthorized to delete this course" });
@@ -240,6 +239,90 @@ const deleteCourse = async (req, res) => {
         res.status(200).json({ message: "Course deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Error deleting course", error: error.message });
+    }
+};
+
+const submitStudentHw = async (req, res) => {
+    try {
+        const { id, sessionId } = req.params;
+        const { hwPdfIndex, hwPdfName, fileUrl, fileName } = req.body;
+        const studentId = req.userData._id;
+        const studentName = req.userData.userName || req.userData.name || 'Student';
+        const studentEmail = req.userData.email || '';
+
+        if (!fileUrl) {
+            return res.status(400).json({ message: "File upload is required" });
+        }
+
+        const course = await courseModel.findById(id);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        const session = course.sessions.id(sessionId);
+        if (!session) return res.status(404).json({ message: "Session not found" });
+
+        if (!session.studentHwSubmissions) {
+            session.studentHwSubmissions = [];
+        }
+
+        const targetIndex = Number(hwPdfIndex) || 0;
+        const existingIdx = session.studentHwSubmissions.findIndex(
+            s => s.studentId && s.studentId.toString() === studentId.toString() && (s.hwPdfIndex || 0) === targetIndex
+        );
+
+        const newSubmission = {
+            studentId,
+            studentName,
+            studentEmail,
+            hwPdfIndex: targetIndex,
+            hwPdfName: hwPdfName || `HW PDF #${targetIndex + 1}`,
+            fileUrl,
+            fileName: fileName || `homework_solution_${studentName}.pdf`,
+            submittedAt: new Date()
+        };
+
+        if (existingIdx >= 0) {
+            session.studentHwSubmissions[existingIdx] = newSubmission;
+        } else {
+            session.studentHwSubmissions.push(newSubmission);
+        }
+
+        await course.save();
+
+        const populatedCourse = await courseModel.findById(id)
+            .populate('students', 'userName email')
+            .populate('sessions.onlineHw')
+            .populate('sessions.onlineClasswork');
+
+        res.status(200).json({ 
+            message: "Homework solution submitted successfully", 
+            submission: newSubmission, 
+            course: populatedCourse 
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error submitting homework", error: error.message });
+    }
+};
+
+const getSessionHwSubmissions = async (req, res) => {
+    try {
+        const { id, sessionId } = req.params;
+        const course = await courseModel.findById(id).populate('students', 'userName email');
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        const session = course.sessions.id(sessionId);
+        if (!session) return res.status(404).json({ message: "Session not found" });
+
+        const submissions = session.studentHwSubmissions || [];
+        const enrolledStudents = course.students || [];
+
+        res.status(200).json({ 
+            message: "Submissions retrieved successfully", 
+            submissions,
+            enrolledStudents,
+            hwPdfs: session.hwPdfs || []
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching homework submissions", error: error.message });
     }
 };
 
@@ -254,5 +337,7 @@ module.exports = {
     updateCourse,
     updateSession,
     deleteSession,
-    deleteCourse
+    deleteCourse,
+    submitStudentHw,
+    getSessionHwSubmissions
 };
