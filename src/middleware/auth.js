@@ -118,9 +118,9 @@ const teacherAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Teacher' && userFounded.disable == false) {
+                        if (['Teacher', 'School', 'Admin', 'IT', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -151,9 +151,9 @@ const studentAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Student' && userFounded.disable == false) {
+                        if (['Student', 'User', 'Teacher', 'School', 'Admin'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -187,9 +187,9 @@ const schoolAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'School' && userFounded.disable == false) {
+                        if (['School', 'Teacher', 'Admin', 'IT', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -223,15 +223,11 @@ const itAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'School' || userFounded.role == 'IT') {
-                            if (userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+                        if (['School', 'IT', 'Admin', 'Teacher'].includes(userFounded.role) && !userFounded.disable) {
+                            req.userData = userFounded
+                            next()
                         } else {
                             res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
@@ -263,15 +259,11 @@ const itOrTeacherAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'School' || userFounded.role == 'IT' || userFounded.role == 'Teacher') {
-                            if (userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
+                        if (['School', 'IT', 'Teacher', 'Admin', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
+                            req.userData = userFounded
+                            next()
                         } else {
                             res.status(403).json({ message: 'You do not have access to complete this operation' })
                         }
@@ -303,9 +295,9 @@ const supervisorAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Supervisor' && userFounded.disable == false) {
+                        if (['Supervisor', 'School', 'Teacher', 'Admin'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
