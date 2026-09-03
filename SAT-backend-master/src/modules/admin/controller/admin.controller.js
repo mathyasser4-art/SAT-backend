@@ -1,6 +1,7 @@
 const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../../../services/jwtSecret');
 
 const login = async (req, res) => {
     try {
@@ -17,7 +18,7 @@ const login = async (req, res) => {
                 const checkPassword = bcrypt.compareSync(password, findUser.password)
                 
                 if (checkPassword) {
-                    const userToken = jwt.sign({ id: findUser._id }, process.env.TOKEN_SECRET_KEY);
+                    const userToken = jwt.sign({ id: findUser._id }, getJwtSecret());
                     res.json({ message: 'success', userToken })
                 } else {
                     res.json({ message: 'wrong password' })

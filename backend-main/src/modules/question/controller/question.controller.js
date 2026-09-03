@@ -15,17 +15,23 @@ const addQuestion = async (req, res) => {
         const findChapter = await chapterModel.findById(chapter)
 
         if (findChapter) {
-            const uploadedFile = req.file ?? req.files?.[0];
-            if (uploadedFile) {
-                const imageURI = uploadedFile.path;
+            console.log('addQuestion - req.file:', req.file);
+            if (req.file) {
+                const imageURI = req.file.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'questionPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 req.body.questionPic = secure_url
                 req.body.questionPicID = public_id
+                console.log('addQuestion - image uploaded to Cloudinary:', secure_url);
             }
-            const addQuestion = new questionModel(req.body)
-            const questionData = await addQuestion.save()
+            const newQuestion = new questionModel(req.body)
+            if (req.body.questionPic) {
+                newQuestion.questionPic = req.body.questionPic
+                newQuestion.questionPicID = req.body.questionPicID
+            }
+            const questionData = await newQuestion.save()
             if (questionData) {
+                console.log('addQuestion - saved questionData:', JSON.stringify({ _id: questionData._id, questionPic: questionData.questionPic }));
                 if (index == 'last') {
                     findChapter.questions.push(questionData._id)
                 } else {
@@ -96,9 +102,8 @@ const updateAnswerPic = async (req, res) => {
         const findQuestion = await questionModel.findById(questionID)
 
         if (findQuestion) {
-            const uploadedFile = req.file ?? req.files?.[0];
-            if (uploadedFile) {
-                const imageURI = uploadedFile.path;
+            if (req.file) {
+                const imageURI = req.file.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'answerPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 if (findQuestion.answerPic)
@@ -128,9 +133,8 @@ const updateQuestion = async (req, res) => {
         const findQuestion = await questionModel.findById(questionID)
 
         if (findQuestion) {
-            const uploadedFile = req.file ?? req.files?.[0];
-            if (uploadedFile) {
-                const imageURI = uploadedFile.path;
+            if (req.file) {
+                const imageURI = req.file.path;
                 const { secure_url, public_id } = await cloudinary.uploader.upload(imageURI, { folder: 'questionPic', resource_type: "image" });
                 fs.unlinkSync(imageURI);
                 if (findQuestion.questionPicID)
@@ -158,22 +162,34 @@ const checkTheAnswer = async (req, res) => {
         const getQuestion = await questionModel.findById(questionID)
         if (getQuestion) {
             if (getQuestion.typeOfAnswer == 'Essay') {
-                if (getQuestion.answer.includes(questionAnswer)) {
+                // Case-insensitive comparison for Essay
+                const normalizedStudentAnswer = String(questionAnswer || '').toLowerCase().trim();
+                const isCorrect = getQuestion.answer.some(a => String(a).toLowerCase().trim() === normalizedStudentAnswer);
+                if (isCorrect) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.answer.filter(Boolean).join(', ')
+                    });
                 }
             } else if (getQuestion.typeOfAnswer == 'MCQ') {
                 if (getQuestion.correctAnswer == questionAnswer) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.correctAnswer
+                    });
                 }
             } else {
                 if (getQuestion.correctPicAnswer == questionAnswer) {
                     res.json({ message: "success" });
                 } else {
-                    res.json({ message: "this answer is wrong" });
+                    res.json({ 
+                        message: "this answer is wrong",
+                        correctAnswer: getQuestion.correctPicAnswer
+                    });
                 }
             }
         } else {
@@ -247,4 +263,13 @@ const updateAutoCorrect = async (req, res) => {
     }
 }
 
-module.exports = { addQuestion, updateAnswerPic, updateQuestion, checkTheAnswer, getQuestionDetails, deleteQuestion, addGraphQuestion, updateAutoCorrect }
+const getAllQuestions = async (req, res) => {
+    try {
+        const questions = await questionModel.find().select('question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer correctAnswer answer');
+        res.json({ message: "success", questions });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { addQuestion, updateAnswerPic, updateQuestion, checkTheAnswer, getQuestionDetails, deleteQuestion, addGraphQuestion, updateAutoCorrect, getAllQuestions }

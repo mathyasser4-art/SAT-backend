@@ -4,16 +4,25 @@ const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
 const mongoose = require('mongoose')
+const userModel = require('../../../../DB/models/user.model')
 
 const createAssignment = async (req, res) => {
     try {
         const teacherID = req.userData._id
+        
+        if (req.body.classes) {
+            // FormData sends a string if only one item is appended, so we ensure it's an array
+            const classesArray = Array.isArray(req.body.classes) ? req.body.classes : [req.body.classes];
+            req.body.classes = classesArray; // Update req.body.classes to be an array for MongoDB
+
+        }
+
         const today = new Date().toISOString().slice(0, 10)
         req.body.createdAt = today
         req.body.createdBy = teacherID
         const addAssignment = new assignmentModel(req.body)
         await addAssignment.save()
-        res.json({ message: "success", assignment: addAssignment })
+        res.json({ message: "success", assignment: addAssignment, addAssignment })
     } catch (error) {
         res.status(502).json({ message: error.message })
     }
@@ -158,13 +167,10 @@ const getStudentResults = async (req, res) => {
         const { assignmentID } = req.params;
         const teacherID = req.userData._id;
 
-        console.log('=== getStudentResults START ===');
-        console.log('Assignment ID:', assignmentID);
-        console.log('Teacher ID:', teacherID);
-
-        // Get the assignment and verify teacher owns it
+        // Get assignment and populate questions and classes
         const assignment = await assignmentModel.findById(assignmentID)
-            .populate('questions');
+            .populate('questions')
+            .populate({ path: 'classes', select: 'class' });
 
         if (!assignment) {
             return res.status(404).json({ message: "Assignment not found" });
@@ -175,43 +181,89 @@ const getStudentResults = async (req, res) => {
             return res.status(403).json({ message: "Access denied - You don't own this assignment" });
         }
 
-        // Get all answers for this assignment with student information
-        // #region agent log
-        const mongoose = require('mongoose');
-        fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'assignment/controller/assignment.controller.js:107',message:'getStudentResults - query attempt',data:{assignmentID:assignmentID,assignmentIDType:typeof assignmentID,isValidObjectId:mongoose.Types.ObjectId.isValid(assignmentID)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'STUDENT_RESULTS'})}).catch(()=>{});
-        // #endregion
-        
-        const answers = await answerModel.find({ assignment: assignmentID })
-            .populate('solveBy', 'userName email')
-            .select('total questionsNumber time createdAt questions');
-        
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/25a489e5-f820-4825-84a8-b9d5015821d4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'assignment/controller/assignment.controller.js:111',message:'getStudentResults - query result',data:{answersFound:answers?.length || 0,answersWithQuestions:answers?.filter(a => a.questions?.length > 0).length || 0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'STUDENT_RESULTS'})}).catch(()=>{});
-        // #endregion
+        // 1. Get all answers submitted for this assignment
+        const answers = await answerModel.find({ 
+            assignment: assignmentID
+        })
+            .populate('solveBy', 'userName email class')
+            .select('total questionsNumber time createdAt completedAt questions solveBy');
 
-        // Calculate total points from assignment questions
-        let totalPoints = 0;
-        if (assignment.questions && assignment.questions.length > 0) {
-            // You might need to populate questions to get points, or use assignment.totalPoints if available
-            totalPoints = assignment.totalPoints || assignment.questions.reduce((sum, q) => sum + (q.questionPoints || 0), 0);
+        // 2. Get all students in assigned classes
+        let assignedStudents = [];
+        if (assignment.classes && assignment.classes.length > 0) {
+            const classIds = assignment.classes.map(c => c._id || c);
+            assignedStudents = await userModel.find({ 
+                role: 'Student', 
+                class: { $in: classIds } 
+            }).select('userName email class');
         }
 
-        const students = answers.map(answer => {
-            const percentage = totalPoints > 0 ? Math.round((answer.total / totalPoints) * 100) : 0;
-            
-            return {
-                _id: answer._id,
-                studentId: answer.solveBy._id,
-                userName: answer.solveBy.userName,
-                email: answer.solveBy.email,
-                answeredQuestions: answer.questionsNumber,
-                score: answer.total,
-                totalPossible: totalPoints,
-                timeSpent: answer.time || '0:00',
-                percentage: percentage,
-                completedAt: answer.createdAt,
-                totalQuestions: assignment.questions ? assignment.questions.length : 0
-            };
+        // Fallback: If no assigned classes or no students found, use solveBy from answer documents
+        if (assignedStudents.length === 0) {
+            assignedStudents = answers
+                .filter(a => a.solveBy)
+                .map(a => a.solveBy);
+        }
+
+        // Calculate total possible points from questions
+        let totalPoints = assignment.totalPoints || 0;
+        if ((!totalPoints || totalPoints === 0) && assignment.questions && assignment.questions.length > 0) {
+            totalPoints = assignment.questions.reduce((sum, q) => sum + (q.questionPoints || 0), 0);
+        }
+
+        // Create lookup map of answer documents by student ID
+        const studentAnswerMap = {};
+        answers.forEach(answer => {
+            if (answer.solveBy && answer.solveBy._id) {
+                const sId = answer.solveBy._id.toString();
+                // Store latest or completed answer
+                if (!studentAnswerMap[sId] || answer.completedAt) {
+                    studentAnswerMap[sId] = answer;
+                }
+            }
+        });
+
+        // 3. Build comprehensive student results list with status
+        const students = assignedStudents.map(student => {
+            const sId = student._id.toString();
+            const answer = studentAnswerMap[sId];
+
+            if (answer) {
+                const score = answer.total || 0;
+                const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
+                const isCompleted = !!answer.completedAt;
+
+                return {
+                    _id: answer._id,
+                    studentId: student._id,
+                    userName: student.userName || 'Student',
+                    email: student.email || '',
+                    status: isCompleted ? 'Completed' : 'In Progress',
+                    answeredQuestions: answer.questionsNumber || 0,
+                    score: score,
+                    totalPossible: totalPoints,
+                    timeSpent: answer.time || '0:00',
+                    percentage: percentage,
+                    completedAt: answer.completedAt || answer.createdAt,
+                    totalQuestions: assignment.questions ? assignment.questions.length : 0
+                };
+            } else {
+                // Student has not started this assignment yet
+                return {
+                    _id: student._id,
+                    studentId: student._id,
+                    userName: student.userName || 'Student',
+                    email: student.email || '',
+                    status: 'Not Started',
+                    answeredQuestions: 0,
+                    score: 0,
+                    totalPossible: totalPoints,
+                    timeSpent: '0:00',
+                    percentage: 0,
+                    completedAt: null,
+                    totalQuestions: assignment.questions ? assignment.questions.length : 0
+                };
+            }
         });
 
         res.json({
@@ -226,7 +278,7 @@ const getStudentResults = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Error in getStudentResults:', error);
+        console.error('Error in getStudentResults:', error.message);
         res.status(502).json({ message: error.message });
     }
 };

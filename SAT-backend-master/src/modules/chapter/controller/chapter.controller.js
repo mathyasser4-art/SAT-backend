@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 
 const getChapterQuestion = async (req, res) => {
     const { chapterID } = req.params
-    const chapter = await chapterModel.findById(chapterID).select("-unit").populate('questions', 'question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer')
+    const chapter = await chapterModel.findById(chapterID).select("-unit").populate('questions', 'question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer correctAnswer answer')
     if (chapter) {
         res.json({ message: "success", chapter })
     } else {

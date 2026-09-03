@@ -1,10 +1,11 @@
 const userModel = require('../../../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../../../services/jwtSecret');
 
 const userAuthroize = async (req, res) => {
     try {
         const { userToken } = req.params
-        const { id } = jwt.verify(userToken, process.env.TOKEN_SECRET_KEY)
+        const { id } = jwt.verify(userToken, getJwtSecret())
         const findUser = await userModel.findById(id).select('userName email password role verify createdBy').populate({ path: 'createdBy', select: 'userName' })
         if (findUser) {
             if (findUser.verify) {

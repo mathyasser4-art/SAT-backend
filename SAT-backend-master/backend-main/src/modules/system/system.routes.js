@@ -6,5 +6,6 @@ systemRouter.post('/system/addSystem', adminAuth, addSystem)
 systemRouter.get('/system/getAllSystem', getAllSystem)
 systemRouter.get('/system/getAllSystem/:questionTypeID', getAllSystem)
 systemRouter.put('/system/updateSystem/:systemID', adminAuth, updateSystem)
+systemRouter.patch('/system/updateSystem/:systemID', adminAuth, updateSystem)
 
 module.exports = systemRouter

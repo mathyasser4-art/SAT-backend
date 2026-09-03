@@ -1,27 +1,30 @@
 const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../../../services/jwtSecret');
 
 const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        // .trim() removes any accidental spaces from the input
+        // .trim() handles accidental spaces in the email input
         const findUser = await userModel.findOne({ email: email.trim() })
         
         if (findUser) {
-            // This line helps us debug by printing the role in your Railway logs
-            console.log("Found User Role:", findUser.role);
+            // Convert role to lowercase to make it easy to compare
+            const userRole = findUser.role ? findUser.role.trim().toLowerCase() : "";
 
-            if (findUser.role && findUser.role.trim().toLowerCase() === 'admin') {
+            // FIX: Allow BOTH the Website Owner ('it') AND the School Owners ('admin')
+            if (userRole === 'admin' || userRole === 'it' || userRole === 'superadmin') {
                 const checkPassword = bcrypt.compareSync(password, findUser.password)
                 
                 if (checkPassword) {
-                    const userToken = jwt.sign({ id: findUser._id }, process.env.TOKEN_SECRET_KEY);
+                    const userToken = jwt.sign({ id: findUser._id }, getJwtSecret());
                     res.json({ message: 'success', userToken })
                 } else {
                     res.json({ message: 'wrong password' })
                 }
             } else {
+                // This message appears if your role in the DB isn't 'it' or 'admin'
                 res.json({ message: 'You do not have access to complete this operation' })
             }
         } else {

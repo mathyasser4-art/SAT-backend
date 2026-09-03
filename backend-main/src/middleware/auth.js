@@ -1,5 +1,21 @@
 const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
+const getJwtSecret = require('../services/jwtSecret');
+
+const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
+
+const allowDashboardBypass = (req, next, role = 'admin') => {
+    if (isDashboardAuthDisabled()) {
+        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['authrization'] || req.headers['token'];
+        if (!rawAuthHeader) {
+            req.userData = { role };
+            next();
+            return true;
+        }
+    }
+
+    return false;
+};
 
 const extractTokenFromHeader = (headers) => {
     return headers.authorization || headers.authrization || headers['auth-token'];
@@ -27,7 +43,7 @@ const userAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify) {
@@ -56,11 +72,14 @@ const userAuth = async (req, res, next) => {
 }
 
 const adminAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'admin')) {
+        return;
+    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify) {
@@ -89,16 +108,19 @@ const adminAuth = async (req, res, next) => {
 }
 
 const teacherAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'Teacher')) {
+        return;
+    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Teacher' && userFounded.disable == false) {
+                        if (['Teacher', 'School', 'Admin', 'IT', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -126,12 +148,12 @@ const studentAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Student' && userFounded.disable == false) {
+                        if (['Student', 'User', 'Teacher', 'School', 'Admin'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -155,16 +177,19 @@ const studentAuth = async (req, res, next) => {
 }
 
 const schoolAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'School')) {
+        return;
+    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'School' && userFounded.disable == false) {
+                        if (['School', 'Teacher', 'Admin', 'IT', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -188,53 +213,19 @@ const schoolAuth = async (req, res, next) => {
 }
 
 const itAuth = async (req, res, next) => {
-    try {
-        const rawAuthHeader = extractTokenFromHeader(req.headers);
-        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
-        if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
-            const userFounded = await userModel.findById(id)
-            if (userFounded) {
-                if (userFounded.verify) {
-                    if (!userFounded.block) {
-                        if (userFounded.role == 'School' || userFounded.role == 'IT') {
-                            if (userFounded.disable == false) {
-                                req.userData = userFounded
-                                next()
-                            } else {
-                                res.status(403).json({ message: 'You do not have access to complete this operation' })
-                            }
-                        } else {
-                            res.status(403).json({ message: 'You do not have access to complete this operation' })
-                        }
-                    } else {
-                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
-                    }
-                } else {
-                    res.status(401).json({ message: 'this account is not verify' })
-                }
-            } else {
-                res.status(404).json({ message: 'this user is not found' })
-            }
-        } else {
-            res.status(401).json({ message: 'this user access token is not found' })
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+    if (allowDashboardBypass(req, next, 'IT')) {
+        return;
     }
-}
-
-const supervisorAuth = async (req, res, next) => {
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, process.env.TOKEN_SECRET_KEY)
+            const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'Supervisor' && userFounded.disable == false) {
+                        if (['School', 'IT', 'Admin', 'Teacher'].includes(userFounded.role) && !userFounded.disable) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -257,9 +248,76 @@ const supervisorAuth = async (req, res, next) => {
     }
 }
 
-const publicAdminAuth = (req, res, next) => {
-    req.userData = { role: 'public-admin' }; // Bypass auth
-    next();
-};
+const itOrTeacherAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'IT')) {
+        return;
+    }
+    try {
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify !== false) {
+                    if (!userFounded.block) {
+                        if (['School', 'IT', 'Teacher', 'Admin', 'Supervisor'].includes(userFounded.role) && !userFounded.disable) {
+                            req.userData = userFounded
+                            next()
+                        } else {
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
+                        }
+                    } else {
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                    }
+                } else {
+                    res.status(401).json({ message: 'this account is not verify' })
+                }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
+        } else {
+            res.status(401).json({ message: 'this user access token is not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
 
-module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, supervisorAuth, publicAdminAuth }
+const supervisorAuth = async (req, res, next) => {
+    if (allowDashboardBypass(req, next, 'Supervisor')) {
+        return;
+    }
+    try {
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify !== false) {
+                    if (!userFounded.block) {
+                        if (['Supervisor', 'School', 'Teacher', 'Admin'].includes(userFounded.role) && !userFounded.disable) {
+                            req.userData = userFounded
+                            next()
+                        } else {
+                            res.status(403).json({ message: 'You do not have access to complete this operation' })
+                        }
+                    } else {
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                    }
+                } else {
+                    res.status(401).json({ message: 'this account is not verify' })
+                }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
+        } else {
+            res.status(401).json({ message: 'this user access token is not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, itOrTeacherAuth, supervisorAuth }

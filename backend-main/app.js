@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 
+if (!process.env.TOKEN_SECRET_KEY && process.env.JWT_SECRET) {
+    console.warn('TOKEN_SECRET_KEY is missing, falling back to JWT_SECRET');
+    process.env.TOKEN_SECRET_KEY = process.env.JWT_SECRET;
+}
+
 // Validate SALTROUNDS environment variable
 const saltRounds = parseInt(process.env.SALTROUNDS);
 if (isNaN(saltRounds) || saltRounds < 1) {
@@ -58,6 +63,7 @@ const isAllowedOrigin = (origin) => {
 
 const corsOptions = {
   origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, Postman, or same-origin)
     if (isAllowedOrigin(origin)) {
       callback(null, true)
     } else {
@@ -70,6 +76,7 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'authorization', 'auth-token', 'authrization', 'token']
 };
 
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 
@@ -77,16 +84,9 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.set('trust proxy', 1);
 
 const connectionDB = require('./DB/connection')
+connectionDB();
 
-const dbConnectionResult = connectionDB();
-
-if (dbConnectionResult && typeof dbConnectionResult.catch === 'function') {
-    dbConnectionResult.catch((error) => { 
-      console.error('Database connection error:', error.message);
-    });
-}
-
-// Rate limiting sitting
+// Rate limiting
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
   windowMs: 60 * 1000,
@@ -95,12 +95,9 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-try {
-    const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter } = require('./router/allRoutes');
-    app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter);
-} catch (error) {
-    throw error;
-}
+const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter } = require('./router/allRoutes');
+app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter);
+
 const request = require('request')
 const CronJob = require('cron').CronJob;
 
