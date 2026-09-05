@@ -1,6 +1,16 @@
 const courseModel = require('../../../DB/models/course.model');
 const userModel = require('../../../DB/models/user.model');
 
+const extractValidIds = (arr) => {
+    if (!Array.isArray(arr)) return [];
+    const valid = arr.map(item => {
+        if (!item) return null;
+        if (typeof item === 'object' && item._id) return String(item._id);
+        return String(item);
+    }).filter(id => id && id.match(/^[0-9a-fA-F]{24}$/));
+    return [...new Set(valid)];
+};
+
 const createCourse = async (req, res) => {
     try {
         const { name, description, students, sessions } = req.body;
@@ -10,7 +20,7 @@ const createCourse = async (req, res) => {
             name,
             description,
             teacher: teacherId,
-            students,
+            students: extractValidIds(students),
             sessions: sessions || []
         });
 
@@ -62,22 +72,17 @@ const getCourseById = async (req, res) => {
     }
 };
 
-const extractValidIds = (arr) => {
-    if (!Array.isArray(arr)) return [];
-    return arr.map(item => {
-        if (!item) return null;
-        if (typeof item === 'object' && item._id) return String(item._id);
-        return String(item);
-    }).filter(id => id && id.match(/^[0-9a-fA-F]{24}$/));
-};
+
 
 const addSession = async (req, res) => {
     try {
         const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         course.sessions.push({
             title,
@@ -88,7 +93,7 @@ const addSession = async (req, res) => {
             hwPdfs: Array.isArray(hwPdfs) ? hwPdfs : [],
             onlineHw: extractValidIds(onlineHw),
             onlineClasswork: extractValidIds(onlineClasswork),
-            order
+            order: order !== undefined ? order : (course.sessions.length + 1)
         });
 
         await course.save();
@@ -114,7 +119,8 @@ const markSessionCompleted = async (req, res) => {
         if (!progressRecord) {
             course.progress.push({ studentId, completedSessions: [sessionId] });
         } else {
-            if (!progressRecord.completedSessions.includes(sessionId)) {
+            const alreadyCompleted = progressRecord.completedSessions.some(id => id.toString() === sessionId.toString());
+            if (!alreadyCompleted) {
                 progressRecord.completedSessions.push(sessionId);
             }
         }
@@ -128,13 +134,26 @@ const markSessionCompleted = async (req, res) => {
 
 const addStudents = async (req, res) => {
     try {
-        const { students } = req.body;
+        const { students, mode } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
-        course.students = students;
+        if (!Array.isArray(students)) {
+            return res.status(400).json({ message: "students must be an array" });
+        }
+
+        const validStudents = extractValidIds(students);
+
+        if (mode === 'append') {
+            const existing = extractValidIds(course.students);
+            course.students = [...new Set([...existing, ...validStudents])];
+        } else {
+            course.students = validStudents;
+        }
 
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
@@ -151,13 +170,15 @@ const updateCourse = async (req, res) => {
     try {
         const { name, description, students } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         if (name !== undefined) course.name = name;
         if (description !== undefined) course.description = description;
-        if (students !== undefined) course.students = students;
+        if (students !== undefined) course.students = extractValidIds(students);
 
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
@@ -174,9 +195,11 @@ const updateSession = async (req, res) => {
     try {
         const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const { id, sessionId } = req.params;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(id);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         const session = course.sessions.id(sessionId);
         if (!session) return res.status(404).json({ message: "Session not found" });
@@ -205,9 +228,11 @@ const updateSession = async (req, res) => {
 const deleteSession = async (req, res) => {
     try {
         const { id, sessionId } = req.params;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(id);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         course.sessions.pull({ _id: sessionId });
 
