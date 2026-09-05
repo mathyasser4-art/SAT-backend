@@ -16,6 +16,7 @@ const sessionSchema = new mongoose.Schema({
         hwPdfIndex: { type: Number, default: 0 },
         hwPdfName: { type: String },
         fileUrl: { type: String },
+        publicId: { type: String },
         fileName: { type: String },
         submittedAt: { type: Date, default: Date.now }
     }],

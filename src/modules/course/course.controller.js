@@ -1,7 +1,7 @@
 const courseModel = require('../../../DB/models/course.model');
 const userModel = require('../../../DB/models/user.model');
 const cloudinary = require('cloudinary').v2;
-const cloudinaryConfig = require('../../../services/cloudinary');
+const cloudinaryConfig = require('../../services/cloudinary');
 cloudinaryConfig();
 
 const extractValidIds = (arr) => {

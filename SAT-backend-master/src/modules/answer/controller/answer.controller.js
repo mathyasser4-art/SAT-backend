@@ -433,55 +433,6 @@ const getAssignmentAnswer = async (req, res) => {
     }
 };
 
-const correctAnswer = async (req, res) => {
-    try {
-        const { studentID, assignmentID, questionID } = req.params;
-        const { grade } = req.body;
-
-        const findAnswer = await answerModel.findOne({ 
-            solveBy: studentID, 
-            assignment: assignmentID 
-        });
-
-        if (!findAnswer) {
-            return res.status(404).json({ message: "Student answers not found" });
-        }
-
-        const questionIndex = findAnswer.questions.findIndex(
-            q => q && q.question && (q.question._id || q.question).toString() === questionID
-        );
-
-        if (questionIndex === -1) {
-            return res.status(404).json({ message: "Question answer not found" });
-        }
-
-        // Update the grade and mark as correct
-        findAnswer.questions[questionIndex].point = parseFloat(grade) || 0;
-        findAnswer.questions[questionIndex].isCorrect = true;
-
-        // Recalculate total
-        let newTotal = 0;
-        findAnswer.questions.forEach(q => {
-            if (q.point !== undefined && q.point !== null) {
-                newTotal += q.point;
-            }
-        });
-        findAnswer.total = newTotal;
-
-        await findAnswer.save();
-
-        res.json({
-            message: "success",
-            updatedAnswer: findAnswer
-        });
-
-    } catch (error) {
-        res.status(500).json({ 
-            message: "An error occurred while correcting the answer.", 
-            error: error.message 
-        });
-    }
-};
 
 const getStudentOwnReport = async (req, res) => {
     try {
@@ -738,4 +689,73 @@ const getAllAttempts = async (req, res) => {
     }
 };
 
-module.exports = { checkAssinmentAnswer, getAssignmentAnswer, getResult, getStudentOwnReport, debugAnswerDocument, getAllAttempts }
+// Emergency submit - called via sendBeacon when browser/app closes mid-exam
+const emergencySubmit = async (req, res) => {
+    try {
+        let body = req.body;
+        // sendBeacon sends a Blob; express may not parse it automatically
+        if (!body || !body.assignmentID) {
+            const chunks = [];
+            for await (const chunk of req) chunks.push(chunk);
+            try { body = JSON.parse(Buffer.concat(chunks).toString()); } catch (e) { body = {}; }
+        }
+
+        const { assignmentID, time } = body;
+        if (!assignmentID) return res.status(400).json({ message: 'assignmentID required' });
+
+        // Find the most recent incomplete answer for this assignment
+        // We can't trust req.userData here (sendBeacon may not send auth header reliably),
+        // so we find any unfinished answer for this assignment and mark it complete.
+        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID)
+            ? new mongoose.Types.ObjectId(assignmentID)
+            : null;
+
+        if (!assignmentObjId) return res.status(400).json({ message: 'invalid assignmentID' });
+
+        const incompleteAnswer = await answerModel.findOne({
+            assignment: assignmentObjId,
+            completedAt: null,
+            questionsNumber: { $gt: 0 }
+        }).sort({ createdAt: -1 });
+
+        if (incompleteAnswer) {
+            // Run scoring pass on existing answers
+            const assignment = await assignmentModel.findById(assignmentID).populate({
+                path: 'questions',
+                select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect'
+            });
+
+            let studentTotalScore = 0;
+            if (assignment && assignment.questions) {
+                assignment.questions.forEach(question => {
+                    if (!question) return;
+                    const studentAnswerForQuestion = incompleteAnswer.questions.find(
+                        ans => ans && ans.question && (ans.question._id || ans.question).toString() === question._id.toString()
+                    );
+                    if (studentAnswerForQuestion) {
+                        const isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
+                        if (isCorrect) {
+                            studentTotalScore += (question.questionPoints || 0);
+                            studentAnswerForQuestion.point = question.questionPoints || 0;
+                        } else {
+                            studentAnswerForQuestion.point = 0;
+                        }
+                        studentAnswerForQuestion.isCorrect = isCorrect;
+                    }
+                });
+            }
+
+            incompleteAnswer.total = studentTotalScore;
+            incompleteAnswer.time = time || '0:00';
+            incompleteAnswer.completedAt = new Date();
+            await incompleteAnswer.save();
+        }
+
+        return res.status(200).json({ message: 'success' });
+    } catch (error) {
+        console.error('emergencySubmit error:', error.message);
+        return res.status(200).json({ message: 'success' }); // Always 200 for sendBeacon
+    }
+};
+
+module.exports = { checkAssinmentAnswer, getAssignmentAnswer, getResult, getStudentOwnReport, debugAnswerDocument, getAllAttempts, emergencySubmit }

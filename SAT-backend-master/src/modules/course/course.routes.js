@@ -16,7 +16,7 @@ router.delete('/course/:id', teacherAuth, courseController.deleteCourse);
 // Student routes
 router.get('/course/student', studentAuth, courseController.getStudentCourses);
 router.put('/course/:courseId/session/:sessionId/complete', studentAuth, courseController.markSessionCompleted);
-router.post('/course/:id/session/:sessionId/submit-hw', userAuth, courseController.submitStudentHw);
+router.post('/course/:id/session/:sessionId/submit-hw', studentAuth, courseController.submitStudentHw);
 
 // Teacher HW submissions inspection
 router.get('/course/:id/session/:sessionId/hw-submissions', teacherAuth, courseController.getSessionHwSubmissions);

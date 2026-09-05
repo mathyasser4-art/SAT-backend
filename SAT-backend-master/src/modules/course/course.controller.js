@@ -1,5 +1,18 @@
 const courseModel = require('../../../DB/models/course.model');
 const userModel = require('../../../DB/models/user.model');
+const cloudinary = require('cloudinary').v2;
+const cloudinaryConfig = require('../../services/cloudinary');
+cloudinaryConfig();
+
+const extractValidIds = (arr) => {
+    if (!Array.isArray(arr)) return [];
+    const valid = arr.map(item => {
+        if (!item) return null;
+        if (typeof item === 'object' && item._id) return String(item._id);
+        return String(item);
+    }).filter(id => id && id.match(/^[0-9a-fA-F]{24}$/));
+    return [...new Set(valid)];
+};
 
 const createCourse = async (req, res) => {
     try {
@@ -10,7 +23,7 @@ const createCourse = async (req, res) => {
             name,
             description,
             teacher: teacherId,
-            students,
+            students: extractValidIds(students),
             sessions: sessions || []
         });
 
@@ -62,22 +75,17 @@ const getCourseById = async (req, res) => {
     }
 };
 
-const extractValidIds = (arr) => {
-    if (!Array.isArray(arr)) return [];
-    return arr.map(item => {
-        if (!item) return null;
-        if (typeof item === 'object' && item._id) return String(item._id);
-        return String(item);
-    }).filter(id => id && id.match(/^[0-9a-fA-F]{24}$/));
-};
+
 
 const addSession = async (req, res) => {
     try {
         const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         course.sessions.push({
             title,
@@ -88,7 +96,7 @@ const addSession = async (req, res) => {
             hwPdfs: Array.isArray(hwPdfs) ? hwPdfs : [],
             onlineHw: extractValidIds(onlineHw),
             onlineClasswork: extractValidIds(onlineClasswork),
-            order
+            order: order !== undefined ? order : (course.sessions.length + 1)
         });
 
         await course.save();
@@ -114,7 +122,8 @@ const markSessionCompleted = async (req, res) => {
         if (!progressRecord) {
             course.progress.push({ studentId, completedSessions: [sessionId] });
         } else {
-            if (!progressRecord.completedSessions.includes(sessionId)) {
+            const alreadyCompleted = progressRecord.completedSessions.some(id => id.toString() === sessionId.toString());
+            if (!alreadyCompleted) {
                 progressRecord.completedSessions.push(sessionId);
             }
         }
@@ -128,13 +137,26 @@ const markSessionCompleted = async (req, res) => {
 
 const addStudents = async (req, res) => {
     try {
-        const { students } = req.body;
+        const { students, mode } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
-        course.students = students;
+        if (!Array.isArray(students)) {
+            return res.status(400).json({ message: "students must be an array" });
+        }
+
+        const validStudents = extractValidIds(students);
+
+        if (mode === 'append') {
+            const existing = extractValidIds(course.students);
+            course.students = [...new Set([...existing, ...validStudents])];
+        } else {
+            course.students = validStudents;
+        }
 
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
@@ -151,13 +173,15 @@ const updateCourse = async (req, res) => {
     try {
         const { name, description, students } = req.body;
         const courseId = req.params.id;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(courseId);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         if (name !== undefined) course.name = name;
         if (description !== undefined) course.description = description;
-        if (students !== undefined) course.students = students;
+        if (students !== undefined) course.students = extractValidIds(students);
 
         await course.save();
         const populatedCourse = await courseModel.findById(courseId)
@@ -174,9 +198,11 @@ const updateSession = async (req, res) => {
     try {
         const { title, date, explanationVideoUrl, recordingUrl, pdfExercises, hwPdfs, onlineHw, onlineClasswork, order } = req.body;
         const { id, sessionId } = req.params;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(id);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
 
         const session = course.sessions.id(sessionId);
         if (!session) return res.status(404).json({ message: "Session not found" });
@@ -205,9 +231,26 @@ const updateSession = async (req, res) => {
 const deleteSession = async (req, res) => {
     try {
         const { id, sessionId } = req.params;
+        const teacherId = req.userData._id;
 
         const course = await courseModel.findById(id);
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (String(course.teacher) !== String(teacherId)) return res.status(403).json({ message: "Unauthorized: you do not own this course" });
+
+        const session = course.sessions.id(sessionId);
+        if (!session) return res.status(404).json({ message: "Session not found" });
+
+        // Clean up any Cloudinary assets from deleted session submissions
+        if (Array.isArray(session.studentHwSubmissions)) {
+            for (const sub of session.studentHwSubmissions) {
+                if (sub.publicId) {
+                    try {
+                        await cloudinary.uploader.destroy(sub.publicId, { resource_type: 'raw' });
+                        await cloudinary.uploader.destroy(sub.publicId, { resource_type: 'image' });
+                    } catch (e) {}
+                }
+            }
+        }
 
         course.sessions.pull({ _id: sessionId });
 
@@ -231,10 +274,28 @@ const deleteCourse = async (req, res) => {
     try {
         const { id } = req.params;
         const teacherId = req.userData._id;
-        const course = await courseModel.findOneAndDelete({ _id: id, teacher: teacherId });
+        const course = await courseModel.findOne({ _id: id, teacher: teacherId });
         if (!course) {
             return res.status(404).json({ message: "Course not found or unauthorized to delete this course" });
         }
+
+        // Clean up Cloudinary assets across all sessions in this course
+        if (Array.isArray(course.sessions)) {
+            for (const sess of course.sessions) {
+                if (Array.isArray(sess.studentHwSubmissions)) {
+                    for (const sub of sess.studentHwSubmissions) {
+                        if (sub.publicId) {
+                            try {
+                                await cloudinary.uploader.destroy(sub.publicId, { resource_type: 'raw' });
+                                await cloudinary.uploader.destroy(sub.publicId, { resource_type: 'image' });
+                            } catch (e) {}
+                        }
+                    }
+                }
+            }
+        }
+
+        await courseModel.findByIdAndDelete(id);
 
         res.status(200).json({ message: "Course deleted successfully" });
     } catch (error) {
@@ -269,13 +330,46 @@ const submitStudentHw = async (req, res) => {
             s => s.studentId && s.studentId.toString() === studentId.toString() && (s.hwPdfIndex || 0) === targetIndex
         );
 
+        let finalFileUrl = fileUrl;
+        let uploadedPublicId = null;
+
+        // Upload Base64 Data URL to Cloudinary
+        if (typeof fileUrl === 'string' && (fileUrl.startsWith('data:') || fileUrl.startsWith('blob:'))) {
+            try {
+                const uploadRes = await cloudinary.uploader.upload(fileUrl, {
+                    folder: 'student_hw_submissions',
+                    resource_type: 'auto',
+                    public_id: `hw_${sessionId}_${studentId}_${Date.now()}`
+                });
+                finalFileUrl = uploadRes.secure_url;
+                uploadedPublicId = uploadRes.public_id;
+            } catch (cloudErr) {
+                console.error('Cloudinary upload error:', cloudErr);
+                return res.status(500).json({ message: "Failed to upload file to cloud storage", error: cloudErr.message });
+            }
+        }
+
+        // If re-uploading, delete old Cloudinary asset
+        if (existingIdx >= 0) {
+            const oldSub = session.studentHwSubmissions[existingIdx];
+            if (oldSub && oldSub.publicId && oldSub.publicId !== uploadedPublicId) {
+                try {
+                    await cloudinary.uploader.destroy(oldSub.publicId, { resource_type: 'raw' });
+                    await cloudinary.uploader.destroy(oldSub.publicId, { resource_type: 'image' });
+                } catch (e) {
+                    console.warn('Error deleting old Cloudinary asset:', e.message);
+                }
+            }
+        }
+
         const newSubmission = {
             studentId,
             studentName,
             studentEmail,
             hwPdfIndex: targetIndex,
             hwPdfName: hwPdfName || `HW PDF #${targetIndex + 1}`,
-            fileUrl,
+            fileUrl: finalFileUrl,
+            publicId: uploadedPublicId,
             fileName: fileName || `homework_solution_${studentName}.pdf`,
             submittedAt: new Date()
         };
