@@ -101,6 +101,8 @@ app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, ch
 
 const request = require('request')
 const CronJob = require('cron').CronJob;
+const { startHwCleanupCron } = require('./src/services/hwCleanupCron');
+startHwCleanupCron();
 
 // new CronJob('*/10 * * * *', function () {
 //     request('https://practice-papers.onrender.com/', function (error, response, body) {
