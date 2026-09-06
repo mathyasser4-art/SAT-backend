@@ -60,7 +60,7 @@ const getResult = async (req, res) => {
             const assignment = await assignmentModel.findById(assignmentID)
                 .populate({
                     path: 'questions',
-                    select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect'
+                    select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect wrongAnswer wrongPicAnswer'
                 });
 
             let totalSummation = 0;
@@ -69,29 +69,42 @@ const getResult = async (req, res) => {
             if (assignment && assignment.questions) {
                 assignment.questions.forEach(question => {
                     if (!question) return;
-                    totalSummation += (question.questionPoints || 0);
+                    const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
+                    totalSummation += qPoints;
 
                     const studentAnswerForQuestion = findAnswer.questions.find(
                         (ans) => ans && ans.question && (ans.question._id || ans.question).toString() === question._id.toString()
                     );
 
                     if (studentAnswerForQuestion) {
-                        let isCorrect = false;
-                        if (question.typeOfAnswer === 'Graph' && studentAnswerForQuestion.stepPicture?.secure_url) {
-                            isCorrect = checkAnswer(question, studentAnswerForQuestion.stepPicture.secure_url);
-                        } else {
-                            isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
+                        let isCorrect = studentAnswerForQuestion.isCorrect === true;
+                        if (!isCorrect) {
+                            if (question.typeOfAnswer === 'Graph' && studentAnswerForQuestion.stepPicture?.secure_url) {
+                                isCorrect = checkAnswer(question, studentAnswerForQuestion.stepPicture.secure_url);
+                            } else {
+                                isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
+                            }
                         }
                         
                         if (isCorrect) {
-                            studentTotalScore += (question.questionPoints || 0);
-                            studentAnswerForQuestion.point = question.questionPoints || 0;
+                            studentTotalScore += qPoints;
+                            studentAnswerForQuestion.point = qPoints;
                         } else {
                             studentAnswerForQuestion.point = 0;
                         }
                         studentAnswerForQuestion.isCorrect = isCorrect;
                     }
                 });
+            }
+
+            // Fallback: If studentTotalScore is 0 but questions have points or were correct
+            if (studentTotalScore === 0 && findAnswer.questions && findAnswer.questions.length > 0) {
+                let fallbackScore = 0;
+                findAnswer.questions.forEach(q => {
+                    if (q.point && q.point > 0) fallbackScore += q.point;
+                    else if (q.isCorrect) fallbackScore += 1;
+                });
+                if (fallbackScore > 0) studentTotalScore = fallbackScore;
             }
 
             findAnswer.total = studentTotalScore;
@@ -103,6 +116,10 @@ const getResult = async (req, res) => {
 
             await findAnswer.save();
 
+            const finalTotalSummation = (assignment?.totalPoints && assignment.totalPoints > 0)
+                ? assignment.totalPoints
+                : (totalSummation > 0 ? totalSummation : (assignment?.questions?.length || 1));
+
             return res.json({
                 message: "success",
                 result: {
@@ -110,7 +127,7 @@ const getResult = async (req, res) => {
                     questionsNumber: findAnswer.questionsNumber,
                     time: findAnswer.time
                 },
-                totalSummation,
+                totalSummation: finalTotalSummation,
             });
         } else {
             return res.json({
@@ -175,6 +192,7 @@ const checkAssinmentAnswer = async (req, res) => {
             });
         }
 
+        const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
         const answerToSave = (questionAnswer !== undefined && questionAnswer !== null) ? String(questionAnswer) : (firstAnswer !== undefined && firstAnswer !== null ? String(firstAnswer) : '');
 
         // Check if the answer is correct using practice-style checkAnswer service
@@ -188,7 +206,7 @@ const checkAssinmentAnswer = async (req, res) => {
         if (questionIndex > -1) {
             findAnswer.questions[questionIndex].firstAnswer = answerToSave;
             findAnswer.questions[questionIndex].isCorrect = isCorrect;
-            findAnswer.questions[questionIndex].point = isCorrect ? (question.questionPoints || 0) : 0;
+            findAnswer.questions[questionIndex].point = isCorrect ? qPoints : 0;
             if (secondAnswer) findAnswer.questions[questionIndex].secondAnswer = String(secondAnswer);
             if (thirdAnswer) findAnswer.questions[questionIndex].thirdAnswer = String(thirdAnswer);
             if (fourthAnswer) findAnswer.questions[questionIndex].fourthAnswer = String(fourthAnswer);
@@ -201,11 +219,21 @@ const checkAssinmentAnswer = async (req, res) => {
                 fourthAnswer: fourthAnswer ? String(fourthAnswer) : '',
                 attempts: 1,
                 isCorrect: isCorrect,
-                point: isCorrect ? (question.questionPoints || 0) : 0
+                point: isCorrect ? qPoints : 0
             };
             findAnswer.questions.push(newQuestionAnswer);
         }
 
+        // Real-time calculation of total points earned so far
+        let currentTotalScore = 0;
+        findAnswer.questions.forEach(q => {
+            if (q.point && q.point > 0) {
+                currentTotalScore += q.point;
+            } else if (q.isCorrect) {
+                currentTotalScore += 1;
+            }
+        });
+        findAnswer.total = currentTotalScore;
         findAnswer.questionsNumber = findAnswer.questions.length;
         await findAnswer.save();
 
@@ -304,7 +332,7 @@ const getAssignmentAnswer = async (req, res) => {
         // Always fetch full assignment with all questions for merging
         const assignment = await assignmentModel.findById(assignmentID).populate({
             path: 'questions',
-            select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
+            select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer'
         });
 
         if (!answers) {
@@ -323,6 +351,8 @@ const getAssignmentAnswer = async (req, res) => {
                     notAnswer: true,
                     questionPoints: q.questionPoints || 0,
                     correctAnswer: buildCorrectAnswerStr(q),
+                    wrongAnswer: q.wrongAnswer || [],
+                    wrongPicAnswer: q.wrongPicAnswer || [],
                     typeOfAnswer: q.typeOfAnswer || 'Essay'
                 }))
             };
@@ -356,14 +386,22 @@ const getAssignmentAnswer = async (req, res) => {
         });
 
         // Build report from ALL assignment questions
+        let calculatedScoreFromReport = 0;
+        let calculatedPossibleFromReport = 0;
+
         const reportQuestions = allAssignmentQuestions.map(question => {
             const qId = question._id ? question._id.toString() : String(question);
             const studentAnswer = studentAnswerMap[qId];
+            const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
+            calculatedPossibleFromReport += qPoints;
 
             if (studentAnswer) {
                 // Student answered this question
                 const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
+                const isCorrect = studentAnswer.isCorrect || false;
+                const point = (studentAnswer.point && studentAnswer.point > 0) ? studentAnswer.point : (isCorrect ? qPoints : 0);
+                if (isCorrect) calculatedScoreFromReport += point;
 
                 return {
                     _id: studentAnswer._id || qId,
@@ -373,11 +411,13 @@ const getAssignmentAnswer = async (req, res) => {
                     firstAnswer: studentAnswer.firstAnswer || '',
                     secondAnswer: studentAnswer.secondAnswer || '',
                     stepsPic: studentAnswer.stepPicture?.secure_url || null,
-                    isCorrect: studentAnswer.isCorrect || false,
+                    isCorrect: isCorrect,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
-                    questionPoints: question.questionPoints || 0,
-                    point: studentAnswer.point || 0,
+                    questionPoints: qPoints,
+                    point: point,
                     correctAnswer: buildCorrectAnswerStr(question),
+                    wrongAnswer: question.wrongAnswer || [],
+                    wrongPicAnswer: question.wrongPicAnswer || [],
                     typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
             } else {
@@ -392,9 +432,11 @@ const getAssignmentAnswer = async (req, res) => {
                     stepsPic: null,
                     isCorrect: false,
                     notAnswer: true,
-                    questionPoints: question.questionPoints || 0,
+                    questionPoints: qPoints,
                     point: 0,
                     correctAnswer: buildCorrectAnswerStr(question),
+                    wrongAnswer: question.wrongAnswer || [],
+                    wrongPicAnswer: question.wrongPicAnswer || [],
                     typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
             }
@@ -403,17 +445,30 @@ const getAssignmentAnswer = async (req, res) => {
         const report = { questions: reportQuestions };
         const assignmentData = answers.assignment || assignment;
 
+        const finalScore = (typeof answers.total === 'number' && answers.total > 0)
+            ? answers.total
+            : calculatedScoreFromReport;
+
+        const finalTotalPoints = (assignmentData?.totalPoints && assignmentData.totalPoints > 0)
+            ? assignmentData.totalPoints
+            : (calculatedPossibleFromReport > 0 ? calculatedPossibleFromReport : (reportQuestions.length || 1));
+
+        // Self-heal answers.total in DB if it was 0 or unpopulated and we have calculatedScoreFromReport > 0
+        if ((!answers.total || answers.total === 0) && calculatedScoreFromReport > 0) {
+            answerModel.findByIdAndUpdate(answers._id, { total: calculatedScoreFromReport }).exec().catch(() => {});
+        }
+
         return res.json({
             message: "success",
             answers: {
                 assignment: assignmentData ? {
                     _id: assignmentData._id,
                     title: assignmentData.title,
-                    totalPoints: assignmentData.totalPoints || 0
-                } : { title: 'Assignment', totalPoints: 0 },
+                    totalPoints: finalTotalPoints
+                } : { title: 'Assignment', totalPoints: finalTotalPoints },
                 time: answers.time || "0:00",
-                total: answers.total || 0,
-                questionsNumber: answers.questionsNumber || 0
+                total: finalScore,
+                questionsNumber: answers.questionsNumber || reportQuestions.length
             },
             report
         });
@@ -473,7 +528,7 @@ const getStudentOwnReport = async (req, res) => {
         // Always fetch full assignment with all questions for merging
         const assignment = await assignmentModel.findById(assignmentID).populate({
             path: 'questions',
-            select: 'question questionPic questionPoints typeOfAnswer correctAnswer answer correctPicAnswer'
+            select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer'
         });
 
         if (!answers) {
@@ -493,6 +548,8 @@ const getStudentOwnReport = async (req, res) => {
                     questionPoints: q.questionPoints || 0,
                     point: 0,
                     correctAnswer: buildCorrectAnswerStr(q),
+                    wrongAnswer: q.wrongAnswer || [],
+                    wrongPicAnswer: q.wrongPicAnswer || [],
                     typeOfAnswer: q.typeOfAnswer || 'Essay'
                 }))
             };
@@ -522,13 +579,21 @@ const getStudentOwnReport = async (req, res) => {
         });
 
         // Build report from ALL assignment questions
+        let calculatedScoreFromReport = 0;
+        let calculatedPossibleFromReport = 0;
+
         const reportQuestions = allAssignmentQuestions.map(question => {
             const qId = question._id ? question._id.toString() : String(question);
             const studentAnswer = studentAnswerMap[qId];
+            const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
+            calculatedPossibleFromReport += qPoints;
 
             if (studentAnswer) {
                 const hasFirstAnswer = studentAnswer.firstAnswer !== undefined && studentAnswer.firstAnswer !== null && studentAnswer.firstAnswer !== '';
                 const hasSecondAnswer = studentAnswer.secondAnswer !== undefined && studentAnswer.secondAnswer !== null && studentAnswer.secondAnswer !== '';
+                const isCorrect = studentAnswer.isCorrect || false;
+                const point = (studentAnswer.point && studentAnswer.point > 0) ? studentAnswer.point : (isCorrect ? qPoints : 0);
+                if (isCorrect) calculatedScoreFromReport += point;
 
                 return {
                     _id: studentAnswer._id || qId,
@@ -538,11 +603,13 @@ const getStudentOwnReport = async (req, res) => {
                     firstAnswer: studentAnswer.firstAnswer || '',
                     secondAnswer: studentAnswer.secondAnswer || '',
                     stepsPic: studentAnswer.stepPicture?.secure_url || null,
-                    isCorrect: studentAnswer.isCorrect || false,
+                    isCorrect: isCorrect,
                     notAnswer: !hasFirstAnswer && !hasSecondAnswer,
-                    questionPoints: question.questionPoints || 0,
-                    point: studentAnswer.point || 0,
+                    questionPoints: qPoints,
+                    point: point,
                     correctAnswer: buildCorrectAnswerStr(question),
+                    wrongAnswer: question.wrongAnswer || [],
+                    wrongPicAnswer: question.wrongPicAnswer || [],
                     typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
             } else {
@@ -557,9 +624,11 @@ const getStudentOwnReport = async (req, res) => {
                     stepsPic: null,
                     isCorrect: false,
                     notAnswer: true,
-                    questionPoints: question.questionPoints || 0,
+                    questionPoints: qPoints,
                     point: 0,
                     correctAnswer: buildCorrectAnswerStr(question),
+                    wrongAnswer: question.wrongAnswer || [],
+                    wrongPicAnswer: question.wrongPicAnswer || [],
                     typeOfAnswer: question.typeOfAnswer || 'Essay'
                 };
             }
@@ -568,17 +637,30 @@ const getStudentOwnReport = async (req, res) => {
         const report = { questions: reportQuestions };
         const assignmentData = answers.assignment || assignment;
 
+        const finalScore = (typeof answers.total === 'number' && answers.total > 0)
+            ? answers.total
+            : calculatedScoreFromReport;
+
+        const finalTotalPoints = (assignmentData?.totalPoints && assignmentData.totalPoints > 0)
+            ? assignmentData.totalPoints
+            : (calculatedPossibleFromReport > 0 ? calculatedPossibleFromReport : (reportQuestions.length || 1));
+
+        // Self-heal answers.total in DB if it was 0 or unpopulated and we have calculatedScoreFromReport > 0
+        if ((!answers.total || answers.total === 0) && calculatedScoreFromReport > 0) {
+            answerModel.findByIdAndUpdate(answers._id, { total: calculatedScoreFromReport }).exec().catch(() => {});
+        }
+
         return res.json({
             message: "success",
             answers: {
                 assignment: assignmentData ? {
                     _id: assignmentData._id,
                     title: assignmentData.title,
-                    totalPoints: assignmentData.totalPoints || 0
-                } : { title: 'Assignment', totalPoints: 0 },
+                    totalPoints: finalTotalPoints
+                } : { title: 'Assignment', totalPoints: finalTotalPoints },
                 time: answers.time || "0:00",
-                total: answers.total || 0,
-                questionsNumber: answers.questionsNumber || 0
+                total: finalScore,
+                questionsNumber: answers.questionsNumber || reportQuestions.length
             },
             report
         });
@@ -656,18 +738,34 @@ const getAllAttempts = async (req, res) => {
         const allAttempts = await answerModel.find({
             solveBy: studentID,
             assignment: assignmentID
-        }).sort({ attemptNumber: 1 }).select('attemptNumber total time completedAt createdAt');
+        }).sort({ attemptNumber: 1 }).select('attemptNumber total time completedAt createdAt questions');
 
         // Get assignment details for context
-        const assignment = await assignmentModel.findById(assignmentID).select('title totalPoints attemptsNumber students');
+        const assignment = await assignmentModel.findById(assignmentID).select('title totalPoints attemptsNumber students questions');
         const studentRecord = assignment.students?.find(s => String(s.solveBy) === String(studentID));
         const currentAttemptNumber = studentRecord?.attempts || 0;
 
         // Calculate statistics
         const completedAttempts = allAttempts.filter(a => a.completedAt);
-        const scores = completedAttempts.map(a => a.total || 0);
+        const scores = completedAttempts.map(a => {
+            if (typeof a.total === 'number' && a.total > 0) return a.total;
+            let calc = 0;
+            if (Array.isArray(a.questions)) {
+                a.questions.forEach(q => {
+                    if (q && q.point && q.point > 0) calc += q.point;
+                    else if (q && q.isCorrect) calc += 1;
+                });
+            }
+            if (calc > 0 && (!a.total || a.total === 0)) {
+                answerModel.findByIdAndUpdate(a._id, { total: calc }).exec().catch(() => {});
+            }
+            return calc;
+        });
         const bestScore = scores.length > 0 ? Math.max(...scores) : 0;
         const averageScore = scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
+        const totalPossiblePoints = (assignment?.totalPoints && assignment.totalPoints > 0)
+            ? assignment.totalPoints
+            : (assignment?.questions ? assignment.questions.length : 1);
 
         res.json({
             message: "success",
@@ -680,7 +778,7 @@ const getAllAttempts = async (req, res) => {
                 maxAttempts: assignment.attemptsNumber,
                 bestScore: bestScore,
                 averageScore: Math.round(averageScore * 100) / 100,
-                totalPossiblePoints: assignment.totalPoints
+                totalPossiblePoints: totalPossiblePoints
             }
         });
     } catch (error) {
@@ -722,26 +820,42 @@ const emergencySubmit = async (req, res) => {
             // Run scoring pass on existing answers
             const assignment = await assignmentModel.findById(assignmentID).populate({
                 path: 'questions',
-                select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect'
+                select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect wrongAnswer wrongPicAnswer'
             });
 
             let studentTotalScore = 0;
             if (assignment && assignment.questions) {
                 assignment.questions.forEach(question => {
                     if (!question) return;
+                    const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
                     const studentAnswerForQuestion = incompleteAnswer.questions.find(
                         ans => ans && ans.question && (ans.question._id || ans.question).toString() === question._id.toString()
                     );
                     if (studentAnswerForQuestion) {
-                        const isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
+                        let isCorrect = studentAnswerForQuestion.isCorrect === true;
+                        if (!isCorrect) {
+                            if (question.typeOfAnswer === 'Graph' && studentAnswerForQuestion.stepPicture?.secure_url) {
+                                isCorrect = checkAnswer(question, studentAnswerForQuestion.stepPicture.secure_url);
+                            } else {
+                                isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
+                            }
+                        }
                         if (isCorrect) {
-                            studentTotalScore += (question.questionPoints || 0);
-                            studentAnswerForQuestion.point = question.questionPoints || 0;
+                            studentTotalScore += qPoints;
+                            studentAnswerForQuestion.point = qPoints;
                         } else {
                             studentAnswerForQuestion.point = 0;
                         }
                         studentAnswerForQuestion.isCorrect = isCorrect;
                     }
+                });
+            }
+
+            // Fallback score if 0 but questions were correct
+            if (studentTotalScore === 0 && incompleteAnswer.questions && incompleteAnswer.questions.length > 0) {
+                incompleteAnswer.questions.forEach(q => {
+                    if (q.point && q.point > 0) studentTotalScore += q.point;
+                    else if (q.isCorrect) studentTotalScore += 1;
                 });
             }
 

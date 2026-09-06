@@ -5,6 +5,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
 const mongoose = require('mongoose')
 const userModel = require('../../../../DB/models/user.model')
+const courseModel = require('../../../../DB/models/course.model')
 
 const createAssignment = async (req, res) => {
     try {
@@ -176,17 +177,30 @@ const getStudentResults = async (req, res) => {
             return res.status(404).json({ message: "Assignment not found" });
         }
 
-        // Check if teacher created this assignment
-        if (String(assignment.createdBy) !== String(teacherID)) {
-            return res.status(403).json({ message: "Access denied - You don't own this assignment" });
+        // Check permissions: Privileged roles (Admin, School, Supervisor, IT), creator, or course teacher
+        const userRole = req.userData?.role;
+        const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(userRole);
+
+        if (!isPrivileged && assignment.createdBy && String(assignment.createdBy) !== String(teacherID)) {
+            const courseWithAssignment = await courseModel.findOne({
+                teacher: teacherID,
+                $or: [
+                    { 'sessions.onlineHw': assignmentID },
+                    { 'sessions.onlineClasswork': assignmentID }
+                ]
+            });
+            if (!courseWithAssignment) {
+                return res.status(403).json({ message: "Access denied - You don't own this assignment" });
+            }
         }
 
-        // 1. Get all answers submitted for this assignment
+        // 1. Get all answers submitted for this assignment (sorted by latest attempt first)
         const answers = await answerModel.find({ 
             assignment: assignmentID
         })
+            .sort({ attemptNumber: -1, createdAt: -1 })
             .populate('solveBy', 'userName email class')
-            .select('total questionsNumber time createdAt completedAt questions solveBy');
+            .select('total questionsNumber time createdAt completedAt questions solveBy attemptNumber');
 
         // 2. Get all students in assigned classes
         let assignedStudents = [];
@@ -205,19 +219,37 @@ const getStudentResults = async (req, res) => {
                 .map(a => a.solveBy);
         }
 
+        // Deduplicate students by ID to prevent duplicate rows in reports
+        const uniqueStudentMap = new Map();
+        assignedStudents.forEach(st => {
+            if (st && (st._id || st.id)) {
+                const sKey = (st._id || st.id).toString();
+                if (!uniqueStudentMap.has(sKey)) {
+                    uniqueStudentMap.set(sKey, st);
+                }
+            }
+        });
+        assignedStudents = Array.from(uniqueStudentMap.values());
+
         // Calculate total possible points from questions
         let totalPoints = assignment.totalPoints || 0;
         if ((!totalPoints || totalPoints === 0) && assignment.questions && assignment.questions.length > 0) {
-            totalPoints = assignment.questions.reduce((sum, q) => sum + (q.questionPoints || 0), 0);
+            totalPoints = assignment.questions.reduce((sum, q) => sum + ((typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1), 0);
+        }
+        if (!totalPoints || totalPoints <= 0) {
+            totalPoints = assignment.questions ? assignment.questions.length : 1;
         }
 
         // Create lookup map of answer documents by student ID
+        // Since answers is sorted by latest attempt (attemptNumber -1, createdAt -1),
+        // the first entry we encounter is the latest attempt.
         const studentAnswerMap = {};
         answers.forEach(answer => {
             if (answer.solveBy && answer.solveBy._id) {
                 const sId = answer.solveBy._id.toString();
-                // Store latest or completed answer
-                if (!studentAnswerMap[sId] || answer.completedAt) {
+                if (!studentAnswerMap[sId]) {
+                    studentAnswerMap[sId] = answer;
+                } else if (!studentAnswerMap[sId].completedAt && answer.completedAt) {
                     studentAnswerMap[sId] = answer;
                 }
             }
@@ -229,7 +261,26 @@ const getStudentResults = async (req, res) => {
             const answer = studentAnswerMap[sId];
 
             if (answer) {
-                const score = answer.total || 0;
+                let calculatedScore = 0;
+                if (Array.isArray(answer.questions)) {
+                    answer.questions.forEach(q => {
+                        if (q && q.point && q.point > 0) {
+                            calculatedScore += q.point;
+                        } else if (q && q.isCorrect) {
+                            calculatedScore += 1;
+                        }
+                    });
+                }
+
+                const score = (typeof answer.total === 'number' && answer.total > 0)
+                    ? answer.total
+                    : calculatedScore;
+
+                // Self-heal answer.total in DB if it was 0 or unpopulated and we have calculatedScore > 0
+                if ((!answer.total || answer.total === 0) && calculatedScore > 0) {
+                    answerModel.findByIdAndUpdate(answer._id, { total: calculatedScore }).exec().catch(() => {});
+                }
+
                 const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
                 const isCompleted = !!answer.completedAt;
 
@@ -239,13 +290,13 @@ const getStudentResults = async (req, res) => {
                     userName: student.userName || 'Student',
                     email: student.email || '',
                     status: isCompleted ? 'Completed' : 'In Progress',
-                    answeredQuestions: answer.questionsNumber || 0,
+                    answeredQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : 0),
                     score: score,
                     totalPossible: totalPoints,
                     timeSpent: answer.time || '0:00',
                     percentage: percentage,
                     completedAt: answer.completedAt || answer.createdAt,
-                    totalQuestions: assignment.questions ? assignment.questions.length : 0
+                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints
                 };
             } else {
                 // Student has not started this assignment yet
@@ -261,7 +312,7 @@ const getStudentResults = async (req, res) => {
                     timeSpent: '0:00',
                     percentage: 0,
                     completedAt: null,
-                    totalQuestions: assignment.questions ? assignment.questions.length : 0
+                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints
                 };
             }
         });

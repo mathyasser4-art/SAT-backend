@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model')
 const classModel = require('../../../../DB/models/class.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
+const courseModel = require('../../../../DB/models/course.model')
 const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
@@ -399,10 +400,35 @@ const getStudentHistory = async (req, res) => {
             })
             .sort({ _id: -1 });
 
+        const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(req.userData?.role);
+        
+        let teacherCourseAssignmentIds = new Set();
+        if (!isPrivileged) {
+            try {
+                const teacherCourses = await courseModel.find({ teacherID: teacherID }).select('sessions assignment');
+                teacherCourses.forEach(c => {
+                    if (c.assignment && Array.isArray(c.assignment)) {
+                        c.assignment.forEach(aId => teacherCourseAssignmentIds.add(String(aId)));
+                    }
+                    if (c.sessions && Array.isArray(c.sessions)) {
+                        c.sessions.forEach(sess => {
+                            (sess.onlineHw || []).forEach(hw => teacherCourseAssignmentIds.add(String(hw._id || hw)));
+                            (sess.onlineTest || []).forEach(t => teacherCourseAssignmentIds.add(String(t._id || t)));
+                        });
+                    }
+                });
+            } catch (e) {
+                console.warn('Error querying teacher courses for history:', e.message);
+            }
+        }
+
         const validAnswers = studentAnswers.filter(answer => {
             if (!answer.assignment) return false;
+            if (isPrivileged) return true;
             if (!answer.assignment.createdBy) return true;
-            return String(answer.assignment.createdBy) === String(teacherID);
+            if (String(answer.assignment.createdBy) === String(teacherID)) return true;
+            if (teacherCourseAssignmentIds.has(String(answer.assignment._id))) return true;
+            return false;
         });
 
         if (validAnswers.length === 0) {
@@ -424,8 +450,18 @@ const getStudentHistory = async (req, res) => {
         }
 
         const scores = validAnswers.map(answer => {
-            const totalPossible = answer.assignment?.totalPoints || 1;
-            const percentage = totalPossible > 0 ? (answer.total / totalPossible) * 100 : 0;
+            const totalPossible = (answer.assignment?.totalPoints && answer.assignment.totalPoints > 0)
+                ? answer.assignment.totalPoints
+                : (answer.questionsNumber || (answer.questions ? answer.questions.length : 1));
+            let calculatedScore = 0;
+            if (Array.isArray(answer.questions)) {
+                answer.questions.forEach(q => {
+                    if (q && q.point && q.point > 0) calculatedScore += q.point;
+                    else if (q && q.isCorrect) calculatedScore += 1;
+                });
+            }
+            const score = (typeof answer.total === 'number' && answer.total > 0) ? answer.total : calculatedScore;
+            const percentage = totalPossible > 0 ? (score / totalPossible) * 100 : 0;
             return isNaN(percentage) ? 0 : percentage;
         });
 
@@ -435,8 +471,18 @@ const getStudentHistory = async (req, res) => {
         const lowestScore = Math.min(...scores);
 
         const assignments = validAnswers.map(answer => {
-            const totalPossible = answer.assignment?.totalPoints || 1;
-            const percentage = totalPossible > 0 ? (answer.total / totalPossible) * 100 : 0;
+            const totalPossible = (answer.assignment?.totalPoints && answer.assignment.totalPoints > 0)
+                ? answer.assignment.totalPoints
+                : (answer.questionsNumber || (answer.questions ? answer.questions.length : 1));
+            let calculatedScore = 0;
+            if (Array.isArray(answer.questions)) {
+                answer.questions.forEach(q => {
+                    if (q && q.point && q.point > 0) calculatedScore += q.point;
+                    else if (q && q.isCorrect) calculatedScore += 1;
+                });
+            }
+            const score = (typeof answer.total === 'number' && answer.total > 0) ? answer.total : calculatedScore;
+            const percentage = totalPossible > 0 ? (score / totalPossible) * 100 : 0;
             const safePercentage = isNaN(percentage) ? 0 : percentage;
             let grade = 'F';
             if (safePercentage >= 90) grade = 'A';
@@ -448,13 +494,13 @@ const getStudentHistory = async (req, res) => {
                 _id: answer._id,
                 assignmentID: answer.assignment._id,
                 assignmentTitle: answer.assignment.title || 'Assignment',
-                score: answer.total || 0,
+                score: score,
                 totalPossible: totalPossible,
                 percentage: Math.round(safePercentage * 100) / 100,
                 grade: grade,
                 completedAt: answer.completedAt || answer.createdAt || answer.updatedAt,
-                totalQuestions: answer.questionsNumber || 0,
-                answeredQuestions: answer.questionsNumber || 0,
+                totalQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : totalPossible),
+                answeredQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : 0),
                 timeSpent: answer.time || '0:00'
             };
         });
