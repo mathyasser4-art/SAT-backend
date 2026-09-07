@@ -118,7 +118,8 @@ const duplicateAssignment = async (req, res) => {
             // Use new data from request body (title, dates, timer, attempts, classes)
             title: req.body.title,
             timer: req.body.timer,
-            attemptsNumber: req.body.attemptsNumber || 1,
+            attemptsNumber: req.body.attemptsNumber || originalAssignment.attemptsNumber || 1,
+            explanationMode: req.body.explanationMode || originalAssignment.explanationMode || 'independent',
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             classes: req.body.classes,
@@ -240,17 +241,36 @@ const getStudentResults = async (req, res) => {
             totalPoints = assignment.questions ? assignment.questions.length : 1;
         }
 
+        // Helper: calculate answer score
+        const getAnswerScore = (ans) => {
+            if (!ans) return 0;
+            if (typeof ans.total === 'number' && ans.total > 0) return ans.total;
+            let calc = 0;
+            if (Array.isArray(ans.questions)) {
+                ans.questions.forEach(q => {
+                    if (q && q.point && q.point > 0) calc += q.point;
+                    else if (q && q.isCorrect) calc += 1;
+                });
+            }
+            return calc;
+        };
+
         // Create lookup map of answer documents by student ID
-        // Since answers is sorted by latest attempt (attemptNumber -1, createdAt -1),
-        // the first entry we encounter is the latest attempt.
+        // Shows the HIGHEST score attempt across all student trials
         const studentAnswerMap = {};
         answers.forEach(answer => {
             if (answer.solveBy && answer.solveBy._id) {
                 const sId = answer.solveBy._id.toString();
                 if (!studentAnswerMap[sId]) {
                     studentAnswerMap[sId] = answer;
-                } else if (!studentAnswerMap[sId].completedAt && answer.completedAt) {
-                    studentAnswerMap[sId] = answer;
+                } else {
+                    const currentBestScore = getAnswerScore(studentAnswerMap[sId]);
+                    const newScore = getAnswerScore(answer);
+                    if (newScore > currentBestScore) {
+                        studentAnswerMap[sId] = answer;
+                    } else if (newScore === currentBestScore && !studentAnswerMap[sId].completedAt && answer.completedAt) {
+                        studentAnswerMap[sId] = answer;
+                    }
                 }
             }
         });

@@ -24,7 +24,15 @@ const assignmentSchema = new mongoose.Schema({
     timer: Number,
     startDate: String,
     endDate: String,
-    attemptsNumber: Number,
+    attemptsNumber: {
+        type: Number,
+        default: 1
+    },
+    explanationMode: {
+        type: String,
+        enum: ['guided', 'independent'],
+        default: 'independent'
+    },
     totalPoints: Number,
 })
 

@@ -161,34 +161,38 @@ const checkTheAnswer = async (req, res) => {
         const { questionAnswer } = req.body
         const getQuestion = await questionModel.findById(questionID)
         if (getQuestion) {
+            const explanation = getQuestion.explanation || '';
             if (getQuestion.typeOfAnswer == 'Essay') {
                 // Case-insensitive comparison for Essay
                 const normalizedStudentAnswer = String(questionAnswer || '').toLowerCase().trim();
                 const isCorrect = getQuestion.answer.some(a => String(a).toLowerCase().trim() === normalizedStudentAnswer);
                 if (isCorrect) {
-                    res.json({ message: "success" });
+                    res.json({ message: "success", explanation, correctAnswer: getQuestion.answer.filter(Boolean).join(', ') });
                 } else {
                     res.json({ 
                         message: "this answer is wrong",
-                        correctAnswer: getQuestion.answer.filter(Boolean).join(', ')
+                        correctAnswer: getQuestion.answer.filter(Boolean).join(', '),
+                        explanation
                     });
                 }
             } else if (getQuestion.typeOfAnswer == 'MCQ') {
                 if (getQuestion.correctAnswer == questionAnswer) {
-                    res.json({ message: "success" });
+                    res.json({ message: "success", explanation, correctAnswer: getQuestion.correctAnswer });
                 } else {
                     res.json({ 
                         message: "this answer is wrong",
-                        correctAnswer: getQuestion.correctAnswer
+                        correctAnswer: getQuestion.correctAnswer,
+                        explanation
                     });
                 }
             } else {
                 if (getQuestion.correctPicAnswer == questionAnswer) {
-                    res.json({ message: "success" });
+                    res.json({ message: "success", explanation, correctAnswer: getQuestion.correctPicAnswer });
                 } else {
                     res.json({ 
                         message: "this answer is wrong",
-                        correctAnswer: getQuestion.correctPicAnswer
+                        correctAnswer: getQuestion.correctPicAnswer,
+                        explanation
                     });
                 }
             }

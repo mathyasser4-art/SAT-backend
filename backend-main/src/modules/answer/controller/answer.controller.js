@@ -244,6 +244,8 @@ const checkAssinmentAnswer = async (req, res) => {
         return res.status(200).json({ 
             message: "success", 
             isCorrect: isCorrect,
+            correctAnswer: buildCorrectAnswerStr(question),
+            explanation: question.explanation || '',
             answer: savedQuestion || { question: questionID, firstAnswer: answerToSave, isCorrect }
         });
 
@@ -256,6 +258,8 @@ const checkAssinmentAnswer = async (req, res) => {
         return res.status(200).json({ 
             message: "success", 
             isCorrect: false,
+            correctAnswer: '',
+            explanation: '',
             answer: { question: questionID, firstAnswer: '', isCorrect: false }
         });
     }
@@ -497,18 +501,36 @@ const getStudentOwnReport = async (req, res) => {
         const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
         const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
 
-        // Prefer completed answers, sort by latest attempt
-        let answers = await answerModel.findOne({ 
-            $or: [
-                { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
-                { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
-            ]
-        })
-        .sort({ attemptNumber: -1, createdAt: -1 })
-        .populate({
-            path: 'assignment',
-            select: 'title totalPoints questions'
-        });
+        const requestedAttempt = req.query.attempt ? parseInt(req.query.attempt) : (req.query.attemptNumber ? parseInt(req.query.attemptNumber) : null);
+
+        let answers = null;
+        if (requestedAttempt) {
+            answers = await answerModel.findOne({
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID, attemptNumber: requestedAttempt },
+                    { solveBy: studentObjId, assignment: assignmentObjId, attemptNumber: requestedAttempt }
+                ]
+            })
+            .populate({
+                path: 'assignment',
+                select: 'title totalPoints questions attemptsNumber'
+            });
+        }
+
+        if (!answers) {
+            // Prefer completed answers, sort by latest attempt
+            answers = await answerModel.findOne({ 
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
+                    { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
+                ]
+            })
+            .sort({ attemptNumber: -1, createdAt: -1 })
+            .populate({
+                path: 'assignment',
+                select: 'title totalPoints questions attemptsNumber'
+            });
+        }
 
         // Fallback: if no completed answer, get any answer
         if (!answers) {
@@ -521,14 +543,22 @@ const getStudentOwnReport = async (req, res) => {
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate({
                 path: 'assignment',
-                select: 'title totalPoints questions'
+                select: 'title totalPoints questions attemptsNumber'
             });
         }
+
+        // Fetch all attempts for this student on this assignment for trial switcher
+        const studentAttemptsList = await answerModel.find({
+            $or: [
+                { solveBy: studentID, assignment: assignmentID },
+                { solveBy: studentObjId, assignment: assignmentObjId }
+            ]
+        }).sort({ attemptNumber: 1 }).select('attemptNumber total time completedAt');
 
         // Always fetch full assignment with all questions for merging
         const assignment = await assignmentModel.findById(assignmentID).populate({
             path: 'questions',
-            select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer'
+            select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer explanation'
         });
 
         if (!answers) {
@@ -610,7 +640,8 @@ const getStudentOwnReport = async (req, res) => {
                     correctAnswer: buildCorrectAnswerStr(question),
                     wrongAnswer: question.wrongAnswer || [],
                     wrongPicAnswer: question.wrongPicAnswer || [],
-                    typeOfAnswer: question.typeOfAnswer || 'Essay'
+                    typeOfAnswer: question.typeOfAnswer || 'Essay',
+                    explanation: question.explanation || ''
                 };
             } else {
                 // Student did NOT answer this question
@@ -629,7 +660,8 @@ const getStudentOwnReport = async (req, res) => {
                     correctAnswer: buildCorrectAnswerStr(question),
                     wrongAnswer: question.wrongAnswer || [],
                     wrongPicAnswer: question.wrongPicAnswer || [],
-                    typeOfAnswer: question.typeOfAnswer || 'Essay'
+                    typeOfAnswer: question.typeOfAnswer || 'Essay',
+                    explanation: question.explanation || ''
                 };
             }
         });
@@ -656,11 +688,19 @@ const getStudentOwnReport = async (req, res) => {
                 assignment: assignmentData ? {
                     _id: assignmentData._id,
                     title: assignmentData.title,
-                    totalPoints: finalTotalPoints
-                } : { title: 'Assignment', totalPoints: finalTotalPoints },
+                    totalPoints: finalTotalPoints,
+                    attemptsNumber: assignmentData.attemptsNumber || assignment?.attemptsNumber || 1
+                } : { title: 'Assignment', totalPoints: finalTotalPoints, attemptsNumber: 1 },
                 time: answers.time || "0:00",
                 total: finalScore,
-                questionsNumber: answers.questionsNumber || reportQuestions.length
+                questionsNumber: answers.questionsNumber || reportQuestions.length,
+                attemptNumber: answers.attemptNumber || 1,
+                attemptsList: studentAttemptsList.map(a => ({
+                    attemptNumber: a.attemptNumber || 1,
+                    total: a.total,
+                    time: a.time,
+                    completedAt: a.completedAt
+                }))
             },
             report
         });
