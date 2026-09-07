@@ -1,5 +1,6 @@
 const subjectModel = require('../../../../DB/models/subject.model')
 const systemModel = require('../../../../DB/models/system.model')
+const unitModel = require('../../../../DB/models/unit.model')
 
 const addSubject = async (req, res) => {
     try {
@@ -44,4 +45,28 @@ const updateSubject = async (req, res) => {
     }
 }
 
-module.exports = { addSubject, updateSubject }
+const deleteSubject = async (req, res) => {
+    try {
+        const { subjectID } = req.params
+        const findSubject = await subjectModel.findById(subjectID)
+        if (findSubject) {
+            // Delete units associated with this subject
+            await unitModel.deleteMany({ subject: subjectID })
+            // Delete the subject
+            await subjectModel.findByIdAndDelete(subjectID)
+            // Pull subject ID from all systems
+            await systemModel.updateMany(
+                { subjects: subjectID },
+                { $pull: { subjects: subjectID } }
+            )
+            const allSystem = await systemModel.find().populate('subjects')
+            res.json({ message: "success", allSystem })
+        } else {
+            res.status(404).json({ message: "There is no subject with this id" })
+        }
+    } catch (error) {
+        res.status(502).json({ message: error.message })
+    }
+}
+
+module.exports = { addSubject, updateSubject, deleteSubject }

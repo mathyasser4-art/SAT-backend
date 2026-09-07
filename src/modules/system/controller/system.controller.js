@@ -1,4 +1,6 @@
 const systemModel = require('../../../../DB/models/system.model')
+const subjectModel = require('../../../../DB/models/subject.model')
+const unitModel = require('../../../../DB/models/unit.model')
 
 const addSystem = async (req, res) => {
     try {
@@ -47,4 +49,26 @@ const updateSystem = async (req, res) => {
     }
 }
 
-module.exports = { addSystem, getAllSystem, updateSystem }
+const deleteSystem = async (req, res) => {
+    try {
+        const { systemID } = req.params
+        const findSystem = await systemModel.findById(systemID)
+        if (findSystem) {
+            if (findSystem.subjects && findSystem.subjects.length > 0) {
+                // Delete all units associated with these subjects
+                await unitModel.deleteMany({ subject: { $in: findSystem.subjects } })
+                // Delete all subjects belonging to this system
+                await subjectModel.deleteMany({ _id: { $in: findSystem.subjects } })
+            }
+            await systemModel.findByIdAndDelete(systemID)
+            const allSystem = await systemModel.find().populate('subjects')
+            res.json({ message: "success", allSystem })
+        } else {
+            res.status(404).json({ message: "This system id is wrong" })
+        }
+    } catch (error) {
+        res.status(502).json({ message: error.message })
+    }
+}
+
+module.exports = { addSystem, getAllSystem, updateSystem, deleteSystem }
