@@ -15,14 +15,21 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
     
     let schoolClassIds = [];
     try {
-        const classes = await classModel.find({
-            $or: [
-                { school: { $in: associatedIds } },
-                { createdBy: { $in: associatedIds } },
-                { school: { $exists: false } },
-                { school: null }
-            ]
-        }).select('_id');
+        const classConditions = [
+            { school: { $in: associatedIds } },
+            { createdBy: { $in: associatedIds } },
+            { teachers: { $in: associatedIds } },
+            { school: { $exists: false } },
+            { school: null }
+        ];
+        if (userData && userData._id) {
+            classConditions.push({ teachers: userData._id });
+            classConditions.push({ createdBy: userData._id });
+        }
+        if (userData && Array.isArray(userData.classList) && userData.classList.length > 0) {
+            classConditions.push({ _id: { $in: userData.classList } });
+        }
+        const classes = await classModel.find({ $or: classConditions }).select('_id');
         schoolClassIds = classes.map(c => c._id);
     } catch(e) {}
 
@@ -33,6 +40,9 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
         { createdBy: { $exists: false } },
         { createdBy: null }
     ];
+    if (userData && userData._id) {
+        orConditions.push({ createdBy: userData._id });
+    }
 
     return {
         role: "Student",
@@ -88,9 +98,12 @@ const addStudent = async (req, res) => {
 
             req.body.verify = true;
             req.body.role = 'Student';
-            req.body.createdBy = schoolId;
+            req.body.createdBy = schoolId || req.userData._id;
             if (parentPhone) {
                 req.body.parentPhone = parentPhone;
+            }
+            if (req.body.class && (!req.body.classList || req.body.classList.length === 0)) {
+                req.body.classList = [req.body.class];
             }
 
             const addStudent = new userModel(req.body);
