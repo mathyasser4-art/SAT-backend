@@ -48,8 +48,9 @@ const getStudent = async (req, res) => {
         const studentQuery = await buildStudentQuery(req.userData);
 
         const allStudent = await userModel.find(studentQuery)
-            .select('userName email class')
+            .select('userName email class parent parentPhone')
             .populate({ path: 'class', select: 'class' })
+            .populate({ path: 'parent', select: 'userName email parentPhone' })
             .skip(skippedNumber)
             .limit(20);
 
@@ -68,7 +69,7 @@ const getStudent = async (req, res) => {
 
 const addStudent = async (req, res) => {
     try {
-        const { userName, password } = req.body;
+        const { userName, password, parentPhone, parentEmail, parentUserName, parentPassword } = req.body;
         const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
         const findStudent = await userModel.findOne({ userName, role: "Student", createdBy: { $in: associatedIds } });
 
@@ -88,14 +89,91 @@ const addStudent = async (req, res) => {
             req.body.verify = true;
             req.body.role = 'Student';
             req.body.createdBy = schoolId;
+            if (parentPhone) {
+                req.body.parentPhone = parentPhone;
+            }
 
             const addStudent = new userModel(req.body);
             await addStudent.save();
 
+            // --- AUTO CREATE & LINK PARENT ACCOUNT ---
+            let parentAccountInfo = null;
+            try {
+                const cleanStudentName = userName.replace(/\s+/g, '_').toLowerCase();
+                let targetParentUserName = (parentUserName && parentUserName.trim()) || `parent_${cleanStudentName}`;
+                let targetParentEmail = (parentEmail && parentEmail.trim().toLowerCase()) 
+                    || `${cleanStudentName}.parent@school.com`;
+
+                // Check if a parent user already exists with this email or username
+                let existingParent = await userModel.findOne({
+                    $or: [{ email: targetParentEmail }, { userName: targetParentUserName }]
+                });
+
+                if (existingParent && existingParent.role === 'Parent') {
+                    if (!existingParent.children) existingParent.children = [];
+                    if (!existingParent.children.includes(addStudent._id)) {
+                        existingParent.children.push(addStudent._id);
+                    }
+                    if (parentPhone && !existingParent.parentPhone) {
+                        existingParent.parentPhone = parentPhone;
+                    }
+                    await existingParent.save();
+
+                    addStudent.parent = existingParent._id;
+                    await addStudent.save();
+
+                    parentAccountInfo = {
+                        _id: existingParent._id,
+                        userName: existingParent.userName,
+                        email: existingParent.email,
+                        parentPhone: existingParent.parentPhone,
+                        role: 'Parent',
+                        isExisting: true
+                    };
+                } else {
+                    if (existingParent) {
+                        const randomSuffix = Math.floor(100 + Math.random() * 900);
+                        targetParentUserName = `${targetParentUserName}_${randomSuffix}`;
+                        targetParentEmail = `${cleanStudentName}.parent${randomSuffix}@school.com`;
+                    }
+
+                    const rawParentPassword = (parentPassword && parentPassword.trim()) || password;
+                    const hashedParentPassword = await bcrypt.hash(rawParentPassword, parseInt(process.env.SALTROUNDS) || 10);
+
+                    const newParent = new userModel({
+                        userName: targetParentUserName,
+                        email: targetParentEmail,
+                        password: hashedParentPassword,
+                        role: 'Parent',
+                        verify: true,
+                        createdBy: schoolId,
+                        parentPhone: parentPhone || '',
+                        children: [addStudent._id]
+                    });
+                    await newParent.save();
+
+                    addStudent.parent = newParent._id;
+                    await addStudent.save();
+
+                    parentAccountInfo = {
+                        _id: newParent._id,
+                        userName: newParent.userName,
+                        email: newParent.email,
+                        rawPassword: rawParentPassword,
+                        parentPhone: newParent.parentPhone,
+                        role: 'Parent',
+                        isNew: true
+                    };
+                }
+            } catch (pErr) {
+                console.error('Error auto-creating parent account:', pErr);
+            }
+
             const studentQuery = await buildStudentQuery(req.userData);
             const allStudent = await userModel.find(studentQuery)
-                .select('userName email class')
+                .select('userName email class parent parentPhone')
                 .populate({ path: 'class', select: 'class' })
+                .populate({ path: 'parent', select: 'userName email parentPhone' })
                 .skip(skippedNumber)
                 .limit(20);
             const countStudent = await userModel.countDocuments(studentQuery);
@@ -104,7 +182,8 @@ const addStudent = async (req, res) => {
                 message: "success",
                 allStudent: allStudent || [],
                 numberOfStudent: countStudent || 0,
-                totalPage: Math.max(1, Math.ceil(countStudent / 20))
+                totalPage: Math.max(1, Math.ceil(countStudent / 20)),
+                parentAccount: parentAccountInfo
             });
         }
     } catch (error) {
@@ -129,6 +208,15 @@ const updateStudent = async (req, res) => {
             delete req.body.password;
         }
 
+        if (req.body.parentPhone) {
+            try {
+                const studentDoc = await userModel.findById(studentID);
+                if (studentDoc && studentDoc.parent) {
+                    await userModel.findByIdAndUpdate(studentDoc.parent, { parentPhone: req.body.parentPhone });
+                }
+            } catch (pe) {}
+        }
+
         const updateStudent = await userModel.findByIdAndUpdate(studentID, req.body);
         if (updateStudent) {
             const skippedNumber = (page - 1) * 20;
@@ -136,8 +224,9 @@ const updateStudent = async (req, res) => {
 
             const countStudent = await userModel.countDocuments(studentQuery);
             const allStudent = await userModel.find(studentQuery)
-                .select('userName email class')
+                .select('userName email class parent parentPhone')
                 .populate({ path: 'class', select: 'class' })
+                .populate({ path: 'parent', select: 'userName email parentPhone' })
                 .skip(skippedNumber)
                 .limit(20);
 
@@ -165,6 +254,14 @@ const deleteStudent = async (req, res) => {
         if (findStudent) {
             const deleteStudent = await userModel.findByIdAndDelete(studentID);
             if (deleteStudent) {
+                if (deleteStudent.parent) {
+                    try {
+                        await userModel.findByIdAndUpdate(deleteStudent.parent, {
+                            $pull: { children: deleteStudent._id }
+                        });
+                    } catch (pe) {}
+                }
+
                 const findAnswer = await answerModel.find({ solveBy: deleteStudent._id });
                 for (let index = 0; index < findAnswer.length; index++) {
                     const element = findAnswer[index];
@@ -184,8 +281,9 @@ const deleteStudent = async (req, res) => {
 
                 const countStudent = await userModel.countDocuments(studentQuery);
                 const allStudent = await userModel.find(studentQuery)
-                    .select('userName email class')
+                    .select('userName email class parent parentPhone')
                     .populate({ path: 'class', select: 'class' })
+                    .populate({ path: 'parent', select: 'userName email parentPhone' })
                     .skip(skippedNumber)
                     .limit(20);
 
@@ -218,7 +316,7 @@ const removeStudentFromClass = async (req, res) => {
                 const allStudent = await userModel.find({ 
                     createdBy: { $in: associatedIds }, 
                     class: classID 
-                }).select('userName');
+                }).select('userName parent parentPhone').populate({ path: 'parent', select: 'userName email parentPhone' });
                 res.json({ message: "success", allStudent: allStudent || [] });
             } else {
                 res.json({ message: "an error is happend" });
@@ -239,8 +337,9 @@ const search = async (req, res) => {
             'userName': { $regex: searchKey, $options: 'i' }
         });
         const findStudent = await userModel.find(studentQuery)
-            .select('userName email class')
-            .populate({ path: 'class', select: 'class' });
+            .select('userName email class parent parentPhone')
+            .populate({ path: 'class', select: 'class' })
+            .populate({ path: 'parent', select: 'userName email parentPhone' });
 
         if (findStudent && findStudent.length !== 0) {
             res.json({ message: 'success', allStudent: findStudent });
@@ -397,7 +496,9 @@ const getAssignmentDetails = async (req, res) => {
 const getAllStudents = async (req, res) => {
     try {
         const studentQuery = await buildStudentQuery(req.userData);
-        const allStudents = await userModel.find(studentQuery).select('userName email class');
+        const allStudents = await userModel.find(studentQuery)
+            .select('userName email class parent parentPhone')
+            .populate({ path: 'parent', select: 'userName email parentPhone' });
         res.json({ message: "success", allStudents: allStudents || [] });
     } catch (error) {
         console.error('getAllStudents error:', error);

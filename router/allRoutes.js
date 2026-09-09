@@ -19,5 +19,6 @@ const supervisorRouter = require('../src/modules/supervisor/supervisor.routes')
 const uploadRouter = require('../src/modules/upload/upload.routes')
 const courseRouter = require('../src/modules/course/course.routes')
 const practiceRouter = require('../src/modules/practice/practice.routes')
+const parentRouter = require('../src/modules/parent/parent.routes')
 
-module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter }
+module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter }

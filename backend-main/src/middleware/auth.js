@@ -48,7 +48,7 @@ const userAuth = async (req, res, next) => {
             if (userFounded) {
                 if (userFounded.verify) {
                     if (!userFounded.block) {
-                        if (['User', 'Teacher', 'Student', 'Admin', 'School', 'IT', 'Supervisor'].includes(userFounded.role)) {
+                        if (['User', 'Teacher', 'Student', 'Admin', 'School', 'IT', 'Supervisor', 'Parent'].includes(userFounded.role)) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -320,4 +320,37 @@ const supervisorAuth = async (req, res, next) => {
     }
 }
 
-module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, itOrTeacherAuth, supervisorAuth }
+const parentAuth = async (req, res, next) => {
+    try {
+        const rawAuthHeader = extractTokenFromHeader(req.headers);
+        const authHeader = getTokenFromAuthHeader(rawAuthHeader);
+        if (authHeader) {
+            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const userFounded = await userModel.findById(id)
+            if (userFounded) {
+                if (userFounded.verify !== false) {
+                    if (!userFounded.block) {
+                        if (['Parent', 'Admin', 'School', 'Teacher'].includes(userFounded.role) && !userFounded.disable) {
+                            req.userData = userFounded
+                            next()
+                        } else {
+                            res.status(403).json({ message: 'You do not have access to parent portal' })
+                        }
+                    } else {
+                        res.status(403).json({ message: 'You cannot perform this transaction. This account has been blocked' })
+                    }
+                } else {
+                    res.status(401).json({ message: 'this account is not verify' })
+                }
+            } else {
+                res.status(404).json({ message: 'this user is not found' })
+            }
+        } else {
+            res.status(401).json({ message: 'this user access token is not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+module.exports = { userAuth, adminAuth, teacherAuth, studentAuth, schoolAuth, itAuth, itOrTeacherAuth, supervisorAuth, parentAuth }

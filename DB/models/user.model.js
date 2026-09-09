@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "User",
-        enum: ['User', 'Admin', 'School', 'Teacher', 'Student', 'IT', 'Supervisor'] 
+        enum: ['User', 'Admin', 'School', 'Teacher', 'Student', 'IT', 'Supervisor', 'Parent'] 
     },
     checkresetPasswordCode:{
         type: Boolean,
@@ -45,6 +45,16 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "schoolSubject"
     },
+    parent:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    children:{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "user"
+    },
+    parentPhone: String,
+    parentName: String,
     createdBy:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
