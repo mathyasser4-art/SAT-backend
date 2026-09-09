@@ -3,20 +3,26 @@ const userModel = require('../../../../DB/models/user.model');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
 
 const buildClassQuery = (associatedIds, userData) => {
+    // If the user is a Teacher, strictly restrict to classes assigned to or created by THIS teacher
+    if (userData && userData.role === 'Teacher') {
+        const teacherId = userData._id;
+        const teacherConditions = [
+            { teachers: teacherId },
+            { createdBy: teacherId }
+        ];
+        if (Array.isArray(userData.classList) && userData.classList.length > 0) {
+            teacherConditions.push({ _id: { $in: userData.classList } });
+        }
+        return { $or: teacherConditions };
+    }
+
+    // For School, IT, Admin, Supervisor: can see all classes belonging to the school hierarchy
     const orConditions = [
         { school: { $in: associatedIds } },
         { createdBy: { $in: associatedIds } },
-        { teachers: { $in: associatedIds } },
         { school: { $exists: false } },
         { school: null }
     ];
-    if (userData && userData._id) {
-        orConditions.push({ teachers: userData._id });
-        orConditions.push({ createdBy: userData._id });
-    }
-    if (userData && Array.isArray(userData.classList) && userData.classList.length > 0) {
-        orConditions.push({ _id: { $in: userData.classList } });
-    }
     return { $or: orConditions };
 };
 

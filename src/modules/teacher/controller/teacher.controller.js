@@ -337,17 +337,16 @@ const getTeacherToClass = async (req, res) => {
 const getTeacherClass = async (req, res) => {
     try {
         const teacherID = req.userData._id;
-        const { associatedIds } = await getSchoolHierarchy(req.userData);
-        let findTeacher = await userModel.findById(teacherID).select('createdBy').populate({ path: 'createdBy', select: 'userName' });
+        let findTeacher = await userModel.findById(teacherID).select('createdBy classList').populate({ path: 'createdBy', select: 'userName' });
         if (findTeacher) {
-            const classes = await classModel.find({
-                $or: [
-                    { teachers: teacherID },
-                    { createdBy: teacherID },
-                    { school: { $in: associatedIds } },
-                    { createdBy: { $in: associatedIds } }
-                ]
-            }).select('class teachers school createdBy');
+            const classConditions = [
+                { teachers: teacherID },
+                { createdBy: teacherID }
+            ];
+            if (Array.isArray(findTeacher.classList) && findTeacher.classList.length > 0) {
+                classConditions.push({ _id: { $in: findTeacher.classList } });
+            }
+            const classes = await classModel.find({ $or: classConditions }).select('class teachers school createdBy');
             const teacherClasessObj = {
                 _id: findTeacher._id,
                 createdBy: findTeacher.createdBy,

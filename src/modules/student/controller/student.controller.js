@@ -13,22 +13,47 @@ const { getSchoolHierarchy } = require('../../../services/schoolContext');
 const buildStudentQuery = async (userData, additionalFilter = {}) => {
     const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
     
+    // If the user is a Teacher, strictly isolate to students in this teacher's classes or created by this teacher
+    if (userData && userData.role === 'Teacher') {
+        const teacherId = userData._id;
+        const teacherClassConditions = [
+            { teachers: teacherId },
+            { createdBy: teacherId }
+        ];
+        if (Array.isArray(userData.classList) && userData.classList.length > 0) {
+            teacherClassConditions.push({ _id: { $in: userData.classList } });
+        }
+
+        let teacherClassIds = [];
+        try {
+            const classes = await classModel.find({ $or: teacherClassConditions }).select('_id');
+            teacherClassIds = classes.map(c => c._id);
+        } catch(e) {}
+
+        const teacherStudentConditions = [
+            { createdBy: teacherId }
+        ];
+        if (teacherClassIds.length > 0) {
+            teacherStudentConditions.push({ class: { $in: teacherClassIds } });
+            teacherStudentConditions.push({ classList: { $in: teacherClassIds } });
+        }
+
+        return {
+            role: "Student",
+            $or: teacherStudentConditions,
+            ...additionalFilter
+        };
+    }
+
+    // For School, IT, Admin, Supervisor:
     let schoolClassIds = [];
     try {
         const classConditions = [
             { school: { $in: associatedIds } },
             { createdBy: { $in: associatedIds } },
-            { teachers: { $in: associatedIds } },
             { school: { $exists: false } },
             { school: null }
         ];
-        if (userData && userData._id) {
-            classConditions.push({ teachers: userData._id });
-            classConditions.push({ createdBy: userData._id });
-        }
-        if (userData && Array.isArray(userData.classList) && userData.classList.length > 0) {
-            classConditions.push({ _id: { $in: userData.classList } });
-        }
         const classes = await classModel.find({ $or: classConditions }).select('_id');
         schoolClassIds = classes.map(c => c._id);
     } catch(e) {}
@@ -40,9 +65,6 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
         { createdBy: { $exists: false } },
         { createdBy: null }
     ];
-    if (userData && userData._id) {
-        orConditions.push({ createdBy: userData._id });
-    }
 
     return {
         role: "Student",
@@ -98,7 +120,7 @@ const addStudent = async (req, res) => {
 
             req.body.verify = true;
             req.body.role = 'Student';
-            req.body.createdBy = schoolId || req.userData._id;
+            req.body.createdBy = req.userData.role === 'Teacher' ? req.userData._id : (schoolId || req.userData._id);
             if (parentPhone) {
                 req.body.parentPhone = parentPhone;
             }
