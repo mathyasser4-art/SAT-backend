@@ -56,7 +56,7 @@ const saveProgress = async (req, res) => {
             const scoreNum = Number(percentage) || 0;
             const starNum = Number(stars) || (scoreNum >= 90 ? 3 : scoreNum >= 70 ? 2 : scoreNum >= 50 ? 1 : 0);
 
-            if (scoreNum >= 70 || starNum >= 1) {
+            if (scoreNum >= 70) {
                 if (!doc.completedChapters.includes(cStr)) {
                     doc.completedChapters.push(cStr);
                 }
@@ -194,6 +194,7 @@ const getSystemOverview = async (req, res) => {
             const subjects = sys.subjects || [];
             let systemTotalChapters = 0;
             let systemCompletedChapters = 0;
+            let systemScoreSum = 0;
 
             const subjectStats = await Promise.all(subjects.map(async (sub) => {
                 const subId = String(sub._id);
@@ -203,11 +204,14 @@ const getSystemOverview = async (req, res) => {
                 let subTotalChapters = 0;
                 let subCompletedCount = 0;
 
+                let subScoreSum = 0;
                 units.forEach(u => {
                     const chaps = u.chapters || [];
                     subTotalChapters += chaps.length;
                     chaps.forEach(cId => {
-                        if (subProgress.completed.has(String(cId))) {
+                        const score = Number(subProgress.scores?.[String(cId)]) || 0;
+                        subScoreSum += score;
+                        if (score >= 70 || subProgress.completed.has(String(cId))) {
                             subCompletedCount++;
                         }
                     });
@@ -215,9 +219,10 @@ const getSystemOverview = async (req, res) => {
 
                 systemTotalChapters += subTotalChapters;
                 systemCompletedChapters += subCompletedCount;
+                systemScoreSum += subScoreSum;
 
                 const subPercentage = subTotalChapters > 0
-                    ? Math.min(100, Math.round((subCompletedCount / subTotalChapters) * 100))
+                    ? Math.min(100, Math.round(subScoreSum / subTotalChapters))
                     : 0;
 
                 return {
@@ -230,7 +235,7 @@ const getSystemOverview = async (req, res) => {
             }));
 
             const systemPercentage = systemTotalChapters > 0
-                ? Math.min(100, Math.round((systemCompletedChapters / systemTotalChapters) * 100))
+                ? Math.min(100, Math.round(systemScoreSum / systemTotalChapters))
                 : 0;
 
             return {
