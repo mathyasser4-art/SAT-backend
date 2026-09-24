@@ -96,8 +96,8 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter } = require('./router/allRoutes');
-app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter);
+const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter } = require('./router/allRoutes');
+app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter);
 
 const request = require('request')
 const CronJob = require('cron').CronJob;
