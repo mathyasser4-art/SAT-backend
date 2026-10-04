@@ -1,0 +1,288 @@
+====================================================
+SEPTEMBER 2025 · US 2 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6b782cc3d08d90637d3ecf | TYPE: MCQ
+STEM:
+The given equation describes the relationship between the number of cats, ccc , and the number of dogs, ddd , that can be cared for at a pet care business during a week. If the business cares for 36 dogs during a week, how many cats can it care for during this week? 1.5c+3d=1081.5c + 3d = 1081.5c+3d=108
+
+CORRECT ANSWER:
+0
+
+WRONG ANSWERS (4):
+  [1] 3
+  [2] 54
+  [3] 0
+  [4] 108
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6b788ec3d08d90637d3ed5 | TYPE: MCQ
+STEM:
+Stefan purchased 500 feet of fencing. He used 80% of this fencing to surround a vegetable garden. How many feet of fencing did Stefan use to surround the vegetable garden?
+
+CORRECT ANSWER:
+400
+
+WRONG ANSWERS (4):
+  [1] 16
+  [2] 420
+  [3] 400
+  [4] 40
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6b78d6c3d08d90637d3edb | TYPE: MCQ
+STEM:
+At what point (x,y)(x, y)(x,y) do the graphs of the equations in the given system intersect? x+5=14x + 5 = 14x+5=14 y=3x2+3y = 3x^2 + 3y=3x2+3
+
+CORRECT ANSWER:
+(9, 246)
+
+WRONG ANSWERS (4):
+  [1] (9, 243)
+  [2] (14, 591)
+  [3] (9, 246)
+  [4] (14, 3)
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a6b790dc3d08d90637d3edf | TYPE: MCQ
+STEM:
+If (x+2)2=18(x + 2)^2 = 18(x+2)2=18 , what is the value of x2+4xx^2 + 4xx2+4x ?
+
+CORRECT ANSWER:
+14
+
+WRONG ANSWERS (4):
+  [1] 14
+  [2] 22
+  [3] 36
+  [4] 18
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6b7953c3d08d90637d3ee3 | TYPE: Essay
+STEM:
+What value of ttt is the solution to the given equation? 6(t+7)−8(t+7)=386(t + 7) - 8(t + 7) = 386(t+7)−8(t+7)=38
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-26"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6b79a1c3d08d90637d3ee9 | TYPE: MCQ
+STEM:
+Which expression represents the product of (x−9y6z5)(x^{-9}y^6z^5)(x−9y6z5) and (x4z5+y8z−7)(x^4z^5 + y^8z^{-7})(x4z5+y8z−7) ?
+
+CORRECT ANSWER:
+x−5y6z10+x−9y14z−2x^{-5}y^6z^{10} + x^{-9}y^{14}z^{-2}x−5y6z10+x−9y14z−2
+
+WRONG ANSWERS (4):
+  [1] x−5y6z10+y8z−7x^{-5}y^6z^{10} + y^8z^{-7}x−5y6z10+y8z−7
+  [2] x−5y6z10+x−9y14z−2x^{-5}y^6z^{10} + x^{-9}y^{14}z^{-2}x−5y6z10+x−9y14z−2
+  [3] x−5z10+x−9z−2x^{-5}z^{10} + x^{-9}z^{-2}x−5z10+x−9z−2
+  [4] x−5z10+y14z−2x^{-5}z^{10} + y^{14}z^{-2}x−5z10+y14z−2
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6b8f1fc3d08d90637d3ef5 | TYPE: MCQ
+STEM:
+On January 1, 2000, the population of a town was 26, 255 and on January 1, 2010, the population was 26, 956. The equation 10x+26,255=26,95610x + 26, 255 = 26, 95610x+26,255=26,956 describes this situation. Which of the following is the best interpretation of xxx in this context?
+
+CORRECT ANSWER:
+The average increase per year of the population between 2000 and 2010
+
+WRONG ANSWERS (4):
+  [1] The total increase in population between 2000 and 2010
+  [2] The average increase per year of the population between 2000 and 2010
+  [3] The percentage by which the population of the town increased each year between 2000 and 2010
+  [4] The projected population of the town 10 years after 2010
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6b8f61c3d08d90637d3ef9 | TYPE: MCQ
+STEM:
+Cube B has a volume of 125 cubic inches. The length of each edge of cube A is kkk times the length of each edge of cube B. If cube A has a volume of 3,375 cubic inches, what is the value of kkk ?
+
+CORRECT ANSWER:
+3
+
+WRONG ANSWERS (4):
+  [1] 27
+  [2] 3
+  [3] 25
+  [4] 5
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6b8f8ac3d08d90637d3eff | TYPE: MCQ
+STEM:
+A right square pyramid has a height of 6 units and a volume of 128 cubic units. What is the length, in units, of one side of the base of the pyramid?
+
+CORRECT ANSWER:
+8
+
+WRONG ANSWERS (4):
+  [1] 8
+  [2] 256
+  [3] 643\frac{64}{3}364​
+  [4] 833\frac{8\sqrt{3}}{3}383​​
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6b8fc9c3d08d90637d3f03 | TYPE: MCQ
+STEM:
+A researcher observes a sample of a nuclide. An exponential model estimates that the mass, in grams, of the sample decreases by 27% every 14.07 minutes. Which of the following equations could represent this model, where MMM is the estimated mass, in grams, of the sample ttt minutes after the researcher began observing the sample?
+
+CORRECT ANSWER:
+M=100(0.73)t14.07M = 100(0.73)^{\frac{t}{14.07}}M=100(0.73)14.07t​
+
+WRONG ANSWERS (4):
+  [1] M=100(0.27)t14.07M = 100(0.27)^{\frac{t}{14.07}}M=100(0.27)14.07t​
+  [2] M=100(0.27)t+14.07M = 100(0.27)^{t+14.07}M=100(0.27)t+14.07
+  [3] M=100(0.73)t14.07M = 100(0.73)^{\frac{t}{14.07}}M=100(0.73)14.07t​
+  [4] M=100(0.73)t+14.07M = 100(0.73)^{t+14.07}M=100(0.73)t+14.07
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6b9045c3d08d90637d3f07 | TYPE: Essay
+STEM:
+A department store sells pants in three lengths: short, regular, and long. The table summarizes the distribution of pant length, by color, for all the pants in the store. BlackBrownBlueTotalShort25142463Regular23152260Long20191958Total684865181\begin{array}{|c|c|c|c|c|} \hline &amp; \text{Black} &amp; \text{Brown} &amp; \text{Blue} &amp; \text{Total} \\ \hline \text{Short} &amp; 25 &amp; 14 &amp; 24 &amp; 63 \\ \hline \text{Regular} &amp; 23 &amp; 15 &amp; 22 &amp; 60 \\ \hline \text{Long} &amp; 20 &amp; 19 &amp; 19 &amp; 58 \\ \hline \text{Total} &amp; 68 &amp; 48 &amp; 65 &amp; 181 \\ \hline \end{array}ShortRegularLongTotal​Black25232068​Brown14151948​Blue24221965​Total636058181​​ A pair of pants is selected at random. What is the probability of selecting a pair of pants that is brown, given that the pair of pants is regular length? (Express your answer as a decimal or fraction, not as a percent.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1/4",".25","0.25"]
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6b909cc3d08d90637d3f0b | TYPE: MCQ
+STEM:
+An equation of the line in the xyxyxy -plane that contains the points (0, -8) and (-2, 0) is Ax+By=9Ax + By = 9Ax+By=9 , where AAA and BBB are constants. What is the value of BBB ?
+
+CORRECT ANSWER:
+−98-\frac{9}{8}−89​
+
+WRONG ANSWERS (4):
+  [1] −29-\frac{2}{9}−92​
+  [2] −98-\frac{9}{8}−89​
+  [3] −92-\frac{9}{2}−29​
+  [4] −89-\frac{8}{9}−98​
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6b937dc3d08d90637d3f11 | TYPE: MCQ
+STEM:
+(x+k)+92(y+t)+19=0(x + k) + \frac{9}{2}(y + t) + 19 = 0(x+k)+29​(y+t)+19=0 (x+k)−92(y+t)−19=0(x + k) - \frac{9}{2}(y + t) - 19 = 0(x+k)−29​(y+t)−19=0 In the given system of equations, kkk and ttt are constants. The solution to this system is (x,y)(x, y)(x,y) . What is the value of 18(y+t)18(y + t)18(y+t) ?
+
+CORRECT ANSWER:
+-76
+
+WRONG ANSWERS (4):
+  [1] -76
+  [2] 0
+  [3] 38
+  [4] 9
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6caaf0c3d08d90637d3f9b | TYPE: MCQ
+STEM:
+For which of the following tables are all the values of xxx and their corresponding values of yyy solutions to the given system of inequalities? y&gt;2x−72y &gt; 2x - 72y&gt;2x−72 y&lt;−16x−9y &lt; -\frac{1}{6}x - 9y&lt;−61​x−9
+
+CORRECT ANSWER:
+xy12−1418−1524−16\begin{array}{|c|c|} \hline x &amp; y \\ \hline 12 &amp; -14 \\ \hline 18 &amp; -15 \\ \hline 24 &amp; -16 \\ \hline \end{array}x121824​y−14−15−16​​
+
+WRONG ANSWERS (4):
+  [1] xy12−1118−1224−13\begin{array}{|c|c|} \hline x &amp; y \\ \hline 12 &amp; -11 \\ \hline 18 &amp; -12 \\ \hline 24 &amp; -13 \\ \hline \end{array}x121824​y−11−12−13​​
+  [2] xy12−1418−1524−16\begin{array}{|c|c|} \hline x &amp; y \\ \hline 12 &amp; -14 \\ \hline 18 &amp; -15 \\ \hline 24 &amp; -16 \\ \hline \end{array}x121824​y−14−15−16​​
+  [3] xy12−5718−5824−59\begin{array}{|c|c|} \hline x &amp; y \\ \hline 12 &amp; -57 \\ \hline 18 &amp; -58 \\ \hline 24 &amp; -59 \\ \hline \end{array}x121824​y−57−58−59​​
+  [4] xy12818−924−10\begin{array}{|c|c|} \hline x &amp; y \\ \hline 12 &amp; 8 \\ \hline 18 &amp; -9 \\ \hline 24 &amp; -10 \\ \hline \end{array}x121824​y8−9−10​​
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6cab75c3d08d90637d3f9f | TYPE: MCQ
+STEM:
+The function ggg is defined by the given equation. For all values of xxx , the value of g(x)g(x)g(x) is greater than kkk , where kkk is a constant. What is the greatest possible value of kkk ? g(x)=111(6(2)x+7)g(x) = \frac{1}{11}(6(2)^x + 7)g(x)=111​(6(2)x+7)
+
+CORRECT ANSWER:
+711\frac{7}{11}117​
+
+WRONG ANSWERS (4):
+  [1] 0
+  [2] 1311\frac{13}{11}1113​
+  [3] 711\frac{7}{11}117​
+  [4] 7
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6cabb6c3d08d90637d3fa3 | TYPE: MCQ
+STEM:
+At a nature preserve, a wildlife biologist counted ducks from an observation deck at the same time each day for 41 days. The table summarizes the resulting data set, data set A. Number of ducksNumber of days011728394857131\begin{array}{|l|l|} \hline \text{Number of ducks} &amp; \text{Number of days} \\ \hline 0 &amp; 1 \\ \hline 1 &amp; 7 \\ \hline 2 &amp; 8 \\ \hline 3 &amp; 9 \\ \hline 4 &amp; 8 \\ \hline 5 &amp; 7 \\ \hline 13 &amp; 1 \\ \hline \end{array}Number of ducks01234513​Number of days1789871​​ The data value 13 was recorded in error and is removed from data set A to create data set B, which consists of the remaining 40 data values. Which statement best compares the median of data set A and the median of data set B?
+
+CORRECT ANSWER:
+The median of data set B is equal to the median of data set A.
+
+WRONG ANSWERS (4):
+  [1] The median of data set B is greater than the median of data set A.
+  [2] There is not enough information to compare the medians of the two data sets.
+  [3] The median of data set B is equal to the median of data set A.
+  [4] The median of data set B is less than the median of data set A.
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6cabf2c3d08d90637d3fa7 | TYPE: MCQ
+STEM:
+Each 3.0-ounce serving of cheddar cheese and each 1.2-ounce serving of tuna provides about 1 microgram of vitamin B12. If a total of 1.7 micrograms of vitamin B12 are consumed from eating xxx ounces of cheese and yyy ounces of tuna, which equation best represents this situation?
+
+CORRECT ANSWER:
+0.33x+0.83y=1.70.33x + 0.83y = 1.70.33x+0.83y=1.7
+
+WRONG ANSWERS (4):
+  [1] 3.0x+1.2y=1.73.0x + 1.2y = 1.73.0x+1.2y=1.7
+  [2] 0.33x+0.83y=1.70.33x + 0.83y = 1.70.33x+0.83y=1.7
+  [3] 0.83x+0.33y=1.70.83x + 0.33y = 1.70.83x+0.33y=1.7
+  [4] 1.2x+3.0y=1.71.2x + 3.0y = 1.71.2x+3.0y=1.7
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6cac4cc3d08d90637d3fab | TYPE: MCQ
+STEM:
+A certain town has an area of 12,669,184 square yards. What is the area, in square miles, of this town? ( 1 mile=1,760 yards1 \text{ mile} = 1,760 \text{ yards}1 mile=1,760 yards )
+
+CORRECT ANSWER:
+4.09
+
+WRONG ANSWERS (4):
+  [1] 2.02
+  [2] 7,198.4
+  [3] 4.09
+  [4] 3,559.38
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6cad09c3d08d90637d3fb3 | TYPE: MCQ
+STEM:
+Which of the following represents the xxx -intercept of the graph of y=f(x)+6y = f(x) + 6y=f(x)+6 in the xyxyxy -plane, where ddd is a constant? f(x)=3d(26x+27)+18f(x) = 3d(26x + 27) + 18f(x)=3d(26x+27)+18
+
+CORRECT ANSWER:
+(−27d−626d,0)(\frac{-27d-6}{26d}, 0)(26d−27d−6​,0)
+
+WRONG ANSWERS (4):
+  [1] (81d+24,0)(81d + 24, 0)(81d+24,0)
+  [2] (−27d−626d,0)(\frac{-27d-6}{26d}, 0)(26d−27d−6​,0)
+  [3] (6−81d+1878d,0)(6 - \frac{81d+18}{78d}, 0)(6−78d81d+18​,0)
+  [4] (−4578d+6,0)(-\frac{45}{78d+6}, 0)(−78d+645​,0)
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6cadd0c3d08d90637d3fb7 | TYPE: MCQ
+STEM:
+In triangle ABCABCABC , the measure of angle AAA is 52∘52^\circ52∘ and AC=40AC = 40AC=40 . In triangle PQRPQRPQR , the measure of angle PPP is 52∘52^\circ52∘ and PR=120PR = 120PR=120 . Which additional piece of information is sufficient to prove that triangle ABCABCABC is similar to triangle PQRPQRPQR ?
+
+CORRECT ANSWER:
+The measures of angle BBB and angle RRR are 40∘40^\circ40∘ and 88∘88^\circ88∘ , respectively.
+
+WRONG ANSWERS (4):
+  [1] AB=45AB = 45AB=45 and PQ=45PQ = 45PQ=45 .
+  [2] AB=45AB = 45AB=45 and QR=135QR = 135QR=135 .
+  [3] The measures of angle BBB and angle RRR are 40∘40^\circ40∘ and 88∘88^\circ88∘ , respectively.
+  [4] The measures of angle
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6cae1bc3d08d90637d3fbb | TYPE: Essay
+STEM:
+A quadratic function gives the estimated length of daylight d(t)d(t)d(t) , in hours, in a certain city ttt months after March 1, where 0≤t≤70 \le t \le 70≤t≤7 . According to the function, the estimated length of daylight is 12.66 hours 6 months after March 1 and the maximum estimated length of daylight is 13.91 hours 3.5 months after March 1. Based on this function, what is the estimated length of daylight, in hours, on March 1?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["573/50","11.46"]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6cafaac3d08d90637d3fee | TYPE: Essay
+STEM:
+In the given equation, nnn is an integer constant. If the equation has two distinct real solutions, what is the greatest possible value of nnn ? nx2−16x=26x2−8nx^2 - 16x = 26x^2 - 8nx2−16x=26x2−8
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["33"]
+

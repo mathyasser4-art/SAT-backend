@@ -1,0 +1,273 @@
+====================================================
+SEPTEMBER 2025 · US 1 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a694e47c3d08d90637d3cd3 | TYPE: MCQ
+STEM:
+A certain goose species can fly at an average speed of 16 meters per second when in continuous flight. At this rate, how many meters would this goose species fly in 6 seconds?
+
+CORRECT ANSWER:
+96
+
+WRONG ANSWERS (4):
+  [1] 96
+  [2] 16
+  [3] 10
+  [4] 22
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a694ee3c3d08d90637d3cd9 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1790614031/questionPic/u8x10tppq4apgwb2jynt.png
+STEM:
+In the figure shown, lines r and s are parallel, and line t intersects both lines. What is the value of a ?
+
+CORRECT ANSWER:
+77
+
+WRONG ANSWERS (4):
+  [1] 77
+  [2] 90
+  [3] 167
+  [4] 180
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a694f2ec3d08d90637d3cdf | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1790614053/questionPic/jpla4q01biszsp7yy0kq.png
+STEM:
+The scatterplot shows 5 measurements of the body length, in centimeters (cm), of a New Zealand fur seal from an age of 1 year to 6 years old. A line of best fit is also shown. For a New Zealand fur seal at an age of 3 years old, what is the body length predicted by the line of best fit, to the nearest 10 cm?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["100", "120"]
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a694fa0c3d08d90637d3ce5 | TYPE: MCQ
+STEM:
+There is a linear relationship between the mass of an object attached to a vertical spring and the length of the spring extension. The table shows data collected after certain objects were each attached to the spring. Mass of objectLength of spring extension20 grams7 centimeters60 grams21 centimeters\begin{array}{|l|l|} \hline \text{Mass of object} &amp; \text{Length of spring extension} \\ \hline 20 \text{ grams} &amp; 7 \text{ centimeters} \\ \hline 60 \text{ grams} &amp; 21 \text{ centimeters} \\ \hline \end{array}Mass of object20 grams60 grams​Length of spring extension7 centimeters21 centimeters​​ What is the length of the spring extension, in centimeters, when a 50-gram object is attached to the spring?
+
+CORRECT ANSWER:
+17.5
+
+WRONG ANSWERS (4):
+  [1] 24.5
+  [2] 35
+  [3] 14
+  [4] 17.5
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a694feec3d08d90637d3ceb | TYPE: MCQ
+STEM:
+The equation shown gives the estimated amount of gas ggg , in gallons, that remains in the gas tank of a car after being driven xxx miles, where 0≤x≤3770 \le x \le 3770≤x≤377 . What is the estimated amount of gas, in gallons, that remains in the gas tank of the car when x=290x = 290x=290 ? g=13−x29g = 13 - \frac{x}{29}g=13−29x​
+
+CORRECT ANSWER:
+3
+
+WRONG ANSWERS (4):
+  [1] 13
+  [2] 0
+  [3] 3
+  [4] 16
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a695025c3d08d90637d3cef | TYPE: MCQ
+STEM:
+What is the solution to the given equation? x2=80−9x\sqrt{x^2} = 80 - 9xx2​=80−9x
+
+CORRECT ANSWER:
+8
+
+WRONG ANSWERS (4):
+  [1] 4
+  [2] 71
+  [3] 90
+  [4] 8
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a695064c3d08d90637d3cf5 | TYPE: MCQ
+STEM:
+A right square pyramid has a height of 6 units and a volume of 128 cubic units. What is the length, in units, of one side of the base of the pyramid?
+
+CORRECT ANSWER:
+888
+
+WRONG ANSWERS (4):
+  [1] 256256256
+  [2] 888
+  [3] 643\frac{64}{3}364​
+  [4] 833\frac{8\sqrt{3}}{3}383​​
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6950e3c3d08d90637d3cf9 | TYPE: MCQ
+STEM:
+A rectangle has an area of 66 square meters and a length of 11 meters. What is the width, in meters, of the rectangle?
+
+CORRECT ANSWER:
+6
+
+WRONG ANSWERS (4):
+  [1] 6
+  [2] 55
+  [3] 726
+  [4] 121
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6951ebc3d08d90637d3d27 | TYPE: MCQ
+STEM:
+The given equation relates the positive numbers aaa , bbb , and ccc . Which equation correctly expresses aaa in terms of bbb and ccc ? a(b+c)=64\frac{a}{(b+c)} = 64(b+c)a​=64
+
+CORRECT ANSWER:
+a=64(b+c)a = 64(b+c)a=64(b+c)
+
+WRONG ANSWERS (4):
+  [1] a=(b+c)a = (b+c)a=(b+c)
+  [2] a=64−(b+c)a = 64 - (b+c)a=64−(b+c)
+  [3] a=64(b+c)a = 64(b+c)a=64(b+c)
+  [4] a=64(b+c)a = \frac{64}{(b+c)}a=(b+c)64​
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a69525ac3d08d90637d3d2b | TYPE: Essay
+STEM:
+For the linear function fff , the graph of y=f(x)y = f(x)y=f(x) in the xy-plane passes through the points (0,6)(0, 6)(0,6) and (7,7)(7, 7)(7,7) . What is the slope of y=f(x)y = f(x)y=f(x) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1/7"]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a695289c3d08d90637d3d31 | TYPE: Essay
+STEM:
+If x+3y=29x + 3y = 29x+3y=29 and 7x−12y=−617x - 12y = -617x−12y=−61 , what is the value of yyy ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["8"]
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6952e4c3d08d90637d3d35 | TYPE: MCQ
+STEM:
+For the polynomial function fff , the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane passes through the points (−4,0)(-4, 0)(−4,0) , (1,0)(1, 0)(1,0) , and (9,0)(9, 0)(9,0) . Which of the following must be a factor of f(x)f(x)f(x) ?
+
+CORRECT ANSWER:
+x−1x - 1x−1
+
+WRONG ANSWERS (4):
+  [1] x−1x - 1x−1
+  [2] x+9x + 9x+9
+  [3] x−4x - 4x−4
+  [4] x+1x + 1x+1
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a695322c3d08d90637d3d39 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1790614055/questionPic/suwylj0rve7d1frimxos.png
+STEM:
+In triangle QRS , what is the value of tan(y°)?
+
+CORRECT ANSWER:
+49\frac{4}{9}94​
+
+WRONG ANSWERS (4):
+  [1] c9\frac{c}{9}9c​
+  [2] 49\frac{4}{9}94​
+  [3] c4\frac{c}{4}4c​
+  [4] 94\frac{9}{4}49​
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a69536fc3d08d90637d3d3d | TYPE: MCQ
+STEM:
+8x+32y=308x + 32y = 308x+32y=30 12x+48y=4512x + 48y = 4512x+48y=45 At how many points do the graphs of the given equations intersect in the xyxyxy -plane?
+
+CORRECT ANSWER:
+Infinitely many
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] Exactly one
+  [3] Infinitely many
+  [4] Exactly two
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a695489c3d08d90637d3d41 | TYPE: MCQ
+STEM:
+Number of carsMaximum number of passengers and crew2102629410486\begin{array}{|l|l|} \hline \text{Number of cars} &amp; \text{Maximum number of passengers and crew} \\ \hline 2 &amp; 102 \\ \hline 6 &amp; 294 \\ \hline 10 &amp; 486 \\ \hline \end{array}Number of cars2610​Maximum number of passengers and crew102294486​​ The table shows the linear relationship between the number of cars, ccc , on a commuter train and the maximum number of passengers and crew, ppp , that the train can carry. Which equation represents the linear relationship between ccc and ppp ?
+
+CORRECT ANSWER:
+48c−p=−648c - p = -648c−p=−6
+
+WRONG ANSWERS (4):
+  [1] 48p−c=−648p - c = -648p−c=−6
+  [2] 48c−p=648c - p = 648c−p=6
+  [3] 48p−c=648p - c = 648p−c=6
+  [4] 48c−p=−648c - p = -648c−p=−6
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6954dcc3d08d90637d3d45 | TYPE: Essay
+STEM:
+In the xyxyxy -plane, the graph of the equation (x−4)2+(y−9)2=16(x - 4)^2 + (y - 9)^2 = 16(x−4)2+(y−9)2=16 is a circle. The point (8,c)(8, c)(8,c) , where ccc is a constant, lies on this circle. What is the value of ccc ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["9"]
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a695567c3d08d90637d3d51 | TYPE: MCQ
+STEM:
+In the given inequality, bbb is a positive constant. Which of the following does NOT contain any points (x,y)(x, y)(x,y) in the xyxyxy -plane that are solutions to this inequality? y&gt;97x+by &gt; \frac{9}{7}x + by&gt;79​x+b
+
+CORRECT ANSWER:
+The region where x&gt;0x &gt; 0x&gt;0 and y&lt;0y &lt; 0y&lt;0
+
+WRONG ANSWERS (4):
+  [1] The region where x&lt;0x &lt; 0x&lt;0 and y&lt;0y &lt; 0y&lt;0
+  [2] The region where x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+  [3] The region where x&gt;0x &gt; 0x&gt;0 and y&gt;0y &gt; 0y&gt;0
+  [4] The region where x&gt;0x &gt; 0x&gt;0 and y&lt;0y &lt; 0y&lt;0
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6955bcc3d08d90637d3d55 | TYPE: MCQ
+STEM:
+The expression x2+kx+55x^2 + kx + 55x2+kx+55 , where kkk is a constant, can be rewritten as (x+n)(x+11)(x + n)(x + 11)(x+n)(x+11) , where nnn is a constant. What is the value of kkk ?
+
+CORRECT ANSWER:
+16
+
+WRONG ANSWERS (4):
+  [1] 16
+  [2] 6
+  [3] 11
+  [4] 5
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6955dfc3d08d90637d3d59 | TYPE: Essay
+STEM:
+A dog's mass is 24 kilograms. What is the dog's mass, in grams? (1 kilogram = 1000 grams)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["24000"]
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a695610c3d08d90637d3d5d | TYPE: MCQ
+STEM:
+What is the greatest solution to the given equation? −3x2−5x+6=0-3x^2 - 5x + 6 = 0−3x2−5x+6=0
+
+CORRECT ANSWER:
+−56+976-\frac{5}{6} + \frac{\sqrt{97}}{6}−65​+697​​
+
+WRONG ANSWERS (4):
+  [1] −56−976-\frac{5}{6} - \frac{\sqrt{97}}{6}−65​−697​​
+  [2] −53+973-\frac{5}{3} + \frac{\sqrt{97}}{3}−35​+397​​
+  [3] −56+976-\frac{5}{6} + \frac{\sqrt{97}}{6}−65​+697​​
+  [4] −53−973-\frac{5}{3} - \frac{\sqrt{97}}{3}−35​−397​​
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a695641c3d08d90637d3d61 | TYPE: Essay
+STEM:
+A beaker containing a liquid is placed on a table. The function g(t)=297+(363−297)(2.72)−0.103tg(t) = 297 + (363 - 297)(2.72)^{-0.103t}g(t)=297+(363−297)(2.72)−0.103t gives the approximate temperature, in kelvins, of the liquid ttt minutes after the beaker was placed on the table. According to this function, what was the approximate temperature, in kelvins, of the liquid when the beaker was placed on the table?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["363"]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6956d2c3d08d90637d3d65 | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=ax+bf(x) = a^x + bf(x)=ax+b , where aaa and bbb are constants and a&gt;0a &gt; 0a&gt;0 . In the xyxyxy -plane, the graph of y=f(x)y = f(x)y=f(x) has a yyy -intercept at (0,−22)(0, -22)(0,−22) and passes through the point (2,26)(2, 26)(2,26) . What is the value of a+ba + ba+b ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-16"]
+

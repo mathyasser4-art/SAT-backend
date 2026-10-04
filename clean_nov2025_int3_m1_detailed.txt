@@ -1,0 +1,280 @@
+====================================================
+NOVEMBER 2025 · INT 3 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a623113c3d08d90637d34c1 | TYPE: Essay
+STEM:
+An event planner is planning an ice-skating event. It costs the event planner a onetime fee of 353535 dollar to rent the skating rink and 15.2515.2515.25 dollar per attendee. The event planner has a budget of 225225225 dollar. What is the greatest number of attendees possible without exceeding the budget?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["12"]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6231cbc3d08d90637d34c7 | TYPE: MCQ
+STEM:
+The function ggg is defined by g(x)=4x+2g(x) = 4x + 2g(x)=4x+2 . What is the value of g(x)g(x)g(x) when x=2x = 2x=2 ?
+
+CORRECT ANSWER:
+10
+
+WRONG ANSWERS (4):
+  [1] 0
+  [2] 2
+  [3] 4
+  [4] 10
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6231fbc3d08d90637d34cb | TYPE: MCQ
+STEM:
+Which expression is equivalent to 42x3+7x42x^3 + 7x42x3+7x ?
+
+CORRECT ANSWER:
+7x(6x2+1)7x(6x^2 + 1)7x(6x2+1)
+
+WRONG ANSWERS (4):
+  [1] 7x(6+7x)7x(6 + 7x)7x(6+7x)
+  [2] 7x(6x2+1)7x(6x^2 + 1)7x(6x2+1)
+  [3] 7x2(6+7x)7x^2(6 + 7x)7x2(6+7x)
+  [4] 7x2(6x+1)7x^2(6x + 1)7x2(6x+1)
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a623266c3d08d90637d34d7 | TYPE: Essay
+STEM:
+For a certain rectangle, the ratio of the width to the length is 111 to 222 . If the width of the rectangle is 676767 centimeters, what is the length, in centimeters, of the rectangle?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["134"]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6232d6c3d08d90637d34db | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784820438/questionPic/ovot7rvy49lxlevbbft8.png
+STEM:
+The scatterplot shows the relationship between the square footage of 121212 clothing stores and their annual sales, in millions of dollars. According to the trend shown by the data, which of the following is the best prediction for the annual sales, in millions of dollars, of a clothing store that is 444 thousand square feet?
+
+CORRECT ANSWER:
+7.57.57.5
+
+WRONG ANSWERS (4):
+  [1] 4.14.14.1
+  [2] 5.45.45.4
+  [3] 7.57.57.5
+  [4] 10.210.210.2
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a623318c3d08d90637d34df | TYPE: Essay
+STEM:
+y=2,600(a)xy = 2,600(a)^xy=2,600(a)x The given equation, where aaa is a positive constant, gives the predicted number of bacteria, yyy , in a growth medium xxx hours after the number of bacteria was initially measured. According to the equation, what was the predicted number of bacteria initially measured in the growth medium?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["2600"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a623350c3d08d90637d34eb | TYPE: MCQ
+STEM:
+If 6x−8=46x - 8 = 46x−8=4 , what is the value of 6x+86x + 86x+8 ?
+
+CORRECT ANSWER:
+20
+
+WRONG ANSWERS (4):
+  [1] -4
+  [2] 2
+  [3] 10
+  [4] 20
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6233acc3d08d90637d34ef | TYPE: MCQ
+STEM:
+A number fff is 120%120\%120% greater than a positive number ggg . A number hhh is 90%90\%90% less than the number fff . The number hhh is how many times the number ggg ?
+
+CORRECT ANSWER:
+0.220.220.22
+
+WRONG ANSWERS (4):
+  [1] 0.120.120.12
+  [2] 0.220.220.22
+  [3] 1.081.081.08
+  [4] 1.981.981.98
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6233ddc3d08d90637d34f3 | TYPE: MCQ
+STEM:
+A certain university's research farm is 1,0001,0001,000 acres, of which 717171 acres contain rice. What percentage of the acres of this research farm contain rice?
+
+CORRECT ANSWER:
+7.1%7.1\%7.1%
+
+WRONG ANSWERS (4):
+  [1] 0.71%0.71\%0.71%
+  [2] 7.1%7.1\%7.1%
+  [3] 71%71\%71%
+  [4] 710%710\%710%
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a623445c3d08d90637d34f7 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784820805/questionPic/ycjbvfsnkhiyd6x75ncn.png
+STEM:
+In the right triangle shown, aaa , bbb , and ccc are positive constants. For an acute angle DDD , sin⁡D=bc\sin D = \frac{b}{c}sinD=cb​ . What is the measure of angle DDD , in degrees?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["32"]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a623489c3d08d90637d34fb | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784820873/questionPic/tvlb3o4eujwwyw3uqn5t.png
+STEM:
+In the figure shown, lines ℓ\ellℓ and kkk are parallel and line ttt intersects both lines. If x&gt;134x &gt; 134x&gt;134 , which of the following must be true?
+
+CORRECT ANSWER:
+y&lt;46y &lt; 46y&lt;46
+
+WRONG ANSWERS (4):
+  [1] y&lt;46y &lt; 46y&lt;46
+  [2] y&gt;46y &gt; 46y&gt;46
+  [3] x+y&lt;180x + y &lt; 180x+y&lt;180
+  [4] x+y&gt;180x + y &gt; 180x+y&gt;180
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6234e5c3d08d90637d34ff | TYPE: MCQ
+STEM:
+Line ttt in the xyxyxy -plane has a slope of 18\frac{1}{8}81​ and passes through the point (32,−7)(32, -7)(32,−7) . Which equation defines line ttt ?
+
+CORRECT ANSWER:
+y=x8−11y = \frac{x}{8} - 11y=8x​−11
+
+WRONG ANSWERS (4):
+  [1] y=−11x+18y = -11x + \frac{1}{8}y=−11x+81​
+  [2] y=x8−11y = \frac{x}{8} - 11y=8x​−11
+  [3] y=x8−7y = \frac{x}{8} - 7y=8x​−7
+  [4] y=32x−7y = 32x - 7y=32x−7
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a62352dc3d08d90637d3503 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784821036/questionPic/cwi94jzjz3q4ipzeatfk.png
+STEM:
+The graph of the function fff , where y=f(x)y = f(x)y=f(x) , gives the total cost yyy , in dollars, for a certain video game system and xxx games. What is the best interpretation of the slope of the graph in this context?
+
+CORRECT ANSWER:
+Each game costs dollar
+
+WRONG ANSWERS (4):
+  [1] Each game costs dollar
+  [2] The video game system costs dollar
+  [3] Each game costs dollar
+  [4] The video game system costs dollar
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a623556c3d08d90637d3509 | TYPE: Essay
+STEM:
+What is the radius of the circle in the xyxyxy -plane defined by (x+2)2+(y+6)2=361(x + 2)^2 + (y + 6)^2 = 361(x+2)2+(y+6)2=361 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["19"]
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a623596c3d08d90637d350d | TYPE: MCQ
+STEM:
+x2+y2=1,088x^2 + y^2 = 1,088x2+y2=1,088 y−4x=0y - 4x = 0y−4x=0 A solution to the given system of equations is (x,y)(x, y)(x,y) , where x&lt;0x &lt; 0x&lt;0 . What is the value of yyy ?
+
+CORRECT ANSWER:
+-32
+
+WRONG ANSWERS (4):
+  [1] -256
+  [2] -32
+  [3] -8
+  [4] -4
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6235bfc3d08d90637d3511 | TYPE: MCQ
+STEM:
+f(x)=10(x2+47)f(x) = 10(x^2 + 47)f(x)=10(x2+47) What is the minimum value of the given function?
+
+CORRECT ANSWER:
+470470470
+
+WRONG ANSWERS (4):
+  [1] 0.10.10.1
+  [2] 4.74.74.7
+  [3] 101010
+  [4] 470470470
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a623607c3d08d90637d3515 | TYPE: MCQ
+STEM:
+The function jjj is defined by j(x)=10x+53pj(x) = \frac{10x+5}{3p}j(x)=3p10x+5​ , and the function kkk is defined by k(x)=j(x)⋅px+1k(x) = \frac{j(x)\cdot p}{x+1}k(x)=x+1j(x)⋅p​ , where ppp is a positive constant. What is the value of k(9)k(9)k(9) ?
+
+CORRECT ANSWER:
+196\frac{19}{6}619​
+
+WRONG ANSWERS (4):
+  [1] 196\frac{19}{6}619​
+  [2] 103\frac{10}{3}310​
+  [3] 9513\frac{95}{13}1395​
+  [4] 853\frac{85}{3}385​
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a623696c3d08d90637d3519 | TYPE: MCQ
+STEM:
+In the xyxyxy -plane, which of the following does NOT contain any points that are part of the solution set to 7x−6y&gt;427x - 6y &gt; 427x−6y&gt;42 ?
+
+CORRECT ANSWER:
+The region where x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+
+WRONG ANSWERS (4):
+  [1] The xxx -axis
+  [2] The region where x&gt;0x &gt; 0x&gt;0 and y&gt;0y &gt; 0y&gt;0
+  [3] The region where x&lt;0x &lt; 0x&lt;0 and y&lt;0y &lt; 0y&lt;0
+  [4] The region where x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6236d0c3d08d90637d3521 | TYPE: MCQ
+STEM:
+3x+2y=103x + 2y = 103x+2y=10 18x+12y=6018x + 12y = 6018x+12y=60 How many solutions does the given system of equations have?
+
+CORRECT ANSWER:
+Infinitely many
+
+WRONG ANSWERS (4):
+  [1] Exactly one
+  [2] Exactly two
+  [3] Infinitely many
+  [4] Zero
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6237e1c3d08d90637d352b | TYPE: MCQ
+STEM:
+∣4x−48∣+48=6\frac{|4x - 48| + 4}{8} = 68∣4x−48∣+4​=6 , What is the sum of the values of x?
+
+CORRECT ANSWER:
+24
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 23
+  [3] 24
+  [4] 48
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6238b7c3d08d90637d3538 | TYPE: MCQ
+STEM:
+A beekeeper's initial observation of the population of a certain bee colony was 1,6001,6001,600 bees. The beekeeper set a goal to increase the population to 2,9752,9752,975 bees. The beekeeper uses a model that predicts the population of this bee colony begins at 1,6001,6001,600 and increases by 110110110 bees per week in the first two weeks after the initial observation, and then increases by 165165165 bees per week until the beekeeper's goal is reached. According to this model, at the end of week www after the initial observation, where w&gt;2w &gt; 2w&gt;2 , which of the following functions gives the predicted number of bees still needed to reach the beekeeper’s goal?
+
+CORRECT ANSWER:
+p(w)=1,485−165wp(w) = 1,485 - 165wp(w)=1,485−165w
+
+WRONG ANSWERS (4):
+  [1] p(w)=−110+165wp(w) = -110 + 165wp(w)=−110+165w
+  [2] p(w)=1,485−165wp(w) = 1,485 - 165wp(w)=1,485−165w
+  [3] p(w)=2,865+165wp(w) = 2,865 + 165wp(w)=2,865+165w
+  [4] p(w)=2,975−165wp(w) = 2,975 - 165wp(w)=2,975−165w
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6238e4c3d08d90637d353c | TYPE: Essay
+STEM:
+The quadratic equation (2x−64)2=a(2x - 64)^2 = a(2x−64)2=a , where aaa is a constant, has exactly one real solution. What is the value of aaa ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["0"]
+

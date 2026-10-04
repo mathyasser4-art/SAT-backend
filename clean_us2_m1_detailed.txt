@@ -1,0 +1,369 @@
+================================================================================
+DECEMBER 2025 · US 2 · MODULE 1 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a54b6684d554e04aa1bfe3b
+--------------------------------------------------------------------------------
+STEM:
+Which expression is equivalent to 18(x^2 - 8)−8)?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 18x^2 - 144−144
+  [B] 18x^2 - 26−26
+  [C] 18x^2 - 8−8
+  [D] 18x^2 + 10+10
+
+CORRECT ANSWER FIELD:
+18x^2 - 144−144
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: MCQ | ID: 6a54b9b94d554e04aa1bfe47
+--------------------------------------------------------------------------------
+STEM:
+In the xy-plane, the graph of the equation y = 5^x5x is translated 3 units down. What is an equation of the resulting graph?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] y = 5^x + 35x+3
+  [B] (CORRECT KEY) y = 5^x - 35x−3
+  [C] y = 5^{(x+3)}5(x+3)
+  [D] y = 5^{(x-3)}5(x−3)
+
+CORRECT ANSWER FIELD:
+y = 5^x - 35x−3
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a54ba384d554e04aa1bfe4d
+--------------------------------------------------------------------------------
+STEM:
+If 5x + 3 = 383=38, what is the value of 50x + 3030?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 380
+  [B] 80
+  [C] 70
+  [D] 7
+
+CORRECT ANSWER FIELD:
+380
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: Essay | ID: 6a54ba8d4d554e04aa1bfe53
+--------------------------------------------------------------------------------
+STEM:
+The equation 66 = 2x + 2y2x+2y gives the perimeter of a rectangular garden that has length x, in feet, and width y, in feet. The width of the garden is 8 feet. What is the length, in feet, of the garden?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["25"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a54bc9f4d554e04aa1bfe65
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = 6x - 36x−3. If f(a) + 1 = 5a1=5a, what is the value of a?
+
+CHOICES (4):
+  [A] -1
+  [B] 1
+  [C] (CORRECT KEY) 2
+  [D] y = 5^{(x+3)}5(x+3)
+
+CORRECT ANSWER FIELD:
+2
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: MCQ | ID: 6a54bd3e4d554e04aa1bfe6b
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = 2x - \frac{1}{8}2x−81​. What is the y-intercept of the graph of y = f(x)f(x) in the xy-plane?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] (CORRECT KEY) (0, -\frac{1}{8})1​)
+  [B] (0, -2)
+  [C] (0, 2)
+  [D] (0, 8)
+
+CORRECT ANSWER FIELD:
+(0, -\frac{1}{8})1​)
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a54bf044d554e04aa1bfe71
+--------------------------------------------------------------------------------
+STEM:
+A survey was conducted in Madison to estimate the percent of adult residents who support the addition of a gas station at a popular intersection in their town. Based on the survey, it is estimated that 27\% of all adult residents of Madison support the addition of a gas station at a popular intersection in their town, with an associated margin of error of 6\%. Which of the following is the most appropriate conclusion about all adult residents of Madison?
+
+CHOICES (4):
+  [A] (CORRECT KEY) Plausible values for the percent of all adult residents of Madison who support the addition of a gas station at a popular intersection in their town are between 21\% and 33\%.
+  [B] Plausible values for the percent of all adult residents of Madison who support the addition of a gas station at a popular intersection in their town are either less than 21\% or more than 33\%.
+  [C] The addition of a gas station at a popular intersection in the town is supported by exactly 21\% of all adult residents of Madison.
+  [D] The addition of a gas station at a popular intersection in the town is supported by more than 33\% of all adult residents of Madison.
+
+CORRECT ANSWER FIELD:
+Plausible values for the percent of all adult residents of Madison who support the addition of a gas station at a popular intersection in their town are between 21\% and 33\%.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a54bfbc4d554e04aa1bfe77
+--------------------------------------------------------------------------------
+STEM:
+In the figure shown, line k intersects lines r and s. If w = 118118, which additional piece of information is sufficient to prove that lines r and s are parallel?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783939004/questionPic/kwhymmtdzvqaktwh4cct.png
+
+CHOICES (4):
+  [A] x = 6262
+  [B] (CORRECT KEY) y = 118118
+  [C] w + y = 180y=180
+  [D] y + z = 180z=180
+
+CORRECT ANSWER FIELD:
+y = 118118
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: MCQ | ID: 6a54c0864d554e04aa1bfe7d
+--------------------------------------------------------------------------------
+STEM:
+Line q in the xy-plane passes through the points (0, 20) and (1, 44). Which equation defines line q?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 24x - y + 20 = 0y+20=0
+  [B] 24x - y + \frac{1}{20} = 0y+201​=0
+  [C] 24x - y - \frac{1}{20} = 0y−201​=0
+  [D] 24x - y - 20 = 0y−20=0
+
+CORRECT ANSWER FIELD:
+24x - y + 20 = 0y+20=0
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: Essay | ID: 6a54c0cf4d554e04aa1bfe89
+--------------------------------------------------------------------------------
+STEM:
+The sides of a rectangle are such that the length is 11 centimeters more than 8 times the width, in centimeters. If the width of the rectangle is 5 centimeters, what is the area, in square centimeters, of the rectangle?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["255"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: MCQ | ID: 6a54c1904d554e04aa1bfe95
+--------------------------------------------------------------------------------
+STEM:
+For the function f, the table shows four values of x and their corresponding values of f(x). Which of the following could describe this function?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783939471/questionPic/pe1wmkhf9nxjsweazlzi.png
+
+CHOICES (4):
+  [A] Increasing linear
+  [B] Decreasing linear
+  [C] Increasing exponential
+  [D] (CORRECT KEY) Decreasing exponential
+
+CORRECT ANSWER FIELD:
+Decreasing exponential
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: MCQ | ID: 6a54c2834d554e04aa1bfe9b
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between two variables, x and y. A line of best fit for the data is also shown. For how many of the 9 data points is the actual y-value greater than the y-value predicted by the line of best fit?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783939715/questionPic/yqgs5rerwzfwllj6vucs.png
+
+CHOICES (4):
+  [A] 8
+  [B] 7
+  [C] (CORRECT KEY) 5
+  [D] 2
+
+CORRECT ANSWER FIELD:
+5
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: Essay | ID: 6a54c3ce4d554e04aa1bfea7
+--------------------------------------------------------------------------------
+STEM:
+A line in the xy-plane passes through the points (7, 1), (0, 4), and (c, 0). What is the value of c?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["9.333","28/3"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a54c4cf4d554e04aa1bfead
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = \frac{ax+b}{x+c} + kx+cax+b​+k, where a, b, c, and k are constants. The graph of y = f(x)f(x) is shown. For how many values of x does f(x) = 00?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783940303/questionPic/si3vrosrnkuj90hxyuhb.png
+
+CHOICES (4):
+  [A] Three
+  [B] Two
+  [C] (CORRECT KEY) One
+  [D] Zero
+
+CORRECT ANSWER FIELD:
+One
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a54c6bc4d554e04aa1bfeb3
+--------------------------------------------------------------------------------
+STEM:
+The area of triangle ABC is 250 square centimeters. What is the height h, in centimeters, of this triangle?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783940795/questionPic/zseewrhxs7zdj7tioli4.png
+
+CHOICES (4):
+  [A] 10
+  [B] 25
+  [C] (CORRECT KEY) 50
+  [D] 100
+
+CORRECT ANSWER FIELD:
+50
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: Essay | ID: 6a54c7354d554e04aa1bfeb9
+--------------------------------------------------------------------------------
+STEM:
+y = 5x - 155x−15 
+4x + y = 48y=48 
+The solution to the given system of equations is (x, y). What is the value of x + yy?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["27"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a54c79d4d554e04aa1bfec5
+--------------------------------------------------------------------------------
+STEM:
+A circle in the xy-plane has its center at (9, 6) and has a radius of length 4. Which equation represents this circle?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] (x + 9)^2 + (y + 6)^2 = 49)2+(y+6)2=4
+  [B] (x - 9)^2 + (y - 6)^2 = 49)2+(y−6)2=4
+  [C] (x + 9)^2 + (y + 6)^2 = 169)2+(y+6)2=16
+  [D] (CORRECT KEY) (x - 9)^2 + (y - 6)^2 = 169)2+(y−6)2=16
+
+CORRECT ANSWER FIELD:
+(x - 9)^2 + (y - 6)^2 = 169)2+(y−6)2=16
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: MCQ | ID: 6a54c8574d554e04aa1bfed1
+--------------------------------------------------------------------------------
+STEM:
+There is a proportional relationship between p and t. If p = 56105610 when t = 74807480, then what is the value of t when p = 44884488?
+
+CHOICES (4):
+  [A] 2618
+  [B] 3366
+  [C] (CORRECT KEY) 5984
+  [D] 6358
+
+CORRECT ANSWER FIELD:
+5984
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: MCQ | ID: 6a54c8d84d554e04aa1bfedd
+--------------------------------------------------------------------------------
+STEM:
+\frac{|4x - 48| + 4}{6} = 8∣4x−48∣+4​=8 
+What is the sum of the solutions to the given equation?
+
+CHOICES (4):
+  [A] 1
+  [B] 23
+  [C] (CORRECT KEY) 24
+  [D] 48
+
+CORRECT ANSWER FIELD:
+24
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: MCQ | ID: 6a54c9974d554e04aa1bfee3
+--------------------------------------------------------------------------------
+STEM:
+a, 26, 28, b, 33, 49, c 
+For the given data set, the data values are listed in ascending order, where a, b, and c are constants. For this data set, the mean is 35, the median is 28, and the range is 71. What is the value of c?
+
+CHOICES (4):
+  [A] 55
+  [B] 71
+  [C] (CORRECT KEY) 76
+  [D] 97
+
+CORRECT ANSWER FIELD:
+76
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a54ca654d554e04aa1bfeef
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = 55(0.12)^x55(0.12)x . For any positive integer n, the value of f(n) is p\% less than the value of f(n - 1)1). What is the value of p?
+
+CHOICES (4):
+  [A] 12
+  [B] 45
+  [C] 55
+  [D] (CORRECT KEY) 88
+
+CORRECT ANSWER FIELD:
+88
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: Essay | ID: 6a54cacf4d554e04aa1bfef5
+--------------------------------------------------------------------------------
+STEM:
+The quadratic equation (7x - 64)^2 = a64)2=a, where a is a constant, has exactly one real solution. What is the value of a
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["0"]
+
+EXPLANATION: [None provided]
+

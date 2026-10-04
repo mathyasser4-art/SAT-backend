@@ -1,0 +1,273 @@
+====================================================
+MARCH 2025 · INT 3 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6aa48636ec7ba02921a43ff1 | TYPE: MCQ
+STEM:
+How many solutions does the equation 2x−3=2x2x - 3 = 2x2x−3=2x have?
+
+CORRECT ANSWER:
+Zero
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] Exactly one
+  [3] Exactly two
+  [4] Infinitely many
+
+----------------------------------------------------
+QUESTION 2 | ID: 6aa48679ec7ba02921a43ff5 | TYPE: MCQ
+STEM:
+In the linear function fff , f(0)=2f(0) = 2f(0)=2 and f(7)=2f(7) = 2f(7)=2 . Which equation defines fff ?
+
+CORRECT ANSWER:
+f(x)=2f(x) = 2f(x)=2
+
+WRONG ANSWERS (4):
+  [1] f(x)=0f(x) = 0f(x)=0
+  [2] f(x)=7f(x) = 7f(x)=7
+  [3] f(x)=2f(x) = 2f(x)=2
+  [4] f(x)=x+2f(x) = x + 2f(x)=x+2
+
+----------------------------------------------------
+QUESTION 3 | ID: 6aa486cdec7ba02921a43ff9 | TYPE: MCQ
+STEM:
+A rectangle has a length that is 92 times its width. The function y=(92w)(w)y = (92w)(w)y=(92w)(w) represents this situation, where yyy is the area, in square feet, of the rectangle and y&gt;0y &gt; 0y&gt;0 . Which of the following is the best interpretation of 92w92w92w in this context?
+
+CORRECT ANSWER:
+The length of the rectangle, in feet
+
+WRONG ANSWERS (4):
+  [1] The length of the rectangle, in feet
+  [2] The area of the rectangle, in square feet
+  [3] The difference between the length and the width of the rectangle, in feet
+  [4] The width of the rectangle, in feet
+
+----------------------------------------------------
+QUESTION 4 | ID: 6aa48735ec7ba02921a43ffd | TYPE: MCQ
+STEM:
+The function T(x)=67−8xT(x) = 67 - 8xT(x)=67−8x estimates the temperature, in degrees Fahrenheit ( ∘F^\circ\text{F}∘F ), in a certain city one day in January, where xxx is the number of hours after 10 a.m. and 1≤x≤51 \le x \le 51≤x≤5 . According to the function, what was the estimated decrease in temperature each hour, in ∘F^\circ\text{F}∘F , in this city during this time period?
+
+CORRECT ANSWER:
+8
+
+WRONG ANSWERS (4):
+  [1] 4
+  [2] 8
+  [3] 59
+  [4] 56
+
+----------------------------------------------------
+QUESTION 5 | ID: 6aa487abec7ba02921a44013 | TYPE: MCQ
+STEM:
+At a convention center, there are a total of 375 visitors. Each visitor is located in either room AAA , room BBB , or room CCC . If one of these visitors is selected at random, the probability of selecting a visitor who is located in room AAA is 0.68, and the probability of selecting a visitor who is located in room BBB is 0.24. How many visitors are located in room CCC ?
+
+CORRECT ANSWER:
+30
+
+WRONG ANSWERS (4):
+  [1] 8
+  [2] 30
+  [3] 61
+  [4] 165
+
+----------------------------------------------------
+QUESTION 6 | ID: 6aa48822ec7ba02921a44017 | TYPE: MCQ
+STEM:
+An object is launched from a height of 121 feet above the ground. A quadratic function fff models the height above the ground, in feet, of the object ttt seconds after it is launched. According to the model, 2 seconds after the object is launched, it reaches a maximum height of 185 feet above the ground, which equation defines fff ?
+
+CORRECT ANSWER:
+f(t)=−16(t−2)2+185f(t) = -16(t - 2)^2 + 185f(t)=−16(t−2)2+185
+
+WRONG ANSWERS (4):
+  [1] f(t)=−16(t+185)2−2f(t) = -16(t + 185)^2 - 2f(t)=−16(t+185)2−2
+  [2] f(t)=−16(t−185)2+2f(t) = -16(t - 185)^2 + 2f(t)=−16(t−185)2+2
+  [3] f(t)=−16(t+2)2−185f(t) = -16(t + 2)^2 - 185f(t)=−16(t+2)2−185
+  [4] f(t)=−16(t−2)2+185f(t) = -16(t - 2)^2 + 185f(t)=−16(t−2)2+185
+
+----------------------------------------------------
+QUESTION 7 | ID: 6aa48867ec7ba02921a4401b | TYPE: Essay
+STEM:
+7y=−6x+25507y = -6x + 25507y=−6x+2550 24x−28y=180024x - 28y = 180024x−28y=1800 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of x+yx + yx+y ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["400"]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6aa4888dec7ba02921a4401f | TYPE: Essay
+STEM:
+To study fluctuations in leaf water potential, samples of wood were taken from 21 trees and cut in the shape of a cube. The length of the edge of one of these cubes is 3.000 centimeters. This cube has a density of 0.220 grams per cubic centimeter. What is the mass of this cube, in grams?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["297/50"]
+
+----------------------------------------------------
+QUESTION 9 | ID: 6aa48920ec7ba02921a44026 | TYPE: MCQ
+STEM:
+−2∣3x+7∣+8=−6-2|3x + 7| + 8 = -6−2∣3x+7∣+8=−6
+
+CORRECT ANSWER:
+0 and −143-\frac{14}{3}−314​
+
+WRONG ANSWERS (4):
+  [1] 0
+  [2] 0 and 83\frac{8}{3}38​
+  [3] 0 and −143-\frac{14}{3}−314​
+  [4] There is no solution.
+
+----------------------------------------------------
+QUESTION 10 | ID: 6aa48996ec7ba02921a4402a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789168145/questionPic/otgt8kvpzi0fvsts9cxs.png
+STEM:
+The graph shows a linear relationship between xxx and yyy . Which equation represents this relationship, where RRR is a positive constant?
+
+CORRECT ANSWER:
+Rx+12y=108Rx + 12y = 108Rx+12y=108
+
+WRONG ANSWERS (4):
+  [1] Rx+12y=108Rx + 12y = 108Rx+12y=108
+  [2] Rx−12y=−108Rx - 12y = -108Rx−12y=−108
+  [3] 12x−Ry=10812x - Ry = 10812x−Ry=108
+  [4] Rx+12y=−18Rx + 12y = -18Rx+12y=−18
+
+----------------------------------------------------
+QUESTION 11 | ID: 6aa489ecec7ba02921a4402e | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=−10(3)x+1kf(x) = -10(3)^x + \frac{1}{k}f(x)=−10(3)x+k1​ , where kkk is a constant. If y=f(x)y = f(x)y=f(x) is graphed in the xy-plane, what is the y-coordinate of the y-intercept of the graph?
+
+CORRECT ANSWER:
+Rx−12y=−108Rx - 12y = -108Rx−12y=−108
+
+WRONG ANSWERS (4):
+  [1] −10-10−10
+  [2] 1−10kk\frac{1 - 10k}{k}k1−10k​
+  [3] 1k\frac{1}{k}k1​
+  [4] 1−kk\frac{1 - k}{k}k1−k​
+
+----------------------------------------------------
+QUESTION 12 | ID: 6aa48a93ec7ba02921a44046 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789168274/questionPic/js9elhdlblasruiqihex.png
+STEM:
+The shaded region shown represents the solutions to rx+ty≥−77rx + ty \ge -77rx+ty≥−77 , where rrr and ttt are constants. What is the value of r+tr + tr+t ?
+
+CORRECT ANSWER:
+8
+
+WRONG ANSWERS (4):
+  [1] 8
+  [2] 6
+  [3] -6
+  [4] -7
+
+----------------------------------------------------
+QUESTION 13 | ID: 6aa48bb6ec7ba02921a4404d | TYPE: MCQ
+STEM:
+A cooking school is offering a promotion where the first class is free, the second class is half off the regular price, and the remaining classes are regularly priced. If the regular price of a class is dollar 22.80, which function fff gives the total cost, in dollars, of xxx classes taken using this promotion, where x≥2x \ge 2x≥2 ?
+
+CORRECT ANSWER:
+f(x)=22.80(x−1)−11.40f(x) = 22.80(x - 1) - 11.40f(x)=22.80(x−1)−11.40
+
+WRONG ANSWERS (4):
+  [1] f(x)=22.80(x−1)−11.40f(x) = 22.80(x - 1) - 11.40f(x)=22.80(x−1)−11.40
+  [2] f(x)=22.80(x−1)+11.40f(x) = 22.80(x - 1) + 11.40f(x)=22.80(x−1)+11.40
+  [3] f(x)=22.80(x−1)+11.40(x−2)f(x) = 22.80(x - 1) + 11.40(x - 2)f(x)=22.80(x−1)+11.40(x−2)
+  [4] f(x)=22.80(x−2)+11.40(x−1)f(x) = 22.80(x - 2) + 11.40(x - 1)f(x)=22.80(x−2)+11.40(x−1)
+
+----------------------------------------------------
+QUESTION 14 | ID: 6aa48c37ec7ba02921a4405a | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=6x+14f(x) = 6x + 14f(x)=6x+14 . What is the y-coordinate of the y-intercept of the graph of y=f(x)y = f(x)y=f(x) in the xy-plane?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["14"]
+
+----------------------------------------------------
+QUESTION 15 | ID: 6aa48ca2ec7ba02921a4405e | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789168802/questionPic/v1sjqhvjzcsidds6ao6k.png
+STEM:
+The graph of y=f(x)+2y = f(x) + 2y=f(x)+2 is shown. Which equation defines function fff ?
+
+CORRECT ANSWER:
+f(x)=−3x+3f(x) = -3^x + 3f(x)=−3x+3
+
+WRONG ANSWERS (4):
+  [1] f(x)=−3x+1f(x) = -3^x + 1f(x)=−3x+1
+  [2] f(x)=−3x+3f(x) = -3^x + 3f(x)=−3x+3
+  [3] f(x)=−3x+4f(x) = -3^x + 4f(x)=−3x+4
+  [4] f(x)=−3x+5f(x) = -3^x + 5f(x)=−3x+5
+
+----------------------------------------------------
+QUESTION 16 | ID: 6aa48cc3ec7ba02921a44062 | TYPE: MCQ
+STEM:
+A square map has a side length of 55 inches, and 1 inch on the map represents an actual distance of 13 miles. A smaller version of the same map is printed as a square with the side length 70% shorter than the side length of the previous map. On the smaller map, which of the following is closest to the actual distance, in miles, represented by 1 inch?
+
+CORRECT ANSWER:
+43.33
+
+WRONG ANSWERS (4):
+  [1] 3.90
+  [2] 7.65
+  [3] 38.50
+  [4] 43.33
+
+----------------------------------------------------
+QUESTION 17 | ID: 6aa48d60ec7ba02921a44066 | TYPE: MCQ
+STEM:
+In the given system of equations, ccc is a constant. The system has two distinct real solutions. Which of the following could be the value of ccc ? y=x−cy = x - cy=x−c y=−4(x−8)2y = -4(x - 8)^2y=−4(x−8)2
+
+CORRECT ANSWER:
+43.33
+
+WRONG ANSWERS (4):
+  [1] 3
+  [2] 7
+  [3] 12716\frac{127}{16}16127​
+  [4] 13
+
+----------------------------------------------------
+QUESTION 18 | ID: 6aa48efeec7ba02921a4406a | TYPE: MCQ
+STEM:
+In triangle ABCABCABC , the measure of angle AAA is 52∘52^{\circ}52∘ and AC=35AC = 35AC=35 . In triangle PQRPQRPQR , the measure of angle PPP is 52∘52^{\circ}52∘ and PR=105PR = 105PR=105 . Which additional piece of information is sufficient to prove that triangle ABCABCABC is similar to triangle PQRPQRPQR ?
+
+CORRECT ANSWER:
+The measures of angle BBB and angle RRR are 34∘34^{\circ}34∘ and 94∘94^{\circ}94∘ , respectively.
+
+WRONG ANSWERS (4):
+  [1] AB=30AB = 30AB=30 and PQ=30PQ = 30PQ=30 .
+  [2] AB=30AB = 30AB=30 and QR=90QR = 90QR=90 .
+  [3] The measures of angle BBB and angle RRR are 34∘34^{\circ}34∘ and 94∘94^{\circ}94∘ , respectively.
+  [4] The measures of angle BBB and angle QQQ are 52∘52^{\circ}52∘ and 34∘34^{\circ}34∘ , respectively.
+
+----------------------------------------------------
+QUESTION 19 | ID: 6aa48f42ec7ba02921a4406e | TYPE: Essay
+STEM:
+The perimeter of an equilateral triangle is 876 centimeters. The three vertices of the triangle lie on a circle. The radius of the circle is w3w\sqrt{3}w3​ centimeters. What is the value of www ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["292/3"]
+
+----------------------------------------------------
+QUESTION 20 | ID: 6aa48f7cec7ba02921a44072 | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=∣x∣a−14f(x) = \frac{|x|}{a} - 14f(x)=a∣x∣​−14 , where a&lt;0a &lt; 0a&lt;0 . What is the product of f(15a)f(15a)f(15a) and f(8a)f(8a)f(8a) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["638"]
+
+----------------------------------------------------
+QUESTION 21 | ID: 6aa49002ec7ba02921a44076 | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=abxnf(x) = ab^{\frac{x}{n}}f(x)=abnx​ , where aaa , bbb , and nnn are constants, and bbb and nnn are integers. If f(4)=5f(4) = 5f(4)=5 and f(7)=135f(7) = 135f(7)=135 , what is the value of f(9)f(9)f(9) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1215"]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6aa4904bec7ba02921a4407a | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=6x+14f(x) = 6x + 14f(x)=6x+14 . What is the y-coordinate of the y-intercept of the graph of y=f(x)y = f(x)y=f(x) in the xy-plane?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["14"]
+

@@ -1,0 +1,1422 @@
+[
+  {
+    "exam": "March 2026 · US 2",
+    "module": "Module 1",
+    "qNum": 3,
+    "id": "6a52d69a4d554e04aa1bf3a4",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"d = -60.1 + 2.0t\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"d = 359.8 + 2.0t\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"d = 160.1 + 2.0t\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"d = 394.8 + 2.0t\"></span></p>"
+    ],
+    "correctNorm": "d = -60.1 + 2.0t",
+    "wrongNorms": [
+      "d = 359.8 + 2.0t",
+      "d = 160.1 + 2.0t",
+      "d = 394.8 + 2.0t"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · US 2",
+    "module": "Module 1",
+    "qNum": 15,
+    "id": "6a52e8e44d554e04aa1bf462",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y < 4x + 1\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"y > \\frac{1}{4}x + 1\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y < \\frac{1}{4}x + 1\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y > 4x + 1\"></span></p>"
+    ],
+    "correctNorm": "y < 4x + 1",
+    "wrongNorms": [
+      "y > \\frac{1}{4}x + 1 \\frac{1}{4}x + 1\">",
+      "y < \\frac{1}{4}x + 1",
+      "y > 4x + 1 4x + 1\">"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · US 2",
+    "module": "Module 2",
+    "qNum": 12,
+    "id": "6a53c3a14d554e04aa1bf7f5",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y < 3x + 5\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"y > \\frac{1}{3}x + 5\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y < \\frac{1}{3}x + 5\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y > 3x + 5\"></span></p>"
+    ],
+    "correctNorm": "y < 3x + 5",
+    "wrongNorms": [
+      "y > \\frac{1}{3}x + 5 \\frac{1}{3}x + 5\">",
+      "y < \\frac{1}{3}x + 5",
+      "y > 3x + 5 3x + 5\">"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · US 2",
+    "module": "Module 2",
+    "qNum": 21,
+    "id": "6a53d0854d554e04aa1bf853",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"64\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"-21\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"15\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"315\"></span></p>"
+    ],
+    "correctNorm": "64",
+    "wrongNorms": [
+      "-21",
+      "15",
+      "315"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 1",
+    "module": "Module 1",
+    "qNum": 7,
+    "id": "6a533f0a4d554e04aa1bf59c",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"(x - 13)(x + 24) = 0\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"(x + 13)(x - 24) = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x - 13)(x - 24) = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x + 13)(x + 24) = 0\"></span></p>"
+    ],
+    "correctNorm": "(x - 13)(x + 24) = 0",
+    "wrongNorms": [
+      "(x + 13)(x - 24) = 0",
+      "(x - 13)(x - 24) = 0",
+      "(x + 13)(x + 24) = 0"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 1",
+    "module": "Module 1",
+    "qNum": 21,
+    "id": "6a534cb24d554e04aa1bf62f",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"(x - 2)^2 + (y - 7)^2 = 100\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"(x - 2)^2 + (y - 7)^2 = 50\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x - 2)^2 + (y - 7)^2 = 250\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x - 2)^2 + (y - 7)^2 = 625\"></span></p>"
+    ],
+    "correctNorm": "(x - 2)^2 + (y - 7)^2 = 100",
+    "wrongNorms": [
+      "(x - 2)^2 + (y - 7)^2 = 50",
+      "(x - 2)^2 + (y - 7)^2 = 250",
+      "(x - 2)^2 + (y - 7)^2 = 625"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 1",
+    "module": "Module 2",
+    "qNum": 7,
+    "id": "6a53552b4d554e04aa1bf677",
+    "choiceCount": 3,
+    "correctRaw": "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1783846027/quill-images/qbyahqvmfubga1pxtjv1.png\"></p>",
+    "wrongsRaw": [
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1783846075/quill-images/zqsjfdjxhkgsxmfb139i.png\"></p>",
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1783846104/quill-images/prtxg6bm0ribprhmt8p5.png\"></p>",
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1783846128/quill-images/ei8lnfeb5gw1hyasprys.png\"></p>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "",
+      "",
+      ""
+    ],
+    "correctInWrongs": true
+  },
+  {
+    "exam": "March 2026 · INT 1",
+    "module": "Module 2",
+    "qNum": 9,
+    "id": "6a53571b4d554e04aa1bf687",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{8}{11} \\times 180 \\times 2\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{8}{11} \\times 90 \\times 2\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{8}{11\\pi} \\times 90 \\times 2\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{8\\pi}{11} \\times 180 \\times 2\"></span></p>"
+    ],
+    "correctNorm": "\\frac{8}{11} \\times 180 \\times 2",
+    "wrongNorms": [
+      "\\frac{8}{11} \\times 90 \\times 2",
+      "\\frac{8}{11\\pi} \\times 90 \\times 2",
+      "\\frac{8\\pi}{11} \\times 180 \\times 2"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 1",
+    "qNum": 15,
+    "id": "6a53dc254d554e04aa1bf984",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(t) = -16(t - 3)^2 + 276\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(t) = -16(t + 3)^2 + 276\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(t) = -16(t - 3)^2 + 132\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(t) = -16(t + 3)^2 + 132\"></span></p>"
+    ],
+    "correctNorm": "f(t) = -16(t - 3)^2 + 276",
+    "wrongNorms": [
+      "f(t) = -16(t + 3)^2 + 276",
+      "f(t) = -16(t - 3)^2 + 132",
+      "f(t) = -16(t + 3)^2 + 132"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 1",
+    "qNum": 16,
+    "id": "6a53dcac4d554e04aa1bf988",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"79\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"72\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"7\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"0\"></span></p>"
+    ],
+    "correctNorm": "79",
+    "wrongNorms": [
+      "72",
+      "7",
+      "0"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 1",
+    "qNum": 17,
+    "id": "6a53dd5a4d554e04aa1bf994",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{9}{11} \\times 540\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{9}{11} \\times 90 \\times 3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{90}{11\\pi} \\times 3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{9\\pi}{11} \\times 180 \\times 3\"></span></p>"
+    ],
+    "correctNorm": "\\frac{9}{11} \\times 540",
+    "wrongNorms": [
+      "\\frac{9}{11} \\times 90 \\times 3",
+      "\\frac{90}{11\\pi} \\times 3",
+      "\\frac{9\\pi}{11} \\times 180 \\times 3"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 2",
+    "qNum": 8,
+    "id": "6a53f2fc4d554e04aa1bfa47",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"7\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"14\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"-3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"-14\"></span></p>"
+    ],
+    "correctNorm": "7",
+    "wrongNorms": [
+      "14",
+      "-3",
+      "-14"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 2",
+    "qNum": 9,
+    "id": "6a53f3604d554e04aa1bfa4d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = (x - 2)^2 - 784\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = (x + 26)(x - 30)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x(x - 4) - 780\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x^2 - 4x + 195\"></span></p>"
+    ],
+    "correctNorm": "f(x) = (x - 2)^2 - 784",
+    "wrongNorms": [
+      "f(x) = (x + 26)(x - 30)",
+      "f(x) = x(x - 4) - 780",
+      "f(x) = x^2 - 4x + 195"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2026 · INT 2",
+    "module": "Module 2",
+    "qNum": 22,
+    "id": "6a53fb134d554e04aa1bfb2c",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"64\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"-21\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"15\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"315\"></span></p>"
+    ],
+    "correctNorm": "64",
+    "wrongNorms": [
+      "-21",
+      "15",
+      "315"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "October 2025 · US 1",
+    "module": "Module 1",
+    "qNum": 8,
+    "id": "6a665c46c3d08d90637d3a30",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{612}{613}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{35}{613}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{613}{612}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{613}{35}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{612}{613}",
+    "wrongNorms": [
+      "\\frac{35}{613}",
+      "\\frac{613}{612}",
+      "\\frac{613}{35}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "October 2025 · US 1",
+    "module": "Module 2",
+    "qNum": 1,
+    "id": "6a666305c3d08d90637d3a82",
+    "choiceCount": 3,
+    "correctRaw": "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1785094826/quill-images/ru7opokfhfpqpeytw7dd.png\"></p>",
+    "wrongsRaw": [
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1785094810/quill-images/xj7n4h2qwpbkxmckb14r.png\"></p>",
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1785094837/quill-images/uqt3y4sqdsizbeeswgba.png\"></p>",
+      "<p><img src=\"https://res.cloudinary.com/drxqzhgce/image/upload/v1785094865/quill-images/j0835ufg83fzg67gvplz.png\"></p>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "",
+      "",
+      ""
+    ],
+    "correctInWrongs": true
+  },
+  {
+    "exam": "September 2025 · US 2",
+    "module": "Module 1",
+    "qNum": 13,
+    "id": "6a6b728ac3d08d90637d3e84",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"x = \\frac{by - 19}{y}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"x = by - 19\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x = \\frac{b - 19}{y}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x = b - 19y\"></span></p>"
+    ],
+    "correctNorm": "x = \\frac{by - 19}{y}",
+    "wrongNorms": [
+      "x = by - 19",
+      "x = \\frac{b - 19}{y}",
+      "x = b - 19y"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "August 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 11,
+    "id": "6a6d196364c8e41fac128f91",
+    "choiceCount": 3,
+    "correctRaw": "<p>The value of <span class=\"ql-formula\" data-value=\"c\"></span> cannot be <span class=\"ql-formula\" data-value=\"-7\"></span>.</p>",
+    "wrongsRaw": [
+      "<p>The value of <span class=\"ql-formula\" data-value=\"c\"></span> cannot be <span class=\"ql-formula\" data-value=\"-\\frac{7}{6}\"></span>.</p>",
+      "<p>The value of <span class=\"ql-formula\" data-value=\"k\"></span> cannot be <span class=\"ql-formula\" data-value=\"\\frac{6}{7}\"></span>.</p>",
+      "<p>The value of <span class=\"ql-formula\" data-value=\"k\"></span> cannot be <span class=\"ql-formula\" data-value=\"-6\"></span>.</p>"
+    ],
+    "correctNorm": "c -7 The value of cannot be .",
+    "wrongNorms": [
+      "c -\\frac{7}{6} The value of cannot be .",
+      "k \\frac{6}{7} The value of cannot be .",
+      "k -6 The value of cannot be ."
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "June 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 12,
+    "id": "6a6d581714cab24f9785a8ba",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"C = \\frac{18N}{N + P}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"C = \\frac{C(N + P)}{N}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"C = \\frac{PC}{18 - C}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"C = \\frac{18N}{P + 1}\"></span></p>"
+    ],
+    "correctNorm": "C = \\frac{18N}{N + P}",
+    "wrongNorms": [
+      "C = \\frac{C(N + P)}{N}",
+      "C = \\frac{PC}{18 - C}",
+      "C = \\frac{18N}{P + 1}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "June 2025 · US 1",
+    "module": "Module 1",
+    "qNum": 13,
+    "id": "6a6e0799f37fd34c9d2ad08f",
+    "choiceCount": 3,
+    "correctRaw": "<p>The center is at <span class=\"ql-formula\" data-value=\"(14, k)\"></span> and the radius is 6.</p>",
+    "wrongsRaw": [
+      "<p>The center is at <span class=\"ql-formula\" data-value=\"(k, 14)\"></span> and the radius is 6.</p>",
+      "<p>The center is at <span class=\"ql-formula\" data-value=\"(k, 14)\"></span> and the radius is 36.</p>",
+      "<p>The center is at <span class=\"ql-formula\" data-value=\"(14, k)\"></span> and the radius is 36.</p>"
+    ],
+    "correctNorm": "(14, k) The center is at and the radius is 6.",
+    "wrongNorms": [
+      "(k, 14) The center is at and the radius is 6.",
+      "(k, 14) The center is at and the radius is 36.",
+      "(14, k) The center is at and the radius is 36."
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "June 2025 · US 1",
+    "module": "Module 2",
+    "qNum": 6,
+    "id": "6a6e1127f37fd34c9d2ad11d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = -5x + 8\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -14x - 9\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -5x - 9\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -14x + 8\"></span></p>"
+    ],
+    "correctNorm": "f(x) = -5x + 8",
+    "wrongNorms": [
+      "f(x) = -14x - 9",
+      "f(x) = -5x - 9",
+      "f(x) = -14x + 8"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "June 2025 · US 1",
+    "module": "Module 2",
+    "qNum": 12,
+    "id": "6a6e1898808167941fdca79d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{35}{50}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"0.3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{15}{50}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{35}{80}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{35}{50}",
+    "wrongNorms": [
+      "0.3",
+      "\\frac{15}{50}",
+      "\\frac{35}{80}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 6,
+    "id": "6a984d17e57881aee77ea236",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"1.40x + 3.40y = 85.60\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"1.40x + 64.60y = 85.60\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"64.60x + 1.40y = 85.60\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"3.40x + 1.40y = 85.60\"></span></p>"
+    ],
+    "correctNorm": "1.40x + 3.40y = 85.60",
+    "wrongNorms": [
+      "1.40x + 64.60y = 85.60",
+      "64.60x + 1.40y = 85.60",
+      "3.40x + 1.40y = 85.60"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 7,
+    "id": "6a98507ee57881aee77ea953",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{1}{10}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{1}{5}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{9}{10}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{1}{50}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{1}{10}",
+    "wrongNorms": [
+      "\\frac{1}{5}",
+      "\\frac{9}{10}",
+      "\\frac{1}{50}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 10,
+    "id": "6a98523fe57881aee77ea9df",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"25x^2 + 3\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"25x^4 + 3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"28x^4\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"28x^2\"></span></p>"
+    ],
+    "correctNorm": "25x^2 + 3",
+    "wrongNorms": [
+      "25x^4 + 3",
+      "28x^4",
+      "28x^2"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 3,
+    "id": "6a9afb97838c4fe747f6f04c",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = -\\frac{3}{7}x - 5\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = \\frac{3}{7}x - 5\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = \\frac{7}{3}x - 5\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -\\frac{7}{3}x - 5\"></span></p>"
+    ],
+    "correctNorm": "f(x) = -\\frac{3}{7}x - 5",
+    "wrongNorms": [
+      "f(x) = \\frac{3}{7}x - 5",
+      "f(x) = \\frac{7}{3}x - 5",
+      "f(x) = -\\frac{7}{3}x - 5"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 8,
+    "id": "6a9affb6838c4fe747f6f1e3",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"34 - \\frac{P}{N}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"C + \\frac{P}{N}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"34 + \\frac{P}{N}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"34 - \\frac{P}{C}\"></span></p>"
+    ],
+    "correctNorm": "34 - \\frac{P}{N}",
+    "wrongNorms": [
+      "C + \\frac{P}{N}",
+      "34 + \\frac{P}{N}",
+      "34 - \\frac{P}{C}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 10,
+    "id": "6a9b007c838c4fe747f6f1ef",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"297 + 27\\sqrt{73}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"297 + 9\\sqrt{73}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"162 + 27\\sqrt{73}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"162 + 9\\sqrt{73}\"></span></p>"
+    ],
+    "correctNorm": "297 + 27\\sqrt{73}",
+    "wrongNorms": [
+      "297 + 9\\sqrt{73}",
+      "162 + 27\\sqrt{73}",
+      "162 + 9\\sqrt{73}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 15,
+    "id": "6a9b0fc9111ffc76c2e5fa55",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"g(x) = 448(4)^x\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"g(x) = 21(4)^x\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"g(x) = 21(12)^x\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"g(x) = 343(64)^x\"></span></p>"
+    ],
+    "correctNorm": "g(x) = 448(4)^x",
+    "wrongNorms": [
+      "g(x) = 21(4)^x",
+      "g(x) = 21(12)^x",
+      "g(x) = 343(64)^x"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 18,
+    "id": "6a9b11fc111ffc76c2e5fed3",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{31}{5}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{29}{5}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{33}{5}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{36}{5}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{31}{5}",
+    "wrongNorms": [
+      "\\frac{29}{5}",
+      "\\frac{33}{5}",
+      "\\frac{36}{5}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 20,
+    "id": "6a9b12d5111ffc76c2e600fa",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{3}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"-\\frac{5}{3}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{3}{5}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"-\\frac{3}{5}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{5}{3}",
+    "wrongNorms": [
+      "-\\frac{5}{3}",
+      "\\frac{3}{5}",
+      "-\\frac{3}{5}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 2,
+    "id": "6a9b3616111ffc76c2e62025",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"6x^3y + 21xy^2\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"5x^3y + 10xy^2\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"6x^2y + 7y\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"6x^2y + 21xy\"></span></p>"
+    ],
+    "correctNorm": "6x^3y + 21xy^2",
+    "wrongNorms": [
+      "5x^3y + 10xy^2",
+      "6x^2y + 7y",
+      "6x^2y + 21xy"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 3,
+    "id": "6a9b365b111ffc76c2e62104",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"6(5x^2 + x + 1)\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"5x^2(6x + 6)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"30x(x + 1)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"4(2x^2 + x + 1)\"></span></p>"
+    ],
+    "correctNorm": "6(5x^2 + x + 1)",
+    "wrongNorms": [
+      "5x^2(6x + 6)",
+      "30x(x + 1)",
+      "4(2x^2 + x + 1)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 10,
+    "id": "6a9b3db7111ffc76c2e62d51",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"V(t) = 240(1.01)^t\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"V(t) = 240(1.01t)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"V(t) = 240(1.1t)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"V(t) = 240(1.1)^t\"></span></p>"
+    ],
+    "correctNorm": "V(t) = 240(1.01)^t",
+    "wrongNorms": [
+      "V(t) = 240(1.01t)",
+      "V(t) = 240(1.1t)",
+      "V(t) = 240(1.1)^t"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 16,
+    "id": "6a9b4019111ffc76c2e62f16",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"x^2 - 16x + 64 = 0\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"x^2 - 16 = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x^2 + 16 = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x^2 - 16x + 56 = 0\"></span></p>"
+    ],
+    "correctNorm": "x^2 - 16x + 64 = 0",
+    "wrongNorms": [
+      "x^2 - 16 = 0",
+      "x^2 + 16 = 0",
+      "x^2 - 16x + 56 = 0"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 11,
+    "id": "6a9c09234471c51d35c1902d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{6} + \\frac{\\sqrt{85}}{6}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{6} - \\frac{\\sqrt{85}}{6}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{3} - \\frac{\\sqrt{85}}{3}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{3} + \\frac{\\sqrt{85}}{3}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{5}{6} + \\frac{\\sqrt{85}}{6}",
+    "wrongNorms": [
+      "\\frac{5}{6} - \\frac{\\sqrt{85}}{6}",
+      "\\frac{5}{3} - \\frac{\\sqrt{85}}{3}",
+      "\\frac{5}{3} + \\frac{\\sqrt{85}}{3}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 14,
+    "id": "6a9c0b2a4471c51d35c19127",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = (x - 2)^2 + (-324)\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x^2 - 4(x + 80)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x(x - 4) + (-320)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = (x + 16)(x - 20)\"></span></p>"
+    ],
+    "correctNorm": "f(x) = (x - 2)^2 + (-324)",
+    "wrongNorms": [
+      "f(x) = x^2 - 4(x + 80)",
+      "f(x) = x(x - 4) + (-320)",
+      "f(x) = (x + 16)(x - 20)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 1",
+    "qNum": 1,
+    "id": "6a9c1aad4471c51d35c19de1",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"56^\\circ\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"34^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"90^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"180^\\circ\"></span></p>"
+    ],
+    "correctNorm": "56^\\circ",
+    "wrongNorms": [
+      "34^\\circ",
+      "90^\\circ",
+      "180^\\circ"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 1",
+    "qNum": 2,
+    "id": "6a9c1aef4471c51d35c19de7",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"6x^3y + 21xy^2\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"5x^3y + 10xy^2\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"6x^2y + 7y\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"6x^2y + 21xy\"></span></p>"
+    ],
+    "correctNorm": "6x^3y + 21xy^2",
+    "wrongNorms": [
+      "5x^3y + 10xy^2",
+      "6x^2y + 7y",
+      "6x^2y + 21xy"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 1",
+    "qNum": 16,
+    "id": "6a9c1fc34471c51d35c19fc0",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"x^2 - 16x + 64 = 0\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"x^2 - 16 = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x^2 + 16 = 0\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x^2 - 16x + 56 = 0\"></span></p>"
+    ],
+    "correctNorm": "x^2 - 16x + 64 = 0",
+    "wrongNorms": [
+      "x^2 - 16 = 0",
+      "x^2 + 16 = 0",
+      "x^2 - 16x + 56 = 0"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 2",
+    "qNum": 6,
+    "id": "6aa0e2e8df63ca493d479945",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"h(x) = 3x + 5\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"h(x) = \\frac{1}{3}x - \\frac{5}{3}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"h(x) = 4x + 17\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"h(x) = 6x + 23\"></span></p>"
+    ],
+    "correctNorm": "h(x) = 3x + 5",
+    "wrongNorms": [
+      "h(x) = \\frac{1}{3}x - \\frac{5}{3}",
+      "h(x) = 4x + 17",
+      "h(x) = 6x + 23"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 2",
+    "qNum": 12,
+    "id": "6aa0e92cdf63ca493d47997c",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{6} + \\frac{\\sqrt{85}}{6}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{6} - \\frac{\\sqrt{85}}{6}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{3} - \\frac{\\sqrt{85}}{3}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{5}{3} + \\frac{\\sqrt{85}}{3}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{5}{6} + \\frac{\\sqrt{85}}{6}",
+    "wrongNorms": [
+      "\\frac{5}{6} - \\frac{\\sqrt{85}}{6}",
+      "\\frac{5}{3} - \\frac{\\sqrt{85}}{3}",
+      "\\frac{5}{3} + \\frac{\\sqrt{85}}{3}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "May 2025 · INT 3",
+    "module": "Module 2",
+    "qNum": 15,
+    "id": "6aa0ea09df63ca493d47998e",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = (x - 2)^2 + (-324)\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x^2 - 4(x + 80)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = x(x - 4) + (-320)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = (x + 16)(x - 20)\"></span></p>"
+    ],
+    "correctNorm": "f(x) = (x - 2)^2 + (-324)",
+    "wrongNorms": [
+      "f(x) = x^2 - 4(x + 80)",
+      "f(x) = x(x - 4) + (-320)",
+      "f(x) = (x + 16)(x - 20)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 2,
+    "id": "6aa0f439df63ca493d479a03",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"9x^2 + 54\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"9x^2 + 3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"9x^2 + 6\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"9x^2 + 15\"></span></p>"
+    ],
+    "correctNorm": "9x^2 + 54",
+    "wrongNorms": [
+      "9x^2 + 3",
+      "9x^2 + 6",
+      "9x^2 + 15"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 8,
+    "id": "6aa0f6dedf63ca493d479a29",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"59^\\circ\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"(28 \\times 59)^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(28 + 59)^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"28^\\circ\"></span></p>"
+    ],
+    "correctNorm": "59^\\circ",
+    "wrongNorms": [
+      "(28 \\times 59)^\\circ",
+      "(28 + 59)^\\circ",
+      "28^\\circ"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 9,
+    "id": "6aa0f716df63ca493d479a2f",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"s + 30 \\ge 190\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"s + 30 \\le 190\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"s - 30 \\le 190\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"s - 30 \\ge 190\"></span></p>"
+    ],
+    "correctNorm": "s + 30 \\ge 190",
+    "wrongNorms": [
+      "s + 30 \\le 190",
+      "s - 30 \\le 190",
+      "s - 30 \\ge 190"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 10,
+    "id": "6aa0f75bdf63ca493d479a35",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"7x^2(x^4 - 2)\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"7(x^3 - 2x^2)^2\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x^2(7x - 2)^4\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"7x^2(x - 2)^4\"></span></p>"
+    ],
+    "correctNorm": "7x^2(x^4 - 2)",
+    "wrongNorms": [
+      "7(x^3 - 2x^2)^2",
+      "x^2(7x - 2)^4",
+      "7x^2(x - 2)^4"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 14,
+    "id": "6aa0fe0ddf63ca493d479a64",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{2\\sqrt{10}}{7}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{3\\sqrt{10}}{20}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{7\\sqrt{10}}{20}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{2\\sqrt{10}}{3}\"></span></p>"
+    ],
+    "correctNorm": "\\frac{2\\sqrt{10}}{7}",
+    "wrongNorms": [
+      "\\frac{3\\sqrt{10}}{20}",
+      "\\frac{7\\sqrt{10}}{20}",
+      "\\frac{2\\sqrt{10}}{3}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 1",
+    "qNum": 15,
+    "id": "6aa0fe45df63ca493d479a6a",
+    "choiceCount": 3,
+    "correctRaw": "<p>2</p>",
+    "wrongsRaw": [
+      "<p>14</p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{1}{2}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{1}{14}\"></span></p>"
+    ],
+    "correctNorm": "2",
+    "wrongNorms": [
+      "14",
+      "\\frac{1}{2}",
+      "\\frac{1}{14}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 8,
+    "id": "6aa117aef5c99543faeb63ec",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"11x(x^9 - x^8 + 7)\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"x(10x^{10} - 10x^9 + 76x)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"x(11x^{10} - 11x^9 + 77)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"11x(x^{10} - x^9 + 7x)\"></span></p>"
+    ],
+    "correctNorm": "11x(x^9 - x^8 + 7)",
+    "wrongNorms": [
+      "x(10x^{10} - 10x^9 + 76x)",
+      "x(11x^{10} - 11x^9 + 77)",
+      "11x(x^{10} - x^9 + 7x)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 17,
+    "id": "6aa11e8aec7ba02921a31b82",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = -6^x + 5\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -6^x + 1\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -6^x + 8\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -6^x + 9\"></span></p>"
+    ],
+    "correctNorm": "f(x) = -6^x + 5",
+    "wrongNorms": [
+      "f(x) = -6^x + 1",
+      "f(x) = -6^x + 8",
+      "f(x) = -6^x + 9"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 1",
+    "module": "Module 2",
+    "qNum": 18,
+    "id": "6aa11f14ec7ba02921a31b86",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\frac{441}{4}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{576}{49}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\frac{144}{7}\"></span></p>",
+      "<p>63</p>"
+    ],
+    "correctNorm": "\\frac{441}{4}",
+    "wrongNorms": [
+      "\\frac{576}{49}",
+      "\\frac{144}{7}",
+      "63"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 2,
+    "id": "6aa46bddec7ba02921a43ddd",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"8^2 + b^2 = 20^2\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"8b = 20\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"8 + b = 20\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"8^2 - b^2 = 20^2\"></span></p>"
+    ],
+    "correctNorm": "8^2 + b^2 = 20^2",
+    "wrongNorms": [
+      "8b = 20",
+      "8 + b = 20",
+      "8^2 - b^2 = 20^2"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 8,
+    "id": "6aa46dd4ec7ba02921a43df8",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y = -x + 2.3\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"y = x - 16.3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = -x + 16.3\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = x - 2.3\"></span></p>"
+    ],
+    "correctNorm": "y = -x + 2.3",
+    "wrongNorms": [
+      "y = x - 16.3",
+      "y = -x + 16.3",
+      "y = x - 2.3"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 12,
+    "id": "6aa46fbfec7ba02921a43e2d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y = 160\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"x = 20\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"w + y = 180\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y + z = 180\"></span></p>"
+    ],
+    "correctNorm": "y = 160",
+    "wrongNorms": [
+      "x = 20",
+      "w + y = 180",
+      "y + z = 180"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 15,
+    "id": "6aa47063ec7ba02921a43e39",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 24 & 48 & 96 \\\\ \\hline \\end{array}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 0 & 48 & 96 \\\\ \\hline \\end{array}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & -12 & 24 & 48 & 96 \\\\ \\hline \\end{array}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 24 & 48 & 72 \\\\ \\hline \\end{array}\"></span></p>"
+    ],
+    "correctNorm": "\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 24 & 48 & 96 \\\\ \\hline \\end{array}",
+    "wrongNorms": [
+      "\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 0 & 48 & 96 \\\\ \\hline \\end{array}",
+      "\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & -12 & 24 & 48 & 96 \\\\ \\hline \\end{array}",
+      "\\begin{array}{|c|c|c|c|c|} \\hline x & -6 & 0 & 6 & 12 \\\\ \\hline f(x) & 12 & 24 & 48 & 72 \\\\ \\hline \\end{array}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 16,
+    "id": "6aa470a9ec7ba02921a43e3d",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"(x - 18)^2 + (y - 16)^2 = 36k^2\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"(x - 18)^2 + (y - 16)^2 = 36k\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x - 18)^2 + (y - 16)^2 = 6k\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(x - 18)^2 + (y - 16)^2 = 6k^2\"></span></p>"
+    ],
+    "correctNorm": "(x - 18)^2 + (y - 16)^2 = 36k^2",
+    "wrongNorms": [
+      "(x - 18)^2 + (y - 16)^2 = 36k",
+      "(x - 18)^2 + (y - 16)^2 = 6k",
+      "(x - 18)^2 + (y - 16)^2 = 6k^2"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 18,
+    "id": "6aa47145ec7ba02921a43e45",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"-\\frac{5}{12}\\pi \\cdot \\frac{180^\\circ}{\\pi}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"-\\frac{5}{12} \\cdot \\frac{180^\\circ}{\\pi}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"-\\frac{5}{12}\\pi \\cdot \\frac{\\pi}{180^\\circ}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"-\\frac{5}{12}\\pi \\cdot \\frac{360^\\circ}{\\pi}\"></span></p>"
+    ],
+    "correctNorm": "-\\frac{5}{12}\\pi \\cdot \\frac{180^\\circ}{\\pi}",
+    "wrongNorms": [
+      "-\\frac{5}{12} \\cdot \\frac{180^\\circ}{\\pi}",
+      "-\\frac{5}{12}\\pi \\cdot \\frac{\\pi}{180^\\circ}",
+      "-\\frac{5}{12}\\pi \\cdot \\frac{360^\\circ}{\\pi}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 1",
+    "qNum": 21,
+    "id": "6aa47237ec7ba02921a43e51",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"(3, 8 - \\frac{1}{m})\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"(3, 8 + \\frac{1}{m})\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(3, 8 - m)\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(3, 8 + m)\"></span></p>"
+    ],
+    "correctNorm": "(3, 8 - \\frac{1}{m})",
+    "wrongNorms": [
+      "(3, 8 + \\frac{1}{m})",
+      "(3, 8 - m)",
+      "(3, 8 + m)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 4,
+    "id": "6aa47536ec7ba02921a43e83",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"56^\\circ\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"24^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(24 + 56)^\\circ\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"(24 \\cdot 56)^\\circ\"></span></p>"
+    ],
+    "correctNorm": "56^\\circ",
+    "wrongNorms": [
+      "24^\\circ",
+      "(24 + 56)^\\circ",
+      "(24 \\cdot 56)^\\circ"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 7,
+    "id": "6aa4761bec7ba02921a43e8f",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y = 22\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"y = 22 + 5\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = \\frac{22}{5}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = 5\"></span></p>"
+    ],
+    "correctNorm": "y = 22",
+    "wrongNorms": [
+      "y = 22 + 5",
+      "y = \\frac{22}{5}",
+      "y = 5"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 8,
+    "id": "6aa47652ec7ba02921a43e93",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"M = 100(0.78)^{\\frac{t}{11.11}}\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"M = 100(0.22)^{t+11.11}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"M = 100(0.22)^{\\frac{t}{11.11}}\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"M = 100(0.78)^{t+11.11}\"></span></p>"
+    ],
+    "correctNorm": "M = 100(0.78)^{\\frac{t}{11.11}}",
+    "wrongNorms": [
+      "M = 100(0.22)^{t+11.11}",
+      "M = 100(0.22)^{\\frac{t}{11.11}}",
+      "M = 100(0.78)^{t+11.11}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 9,
+    "id": "6aa476a5ec7ba02921a43e97",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"y = 8x + 15\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"y = 15x + 7\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = -15x + 7\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"y = -8x + 15\"></span></p>"
+    ],
+    "correctNorm": "y = 8x + 15",
+    "wrongNorms": [
+      "y = 15x + 7",
+      "y = -15x + 7",
+      "y = -8x + 15"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 15,
+    "id": "6aa47959ec7ba02921a43edd",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"15x + 150\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"15x + 10\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"15x + 25\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"15x + 5\"></span></p>"
+    ],
+    "correctNorm": "15x + 150",
+    "wrongNorms": [
+      "15x + 10",
+      "15x + 25",
+      "15x + 5"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 2",
+    "module": "Module 2",
+    "qNum": 16,
+    "id": "6aa4799eec7ba02921a43ee1",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"f(x) = -5^x + 3\"></span></p>",
+    "wrongsRaw": [
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -5^x + 1\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -5^x + 4\"></span></p>",
+      "<p><span class=\"ql-formula\" data-value=\"f(x) = -5^x + 5\"></span></p>"
+    ],
+    "correctNorm": "f(x) = -5^x + 3",
+    "wrongNorms": [
+      "f(x) = -5^x + 1",
+      "f(x) = -5^x + 4",
+      "f(x) = -5^x + 5"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "March 2025 · INT 3",
+    "module": "Module 2",
+    "qNum": 11,
+    "id": "6aa489ecec7ba02921a4402e",
+    "choiceCount": 3,
+    "correctRaw": "<p><span class=\"ql-formula\" data-value=\"Rx - 12y = -108\">﻿<span contenteditable=\"false\"><span class=\"katex\"><span class=\"katex-mathml\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><mi>R</mi><mi>x</mi><mo>−</mo><mn>12</mn><mi>y</mi><mo>=</mo><mo>−</mo><mn>108</mn></mrow><annotation encoding=\"application/x-tex\">Rx - 12y = -108</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"base\"><span class=\"strut\" style=\"height: 0.7667em; vertical-align: -0.0833em;\"></span><span class=\"mord mathnormal\" style=\"margin-right: 0.0077em;\">R</span><span class=\"mord mathnormal\">x</span><span class=\"mspace\" style=\"margin-right: 0.2222em;\"></span><span class=\"mbin\">−</span><span class=\"mspace\" style=\"margin-right: 0.2222em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height: 0.8389em; vertical-align: -0.1944em;\"></span><span class=\"mord\">12</span><span class=\"mord mathnormal\" style=\"margin-right: 0.0359em;\">y</span><span class=\"mspace\" style=\"margin-right: 0.2778em;\"></span><span class=\"mrel\">=</span><span class=\"mspace\" style=\"margin-right: 0.2778em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height: 0.7278em; vertical-align: -0.0833em;\"></span><span class=\"mord\">−</span><span class=\"mord\">108</span></span></span></span></span>﻿</span> </p>",
+    "wrongsRaw": [
+      "-10",
+      "<span class=\"ql-formula\" data-value=\"\\frac{1}{k}\"></span>",
+      "<span class=\"ql-formula\" data-value=\"\\frac{1 - k}{k}\"></span>"
+    ],
+    "correctNorm": "Rx - 12y = -108 Rx−12y=−108Rx - 12y = -108Rx−12y=−108",
+    "wrongNorms": [
+      "-10",
+      "\\frac{1}{k}",
+      "\\frac{1 - k}{k}"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "December 2024 · INT1",
+    "module": "Module 1",
+    "qNum": 7,
+    "id": "6aa589e3ec7ba02921a44464",
+    "choiceCount": 3,
+    "correctRaw": "<p><br></p>",
+    "wrongsRaw": [
+      "<span class=\"ql-formula\" data-value=\"y = 90(1.02)^x\"></span>",
+      "<span class=\"ql-formula\" data-value=\"y = 20(1.90)^x\"></span>",
+      "<span class=\"ql-formula\" data-value=\"y = 20(1.09)^x\"></span>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "y = 90(1.02)^x",
+      "y = 20(1.90)^x",
+      "y = 20(1.09)^x"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "December 2024 · INT1",
+    "module": "Module 2",
+    "qNum": 16,
+    "id": "6aa5aeb1ec7ba02921a44518",
+    "choiceCount": 3,
+    "correctRaw": "<p><br></p>",
+    "wrongsRaw": [
+      "<span class=\"ql-formula\" data-value=\"f(x) = d + cx\"></span>",
+      "<span class=\"ql-formula\" data-value=\"f(x) = d - cx\"></span>",
+      "<span class=\"ql-formula\" data-value=\"f(x) = -d + cx\"></span>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "f(x) = d + cx",
+      "f(x) = d - cx",
+      "f(x) = -d + cx"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "December 2024 · INT1",
+    "module": "Module 2",
+    "qNum": 18,
+    "id": "6aa5af7dec7ba02921a44520",
+    "choiceCount": 3,
+    "correctRaw": "<p><br></p>",
+    "wrongsRaw": [
+      "<span class=\"ql-formula\" data-value=\"6,125c\"></span>",
+      "<span class=\"ql-formula\" data-value=\"6,008c\"></span>",
+      "<span class=\"ql-formula\" data-value=\"1,850c\"></span>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "6,125c",
+      "6,008c",
+      "1,850c"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "December 2024 · INT1",
+    "module": "Module 2",
+    "qNum": 20,
+    "id": "6aa5b053ec7ba02921a4460e",
+    "choiceCount": 3,
+    "correctRaw": "<p><br></p>",
+    "wrongsRaw": [
+      "<span class=\"ql-formula\" data-value=\"1 + \\frac{b}{100}\"></span>",
+      "<span class=\"ql-formula\" data-value=\"b + 100\"></span>",
+      "<span class=\"ql-formula\" data-value=\"100(b + 1)\"></span>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "1 + \\frac{b}{100}",
+      "b + 100",
+      "100(b + 1)"
+    ],
+    "correctInWrongs": false
+  },
+  {
+    "exam": "December 2024 · INT1",
+    "module": "Module 2",
+    "qNum": 21,
+    "id": "6aa5b082ec7ba02921a44612",
+    "choiceCount": 3,
+    "correctRaw": "<p><br></p>",
+    "wrongsRaw": [
+      "<span class=\"ql-formula\" data-value=\"\\frac{29m}{4k}\"></span>",
+      "<span class=\"ql-formula\" data-value=\"\\frac{29k}{4m}\"></span>",
+      "<span class=\"ql-formula\" data-value=\"\\frac{1,044m}{k}\"></span>"
+    ],
+    "correctNorm": "",
+    "wrongNorms": [
+      "\\frac{29m}{4k}",
+      "\\frac{29k}{4m}",
+      "\\frac{1,044m}{k}"
+    ],
+    "correctInWrongs": false
+  }
+]

@@ -1,0 +1,180 @@
+====================================================
+MARCH 2025 · INT 2 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6aa46b68ec7ba02921a43dca | TYPE: undefined
+STEM:
+s=40+2ts = 40 + 2ts=40+2t The equation gives the speed sss , in miles per hour, of a certain car ttt seconds after it began to accelerate. What is the speed, in miles per hour, of the car 4 seconds after it began to accelerate? A:"40" B:"42" C:"44" D:"48"
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6aa46bddec7ba02921a43ddd | TYPE: undefined
+STEM:
+Which equation shows the relationship between the side lengths of the given triangle?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 3 | ID: 6aa46ca9ec7ba02921a43de1 | TYPE: undefined
+STEM:
+The histogram shows the distribution of 20 lengths, in feet, in a data set. The first bar represents the lengths that are less than 50 feet, the second bar represents the lengths that are at least 50 feet but less than 100 feet, and so on. Which of the following could be the maximum length, in feet, in this data set?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 4 | ID: 6aa46d0aec7ba02921a43de5 | TYPE: undefined
+STEM:
+The function fff is defined by f(x)=8(2x+2)f(x) = 8(2x + 2)f(x)=8(2x+2) . For what value of xxx does f(x)=80f(x) = 80f(x)=80 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6aa46d54ec7ba02921a43dec | TYPE: undefined
+STEM:
+y=−0.5y = -0.5y=−0.5 y=x2+8x+ay = x^2 + 8x + ay=x2+8x+a In the given system of equations, aaa is a positive integer constant. The system has no real solutions. What is the least possible value of aaa ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["16"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6aa46d72ec7ba02921a43df0 | TYPE: undefined
+STEM:
+A line segment that has a length of 113 centimeters (cm) is divided into three parts. One part is 47 cm long. The other two parts have lengths that are equal to each other. What is the length, in cm, of one of the other two parts of equal length?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["33"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6aa46d9fec7ba02921a43df4 | TYPE: undefined
+STEM:
+The price of an object increased from 16 to 80. What was the percent increase in the price of the object?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6aa46dd4ec7ba02921a43df8 | TYPE: undefined
+STEM:
+The scatterplot shows the relationship between two variables, xxx and yyy . A line of best fit is also shown. Which of the following equations best represents the line of best fit shown?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 9 | ID: 6aa46e0bec7ba02921a43dfc | TYPE: undefined
+STEM:
+The expression 7x6+9x6−8x67x^6 + 9x^6 - 8x^67x6+9x6−8x6 is equivalent to bx6bx^6bx6 , where bbb is a constant. What is the value of bbb ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["8"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6aa46e9aec7ba02921a43e12 | TYPE: undefined
+STEM:
+At what point (x,y)(x, y)(x,y) do the graphs of the equations y=5x+8y = 5x + 8y=5x+8 and y=6x−2y = 6x - 2y=6x−2 intersect in the xyxyxy -plane?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6aa46f36ec7ba02921a43e29 | TYPE: undefined
+STEM:
+A rectangle has a length that is 72 times its width. The function y=(72w)(w)y = (72w)(w)y=(72w)(w) represents this situation, where yyy is the area, in square feet, of the rectangle and y&gt;0y &gt; 0y&gt;0 . Which of the following is the best interpretation of 72w72w72w in this context?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 12 | ID: 6aa46fbfec7ba02921a43e2d | TYPE: undefined
+STEM:
+In the figure shown, line kkk intersects lines rrr and sss , if w=160w = 160w=160 , which additional piece of information is sufficient to prove that lines rrr and sss are parallel?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 13 | ID: 6aa46feaec7ba02921a43e31 | TYPE: undefined
+STEM:
+x2−4x+y2−8y−80=0x^2 - 4x + y^2 - 8y - 80 = 0x2−4x+y2−8y−80=0 In the xyxyxy -plane, the graph of the given equation is a circle. If this circle is inscribed in a square. What is the perimeter of the square?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 14 | ID: 6aa47009ec7ba02921a43e35 | TYPE: undefined
+STEM:
+A real estate company offers a series of three webinars. 1, 250 people attended the first webinar. 46% of the people who attended the first webinar attended the second webinar, and 32% of the people who attended the first and second webinars attended the third webinar. How many people attended all three webinars?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["184"]
+
+----------------------------------------------------
+QUESTION 15 | ID: 6aa47063ec7ba02921a43e39 | TYPE: undefined
+STEM:
+f(x)=24(2)x6f(x) = 24(2)^{\frac{x}{6}}f(x)=24(2)6x​ Which table gives four values of xxx and their corresponding values of f(x)f(x)f(x) for the given exponential function?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 16 | ID: 6aa470a9ec7ba02921a43e3d | TYPE: undefined
+STEM:
+A circle in the xyxyxy -plane has its center at (18, 16) and has a radius of 6k6k6k . Which equation represents this circle?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 17 | ID: 6aa470e6ec7ba02921a43e41 | TYPE: undefined
+STEM:
+To study fluctuations in leaf water potential, samples of wood were taken from 22 trees cut in the shape of a cube. The length of the edge of one of these cubes is 3.000 centimeters. This cube has a density of 0.250 grams per cubic centimeter. What is the mass of this cube in grams?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["27/4"]
+
+----------------------------------------------------
+QUESTION 18 | ID: 6aa47145ec7ba02921a43e45 | TYPE: undefined
+STEM:
+The difference between the measure of angle AAA and the measure of angle BBB is −512π-\frac{5}{12}\pi−125​π radians. Which expression shows the difference between the measure of angle AAA and the measure of angle BBB , in degrees?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 19 | ID: 6aa47179ec7ba02921a43e49 | TYPE: undefined
+STEM:
+What is the sum of the solutions to the given equation? x2−84x−14=0x^2 - 84x - 14 = 0x2−84x−14=0
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 20 | ID: 6aa471cfec7ba02921a43e4d | TYPE: undefined
+STEM:
+For the right circular cone shown, BBB is a point on the circumference of the base, and the length of segment ABABAB (not shown) is 32 centimeters. If the height of the cone is 16 centimeters and the volume of the cone is kπk\pikπ cubic centimeters. What is the value of kkk ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["4096"]
+
+----------------------------------------------------
+QUESTION 21 | ID: 6aa47237ec7ba02921a43e51 | TYPE: undefined
+STEM:
+In the xyxyxy -plane, line kkk and line lll are perpendicular and intersect at the point (2, 8). If line kkk is defined by the equation y=mx+by = mx + by=mx+b , where mmm and bbb are constants and m&gt;1m &gt; 1m&gt;1 , which of the following points lies on line lll ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6aa4729bec7ba02921a43e58 | TYPE: undefined
+STEM:
+The function fff is defined by f(x)=8(2x+2)f(x) = 8(2x + 2)f(x)=8(2x+2) . For what value of xxx does f(x)=80f(x) = 80f(x)=80 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+[]
+

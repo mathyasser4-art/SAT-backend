@@ -1,0 +1,293 @@
+====================================================
+OCTOBER 2025 · INT 2 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6289acc3d08d90637d379a | TYPE: MCQ
+STEM:
+Which expression is equivalent to 9yz3+6yz+3yz39yz^3 + 6yz + 3yz^39yz3+6yz+3yz3 ?
+
+CORRECT ANSWER:
+12yz3+6yz12yz^3 + 6yz12yz3+6yz
+
+WRONG ANSWERS (4):
+  [1] 12yz3+6yz12yz^3 + 6yz12yz3+6yz
+  [2] 12yz6+6yz12yz^6 + 6yz12yz6+6yz
+  [3] 18yz618yz^618yz6
+  [4] 18yz718yz^718yz7
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a628ce9c3d08d90637d37b8 | TYPE: MCQ
+STEM:
+A sum of 9,000 dollars was invested in a certificate of deposit (CD) that earns interest, and no other deposits or withdrawals were made after that. The function f(x)=9,000(1+0.03)xf(x) = 9,000(1 + 0.03)^xf(x)=9,000(1+0.03)x gives the value of the CD, in dollars, xxx years after the investment was initially made, where x≤5x \leq 5x≤5 . Which of the following is the best interpretation of the statement " f(2)f(2)f(2) is approximately equal to 9,474.08" in this context?
+
+CORRECT ANSWER:
+222 years after the investment was made, the value of the CD was approximately 9,474.089,474.089,474.08 dollars.
+
+WRONG ANSWERS (4):
+  [1] The value of the CD would be approximately 9,474.089,474.089,474.08 dollars if invested at 2%2\%2% interest.
+  [2] 9,474.089,474.089,474.08 days after the investment was made, the value of the CD was approximately 222 times greater than its initial value.
+  [3] 222 years after the investment was made, the value of the CD was approximately 9,474.089,474.089,474.08 dollars.
+  [4] 222 years after the investment was made, the value of the CD was approximately 9,474.089,474.089,474.08 dollars greater than its initial value.
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a628d9fc3d08d90637d37be | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784843679/questionPic/tekjxl2gspghwxwsddwj.png
+STEM:
+What is an equation of the graph shown?
+
+CORRECT ANSWER:
+35x−49y=−12635x - 49y = -12635x−49y=−126
+
+WRONG ANSWERS (4):
+  [1] 49x−35y=−12649x - 35y = -12649x−35y=−126
+  [2] 35x−49y=−12635x - 49y = -12635x−49y=−126
+  [3] 7x−5y=−1267x - 5y = -1267x−5y=−126
+  [4] 5x−7y=−1265x - 7y = -1265x−7y=−126
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a628e90c3d08d90637d37c8 | TYPE: MCQ
+STEM:
+5y=6x+175y = 6x + 175y=6x+17 −5y=7x−23-5y = 7x - 23−5y=7x−23 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of 39x39x39x ?
+
+CORRECT ANSWER:
+18
+
+WRONG ANSWERS (4):
+  [1] -18
+  [2] -6
+  [3] 6
+  [4] 18
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a628f63c3d08d90637d37d2 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784844130/questionPic/chs3qe8zkdqe0oawsizq.png
+STEM:
+The shaded region shown represents the solutions to which inequality?
+
+CORRECT ANSWER:
+y&gt;4x+3y &gt; 4x + 3y&gt;4x+3
+
+WRONG ANSWERS (4):
+  [1] y&gt;4x+3y &gt; 4x + 3y&gt;4x+3
+  [2] y&gt;4x−3y &gt; 4x - 3y&gt;4x−3
+  [3] y&lt;4x+3y &lt; 4x + 3y&lt;4x+3
+  [4] y&lt;4x−3y &lt; 4x - 3y&lt;4x−3
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6291dec3d08d90637d380e | TYPE: MCQ
+STEM:
+A circle in the xyxyxy -plane has its center at (−5,2)(-5, 2)(−5,2) and the point (−9,5)(-9, 5)(−9,5) lies on the circle. Which equation represents this circle?
+
+CORRECT ANSWER:
+(x+5)2+(y−2)2=25(x + 5)^2 + (y - 2)^2 = 25(x+5)2+(y−2)2=25
+
+WRONG ANSWERS (4):
+  [1] (x−5)2+(y+2)2=5(x - 5)^2 + (y + 2)^2 = 5(x−5)2+(y+2)2=5
+  [2] (x+5)2+(y−2)2=5(x + 5)^2 + (y - 2)^2 = 5(x+5)2+(y−2)2=5
+  [3] (x−5)2+(y+2)2=25(x - 5)^2 + (y + 2)^2 = 25(x−5)2+(y+2)2=25
+  [4] (x+5)2+(y−2)2=25(x + 5)^2 + (y - 2)^2 = 25(x+5)2+(y−2)2=25
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a629268c3d08d90637d3818 | TYPE: MCQ
+STEM:
+y&lt;−3x+18y &lt; -3x + 18y&lt;−3x+18 Which point (x,y)(x, y)(x,y) is a solution to the given inequality in the xyxyxy -plane?
+
+CORRECT ANSWER:
+(−3,0)(-3, 0)(−3,0)
+
+WRONG ANSWERS (4):
+  [1] (0,19)(0, 19)(0,19)
+  [2] (−1,22)(-1, 22)(−1,22)
+  [3] (−3,0)(-3, 0)(−3,0)
+  [4] (7,−1)(7, -1)(7,−1)
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6292f1c3d08d90637d381e | TYPE: MCQ
+STEM:
+18(x+5)=2(x+c)+16x18(x + 5) = 2(x + c) + 16x18(x+5)=2(x+c)+16x In the given equation, ccc is a constant. The equation has infinitely many solutions. What is the value of ccc ?
+
+CORRECT ANSWER:
+45
+
+WRONG ANSWERS (4):
+  [1] 90
+  [2] 45
+  [3] 10
+  [4] 5
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6293c9c3d08d90637d3828 | TYPE: Essay
+STEM:
+The table shows three values of xxx and their corresponding values of yyy . There is a quadratic relationship between xxx and yyy . An equation that represents this relationship can be written as y=36x2−bx−120y = 36x^2 - bx - 120y=36x2−bx−120 , where bbb is a constant. What is the value of bbb ? xy−5900−12060\begin{array}{|c|c|} \hline x &amp; y \\ \hline \frac{-5}{9} &amp; 0 \\ \hline 0 &amp; -120 \\ \hline 6 &amp; 0 \\ \hline \end{array}x9−5​06​y0−1200​​
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["196"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a62950ac3d08d90637d382c | TYPE: MCQ
+STEM:
+Hannah and Wyatt are saving money to purchase a car. Hannah saves 15\frac{1}{5}51​ of her salary each month, and Wyatt saves 27\frac{2}{7}72​ of his salary each month. Together, they save a total of 3,2703,2703,270 dollar from their monthly salaries each month. If hhh and www represent Hannah's and Wyatt's monthly salaries, in dollars, respectively, which equation shows the relationship between hhh and www ?
+
+CORRECT ANSWER:
+7h+10w=114,4507h + 10w = 114,4507h+10w=114,450
+
+WRONG ANSWERS (4):
+  [1] h+w=3,270h + w = 3,270h+w=3,270
+  [2] h+2w=3,270h + 2w = 3,270h+2w=3,270
+  [3] 10h+7w=114,45010h + 7w = 114,45010h+7w=114,450
+  [4] 7h+10w=114,4507h + 10w = 114,4507h+10w=114,450
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6296d3c3d08d90637d3832 | TYPE: MCQ
+STEM:
+x−a=(x−a)(x−24)x - a = (x - a)(x - 24)x−a=(x−a)(x−24) Which of the following are solutions to the given equation, where aaa is a constant and a&gt;25a &gt; 25a&gt;25 ?I. aaa II. 242424 III. 252525
+
+CORRECT ANSWER:
+I and III only\text{I and III only}I and III only
+
+WRONG ANSWERS (4):
+  [1] I and II only\text{I and II only}I and II only
+  [2] I and III only\text{I and III only}I and III only
+  [3] II and III only\text{II and III only}II and III only
+  [4] I, II, and III\text{I, II, and III}I, II, and III
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a629740c3d08d90637d383c | TYPE: MCQ
+STEM:
+If x−1=2\sqrt{x - 1} = 2x−1​=2 , what is the value of (x−1)(x - 1)(x−1) ?
+
+CORRECT ANSWER:
+4
+
+WRONG ANSWERS (4):
+  [1] 2
+  [2] 3
+  [3] 4
+  [4] 8
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6297e0c3d08d90637d3840 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784846303/questionPic/klxcbgrdrqeprwcjw09d.png
+STEM:
+The figure shows a rectangular pool surrounded by a concrete path that is xxx feet (ft) wide on all sides. The pool is 212121 ft long and 111111 ft wide. The area of the concrete path is 144 ft2144\text{ ft}^2144 ft2 . What is the value of xxx ?
+
+CORRECT ANSWER:
+2
+
+WRONG ANSWERS (4):
+  [1] 2
+  [2] 4
+  [3] 18
+  [4] 36
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a629918c3d08d90637d384a | TYPE: MCQ
+STEM:
+At a nature preserve, a wildlife biologist counted bald eagles from an observation deck at the same time each day for 212121 days. The table summarizes the resulting data set, data set A.The data value 191919 was recorded in error and is removed from data set A to create data set B, which consists of the remaining 202020 data values. Which statement best compares the median of data set A and the median of data set B?
+
+CORRECT ANSWER:
+The median of data set B is equal to the median of data set A.
+
+WRONG ANSWERS (4):
+  [1] The median of data set B is less than the median of data set A.
+  [2] The median of data set B is equal to the median of data set A.
+  [3] The median of data set B is greater than the median of data set A.
+  [4] There is not enough information to compare the medians of the two data sets.
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6299b7c3d08d90637d3850 | TYPE: MCQ
+STEM:
+One gallon of paint will cover 70 square feet of a surface. A room has a total wall area of www square feet. Which equation represents the total amount of paint PPP , in gallons, needed to paint the walls of the room twice?
+
+CORRECT ANSWER:
+P=w35P = \frac{w}{35}P=35w​
+
+WRONG ANSWERS (4):
+  [1] P=w70P = \frac{w}{70}P=70w​
+  [2] P=70wP = 70wP=70w
+  [3] P=140wP = 140wP=140w
+  [4] P=w35P = \frac{w}{35}P=35w​
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a629a76c3d08d90637d385a | TYPE: MCQ
+STEM:
+f(x)=4−5(x+1)f(x) = 4^{-5(x+1)}f(x)=4−5(x+1) Which of the following equivalent forms of the given function fff displays, as the base or the coefficient, the yyy -coordinate of the yyy -intercept of the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane?
+
+CORRECT ANSWER:
+f(x)=11024(14)5xf(x) = \frac{1}{1024} \left(\frac{1}{4}\right)^{5x}f(x)=10241​(41​)5x
+
+WRONG ANSWERS (4):
+  [1] f(x)=11024(14)5xf(x) = \frac{1}{1024} \left(\frac{1}{4}\right)^{5x}f(x)=10241​(41​)5x
+  [2] f(x)=(14)5x+5f(x) = \left(\frac{1}{4}\right)^{5x+5}f(x)=(41​)5x+5
+  [3] f(x)=4−5x−5f(x) = 4^{-5x-5}f(x)=4−5x−5
+  [4] f(x)=1024−x−1f(x) = 1024^{-x-1}f(x)=1024−x−1
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a629b37c3d08d90637d3860 | TYPE: Essay
+STEM:
+117n(117n)2\sqrt{117n} (\sqrt{117n})^2117n​(117n​)2 For what value of xxx is the given expression equivalent to (117n)12x(117n)^{12x}(117n)12x , where n&gt;1n &gt; 1n&gt;1 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["0.125"]
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a629d10c3d08d90637d386c | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784847631/questionPic/aa6nefpswcpkprtqxezf.png
+STEM:
+The table shows the volume of two similar solids, right circular cylinder A and right circular cylinder B. The radius of right circular cylinder A is 777 units. The surface area of right circular cylinder A is kπk\pikπ square units, and the surface area of right circular cylinder B is nπn\pinπ square units, where kkk and nnn are constants. What is the value of n−kn - kn−k ? (The surface area of a right circular cylinder with radius rrr and height hhh is 2πr2+2πrh2\pi r^2 + 2\pi rh2πr2+2πrh .)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1680","1.680"]
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6638f3c3d08d90637d38a1 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785085371/questionPic/nfqyotomeeuyft9tnlkf.png
+STEM:
+In the figure, a hollow steel pipe is in the shape of a right circular cylinder. The steel pipe has an outside diameter of 606060 inches, a wall thickness of 58\frac{5}{8}85​ inches, and a height of 144144144 inches. Which of the following is closest to the volume, in cubic inches, of the wall of this steel pipe?
+
+CORRECT ANSWER:
+16,78816,78816,788
+
+WRONG ANSWERS (4):
+  [1] 177177177
+  [2] 565565565
+  [3] 2,7002,7002,700
+  [4] 16,78816,78816,788
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a66395fc3d08d90637d38ad | TYPE: MCQ
+STEM:
+If 8(5−2x)+3=7(5−2x)+188(5 - 2x) + 3 = 7(5 - 2x) + 188(5−2x)+3=7(5−2x)+18 , what is the value of 5−2x5 - 2x5−2x ?
+
+CORRECT ANSWER:
+15
+
+WRONG ANSWERS (4):
+  [1] -15
+  [2] -5
+  [3] 5
+  [4] 15
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6639fac3d08d90637d38b1 | TYPE: MCQ
+STEM:
+The measure of angle ZZZ is 45∘45^\circ45∘ . What is the measure, in radians, of angle ZZZ ?
+
+CORRECT ANSWER:
+14π\frac{1}{4}\pi41​π
+
+WRONG ANSWERS (4):
+  [1] 12π\frac{1}{2}\pi21​π
+  [2] 34π\frac{3}{4}\pi43​π
+  [3] 18π\frac{1}{8}\pi81​π
+  [4] 14π\frac{1}{4}\pi41​π
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a663ab4c3d08d90637d38b5 | TYPE: Essay
+STEM:
+For a certain type of rope, the equation y=900ax2y = 900ax^2y=900ax2 , where aaa is a constant, gives the estimated breaking strength yyy , in pounds, of a rope with a circumference of xxx inches. Based on this equation, if a rope of this type has a circumference of 1.751.751.75 inches, it has an estimated breaking strength of 3,858.753,858.753,858.75 pounds. What is the estimated breaking strength, in pounds, of a rope of this type that has a circumference of 3.503.503.50 inches?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["15435"]
+

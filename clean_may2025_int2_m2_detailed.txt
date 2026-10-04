@@ -1,0 +1,291 @@
+====================================================
+MAY 2025 · INT 2 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a9b475c111ffc76c2e63e78 | TYPE: MCQ
+STEM:
+The total cost f(x)f(x)f(x) , in dollars, to lease a car for 242424 months from a particular car dealership is given by f(x)=24x+1,000 f(x) = 24x + 1,000f(x)=24x+1,000 , where xxx is the monthly payment, in dollars. What is the total cost to lease a car when the monthly payment is 300300300 ?
+
+CORRECT ANSWER:
+6,2006,2006,200
+
+WRONG ANSWERS (4):
+  [1] 6,2006,2006,200
+  [2] 7,0007,0007,000
+  [3] 8,2008,2008,200
+  [4] 25,30025,30025,300
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a9b47e3111ffc76c2e6401a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788561379/questionPic/eyuw1rlzlgkwlymqb63l.png
+STEM:
+In the figure shown, line ll l intersects lines jjj and kkk . Which additional piece of information is sufficient to prove that lines jjj and kkk are parallel?
+
+CORRECT ANSWER:
+w=54w = 54w=54
+
+WRONG ANSWERS (4):
+  [1] w=54w = 54w=54
+  [2] x=126x = 126x=126
+  [3] y=54y = 54y=54
+  [4] z=126z = 126z=126
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a9c03d24471c51d35c18e2d | TYPE: MCQ
+STEM:
+5x+3=rx+75x + 3 = rx + 75x+3=rx+7 In the given equation, rrr is a constant. The equation has no solution. What is the value of rrr ?
+
+CORRECT ANSWER:
+212121
+
+WRONG ANSWERS (4):
+  [1] 212121
+  [2] 888
+  [3] 777
+  [4] 555
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a9c042d4471c51d35c18e33 | TYPE: MCQ
+STEM:
+If 5(2x+9)=3(2x+9)+745(2x + 9) = 3(2x + 9) + 745(2x+9)=3(2x+9)+74 , what is the value of 2x+92x + 92x+9 ?
+
+CORRECT ANSWER:
+747474
+
+WRONG ANSWERS (4):
+  [1] 747474
+  [2] 373737
+  [3] 282828
+  [4] 141414
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a9c04744471c51d35c18e39 | TYPE: MCQ
+STEM:
+If 350% of nnn is 35, what is the value of nnn ?
+
+CORRECT ANSWER:
+122501225012250
+
+WRONG ANSWERS (4):
+  [1] 122501225012250
+  [2] 122512251225
+  [3] 100010001000
+  [4] 101010
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a9c06284471c51d35c18e41 | TYPE: MCQ
+STEM:
+The table shows two values of xxx and their corresponding values of h(x)h(x)h(x) for the linear function hhh . Which equation defines hhh ? xh(x)417623\begin{array}{|c|c|} \hline x &amp; h(x) \\ \hline 4 &amp; 17 \\ 6 &amp; 23 \\ \hline \end{array}x46​h(x)1723​​
+
+CORRECT ANSWER:
+h(x)=3x+5h(x) = 3x + 5h(x)=3x+5
+
+WRONG ANSWERS (4):
+  [1] h(x)=13x−53h(x) = \frac{1}{3}x - \frac{5}{3}h(x)=31​x−35​
+  [2] h(x)=3x+5h(x) = 3x + 5h(x)=3x+5
+  [3] h(x)=4x+17h(x) = 4x + 17h(x)=4x+17
+  [4] h(x)=6x+23h(x) = 6x + 23h(x)=6x+23
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a9c06824471c51d35c18e47 | TYPE: MCQ
+STEM:
+y=x2+17x+4y = x^2 + 17x + 4y=x2+17x+4 y=x+4y = x + 4y=x+4 The graphs of the equations in the given system intersect at the point (x,y)(x, y)(x,y) in the xyxyxy -plane. What is a possible value of xxx ?
+
+CORRECT ANSWER:
+−16-16−16
+
+WRONG ANSWERS (4):
+  [1] −16-16−16
+  [2] −15-15−15
+  [3] 131313
+  [4] 151515
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a9c06d04471c51d35c18e4d | TYPE: MCQ
+STEM:
+A piece of string with a length of 108108108 inches is cut into two parts. One part has a length of xxx inches, and the other part has a length of yyy inches. The value of xxx is 8 more than 4 times the value of yyy . What is the value of xxx ?
+
+CORRECT ANSWER:
+252525
+
+WRONG ANSWERS (4):
+  [1] 252525
+  [2] 292929
+  [3] 585858
+  [4] 888888
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a9c07544471c51d35c18e53 | TYPE: MCQ
+STEM:
+A landscaper will plant two types of shrubs, hydrangeas and winter hazels, in a park. There will be no more than 244244244 total shrubs planted, and the number of hydrangeas planted will be at most three times the number of winter hazels planted. Which of the following systems of inequalities best represents this situation, where hhh is the number of hydrangeas that will be planted and www is the number of winter hazels that will be planted?
+
+CORRECT ANSWER:
+h+w≤244h≤3wh + w \le 244 h \le 3wh+w≤244h≤3w
+
+WRONG ANSWERS (4):
+  [1] h+w≤244h≤3wh + w \le 244 h \le 3wh+w≤244h≤3w
+  [2] h+w≤2443h≤wh + w \le 244 3h \le wh+w≤2443h≤w
+  [3] h+w≥244h≤3wh + w \ge 244 h \le 3wh+w≥244h≤3w
+  [4] h+w≥2443h≤wh + w \ge 244 3h \le wh+w≥2443h≤w
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a9c07ae4471c51d35c18e59 | TYPE: MCQ
+STEM:
+y≤x+3y \le x + 3y≤x+3 y≥−3x−7y \ge -3x - 7y≥−3x−7 Which point (x,y) (x, y) (x,y) is a solution to the given system of inequalities in the xyxyxy -plane?
+
+CORRECT ANSWER:
+(0,−14)(0,-14)(0,−14)
+
+WRONG ANSWERS (4):
+  [1] (0,−14)(0,-14)(0,−14)
+  [2] (0,14)(0, 14)(0,14)
+  [3] (−14,0)(-14, 0)(−14,0)
+  [4] (14,0)(14, 0)(14,0)
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a9c09234471c51d35c1902d | TYPE: MCQ
+STEM:
+3x2−5x−5=03x^2 - 5x - 5 = 03x2−5x−5=0 What is the greatest solution to the given equation?
+
+CORRECT ANSWER:
+56−856\frac{5}{6} - \frac{\sqrt{85}}{6}65​−685​​
+
+WRONG ANSWERS (4):
+  [1] 56−856\frac{5}{6} - \frac{\sqrt{85}}{6}65​−685​​
+  [2] 56+856\frac{5}{6} + \frac{\sqrt{85}}{6}65​+685​​
+  [3] 53−853\frac{5}{3} - \frac{\sqrt{85}}{3}35​−385​​
+  [4] 53+853\frac{5}{3} + \frac{\sqrt{85}}{3}35​+385​​
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a9c0a874471c51d35c190cb | TYPE: Essay
+STEM:
+f(x)=−0.0038400x2+15.236x−15,103f(x) = -0.0038400x^2 + 15.236x - 15,103f(x)=−0.0038400x2+15.236x−15,103 The model shown gives the predicted average Arctic sea ice area f(x)f(x)f(x) , in millions of square kilometers, for September of each year xxx , where 1979≤x≤2012.1979 \le x \le 2012.1979≤x≤2012. Based on the model, what is the positive difference, in millions of square kilometers, between the predicted average Arctic sea ice area for September of the year 199119911991 and the predicted average Arctic sea ice area for September of the year 199219921992 ? (Round your answer to the nearest thousandth.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["591000\\frac{59}{1000}100059​"]
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a9c0ace4471c51d35c190d1 | TYPE: MCQ
+STEM:
+What is the y-intercept of the graph of y=(813)x+1y = \left(\frac{8}{13}\right)^{x+1}y=(138​)x+1 in the xy-plane?
+
+CORRECT ANSWER:
+(8,13)(8, 13)(8,13)
+
+WRONG ANSWERS (4):
+  [1] (8,13)(8, 13)(8,13)
+  [2] (0,13)(0, 13)(0,13)
+  [3] (0,8)(0, 8)(0,8)
+  [4] (0,813)\left(0, \frac{8}{13}\right)(0,138​)
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a9c0b2a4471c51d35c19127 | TYPE: MCQ
+STEM:
+The function fff is defined by the given equation. Which of the following equivalent forms of the equation displays the minimum value of the function as a constant or coefficient? f(x)=x2−4x−320f(x) = x^2 - 4x - 320f(x)=x2−4x−320
+
+CORRECT ANSWER:
+f(x)=x2−4(x+80)f(x) = x^2 - 4(x + 80)f(x)=x2−4(x+80)
+
+WRONG ANSWERS (4):
+  [1] f(x)=x2−4(x+80)f(x) = x^2 - 4(x + 80)f(x)=x2−4(x+80)
+  [2] f(x)=(x−2)2+(−324)f(x) = (x - 2)^2 + (-324)f(x)=(x−2)2+(−324)
+  [3] f(x)=x(x−4)+(−320)f(x) = x(x - 4) + (-320)f(x)=x(x−4)+(−320)
+  [4] f(x)=(x+16)(x−20)f(x) = (x + 16)(x - 20)f(x)=(x+16)(x−20)
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a9c0b854471c51d35c19156 | TYPE: Essay
+STEM:
+Line sss in the xy-plane is defined by 6x+2y=06x + 2y = 06x+2y=0 . Line ttt is perpendicular to line sss and passes through the points (7,0) (7, 0)(7,0) and (k,43)\left(k, \frac{4}{3}\right)(k,34​) . What is the value of kkk ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["111111"]
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a9c0c054471c51d35c1915c | TYPE: MCQ
+STEM:
+The function g(x)=x3+ax2+bx+cg(x) = x^3 + ax^2 + bx + cg(x)=x3+ax2+bx+c is defined by the given equation, where a, b, and c are integer constants. The zeros of the function are -2, -7, and 6. What is the value of a?
+
+CORRECT ANSWER:
+−84-84−84
+
+WRONG ANSWERS (4):
+  [1] −84-84−84
+  [2] −3-3−3
+  [3] 333
+  [4] 848484
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a9c0c694471c51d35c1918c | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788611689/questionPic/keiuh4dyusetat3nohh6.png
+STEM:
+The weight of each object in two groups, A and B, was recorded. The histograms represent the distributions of weight, in grams, for the objects in groups A and B. The mean weight of the objects in group A is equal to 2.1, and the mean weight of the objects in group B is equal to 11.1. Which of the following statements about the standard deviations of weight for the objects in these two groups is true?
+
+CORRECT ANSWER:
+The standard deviation of weight for the objects in group A is less than the standard deviation of weight for the objects in group B.
+
+WRONG ANSWERS (4):
+  [1] The standard deviation of weight for the objects in group A is less than the standard deviation of weight for the objects in group B.
+  [2] The standard deviation of weight for the objects in group A is equal to the standard deviation of weight for the objects in group B.
+  [3] The standard deviation of weight for the objects in group A is greater than the standard deviation of weight for the objects in group B.
+  [4] There is not enough information to compare the standard deviations of weight for the objects in these two groups.
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a9c0ca34471c51d35c19192 | TYPE: MCQ
+STEM:
+A carpenter charges a flat rate of 216 dollar for the first 3 hours of work and 60 dollar for each additional hour of work. Which equation gives the total amount y, in dollars, that the carpenter charges for x hours of work, where x &gt; 3?
+
+CORRECT ANSWER:
+y = 60x + 216
+
+WRONG ANSWERS (4):
+  [1] y = 60x + 216
+  [2] y = 216x + 396
+  [3] y = 60x + 36
+  [4] y = 216x + 60
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a9c0d2f4471c51d35c191c3 | TYPE: MCQ
+STEM:
+The given equation relates the positive variables p,q,r, p, q, r,p,q,r, and s.s.s. Which of the following is equivalent to qqq ? 46p=46q−46r−46s\frac{46}{p} = \frac{46}{q} - \frac{46}{r} - \frac{46}{s}p46​=q46​−r46​−s46​
+
+CORRECT ANSWER:
+prspr+ps+rs\frac{prs}{pr + ps + rs}pr+ps+rsprs​
+
+WRONG ANSWERS (4):
+  [1] prspr+ps+rs\frac{prs}{pr + ps + rs}pr+ps+rsprs​
+  [2] prs46p+46r+46s\frac{prs}{46p + 46r + 46s}46p+46r+46sprs​
+  [3] p+r+sp + r + sp+r+s
+  [4] 46(p+r+s)46(p + r + s)46(p+r+s)
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a9c0e114471c51d35c19250 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788612113/questionPic/vvgncsl9rmw41suxbq1w.png
+STEM:
+In the figure, AD‾\overline{AD}AD and BC‾\overline{BC}BC intersect at point DDD . The measure of ∠ABD\angle ABD∠ABD is w∘w^\circw∘ , the measure of ∠CAD\angle CAD∠CAD is z∘z^\circz∘ , and AD=178\text{AD} = 178AD=178 . If cos⁡w∘=941\cos w^\circ = \frac{9}{41}cosw∘=419​ , what is the value of tan⁡z∘\tan z^\circtanz∘ ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["409\\frac{40}{9}940​"]
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a9c0e794471c51d35c192b7 | TYPE: MCQ
+STEM:
+A right square pyramid has a total surface area of 70,560 square inches, and the combined surface area of the four lateral faces of this pyramid is 38,160 square inches. What is the height, in inches, of this pyramid?
+
+CORRECT ANSWER:
+56
+
+WRONG ANSWERS (4):
+  [1] 56
+  [2] 90
+  [3] 106
+  [4] 180
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a9c0ea64471c51d35c192ed | TYPE: Essay
+STEM:
+In the given equation, ccc is a constant. If the equation has exactly one solution, what is the value of ccc ? 1cx=x96+1c\frac{1}{cx} = \frac{x}{96} + \frac{1}{c}cx1​=96x​+c1​
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["−24-24−24"]
+

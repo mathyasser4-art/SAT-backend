@@ -1,0 +1,287 @@
+====================================================
+NOVEMBER 2025 · INT 2 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a5b61fcc3d08d90637d3291 | TYPE: Essay
+STEM:
+One of the two equations in a system of linear equations is given. The system has infinitely many solutions. If the second equation in this system is y=mx+by = mx + by=mx+b , where mmm and bbb are constants, what is the value of bbb ? y=9x+19y = 9x + 19y=9x+19
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["19"]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a5fad8ac3d08d90637d32da | TYPE: MCQ
+STEM:
+If 5x+2=325x + 2 = 325x+2=32 , what is the value of 50x+2050x + 2050x+20 ?
+
+CORRECT ANSWER:
+320
+
+WRONG ANSWERS (4):
+  [1] 6
+  [2] 60
+  [3] 70
+  [4] 320
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a5fade2c3d08d90637d32e6 | TYPE: MCQ
+STEM:
+In each of the following data sets of 5 values, ppp is a constant. Which of these data sets has the largest standard deviation?
+
+CORRECT ANSWER:
+p−5,p−4,p,p+4,p+5p - 5, p - 4, p, p + 4, p + 5p−5,p−4,p,p+4,p+5
+
+WRONG ANSWERS (4):
+  [1] p−4,p,p,p,p+4p - 4, p, p, p, p + 4p−4,p,p,p,p+4
+  [2] p−1,p−1,p,p+1,p+1p - 1, p - 1, p, p + 1, p + 1p−1,p−1,p,p+1,p+1
+  [3] p,p,p,p,pp, p, p, p, pp,p,p,p,p
+  [4] p−5,p−4,p,p+4,p+5p - 5, p - 4, p, p + 4, p + 5p−5,p−4,p,p+4,p+5
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a5fae3fc3d08d90637d32ec | TYPE: MCQ
+STEM:
+A jar has 430 marbles, and 20% of these marbles are blue. How many marbles in the jar are blue?
+
+CORRECT ANSWER:
+86
+
+WRONG ANSWERS (4):
+  [1] 86
+  [2] 172
+  [3] 215
+  [4] 410
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a5fae8ac3d08d90637d32f2 | TYPE: MCQ
+STEM:
+r+g&lt;56r + g &lt; 56r+g&lt;56 For which of the following tables are all the values of rrr and their corresponding values of ggg solutions to the given inequality?
+
+CORRECT ANSWER:
+rg055253451\begin{array}{|c|c|} \hline \mathbf{r} &amp; \mathbf{g} \\ \hline 0 &amp; 55 \\ \hline 2 &amp; 53 \\ \hline 4 &amp; 51 \\ \hline \end{array}r024​g555351​​
+
+WRONG ANSWERS (4):
+  [1] rg055253451\begin{array}{|c|c|} \hline \mathbf{r} &amp; \mathbf{g} \\ \hline 0 &amp; 55 \\ \hline 2 &amp; 53 \\ \hline 4 &amp; 51 \\ \hline \end{array}r024​g555351​​
+  [2] rg053255451\begin{array}{|c|c|} \hline \mathbf{r} &amp; \mathbf{g} \\ \hline 0 &amp; 53 \\ \hline 2 &amp; 55 \\ \hline 4 &amp; 51 \\ \hline \end{array}r024​g535551​​
+  [3] rg051255453\begin{array}{|c|c|} \hline \mathbf{r} &amp; \mathbf{g} \\ \hline 0 &amp; 51 \\ \hline 2 &amp; 55 \\ \hline 4 &amp; 53 \\ \hline \end{array}r024​g515553​​
+  [4] rg051253455\begin{array}{|c|c|} \hline \mathbf{r} &amp; \mathbf{g} \\ \hline 0 &amp; 51 \\ \hline 2 &amp; 53 \\ \hline 4 &amp; 55 \\ \hline \end{array}r024​g515355​​
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a5faed2c3d08d90637d32f6 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784655570/questionPic/jaqistzynghpiepcpx2u.png
+STEM:
+The scatterplot shows the relationship between the square footage of 12 clothing stores and their annual sales, in millions of dollars. According to the trend shown by the data, which of the following is the best prediction for the annual sales, in millions of dollars, of a clothing store that is 4 thousand square feet?
+
+CORRECT ANSWER:
+7.5
+
+WRONG ANSWERS (4):
+  [1] 4.1
+  [2] 5.4
+  [3] 7.5
+  [4] 10.2
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a5faf20c3d08d90637d3302 | TYPE: Essay
+STEM:
+x+y=165x + y = 165x+y=165 x+y+y=185x + y + y = 185x+y+y=185 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of yyy ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["20"]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a5faf94c3d08d90637d3312 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=6x−17f(x) = 6x - \frac{1}{7}f(x)=6x−71​ . What is the yyy -intercept of the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane?
+
+CORRECT ANSWER:
+(0,−17)\left(0, -\frac{1}{7}\right)(0,−71​)
+
+WRONG ANSWERS (4):
+  [1] (0,−17)\left(0, -\frac{1}{7}\right)(0,−71​)
+  [2] (0,−6)(0, -6)(0,−6)
+  [3] (0,6)(0, 6)(0,6)
+  [4] (0,7)(0, 7)(0,7)
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a5fafe1c3d08d90637d3318 | TYPE: Essay
+STEM:
+A total of 50 people attended a conference and were offered a choice of 4 types of entrees. The table shows the number of people who chose each type of entree. Type of entreeNumber of peopleBeef13Chicken20Fish8Vegetarian9Total50\begin{array}{|l|l|} \hline \mathbf{Type\ of\ entree} &amp; \mathbf{Number\ of\ people} \\ \hline \text{Beef} &amp; 13 \\ \hline \text{Chicken} &amp; 20 \\ \hline \text{Fish} &amp; 8 \\ \hline \text{Vegetarian} &amp; 9 \\ \hline \text{Total} &amp; 50 \\ \hline \end{array}Type of entreeBeefChickenFishVegetarianTotal​Number of people13208950​​ If one of these people is selected at random, what is the probability of selecting a person who chose a vegetarian entree? (Express your answer as a decimal or fraction, not as a percent.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["0.18","9/50"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a5fb063c3d08d90637d331e | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784656353/questionPic/hjc8lnjurqm5ma3zzk8k.png
+STEM:
+In the figure shown, lines lll and kkk are parallel and line ttt intersects both lines. If x&gt;116x &gt; 116x&gt;116 , which of the following must be true?
+
+CORRECT ANSWER:
+y&lt;64y &lt; 64y&lt;64
+
+WRONG ANSWERS (4):
+  [1] y&lt;64y &lt; 64y&lt;64
+  [2] y&gt;64y &gt; 64y&gt;64
+  [3] x+y&lt;180x + y &lt; 180x+y&lt;180
+  [4] x+y&gt;180x + y &gt; 180x+y&gt;180
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a5fb0efc3d08d90637d332a | TYPE: MCQ
+STEM:
+In the xyxyxy -plane, the graph of y=2xy = 2xy=2x intersects the graph of y=x2−35y = x^2 - 35y=x2−35 at two points. What is the sum of the xxx -coordinates of the two points of intersection?
+
+CORRECT ANSWER:
+2
+
+WRONG ANSWERS (4):
+  [1] -35
+  [2] -5
+  [3] 2
+  [4] 7
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a5fb130c3d08d90637d332e | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=3(14−x)2+134f(x) = 3 \left(\frac{1}{4} - x\right)^2 + \frac{13}{4}f(x)=3(41​−x)2+413​ . What is the value of f(14)f\left(\frac{1}{4}\right)f(41​) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["13/4","3.25"]
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a5fb1b3c3d08d90637d3340 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784656306/questionPic/v4qfdm9jl4xqqrfmyyhg.png
+STEM:
+A marine biologist is studying a habitat that contains shoal bass, a species of freshwater fish. The box plot shown summarizes the lengths, in centimeters (cm), of a sample of 70 shoal bass from this habitat. What is the range, in cm, of the lengths of the shoal bass in the sample?
+
+CORRECT ANSWER:
+15
+
+WRONG ANSWERS (4):
+  [1] 10
+  [2] 15
+  [3] 29
+  [4] 41
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a5fb24dc3d08d90637d335a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784656460/questionPic/rcq74gjxvkkgysxf9r18.png
+STEM:
+The area of triangle ABCABCABC is 150 square centimeters. What is the height hhh , in centimeters, of this triangle?
+
+CORRECT ANSWER:
+30
+
+WRONG ANSWERS (4):
+  [1] 10
+  [2] 15
+  [3] 30
+  [4] 60
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a5fb34bc3d08d90637d3360 | TYPE: MCQ
+STEM:
+Which of the following is the positive solution of x2−2x=29x^2 - 2x = 29x2−2x=29
+
+CORRECT ANSWER:
+1+301 + \sqrt{30}1+30​
+
+WRONG ANSWERS (4):
+  [1] 29\sqrt{29}29​
+  [2] 1+301 + \sqrt{30}1+30​
+  [3] 303030
+  [4] 29+229 + \sqrt{2}29+2​
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a5fb403c3d08d90637d3366 | TYPE: Essay
+STEM:
+Circle A in the xyxyxy -plane has the equation (x+8)2+(y−8)2=25(x + 8)^2 + (y - 8)^2 = 25(x+8)2+(y−8)2=25 . Circle B has the same center as circle A. The radius of circle B is two times the radius of circle A. The equation defining circle B in the xyxyxy -plane is (x+8)2+(y−8)2=k(x + 8)^2 + (y - 8)^2 = k(x+8)2+(y−8)2=k , where kkk is a constant. What is the value of kkk ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["100"]
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a5fb462c3d08d90637d336a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784656994/questionPic/one9pjg045tinnxy3jyc.png
+STEM:
+The graph of y=f(x)y = f(x)y=f(x) is shown in the xyxyxy -plane. For what value of xxx does f(x)=0f(x) = 0f(x)=0 ?
+
+CORRECT ANSWER:
+4
+
+WRONG ANSWERS (4):
+  [1] -4
+  [2] 0
+  [3] 1
+  [4] 4
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a5fb498c3d08d90637d336e | TYPE: MCQ
+STEM:
+∣3x−30∣+36=5\frac{|3x - 30| + 3}{6} = 56∣3x−30∣+3​=5 What is the sum of the solutions to the given equation?
+
+CORRECT ANSWER:
+20
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 19
+  [3] 20
+  [4] 30
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a5fb4ddc3d08d90637d3372 | TYPE: MCQ
+STEM:
+Line hhh is defined by 12x+15y−40=0\frac{1}{2}x + \frac{1}{5}y - 40 = 021​x+51​y−40=0 . Line ���jjj is perpendicular to line hhh in the xyxyxy -plane. What is the slope of line jjj ?
+
+CORRECT ANSWER:
+25\frac{2}{5}52​
+
+WRONG ANSWERS (4):
+  [1] −52-\frac{5}{2}−25​
+  [2] −25-\frac{2}{5}−52​
+  [3] 52\frac{5}{2}25​
+  [4] 25\frac{2}{5}52​
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a5fb4ffc3d08d90637d337e | TYPE: MCQ
+STEM:
+The width of a rectangle is 16 inches less than 2 times its length, in inches. The area of the rectangle is 130 square inches. What is the width, in inches, of the rectangle?
+
+CORRECT ANSWER:
+10
+
+WRONG ANSWERS (4):
+  [1] 5
+  [2] 10
+  [3] 13
+  [4] 18
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a5fb5c4c3d08d90637d3382 | TYPE: MCQ
+STEM:
+A machine makes 8-inch, 9-inch, and 3-inch parts. During a certain day, the number of 8-inch parts that the machine makes is 5 times the number nnn of 9-inch parts, and the number of 3-inch parts is 4. During this day, the machine makes 100 parts total. Which equation represents this situation?
+
+CORRECT ANSWER:
+6n+4=1006n + 4 = 1006n+4=100
+
+WRONG ANSWERS (4):
+  [1] 8(5n)+9n+3(4)=1008(5n) + 9n + 3(4) = 1008(5n)+9n+3(4)=100
+  [2] 8n+9n+3n=1008n + 9n + 3n = 1008n+9n+3n=100
+  [3] 5n+4=1005n + 4 = 1005n+4=100
+  [4] 6n+4=1006n + 4 = 1006n+4=100
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a5fb60bc3d08d90637d3386 | TYPE: MCQ
+STEM:
+An exponential model for the number of squirrels in a certain area estimates that there were 200 squirrels in the area in the year 2003, and that at the end of each 4-year period for the next 20 years, the number of squirrels in the area was 120% more than the number at the end of the previous 4-year period. Which of the following equations represents this model, where NNN is the estimated number of squirrels in this area ttt years after 2003, and 0≤t≤200 \le t \le 200≤t≤20 ?
+
+CORRECT ANSWER:
+N=200(2.20)t4N = 200(2.20)^{\frac{t}{4}}N=200(2.20)4t​
+
+WRONG ANSWERS (4):
+  [1] N=200(2.20)4tN = 200(2.20)^{4t}N=200(2.20)4t
+  [2] N=200(1.20)4tN = 200(1.20)^{4t}N=200(1.20)4t
+  [3] N=200(1.20)t4N = 200(1.20)^{\frac{t}{4}}N=200(1.20)4t​
+  [4] N=200(2.20)t4N = 200(2.20)^{\frac{t}{4}}N=200(2.20)4t​
+

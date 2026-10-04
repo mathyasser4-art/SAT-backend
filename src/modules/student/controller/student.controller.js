@@ -577,12 +577,7 @@ const getMyMistakes = async (req, res) => {
         const mistakes = questions.map(q => {
             const meta = wrongQuestionsMap[q._id.toString()];
             return {
-                _id: q._id,
-                question: q.question,
-                questionPic: q.questionPic?.secure_url || null,
-                choices: q.choices || [],
-                correctAnswers: q.correctAnswers || [],
-                explanation: q.explanation || '',
+                ...q.toObject(),
                 assignmentTitle: meta.assignmentTitle,
                 studentAnswers: [meta.firstAnswer, meta.secondAnswer].filter(Boolean)
             };

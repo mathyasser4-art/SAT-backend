@@ -1,0 +1,286 @@
+====================================================
+NOVEMBER 2025 · INT 1 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a5b4731c3d08d90637d3156 | TYPE: MCQ
+STEM:
+If 9x+4=679x + 4 = 679x+4=67 , what is the value of 90x+4090x + 4090x+40 ?
+
+CORRECT ANSWER:
+670
+
+WRONG ANSWERS (4):
+  [1] 7
+  [2] 70
+  [3] 130
+  [4] 670
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a5b47c0c3d08d90637d315a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784367040/questionPic/kvb0wjutztdimor7c16f.png
+STEM:
+In the figure, line ppp is parallel to line rrr , and line ttt intersects both lines. What is the value of xxx ?
+
+CORRECT ANSWER:
+72
+
+WRONG ANSWERS (4):
+  [1] 36
+  [2] 72
+  [3] 180
+  [4] 252
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a5b47f6c3d08d90637d315e | TYPE: Essay
+STEM:
+A length of 450 meters450 \text{ meters}450 meters is equal to how many decimeters? ( 1 meter=10 decimeters1 \text{ meter} = 10 \text{ decimeters}1 meter=10 decimeters )
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["4500"]
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a5b4839c3d08d90637d3162 | TYPE: Essay
+STEM:
+The equation 58=2x+2y58 = 2x + 2y58=2x+2y gives the perimeter of a rectangular garden that has length xxx , in feet, and width yyy , in feet. The width of the garden is 141414 feet. What is the length, in feet, of the garden?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["15"]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a5b48c8c3d08d90637d3166 | TYPE: MCQ
+STEM:
+The relationship between the variables xxx and yyy is defined by an exponential equation. When x=0x = 0x=0 , the value of yyy is 40, and for every increase in the value of xxx by 1, the corresponding value of yyy increases by 50% of its previous value. Which equation represents this relationship?
+
+CORRECT ANSWER:
+y=40(1.50)xy = 40(1.50)^xy=40(1.50)x
+
+WRONG ANSWERS (4):
+  [1] y=40(1.50)xy = 40(1.50)^xy=40(1.50)x
+  [2] y=40(1.05)xy = 40(1.05)^xy=40(1.05)x
+  [3] y=50(1.40)xy = 50(1.40)^xy=50(1.40)x
+  [4] y=50(1.04)xy = 50(1.04)^xy=50(1.04)x
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a5b4936c3d08d90637d316a | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=18xf(x) = \frac{1}{8x}f(x)=8x1​ . What is the value of f(x)f(x)f(x) when x=9x = 9x=9 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1/72"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a5b498bc3d08d90637d316e | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=3x−14f(x) = 3x - \frac{1}{4}f(x)=3x−41​ . What is the yyy -intercept of the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane?
+
+CORRECT ANSWER:
+(0,−14)(0, -\frac{1}{4})(0,−41​)
+
+WRONG ANSWERS (4):
+  [1] (0,−14)(0, -\frac{1}{4})(0,−41​)
+  [2] (0,−3)(0, -3)(0,−3)
+  [3] (0,3)(0, 3)(0,3)
+  [4] (0,4)(0, 4)(0,4)
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a5b49c6c3d08d90637d3172 | TYPE: Essay
+STEM:
+x+6y=28x + 6y = 28x+6y=28 6y=146y = 146y=14 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of xxx ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["14"]
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a5b4a01c3d08d90637d3176 | TYPE: MCQ
+STEM:
+The length of a side of square X is 999 centimeters. The area of rectangle Y is 323232 square centimeters. What is the total area, in square centimeters, of square X and rectangle Y?
+
+CORRECT ANSWER:
+113
+
+WRONG ANSWERS (4):
+  [1] 145
+  [2] 113
+  [3] 82
+  [4] 81
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a5b4a64c3d08d90637d318a | TYPE: MCQ
+STEM:
+During hibernation, American black bears do not eat or replenish calories. A certain black bear weighed 293293293 pounds when entering hibernation and lost weight at a mean rate of 0.90.90.9 pounds per day. At this rate, how many days after entering hibernation would the black bear weigh 230230230 pounds?
+
+CORRECT ANSWER:
+70
+
+WRONG ANSWERS (4):
+  [1] 57
+  [2] 63
+  [3] 70
+  [4] 207
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a5b4acac3d08d90637d319b | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784367817/questionPic/qjihglionqa5ihkgwash.png
+STEM:
+The complete graph of y=f(x)y = f(x)y=f(x) is shown. For how many values of xxx does f(x)=0f(x) = 0f(x)=0 ?
+
+CORRECT ANSWER:
+Three
+
+WRONG ANSWERS (4):
+  [1] One
+  [2] Two
+  [3] Three
+  [4] Four
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a5b4fafc3d08d90637d319f | TYPE: MCQ
+STEM:
+b2−4c=7db^2 - 4c = 7db2−4c=7d The given equation relates the real numbers bbb , ccc , and ddd , where d&gt;47cd &gt; \frac{4}{7}cd&gt;74​c . Which equation correctly expresses bbb in terms of ccc and ddd ?
+
+CORRECT ANSWER:
+b=±7d+4cb = \pm\sqrt{7d + 4c}b=±7d+4c​
+
+WRONG ANSWERS (4):
+  [1] b=7d+4c2b = \frac{7d+4c}{2}b=27d+4c​
+  [2] b=7d−4c2b = \frac{7d-4c}{2}b=27d−4c​
+  [3] b=±7d+4cb = \pm\sqrt{7d + 4c}b=±7d+4c​
+  [4] b=±7d−4cb = \pm\sqrt{7d - 4c}b=±7d−4c​
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a5b4fefc3d08d90637d31a5 | TYPE: MCQ
+STEM:
+x2−8116=0x^2 - \frac{81}{16} = 0x2−1681​=0 How many distinct real solutions does the given equation have?
+
+CORRECT ANSWER:
+Exactly two
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] Exactly one
+  [3] Exactly two
+  [4] Infinitely many
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a5b50adc3d08d90637d31a9 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784369325/questionPic/swuvklc0jhy8geqhboby.png
+STEM:
+Triangles ABCABCABC and A′B′C′A'B'C'A′B′C′ are shown. Triangle ABCABCABC is dilated by a scale factor of 666 to form triangle A′B′C′A'B'C'A′B′C′ . If the length of ararar ABABAB is 181818 , what is the length of ararar , what is the length of ararar A′B′A'B'A′B′ ?
+
+CORRECT ANSWER:
+108
+
+WRONG ANSWERS (4):
+  [1] 3
+  [2] 6
+  [3] 24
+  [4] 108
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a5b50f8c3d08d90637d31b5 | TYPE: Essay
+STEM:
+What is the radius of the circle in the xyxyxy -plane defined by (x+3)2+(y+9)2=361(x + 3)^2 + (y + 9)^2 = 361(x+3)2+(y+9)2=361 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["19"]
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a5b5166c3d08d90637d31b9 | TYPE: MCQ
+STEM:
+In the xyxyxy -plane, which of the following does NOT contain any points that are part of the solution set to 5x−7y&gt;355x - 7y &gt; 355x−7y&gt;35 ?
+
+CORRECT ANSWER:
+The region where x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+
+WRONG ANSWERS (4):
+  [1] xxx -axis
+  [2] The region where x&gt;0x &gt; 0x&gt;0 and y&gt;0y &gt; 0y&gt;0
+  [3] The region where x&lt;0x &lt; 0x&lt;0 and y&lt;0y &lt; 0y&lt;0
+  [4] The region where x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a5b5198c3d08d90637d31bd | TYPE: MCQ
+STEM:
+The table shows the distribution of people in a certain city by age group. Age groupProportionLess than 18 years old26%18-40 years old21%41-65 years old29%Greater than 65 years old24%\begin{array}{|l|l|} \hline \textbf{Age group} &amp; \textbf{Proportion} \\ \hline \text{Less than 18 years old} &amp; 26\% \\ \hline \text{18-40 years old} &amp; 21\% \\ \hline \text{41-65 years old} &amp; 29\% \\ \hline \text{Greater than 65 years old} &amp; 24\% \\ \hline \end{array}Age groupLess than 18 years old18-40 years old41-65 years oldGreater than 65 years old​Proportion26%21%29%24%​​ If a person in this city is selected at random, which of the following is closest to the probability of selecting a person who is greater than 65 years old, given that the person is at least 18 years old?
+
+CORRECT ANSWER:
+0.32
+
+WRONG ANSWERS (4):
+  [1] 0.24
+  [2] 0.32
+  [3] 0.50
+  [4] 0.92
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a5b520ac3d08d90637d31c9 | TYPE: MCQ
+STEM:
+Line h is defined by 12x+19y−54=0\frac{1}{2}x + \frac{1}{9}y - 54 = 021​x+91​y−54=0 . Line j is perpendicular to line h in the xy-plane. What is the slope of line j?
+
+CORRECT ANSWER:
+29\frac{2}{9}92​
+
+WRONG ANSWERS (4):
+  [1] −92-\frac{9}{2}−29​
+  [2] −29-\frac{2}{9}−92​
+  [3] 92\frac{9}{2}29​
+  [4] 29\frac{2}{9}92​
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a5b5277c3d08d90637d31cd | TYPE: MCQ
+STEM:
+a,26,29,b,31,47,ca, 26, 29, b, 31, 47, ca,26,29,b,31,47,c For the given data set, the data values are listed in ascending order, where aaa , bbb , and ccc are constants. For this data set, the mean is 363636 , the median is 292929 , and the range is 727272 . What is the value of ccc ?
+
+CORRECT ANSWER:
+81
+
+WRONG ANSWERS (4):
+  [1] 54
+  [2] 72
+  [3] 81
+  [4] 98
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a5b52bcc3d08d90637d31d1 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784369851/questionPic/mbcxiytok1tbaknisesf.png
+STEM:
+In triangle QRSQRSQRS shown, QR&lt;RSQR &lt; RSQR&lt;RS . Which expression represents the length of QSQSQS ?
+
+CORRECT ANSWER:
+37sin⁡Q\frac{37}{\sin Q}sinQ37​
+
+WRONG ANSWERS (4):
+  [1] 37cos⁡Q37 \cos Q37cosQ
+  [2] 37sin⁡Q37 \sin Q37sinQ
+  [3] 37cos⁡Q\frac{37}{\cos Q}cosQ37​
+  [4] 37sin⁡Q\frac{37}{\sin Q}sinQ37​
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a5b534fc3d08d90637d31d5 | TYPE: MCQ
+STEM:
+y=9(a7)x−c−by = 9 \left(\frac{a}{7}\right)^{x-c} - by=9(7a​)x−c−b How many times does the graph of the given equation in the xyxyxy -plane cross the xxx -axis, where aaa , bbb , and ccc are positive constants such that a&gt;7a &gt; 7a&gt;7 and b&gt;cb &gt; cb&gt;c ?
+
+CORRECT ANSWER:
+One
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] One
+  [3] Two
+  [4] Three
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a5b53d1c3d08d90637d31d9 | TYPE: MCQ
+STEM:
+A certain town has an area of 4.294.294.29 square miles. What is the area, in square yards, of this town? ( 1 mile=1,760 yards1 \text{ mile} = 1, 760 \text{ yards}1 mile=1,760 yards )
+
+CORRECT ANSWER:
+13,288,704
+
+WRONG ANSWERS (4):
+  [1] 410
+  [2] 7,550
+  [3] 722,051
+  [4] 13,288,704
+

@@ -1,0 +1,1341 @@
+{
+  "totalQuestionsCount": 1276,
+  "issues": [
+    {
+      "examName": "March 2026 · US1",
+      "unitName": "March 2026 · US1",
+      "moduleName": "Module2",
+      "qNum": 19,
+      "qId": "6a52681a4d554e04aa1bf22b",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which shaded region represents the solutions to the inequality 4x+5y<94x + 5y < 94x+5y<9?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice D are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"​\")"
+        }
+      ]
+    },
+    {
+      "examName": "March 2026 · US1",
+      "unitName": "March 2026 · US1",
+      "moduleName": "Module2",
+      "qNum": 21,
+      "qId": "6a526b154d554e04aa1bf247",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The measure of angle SSS is π11\\frac{\\pi}{11}11π​ radians. The measure of angle TTT is 2 times the m",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"9π11×902\\frac{9\\pi}{11} \\times 902119π​×902\")"
+        }
+      ]
+    },
+    {
+      "examName": "March 2026 · INT 1",
+      "unitName": "March 2026 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 7,
+      "qId": "6a53552b4d554e04aa1bf677",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which shaded region represents the solutions to the inequality 4x−5y>−104x - 5y > -104x−5y>−10?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"‎\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"‎\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice D are identical duplicates (\"‎\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"‎\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"‎\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"‎\")"
+        }
+      ]
+    },
+    {
+      "examName": "December 2025 · US 1",
+      "unitName": "December 2025 · US 1",
+      "moduleName": "Module1",
+      "qNum": 12,
+      "qId": "6a5404684d554e04aa1bfc92",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Number of food tickets (x)Total amount paid (y)1034.001541.502556.50\\begin{array}{|c|c|} \\hline \\tex",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"y=32x+823y = \\frac{3}{2}x + \\frac{82}{3}y=23​x+382\")"
+        }
+      ]
+    },
+    {
+      "examName": "December 2025 · US 1",
+      "unitName": "December 2025 · US 1",
+      "moduleName": "Module2",
+      "qNum": 4,
+      "qId": "6a5b1458c3d08d90637d2eca",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A student needs at least 80 signatures from classmates to run for class treasurer. The student colle",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"s+55���80s + 55 \\ge 80s+55≥80\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "November 2025 · INT 3",
+      "unitName": "November 2025 · INT 3",
+      "moduleName": "Module1",
+      "qNum": 13,
+      "qId": "6a62352dc3d08d90637d3503",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The graph of the function fff, where y=f(x)y = f(x)y=f(x), gives the total cost yyy, in dollars, for",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"Each game costs dollar\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"The video game system costs dollar\")"
+        }
+      ]
+    },
+    {
+      "examName": "October 2025 · US 1",
+      "unitName": "October 2025 · US 1",
+      "moduleName": "Module2",
+      "qNum": 1,
+      "qId": "6a666305c3d08d90637d3a82",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "y>−36y > -36y>−36 Which shaded region represents the solutions to the given inequality?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"⠀\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"⠀\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice D are identical duplicates (\"⠀\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"⠀\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"⠀\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"⠀\")"
+        }
+      ]
+    },
+    {
+      "examName": "September 2025 · INT 1",
+      "unitName": "September 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 9,
+      "qId": "6a686213c3d08d90637d3baa",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "y=(x−7)(x+3)y = (x - 7)(x + 3)y=(x−7)(x+3) Which table gives four values of xxx and the correspondin",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice D are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"ㅤ\")"
+        },
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "September 2025 · US 2",
+      "unitName": "September 2025 · US 2",
+      "moduleName": "Module1",
+      "qNum": 13,
+      "qId": "6a6b728ac3d08d90637d3e84",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The given equation relates the positive numbers bbb, xxx, and yyy. Which equation correctly expresse",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"x=b−19yx = \\frac{b-19}{y}x=yb−19​\")"
+        }
+      ]
+    },
+    {
+      "examName": "June 2025 · INT 1",
+      "unitName": "June 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 1,
+      "qId": "6a6d3f5514cab24f9785a78a",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which of the following is a graph of a decreasing exponential function?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice D are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"​\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"​\")"
+        }
+      ]
+    },
+    {
+      "examName": "June 2025 · US 1",
+      "unitName": "June 2025 · US 1",
+      "moduleName": "Module2",
+      "qNum": 4,
+      "qId": "6a6e10adf37fd34c9d2ad115",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "cubic centimeters. What is the density, in grams per cubic centimeter, of the object?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"280\")"
+        }
+      ]
+    },
+    {
+      "examName": "June 2025 · US 1",
+      "unitName": "June 2025 · US 1",
+      "moduleName": "Module2",
+      "qNum": 6,
+      "qId": "6a6e1127f37fd34c9d2ad11d",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which equation defines the linear function fff?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates (\"f(x)=−14x−9f(x) = -14x - 9f(x)=−14x−9\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 7,
+      "qId": "6a98507ee57881aee77ea953",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Hakim has a bag of 50 tiles, where 45 are labeled with a letter and 5 are blank. If Hakim selects a ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 13,
+      "qId": "6a985535e57881aee77ead74",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function fff is defined by f(x)=2x+bf(x) = 2x + bf(x)=2x+b, where bbb is a constant andf(7)=6f(7",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 16,
+      "qId": "6a9af216838c4fe747f6d9b5",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In Circle A shown is defined by the equation x2+(y−5)2=7x^2 + (y - 5)^2 = 7x2+(y−5)2=7 . Circle B (n",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 17,
+      "qId": "6a9af2e2838c4fe747f6de37",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function h(t)=−16t2+bh(t) = -16t^2 + bh(t)=−16t2+b estimates an object's height, in feet, above ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module1",
+      "qNum": 19,
+      "qId": "6a9af4ec838c4fe747f6e335",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "For a set of 3 consecutive integers, the result of subtracting the greatest integer from the sum of ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 10,
+      "qId": "6a9b007c838c4fe747f6f1ef",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The figure shown is a right rectangular pyramid, where l=18l=18l=18 units, w=9w=9w=9 units, and h=12",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 13,
+      "qId": "6a9b0d96838c4fe747f71f58",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A researcher surveyed undergraduate students, graduate students, and postdoctoral students. The numb",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 14,
+      "qId": "6a9b0f07111ffc76c2e5f937",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the given system of equations, ttt is a constant. If the system has no solution, what is the valu",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 18,
+      "qId": "6a9b11fc111ffc76c2e5fed3",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "59(5x+9)(x+5k+9)(x−5k+9)=0\\frac{5}{9}(5x + 9)\\left(x + \\sqrt{5k + 9}\\right)\\left(x - \\sqrt{5k + 9}\\r",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 20,
+      "qId": "6a9b12d5111ffc76c2e600fa",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the xy-plane, a unit circle with center at the origin OOO contains point AAA with coordinates (1,",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "May 2025 · INT 1",
+      "unitName": "May 2025 · INT 1",
+      "moduleName": "Module2",
+      "qNum": 21,
+      "qId": "6a9b13a9111ffc76c2e603c4",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function hhh is defined byh(x)=−x2+bx+ch(x) = -\\sqrt{x^2 + bx + c}h(x)=−x2+bx+c​ , where bbb and",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"-\")"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 2,
+      "qId": "6aa11386febc2d25093882c8",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "For the linear function ppp , p(c)=−5p(c) = -5p(c)=−5 , where ccc is a constant, p(3)=23p(3) = 23p(3",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 5,
+      "qId": "6aa1169efebc2d25093882d4",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "f(x)=5(g(x))−3f(x) = 5(g(x)) - 3f(x)=5(g(x))−3 g(x)=∣12x−7∣ g(x) = |12x - 7|g(x)=∣12x−7∣ The functio",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 6,
+      "qId": "6aa1172ef5c99543faeb6316",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "At a convention center, there are a total of 225visitors. Each visitor is located in either room A, ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 8,
+      "qId": "6aa117aef5c99543faeb63ec",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which of the following expressions is equivalent to 11x10−11x9+77x11x^{10} - 11x^9 + 77x11x10−11x9+7",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"Increasing linear\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 10,
+      "qId": "6aa1181bf5c99543faeb6434",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Audrey's hair will grow at a constant rate from a length of 7 inches to a length of 11 inches. The e",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 11,
+      "qId": "6aa119ccf5c99543faeb65aa",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A certain elephant calf weighed 226 pounds when it was born. The elephant calf gained an average of ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 1",
+      "unitName": "March 2025 INT 1",
+      "moduleName": "Module 2",
+      "qNum": 16,
+      "qId": "6aa11e30ec7ba02921a31b7e",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The triangle inequality theorem states that the sum of any two sides of a triangle must be greater t",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 1",
+      "qNum": 8,
+      "qId": "6aa46dd4ec7ba02921a43df8",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The scatterplot shows the relationship between two variables, xxx and yyy. A line of best fit is als",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"400%\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 1",
+      "qNum": 16,
+      "qId": "6aa470a9ec7ba02921a43e3d",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A circle in the xyxyxy-plane has its center at (18, 16) and has a radius of 6k6k6k. Which equation r",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"x−60612f(x)12244896\\begin{array}{|c|c|c|c|c|} \\hline x & -6 \" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 1",
+      "qNum": 18,
+      "qId": "6aa47145ec7ba02921a43e45",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The difference between the measure of angle AAA and the measure of angle BBB is −512π-\\frac{5}{12}\\p",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates (\"−512π⋅360∘π-\\frac{5}{12}\\pi \\cdot \\frac{360^\\circ}\")"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 1",
+      "qNum": 21,
+      "qId": "6aa47237ec7ba02921a43e51",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the xyxyxy-plane, line kkk and line lll are perpendicular and intersect at the point (2, 8). If l",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"84\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 2",
+      "qNum": 5,
+      "qId": "6aa47590ec7ba02921a43e87",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "At a convention center, there are a total of 375 visitors. Each visitor is located in either room AA",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"56∘56^\\circ56∘\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 2",
+      "unitName": "March 2025 INT 2",
+      "moduleName": "Module 2",
+      "qNum": 16,
+      "qId": "6aa4799eec7ba02921a43ee1",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The graph of y=f(x)+2y = f(x) + 2y=f(x)+2 is shown. Which equation defines function fff?",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"15x+15015x + 15015x+150\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 3",
+      "unitName": "March 2025 · INT 3",
+      "moduleName": "Module1",
+      "qNum": 3,
+      "qId": "6aa47d03ec7ba02921a43f40",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The width of a rectangle is 5 centimeters. The length of the rectangle is 30 centimeters longer than",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 3",
+      "unitName": "March 2025 · INT 3",
+      "moduleName": "Module1",
+      "qNum": 5,
+      "qId": "6aa47d6bec7ba02921a43f48",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In one week in 2017, a technician earned a total of 1, 055 dollar by working at her regular job and ",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 3",
+      "unitName": "March 2025 · INT 3",
+      "moduleName": "Module1",
+      "qNum": 10,
+      "qId": "6aa47ec1ec7ba02921a43f5c",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The point (v,−5)(v, -5)(v,−5) lies on the line shown. What is the value of vvv?",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"(6, 185)\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 3",
+      "unitName": "March 2025 · INT 3",
+      "moduleName": "Module1",
+      "qNum": 17,
+      "qId": "6aa4819aec7ba02921a43f7e",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "x(x+4)−140=3x(x−10)x(x + 4) - 140 = 3x(x - 10)x(x+4)−140=3x(x−10) What is the sum of the solutions t",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"Zero\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "March 2025 · INT 3",
+      "unitName": "March 2025 · INT 3",
+      "moduleName": "Module2",
+      "qNum": 11,
+      "qId": "6aa489ecec7ba02921a4402e",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function fff is defined by f(x)=−10(3)x+1kf(x) = -10(3)^x + \\frac{1}{k}f(x)=−10(3)x+k1​, where k",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"Rx−12y=−108Rx - 12y = -108Rx−12y=−108\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 6,
+      "qId": "6aa5896aec7ba02921a44460",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "An object was launched upward from a platform. The graph shown models the height above ground, yyy ,",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 7,
+      "qId": "6aa589e3ec7ba02921a44464",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The relationship between the variables rrr and yyy is defined by an exponential equation. When x=0x ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 8,
+      "qId": "6aa58a32ec7ba02921a44468",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The table shows the amount of time it took a participant in a study to complete each tasks. What was",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 9,
+      "qId": "6aa58a70ec7ba02921a4446c",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function hhh is defined by h(x)=7∣x∣ h(x) = 7|x|h(x)=7∣x∣ . What is the value of h(−2)h(-2)h(−2)",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 10,
+      "qId": "6aa58ad8ec7ba02921a44470",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which of the following is closest to the slope of the line of best fit shown?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 1",
+      "qNum": 11,
+      "qId": "6aa58b67ec7ba02921a44474",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the figure, line qqq is parallel to line rrr , and both lines are intersected by line sss . If y=",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 11,
+      "qId": "6aa59d26ec7ba02921a444ef",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the given equation, aaa is a constant. The equation has infinitely many solutions. What are all p",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 15,
+      "qId": "6aa5addaec7ba02921a44514",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "z(w)=(0.829)2wz(w) = (0.829)^{2w}z(w)=(0.829)2w The function zzz is defined by the equation shown. T",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 16,
+      "qId": "6aa5aeb1ec7ba02921a44518",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The graph of the linear function y=f(x)+11 y = f(x) + 11 y=f(x)+11 is shown. If ccc and ddd are posi",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 18,
+      "qId": "6aa5af7dec7ba02921a44520",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The speeds of particles A, B, and C are a meters per second, b meters per second, and c meters per s",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 19,
+      "qId": "6aa5afe1ec7ba02921a44524",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "−16(5x−3)2+4(5x−2)2-16(5x - 3)^2 + 4(5x - 2)^2−16(5x−3)2+4(5x−2)2 The given expression can be rewrit",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 20,
+      "qId": "6aa5b053ec7ba02921a4460e",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "f(x)=66bxf(x) = 66b^xf(x)=66bx In the given function, bbb is a positive constant. For every increase",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT1",
+      "unitName": "December 2024  · INT1",
+      "moduleName": "Module 2",
+      "qNum": 21,
+      "qId": "6aa5b082ec7ba02921a44612",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "On average, a certain tree grows 87 centimeters every m months. At this rate, which expression repre",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 4,
+      "qId": "6aa69242ec7ba02921a448ad",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A certain pigeon species can fly at an average speed of 16 meters per second when in continuous flig",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"180+x≥240180 + x \\ge 240180+x≥240\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 5,
+      "qId": "6aa69290ec7ba02921a448b5",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the given scatterplot, a line of best fit for the data is shown. Which of the following equations",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer \"180+x≥240180 + x \\ge 240180+x≥240\" is not among the options"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 6,
+      "qId": "6aa692c9ec7ba02921a448b9",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function ddd is defined by d(x)=200−6xd(x) = 200 - 6^xd(x)=200−6x . What is the value of d(0)d(0",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 7,
+      "qId": "6aa69381ec7ba02921a448bd",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The relationship between the variables x and y is defined by an exponential equation. When x=0x = 0x",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 8,
+      "qId": "6aa693f5ec7ba02921a448d7",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Line kkk is defined by y=7x+2y = 7x + 2y=7x+2 . Line jj j is parallel to line kkk in the xyxyxy-plan",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 17,
+      "qId": "6aa699a4ec7ba02921a4495a",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Jasmin grows bean pods in her garden. This year, she harvested 330 bean pods and saved 10% of them t",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 18,
+      "qId": "6aa69a68ec7ba02921a44966",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A sphere has a radius of 83\\frac{8}{3}38​ feet. What is the volume, in cubic feet, of the sphere?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 19,
+      "qId": "6aa69b4bec7ba02921a44972",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A company that manufactures stapler's calculates its monthly profit, in dollars, by subtracting its ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 20,
+      "qId": "6aa69c11ec7ba02921a4497a",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "If x−1627=x−169,\\frac{x-16}{27} = \\frac{x-16}{9},27x−16​=9x−16​, what is the value of x+16x + 16x+16",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 21,
+      "qId": "6aa69c93ec7ba02921a44981",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The graph of line h is shown in the xy-plane. Line k (not shown) is defined by sx + 40y = t, where s",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 1",
+      "qNum": 22,
+      "qId": "6aa69cbdec7ba02921a44985",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "8∣7−x∣+1=818|7 - x| + 1 = 818∣7−x∣+1=81 What is the sum of the solutions to the given equation?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 2,
+      "qId": "6aa96424ec7ba02921a45410",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The graph of a system of a linear equation and a quadratic equation is shown. Which of the following",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 3,
+      "qId": "6aa9647dec7ba02921a45414",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "An object moves at a speed of 350\\frac{3}{50}503​ feet per second. What is this speed, in yards per ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 4,
+      "qId": "6aa964c9ec7ba02921a4541a",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which expression is equivalent to 158t3−24t2u158t^{3} - 24t^{2}u158t3−24t2u ?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 5,
+      "qId": "6aa96543ec7ba02921a45420",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Circle KKK has a radius of 222 millimeters (mm)(\\text{mm})(mm) . Circle L LL has an area of 144π144\\",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 6,
+      "qId": "6aa96583ec7ba02921a45424",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "Which expression is equivalent to 2(x−32)(x+14)2\\left(x - \\frac{3}{2}\\right)\\left(x + 14\\right)2(x−2",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 7,
+      "qId": "6aa965ddec7ba02921a4542c",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "The function fff is defined by f(x)=(−7)(4)x+31 f(x) = (-7)(4)^{x} + 31f(x)=(−7)(4)x+31 . What is th",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 8,
+      "qId": "6aa96678ec7ba02921a45430",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In right triangle RSTRSTRST , the sum of the measures of angle RRR and angle SSS is 9090 90 degrees.",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 9,
+      "qId": "6aa966d8ec7ba02921a4543a",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "y<42−7xy < 42 - 7xy<42−7x��� y7>10\\frac{y}{7} > 107y​>10 Which inequality represents the x values fo",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 10,
+      "qId": "6aa9672dec7ba02921a45441",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "In the xy-plane, an equation of circle A is (x−2)2+(y−3)2=9(x - 2)^{2} + (y - 3)^{2} = 9(x−2)2+(y−3)",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 14,
+      "qId": "6aa96919ec7ba02921a45470",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A partially filled container containing 24milliliters of water is placed under a leaky faucet that p",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    },
+    {
+      "examName": "December 2024 · INT2",
+      "unitName": "December 2024 · INT2",
+      "moduleName": "Module 2",
+      "qNum": 15,
+      "qId": "6aa96a11ec7ba02921a45474",
+      "qType": "MCQ",
+      "cleanQuestionSnippet": "A research manager selected 2 random samples of ovens of a certain type to estimate the average amou",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely blank or missing"
+        }
+      ]
+    }
+  ]
+}

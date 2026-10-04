@@ -1,0 +1,279 @@
+====================================================
+JUNE 2025 · INT 1 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6d2afe14cab24f9785a717 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785539325/questionPic/jlul5miqrzcrfsqu3wrc.png
+STEM:
+In the figure, line nnn intersects lines rrr and sss . Line rrr is parallel to line sss . What is the value of xxx ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["152"]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6d2d1f14cab24f9785a721 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=3xf(x) = 3^xf(x)=3x . The function ggg is an increasing linear function. In the xyxyxy -plane, the graphs of y=f(x)y = f(x)y=f(x) and y=g(x)y = g(x)y=g(x) intersect at two points (a,j)(a, j)(a,j) and y=g(x)y = g(x)y=g(x) intersect at two points (a,j)(a, j)(a,j) and (b,k)(b, k)(b,k) , where j&lt;kj &lt; kj&lt;k . When g(x)&gt;f(x)g(x) &gt; f(x)g(x)&gt;f(x) , which of the following must be true?
+
+CORRECT ANSWER:
+a&lt;x&lt;ba &lt; x &lt; ba&lt;x&lt;b
+
+WRONG ANSWERS (4):
+  [1] x&gt;kx &gt; kx&gt;k
+  [2] x&lt;jx &lt; jx&lt;j
+  [3] x&lt;jx &lt; jx&lt;j or x&gt;bx &gt; bx&gt;b
+  [4] a&lt;x&lt;ba &lt; x &lt; ba&lt;x&lt;b
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6d2d6314cab24f9785a727 | TYPE: MCQ
+STEM:
+If 4x=74x = 74x=7 , what is the value of 24x24x24x ?
+
+CORRECT ANSWER:
+42
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 13
+  [3] 34
+  [4] 42
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a6d2d9914cab24f9785a72b | TYPE: MCQ
+STEM:
+Which expression is equivalent to (x3+8x2−7x)+6(x2+5)(x^3 + 8x^2 - 7x) + 6(x^2 + 5)(x3+8x2−7x)+6(x2+5) ?
+
+CORRECT ANSWER:
+x3+14x2−7x+30x^3 + 14x^2 - 7x + 30x3+14x2−7x+30
+
+WRONG ANSWERS (4):
+  [1] x3+6x2−7x+30x^3 + 6x^2 - 7x + 30x3+6x2−7x+30
+  [2] x3+8x2−7x+30x^3 + 8x^2 - 7x + 30x3+8x2−7x+30
+  [3] x3+14x2−7x+30x^3 + 14x^2 - 7x + 30x3+14x2−7x+30
+  [4] x3+5x2−7x+30x^3 + 5x^2 - 7x + 30x3+5x2−7x+30
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6d2df914cab24f9785a72f | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=x3+19f(x) = x^3 + 19f(x)=x3+19 . What is the value of f(2)f(2)f(2) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["27"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6d2e5414cab24f9785a733 | TYPE: Essay
+STEM:
+The function ggg is defined by g(x)=x2g(x) = \frac{x}{2}g(x)=2x​ . For what value of xxx does g(x)=224g(x) = 224g(x)=224 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["448"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6d2e8e14cab24f9785a737 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785540237/questionPic/rpfo5ijmhoneehzlejdu.png
+STEM:
+The scatterplot shows the relationship between two variables, xxx and yyy . Which of the following equations is the most appropriate linear model for the data shown?
+
+CORRECT ANSWER:
+y=8.5−0.8xy = 8.5 - 0.8xy=8.5−0.8x
+
+WRONG ANSWERS (4):
+  [1] y=0.8+8.5xy = 0.8 + 8.5xy=0.8+8.5x
+  [2] y=0.8−8.5xy = 0.8 - 8.5xy=0.8−8.5x
+  [3] y=8.5+0.8xy = 8.5 + 0.8xy=8.5+0.8x
+  [4] y=8.5−0.8xy = 8.5 - 0.8xy=8.5−0.8x
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6d2ed514cab24f9785a73b | TYPE: Essay
+STEM:
+The yyy -intercept of the graph of y=x2+15y = x^2 + 15y=x2+15 in the xyxyxy -plane is (0,y)(0, y)(0,y) . What is the value of yyy ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["15"]
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6d2f1814cab24f9785a73f | TYPE: MCQ
+STEM:
+For the given equation, which table gives three values of xxx and their corresponding values of yyy ? 4x−3y=−244x - 3y = -244x−3y=−24
+
+CORRECT ANSWER:
+x036y81216\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 3 &amp; 6 \\ \hline y &amp; 8 &amp; 12 &amp; 16 \\ \hline \end{array}xy​08​312​616​​
+
+WRONG ANSWERS (4):
+  [1] x036y81216\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 3 &amp; 6 \\ \hline y &amp; 8 &amp; 12 &amp; 16 \\ \hline \end{array}xy​08​312​616​​
+  [2] x036y16128\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 3 &amp; 6 \\ \hline y &amp; 16 &amp; 12 &amp; 8 \\ \hline \end{array}xy​016​312​68​​
+  [3] x81216y036\begin{array}{|c|c|c|c|} \hline x &amp; 8 &amp; 12 &amp; 16 \\ \hline y &amp; 0 &amp; 3 &amp; 6 \\ \hline \end{array}xy​80​123​166​​
+  [4] x81216y630\begin{array}{|c|c|c|c|} \hline x &amp; 8 &amp; 12 &amp; 16 \\ \hline y &amp; 6 &amp; 3 &amp; 0 \\ \hline \end{array}xy​86​123​160​​
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6d2f3714cab24f9785a743 | TYPE: Essay
+STEM:
+A chemist combines water and isopropanol to make a mixture with a volume of 38 milliliters (mL). The volume of isopropanol in the mixture is 10 mL. What is the volume of water, in mL, in the mixture? (Assume that the volume of the mixture is the sum of the volumes of water and isopropanol before they were mixed.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["28"]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6d2fc214cab24f9785a747 | TYPE: MCQ
+STEM:
+y=−18xy = -\frac{1}{8}xy=−81​x y=110xy = \frac{1}{10}xy=101​x The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of xxx ?
+
+CORRECT ANSWER:
+0
+
+WRONG ANSWERS (4):
+  [1] -8
+  [2] 0
+  [3] 2
+  [4] 10
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6d301314cab24f9785a74b | TYPE: MCQ
+STEM:
+A company has a customer loyalty program. In January 2018, there were 800 customers enrolled in the loyalty program. For the next 24 months after January 2018, the total number of customers enrolled in the loyalty program each month was 5% greater than the total number enrolled the previous month, Which equation gives the total number of customers, ccc , enrolled in the company's loyalty program mmm months after January 2018, where m&lt;24m &lt; 24m&lt;24 ?
+
+CORRECT ANSWER:
+c=800(1.05)mc = 800(1.05)^mc=800(1.05)m
+
+WRONG ANSWERS (4):
+  [1] c=800(0.05)mc = 800(0.05)^mc=800(0.05)m
+  [2] c=800(1.05)mc = 800(1.05)^mc=800(1.05)m
+  [3] c=800(1.5)mc = 800(1.5)^mc=800(1.5)m
+  [4] c=800(5)mc = 800(5)^mc=800(5)m
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6d38fd14cab24f9785a751 | TYPE: Essay
+STEM:
+The function f(t)=60,000(2)t580f(t) = 60,000(2)^{\frac{t}{580}}f(t)=60,000(2)580t​ gives the number of bacteria in a population ttt minutes after an initial observation. How much time, in minutes, does it take for the number of bacteria in the population to double?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["580"]
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6d399714cab24f9785a755 | TYPE: MCQ
+STEM:
+For x&gt;0x &gt; 0x&gt;0 , the function fff is defined as follows: f(x)f(x)f(x) equals 293%293\%293% of xxx . Which of the following could describe this function?
+
+CORRECT ANSWER:
+Increasing linear
+
+WRONG ANSWERS (4):
+  [1] Decreasing exponential
+  [2] Decreasing linear
+  [3] Increasing exponential
+  [4] Increasing linear
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6d39bd14cab24f9785a759 | TYPE: MCQ
+STEM:
+y=38x+2y = \frac{3}{8}x + 2y=83​x+2 One of two equations in a system of linear equations is given. The system has infinitely many solutions. What is the slope of the graph of the second equation?
+
+CORRECT ANSWER:
+38\frac{3}{8}83​
+
+WRONG ANSWERS (4):
+  [1] −83-\frac{8}{3}−38​
+  [2] −38-\frac{3}{8}−83​
+  [3] 38\frac{3}{8}83​
+  [4] 83\frac{8}{3}38​
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6d3a3114cab24f9785a75d | TYPE: MCQ
+STEM:
+If 4x2−32x−40=04x^2 - 32x - 40 = 04x2−32x−40=0 , what is the value of x2−8xx^2 - 8xx2−8x ?
+
+CORRECT ANSWER:
+10
+
+WRONG ANSWERS (4):
+  [1] 0
+  [2] 4
+  [3] 8
+  [4] 10
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6d3ab914cab24f9785a761 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=(x−5)(x−9)(x+k)f(x) = (x - 5)(x - 9)(x + k)f(x)=(x−5)(x−9)(x+k) , where kkk is a constant. In the xyxyxy -plane, the graph of y=f(x)y = f(x)y=f(x) passes through the point (−3,0)(-3, 0)(−3,0) . What is the value of f(0)f(0)f(0) ?
+
+CORRECT ANSWER:
+135
+
+WRONG ANSWERS (4):
+  [1] -288
+  [2] -3
+  [3] 11
+  [4] 135
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6d3d3a14cab24f9785a767 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785543994/questionPic/hh3ykgtmnrjfeid1lipv.png
+STEM:
+Line kkk is shown in the xyxyxy -plane. Line jjj (not shown) is perpendicular to line kkk and passes through the point (−20,−23)(-20, -23)(−20,−23) . Which equation defines line jjj ?
+
+CORRECT ANSWER:
+y=34x−8y = \frac{3}{4}x - 8y=43​x−8
+
+WRONG ANSWERS (4):
+  [1] y=34x−8y = \frac{3}{4}x - 8y=43​x−8
+  [2] y=34x−38y = \frac{3}{4}x - 38y=43​x−38
+  [3] y=43x−8y = \frac{4}{3}x - 8y=34​x−8
+  [4] y=43x−38y = \frac{4}{3}x - 38y=34​x−38
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6d3db414cab24f9785a76b | TYPE: MCQ
+STEM:
+In right triangle ABCABCABC , angles AAA and BBB are acute, side ACACAC has a length of 29.5, and tan⁡B=19\tan B = \frac{1}{9}tanB=91​ . What is the length of side BCBCBC , rounded to the nearest tenth?
+
+CORRECT ANSWER:
+265.5
+
+WRONG ANSWERS (4):
+  [1] 870.2
+  [2] 265.5
+  [3] 5.4
+  [4] 3.3
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6d3dd914cab24f9785a76f | TYPE: MCQ
+STEM:
+A rectangular banner has an area of 3200 square inches. A copy of the banner is made in which the length and width of the original banner are each increased by 20%. What is the area of the copy, in square inches?
+
+CORRECT ANSWER:
+4,608
+
+WRONG ANSWERS (4):
+  [1] 3,220
+  [2] 3,240
+  [3] 3,840
+  [4] 4,608
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6d3e0014cab24f9785a773 | TYPE: MCQ
+STEM:
+f(x)=(x−4)2+6f(x) = (x - 4)^2 + 6f(x)=(x−4)2+6 What is the minimum value of the given function?
+
+CORRECT ANSWER:
+6
+
+WRONG ANSWERS (4):
+  [1] 2
+  [2] 4
+  [3] 6
+  [4] 10
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6d3e9814cab24f9785a777 | TYPE: MCQ
+STEM:
+Point F lies on a unit circle in the xyxyxy -plane and has coordinates (1,0)(1, 0)(1,0) . Point GGG is the center of the circle and has coordinates (0,0)(0, 0)(0,0) . Point HHH also lies on the circle and has coordinates (−1,y)(-1, y)(−1,y) , where yyy is a constant. Which of the following could be the positive measure of angle FGHFGHFGH , in radians?
+
+CORRECT ANSWER:
+35π35\pi35π
+
+WRONG ANSWERS (4):
+  [1] 37π2\frac{37\pi}{2}237π​
+  [2] 39π2\frac{39\pi}{2}239π​
+  [3] 34π34\pi34π
+  [4] 35π35\pi35π
+

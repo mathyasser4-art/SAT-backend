@@ -1,0 +1,328 @@
+=== OCTOBER 2025 INT 2 - MODULE 1 ===
+
+--------------------------------------------------
+Q1 [6a626509c3d08d90637d369b] (MCQ)
+QUESTION:
+The length of a rectangle's diagonal is 65\sqrt{65}65​ , and the length of one of the rectangle's sides is 444 . What is the perimeter of the rectangle?
+
+CORRECT: 22
+CHOICES:
+  A: 11
+  B: 22
+  C: 28
+  D: 65
+
+EXPLANATION:
+The correct answer is 22. In a rectangle with side lengths and and diagonal , by the Pythagorean theorem: Given and : The perimeter of the rectangle is:
+
+--------------------------------------------------
+Q2 [6a626672c3d08d90637d36a9] (MCQ)
+QUESTION:
+The function hhh is defined by h(x)=7∣x∣h(x) = 7|x|h(x)=7∣x∣ . What is the value of h(−6)h(-6)h(−6) ?
+
+CORRECT: 42
+CHOICES:
+  A: -42
+  B: 1
+  C: 13
+  D: 42
+
+EXPLANATION:
+The correct answer is 42. The function is defined as . To evaluate , substitute :
+
+--------------------------------------------------
+Q3 [6a626750c3d08d90637d36ce] (MCQ)
+QUESTION:
+If xy=52\frac{x}{y} = 52yx​=52 and cx4y=52\frac{cx}{4y} = 524ycx​=52 , what is the value of ccc ?
+
+CORRECT: 4
+CHOICES:
+  A: 4
+  B: 13
+  C: 52
+  D: 208
+
+EXPLANATION:
+The correct answer is 4. We are given that and . Rewrite the second equation by factoring out the constant coefficient: Substitute : Divide both sides by 52:
+
+--------------------------------------------------
+Q4 [6a6267efc3d08d90637d36d8] (MCQ)
+QUESTION:
+If 5(8−4x)+2=4(8−4x)+185(8 - 4x) + 2 = 4(8 - 4x) + 185(8−4x)+2=4(8−4x)+18 , what is the value of 8−4x8 - 4x8−4x ?
+
+CORRECT: 16
+CHOICES:
+  A: -16
+  B: -2
+  C: 2
+  D: 16
+
+EXPLANATION:
+The correct answer is 16. Notice the repeated expression on both sides of the equation: Let . The equation becomes: Subtract from both sides: Subtract 2 from both sides: Therefore, the value of is 16.
+
+--------------------------------------------------
+Q5 [6a62714dc3d08d90637d36dc] (Essay)
+QUESTION:
+The function is defined by . For what value of does ?
+
+CORRECT (answer array): ["0.25","1/4"]
+CORRECT (correctAnswer field): 
+
+EXPLANATION:
+The correct answer is 0.25 (or 1/4). Set the function equal to 29: Subtract 25 from both sides: Divide by 16:
+
+--------------------------------------------------
+Q6 [6a62733ac3d08d90637d36e4] (MCQ)
+QUESTION:
+The positive number aaa is 240%240\%240% of the number bbb , and aaa is 70%70\%70% of the number ccc . If ccc is p%p\%p% of bbb , which of the following is closest to the value of ppp ?
+
+CORRECT: 343
+CHOICES:
+  A: 168
+  B: 200
+  C: 243
+  D: 343
+
+EXPLANATION:
+The correct answer is 343. Translate the given statements into algebraic equations: 1) is 240% of 2) is 70% of Equating the expressions for : Solve for : If is of , then: The closest value among the choices is 343.
+
+--------------------------------------------------
+Q7 [6a6273d6c3d08d90637d36e8] (MCQ)
+QUESTION:
+x+y=48x + y = 48x+y=48 The given equation relates the total number of marble queen pothos stems, xxx , and the total number of snow queen pothos stems, yyy , a plant nursery propagates to create pothos plants. If 181818 snow queen pothos stems are propagated, how many marble queen pothos stems are propagated?
+
+CORRECT: 30
+CHOICES:
+  A: 48
+  B: 30
+  C: 18
+  D: 12
+
+EXPLANATION:
+The correct answer is 30. The equation is given by , where is the number of marble queen pothos stems and is the number of snow queen pothos stems. Substitute : Subtract 18 from both sides:
+
+--------------------------------------------------
+Q8 [6a627489c3d08d90637d36ee] (MCQ)
+QUESTION:
+If 7+x=57 + x = 57+x=5 , what is the value of −14−2x-14 - 2x−14−2x ?
+
+CORRECT: −10-10−10
+CHOICES:
+  A: −10-10−10
+  B: −2-2−2
+  C: 444
+  D: 181818
+
+EXPLANATION:
+The correct answer is -10. We are given that . Notice that the expression can be factored by : Substitute :
+
+--------------------------------------------------
+Q9 [6a627516c3d08d90637d36f2] (MCQ)
+QUESTION:
+The function kkk is defined by k(x)=x3+20k(x) = x^3 + 20k(x)=x3+20 . What is the value of k(x)k(x)k(x) when x=2x = 2x=2 ?
+
+CORRECT: 28
+CHOICES:
+  A: 28
+  B: 26
+  C: 25
+  D: 20
+
+EXPLANATION:
+The correct answer is 28. The function is defined by . To find the value when , substitute 2 for :
+
+--------------------------------------------------
+Q10 [6a6275afc3d08d90637d36f6] (MCQ)
+QUESTION:
+Which expression is a factor of x4+14ax2+49a2��64x^4 + 14ax^2 + 49a^2 - 64x4+14ax2+49a2−64 , where aaa is a positive constant?
+
+CORRECT: x2+7a+8x^2 + 7a + 8x2+7a+8
+CHOICES:
+  A: x2+7a+8x^2 + 7a + 8x2+7a+8
+  B: x2−7a−8x^2 - 7a - 8x2−7a−8
+  C: x2+14ax^2 + 14ax2+14a
+  D: x2−8ax^2 - 8ax2−8a
+
+EXPLANATION:
+The correct answer is . Group the first three terms of the given expression: Notice that . The entire expression is a difference of two squares: Thus, is a factor of the expression.
+
+--------------------------------------------------
+Q11 [6a627684c3d08d90637d3702] (MCQ)
+QUESTION:
+For the linear function ggg , g(9)=11g(9) = 11g(9)=11 and g(x+1)−g(x)=2g(x + 1) - g(x) = 2g(x+1)−g(x)=2 . Which equation defines ggg ?
+
+CORRECT: g(x)=2x−7g(x) = 2x - 7g(x)=2x−7
+CHOICES:
+  A: g(x)=9x+2g(x) = 9x + 2g(x)=9x+2
+  B: g(x)=9x+11g(x) = 9x + 11g(x)=9x+11
+  C: g(x)=2x−18g(x) = 2x - 18g(x)=2x−18
+  D: g(x)=2x−7g(x) = 2x - 7g(x)=2x−7
+
+EXPLANATION:
+The correct answer is . For a linear function, the slope is the rate of change per unit increase in : Using point-slope form with and the point :
+
+--------------------------------------------------
+Q12 [6a627762c3d08d90637d370c] (MCQ) [IMAGE]
+QUESTION:
+In the figure, a hollow steel pipe is in the shape of a right circular cylinder. The steel pipe has an outside diameter of 60 inches, a wall thickness of 58\frac{5}{8}85​ inches, and a height of 132 inches. Which of the following is closest to the volume, in cubic inches, of the wall of this steel pipe?
+
+CORRECT: 15, 389
+CHOICES:
+  A: 162
+  B: 518
+  C: 2, 475
+  D: 15, 389
+
+EXPLANATION:
+The correct answer is 15,389. The volume of the wall of the hollow cylindrical pipe is the difference between the volume of the outer cylinder and the inner cylinder: From the problem statement: • Outside diameter = 60 inches • Wall thickness = • Inside radius • Height Calculate : Now calculate the volume: Rounding to the nearest integer gives 15,389.
+
+--------------------------------------------------
+Q13 [6a627802c3d08d90637d371a] (MCQ)
+QUESTION:
+The function hhh is defined by h(x)=7∣x∣h(x) = 7|x|h(x)=7∣x∣ . What is the value of h(−4)h(-4)h(−4) ?
+
+CORRECT: 28
+CHOICES:
+  A: -28
+  B: 3
+  C: 11
+  D: 28
+
+EXPLANATION:
+The correct answer is 28. The function is defined as . Substitute :
+
+--------------------------------------------------
+Q14 [6a627941c3d08d90637d3720] (MCQ)
+QUESTION:
+In triangle ABCABCABC , DEDEDE is parallel to ACACAC , BD=ADBD = ADBD=AD , BE=9BE = 9BE=9 , and AC=17AC = 17AC=17 . What is the length of BCBCBC ?
+
+CORRECT: 18
+CHOICES:
+  A: 153
+  B: 34
+  C: 26
+  D: 18
+
+EXPLANATION:
+The correct answer is 18. In triangle , segment is parallel to , with on and on . Since , triangles and are similar (). We are given that , which means is the midpoint of , and therefore: By the properties of similar triangles, the ratio of corresponding sides is equal: Given :
+
+--------------------------------------------------
+Q15 [6a6279b9c3d08d90637d3724] (MCQ)
+QUESTION:
+If 5(8−2x)+3=4(8−2x)+155(8 - 2x) + 3 = 4(8 - 2x) + 155(8−2x)+3=4(8−2x)+15 , what is the value of 8−2x8 - 2x8−2x ?
+
+CORRECT: 12
+CHOICES:
+  A: -12
+  B: -2
+  C: 2
+  D: 12
+
+EXPLANATION:
+The correct answer is 12. Notice the repeated expression on both sides of the equation: Let . The equation simplifies to: Subtract from both sides: Subtract 3 from both sides: Therefore, the value of is 12.
+
+--------------------------------------------------
+Q16 [6a627aa7c3d08d90637d3728] (MCQ)
+QUESTION:
+The positive number aaa is 270%270\%270% of the number bbb , and aaa is 80%80\%80% of the number ccc . If ccc is p%p\%p% of bbb , which of the following is closest to the value of ppp ?
+
+CORRECT: 338
+CHOICES:
+  A: 213
+  B: 216
+  C: 238
+  D: 338
+
+EXPLANATION:
+The correct answer is 338. Translate the given percentage relationships into equations: 1) 2) Equating the two expressions for : Solve for in terms of : If is of , then: The closest value among the choices is 338.
+
+--------------------------------------------------
+Q17 [6a627b5fc3d08d90637d3732] (MCQ)
+QUESTION:
+x+y=53x + y = 53x+y=53 The given equation relates the total number of marble queen pothos stems, xxx , and the total number of snow queen pothos stems, yyy , a plant nursery propagates to create pothos plants. If 13 snow queen pothos stems are propagated, how many marble queen pothos stems are propagated?
+
+CORRECT: 40
+CHOICES:
+  A: 53
+  B: 40
+  C: 27
+  D: 13
+
+EXPLANATION:
+The correct answer is 40. Given the equation , substitute :
+
+--------------------------------------------------
+Q18 [6a627c21c3d08d90637d373e] (MCQ)
+QUESTION:
+If 7+x=57 + x = 57+x=5 , what is the value of −21−3x-21 - 3x−21−3x ?
+
+CORRECT: -15
+CHOICES:
+  A: -15
+  B: -3
+  C: 6
+  D: 27
+
+EXPLANATION:
+The correct answer is -15. Start with the given equation . Notice that can be rewritten by factoring out : Substitute :
+
+--------------------------------------------------
+Q19 [6a627d56c3d08d90637d3742] (MCQ)
+QUESTION:
+The function kkk is defined by k(x)=x3+50k(x) = x^3 + 50k(x)=x3+50 . What is the value of k(x)k(x)k(x) when x=2x = 2x=2 ?
+
+CORRECT: 58
+CHOICES:
+  A: 50
+  B: 55
+  C: 56
+  D: 58
+
+EXPLANATION:
+The correct answer is 58. The function is defined by . Substitute :
+
+--------------------------------------------------
+Q20 [6a6283efc3d08d90637d3746] (MCQ)
+QUESTION:
+2x(x−1)(x+7)=02x(x - 1)(x + 7) = 02x(x−1)(x+7)=0 What is one of the solutions to the given equation?
+
+CORRECT: 0
+CHOICES:
+  A: -1
+  B: 0
+  C: 2
+  D: 7
+
+EXPLANATION:
+The correct answer is 0. Set each factor of the product equal to zero: • • • Among the given choices (-1, 0, 2, 7), 0 is one of the solutions.
+
+--------------------------------------------------
+Q21 [6a6285b1c3d08d90637d374e] (MCQ)
+QUESTION:
+The scatterplot shows the relationship between two variables, xxx and yyy . A line of best fit for the data is also shown.For how many of the 999 data points is the actual yyy -value greater than the yyy -value predicted by the line of best fit?
+
+CORRECT: 5
+CHOICES:
+  A: 2
+  B: 5
+  C: 7
+  D: 8
+
+EXPLANATION:
+The correct answer is 5. A data point has its actual -value greater than the -value predicted by the line of best fit if and only if the point lies vertically above the line. Counting the points that lie strictly above the line of best fit in the scatterplot gives exactly 5 points.
+
+--------------------------------------------------
+Q22 [6a62888fc3d08d90637d3776] (MCQ)
+QUESTION:
+For two acute angles XXX and YYY , the measure of angle YYY is 24∘24^\circ24∘ and sin⁡Xcos⁡Y=1\frac{\sin X}{\cos Y} = 1cosYsinX​=1 . What is the measure, in degrees, of angle XXX ?
+
+CORRECT: 66
+CHOICES:
+  A: 24
+  B: 45
+  C: 66
+  D: 69
+
+EXPLANATION:
+The correct answer is 66. Multiply both sides of by : By the complementary angle trigonometric identity, for acute angles and , if and only if and are complementary: Given that :
+

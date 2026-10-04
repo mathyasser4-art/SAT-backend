@@ -1,0 +1,316 @@
+====================================================
+MAY 2025 · INT 1 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a98102fe57881aee77e871e | TYPE: MCQ
+STEM:
+A certain hybrid car uses 39 gallons of gasoline to travel 1,950 miles. At this rate, how many kilometers does the car travel using 39 gallons of gasoline? (Use 1 mile=1.6 kilometers1 \text{ mile} = 1.6 \text{ kilometers}1 mile=1.6 kilometers .)
+
+CORRECT ANSWER:
+3,1203,1203,120
+
+WRONG ANSWERS (4):
+  [1] 312312312
+  [2] 3,1203,1203,120
+  [3] 31,20031,20031,200
+  [4] 312,000312,000312,000
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a984ad5e57881aee77ea217 | TYPE: MCQ
+STEM:
+The function hhh is defined by h(x)=4x−9h(x) = 4x - 9h(x)=4x−9 . What is the value of h(−3)h(-3)h(−3) ?
+
+CORRECT ANSWER:
+212121
+
+WRONG ANSWERS (4):
+  [1] 212121
+  [2] 131313
+  [3] −13-13−13
+  [4] −21-21−21
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a9843dae57881aee77e9f8a | TYPE: MCQ
+STEM:
+10x = 1108x - 86 = yThe solution to the given system of equations is (x, y). What is the value of y?
+
+CORRECT ANSWER:
+222
+
+WRONG ANSWERS (4):
+  [1] 86
+  [2] 111111
+  [3] 101010
+  [4] 222
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a9846e0e57881aee77ea0f5 | TYPE: MCQ
+STEM:
+Which expression is equivalent to 7x5−6x4+9x37x^5 - 6x^4 + 9x^37x5−6x4+9x3 ?
+
+CORRECT ANSWER:
+x^3(7x^2 - 6x + 9)
+
+WRONG ANSWERS (4):
+  [1] x4(7x−6)x^4(7x - 6)x4(7x−6)
+  [2] x^3(7x^2 - 6x + 9)
+  [3] 9x3(7x2−6x+1)9x^3(7x^2 - 6x + 1)9x3(7x2−6x+1)
+  [4] 6x5(−6x4+9x3+1)6x^5(-6x^4 + 9x^3 + 1)6x5(−6x4+9x3+1)
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a9847d6e57881aee77ea0fd | TYPE: MCQ
+STEM:
+y=0y=8(x2−36)y = 0 y = 8(x^2 - 36)y=0y=8(x2−36) Which ordered pair (x,y)(x, y)(x,y) is a solution to the given system of equations?
+
+CORRECT ANSWER:
+(6,0)(6, 0)(6,0)
+
+WRONG ANSWERS (4):
+  [1] (0,6)(0, 6)(0,6)
+  [2] (0,36)(0, 36)(0,36)
+  [3] (6,0)(6, 0)(6,0)
+  [4] (36,0)(36, 0)(36,0)
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a984d17e57881aee77ea236 | TYPE: MCQ
+STEM:
+A group of students purchase ice cream cones and ice cream sundaes. The cones cost 1.40 USD each, and the cost for 19 sundaes is 64.60 USD. The total cost for the cones and sundaes is 85.60 USD. Which equation represents this situation, where xxx is the number of cones purchased and yyy is the number of sundaes purchased?
+
+CORRECT ANSWER:
+1.40x+64.60y=85.601.40x + 64.60y = 85.601.40x+64.60y=85.60
+
+WRONG ANSWERS (4):
+  [1] 1.40x+64.60y=85.601.40x + 64.60y = 85.601.40x+64.60y=85.60
+  [2] 64.60x+1.40y=85.6064.60x + 1.40y = 85.6064.60x+1.40y=85.60
+  [3] 3.40x+1.40y=85.603.40x + 1.40y = 85.603.40x+1.40y=85.60
+  [4] 1.40x+3.40y=85.601.40x + 3.40y = 85.601.40x+3.40y=85.60
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a98507ee57881aee77ea953 | TYPE: MCQ
+STEM:
+Hakim has a bag of 50 tiles, where 45 are labeled with a letter and 5 are blank. If Hakim selects a tile from the bag at random, what is the probability of selecting a blank tile? (Express your answer as a decimal or fraction, not as a percent.)
+
+CORRECT ANSWER:
+110,.1,0.1\frac{1}{10} , .1 , 0.1101​,.1,0.1
+
+WRONG ANSWERS (4):
+  [1] 110,.1,0.1\frac{1}{10} , .1 , 0.1101​,.1,0.1
+  [2] -
+  [3] -
+  [4] -
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a985144e57881aee77ea9c7 | TYPE: MCQ
+STEM:
+In ΔDEF\Delta DEFΔDEF , the measure of ∠D\angle D∠D is 114∘114^\circ114∘ . Which of the following could be the measure, in degrees, of ∠E\angle E∠E ?
+
+CORRECT ANSWER:
+65
+
+WRONG ANSWERS (4):
+  [1] 115
+  [2] 90
+  [3] 67
+  [4] 65
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a9851e3e57881aee77ea9cd | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788367331/questionPic/mjmn593whueucnxrqg6o.png
+STEM:
+The shaded region shown represents the solutions to which inequality?
+
+CORRECT ANSWER:
+y&gt;3x+7y &gt; 3x + 7y&gt;3x+7
+
+WRONG ANSWERS (4):
+  [1] y&gt;3x+7y &gt; 3x + 7y&gt;3x+7
+  [2] y&gt;3x−7y &gt; 3x - 7y&gt;3x−7
+  [3] y&lt;3x+7y &lt; 3x + 7y&lt;3x+7
+  [4] y&lt;3x−7y &lt; 3x - 7y&lt;3x−7
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a98523fe57881aee77ea9df | TYPE: MCQ
+STEM:
+Which expression is equivalent to 20x2+3+5x220x^2 + 3 + 5x^220x2+3+5x2 ?
+
+CORRECT ANSWER:
+25x4+325x^4 + 325x4+3
+
+WRONG ANSWERS (4):
+  [1] 25x4+325x^4 + 325x4+3
+  [2] 25x2+325x^2 + 325x2+3
+  [3] 28x428x^428x4
+  [4] 28x228x^228x2
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a9853d1e57881aee77eacb6 | TYPE: MCQ
+STEM:
+A company opens an account with an initial balance of 35, 600 USD. The account earns interest, and no additional deposits or withdrawals are made. The account balance is given by an exponential function, where A(t)A(t)A(t) is the account balance, in dollars, ttt years after the account is opened. The account balance after 15 years is 129, 672.38 USD. Which equation could define AAA ?
+
+CORRECT ANSWER:
+A(t)=35,600.00(1.09)tA(t) = 35, 600.00(1.09)^tA(t)=35,600.00(1.09)t
+
+WRONG ANSWERS (4):
+  [1] A(t)=35,600.00(1.09)tA(t) = 35, 600.00(1.09)^tA(t)=35,600.00(1.09)t
+  [2] A(t)=35,600.00(0.09)tA(t) = 35, 600.00(0.09)^tA(t)=35,600.00(0.09)t
+  [3] A(t)=94,072.38(1.09)tA(t) = 94, 072.38(1.09)^tA(t)=94,072.38(1.09)t
+  [4] A(t)=94,072.38(0.09)tA(t) = 94, 072.38(0.09)^tA(t)=94,072.38(0.09)t
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a985475e57881aee77ead19 | TYPE: MCQ
+STEM:
+What is the y-intercept of the graph of y=14xy = 14^xy=14x in the xy-plane?
+
+CORRECT ANSWER:
+(0, 15)
+
+WRONG ANSWERS (4):
+  [1] (0, 15)
+  [2] (0, 14)
+  [3] (0, 1)
+  [4] (0, -1)
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a985535e57881aee77ead74 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=2x+bf(x) = 2x + bf(x)=2x+b , where bbb is a constant and f(7)=6f(7) = 6f(7)=6 .What is the value of bbb ?
+
+CORRECT ANSWER:
+-8
+
+WRONG ANSWERS (4):
+  [1] -8
+  [2] -
+  [3] -
+  [4] -
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a985607e57881aee77eaf50 | TYPE: MCQ
+STEM:
+A number ff f is 120% greater than a positive number ggg . A number hhh is 90% less than the number fff . The number hhh is how many times the number ggg ?
+
+CORRECT ANSWER:
+0.12
+
+WRONG ANSWERS (4):
+  [1] 0.12
+  [2] 0.22
+  [3] 1.08
+  [4] 1.98
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a98567ce57881aee77eafc1 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788368507/questionPic/hfet4leb4kuolawajcjz.png
+STEM:
+The histograms summarize the distributions of scores for team A and team B. Which statement best compares the standard deviations of scores for these teams?
+
+CORRECT ANSWER:
+The standard deviation of scores for team A is less than the standard deviation of scores for team B.
+
+WRONG ANSWERS (4):
+  [1] The standard deviation of scores for team A is less than the standard deviation of scores for team B.
+  [2] The standard deviation of scores for team A is greater than the standard deviation of scores for team B.
+  [3] The standard deviation of scores for team A is equal to the standard deviation of scores for team B
+  [4] There is not enough information to compare the standard deviations.
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a9af216838c4fe747f6d9b5 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788539413/questionPic/io7prk0yeuskbxmpslov.png
+STEM:
+In Circle A shown is defined by the equation x2+(y−5)2=7x^2 + (y - 5)^2 = 7x2+(y−5)2=7 . Circle B (not shown) has the same radius but is translated 91 units to the right. If the equation of circle B is (x−h)2+(y−k)2=a(x - h)^2 + (y - k)^2 = a(x−h)2+(y−k)2=a , where hhh , kkk , and aaa are constants, what is the value of 4a 4a4a ?
+
+CORRECT ANSWER:
+28
+
+WRONG ANSWERS (4):
+  [1] 28
+  [2] -
+  [3] -
+  [4] -
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a9af2e2838c4fe747f6de37 | TYPE: MCQ
+STEM:
+The function h(t)=−16t2+bh(t) = -16t^2 + bh(t)=−16t2+b estimates an object's height, in feet, above the ground ttt seconds after the object is dropped, where bbb is a constant. The function estimates that the object is 40.96 feet above the ground when it is dropped at t=0t = 0t=0 . How many seconds after being dropped does the function estimate the object will hit the ground?
+
+CORRECT ANSWER:
+85\frac{8}{5}58​ , 1.61.61.6
+
+WRONG ANSWERS (4):
+  [1] 85\frac{8}{5}58​ , 1.61.61.6
+  [2] -
+  [3] -
+  [4] -
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a9af4bf838c4fe747f6e2e8 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1788540095/questionPic/syiyahwsa84o9znum3fr.png
+STEM:
+The graph shows the total amount of rainfall yyy , in centimeters, from the start of a 10-hour period, where xxx is the number of hours after the start of the period. Which of the following statements about the rainfall during this time period is true?
+
+CORRECT ANSWER:
+The rate of rainfall was 2 centimeters per hour between x=2 andx = 4.
+
+WRONG ANSWERS (4):
+  [1] The rate of rainfall was 2 centimeters per hour between x=2 andx = 4.
+  [2] The rate of rainfall was the greatest betweenx = 4 andx = 10.
+  [3] The rate of rainfall increased betweenx = 0andx = 2.
+  [4] The rate of rainfall was 0 centimeters per hour betweenx = 2and x = 4.
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a9af4ec838c4fe747f6e335 | TYPE: MCQ
+STEM:
+For a set of 3 consecutive integers, the result of subtracting the greatest integer from the sum of the other two integers is 48. What is the value of the greatest of the three integers?
+
+CORRECT ANSWER:
+51
+
+WRONG ANSWERS (4):
+  [1] 51
+  [2] -
+  [3] -
+  [4] -
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a9af577838c4fe747f6e49c | TYPE: MCQ
+STEM:
+A rectangular banner has an area of 2, 300 square inches. A copy of the banner is made in which the length and width of the original banner are each increased by 20%. What is the area of the copy, in square inches?
+
+CORRECT ANSWER:
+"2,320""2, 320""2,320"
+
+WRONG ANSWERS (4):
+  [1] "2,320""2, 320""2,320"
+  [2] "2,340""2, 340""2,340"
+  [3] "2,760""2, 760""2,760"
+  [4] "3,312""3, 312""3,312"
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a9af5c0838c4fe747f6e4c1 | TYPE: MCQ
+STEM:
+(x−42)2=1(x - 42)^2 = 1(x−42)2=1 What is the sum of the solutions to the given equation?
+
+CORRECT ANSWER:
+424242
+
+WRONG ANSWERS (4):
+  [1] 424242
+  [2] 434343
+  [3] 848484
+  [4] 858585
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a9af654838c4fe747f6e72d | TYPE: MCQ
+STEM:
+5(kx−n)=−6514x−85185(kx - n) = -\frac{65}{14}x - \frac{85}{18}5(kx−n)=−1465​x−1885​ In the given equation, kkk and nnn are constants and n&gt;1n&gt;1n&gt;1 . The equation has no solution. What is the value of kkk ?
+
+CORRECT ANSWER:
+−1314-\frac{13}{14}−1413​
+
+WRONG ANSWERS (4):
+  [1] −1314-\frac{13}{14}−1413​
+  [2] −0.128-0.128−0.128
+  [3] 32\frac{3}{2}23​
+  [4] 0.520.520.52
+

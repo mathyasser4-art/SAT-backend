@@ -1,0 +1,175 @@
+Q1 [6aa963baec7ba02921a4540c]
+  Stem: Levi and Marissa each have stamp collections. The number of stamps in Levi's collection is 200%200\%200% of the number of stamps in Marissa'
+  Ans: 
+  Corr: 230230230
+  Wrongs: 230230230 /// 460460460 /// 920920920 /// 138013801380
+  Pic: none
+  Exp: NONE
+
+Q2 [6aa96424ec7ba02921a45410]
+  Stem: The graph of a system of a linear equation and a quadratic equation is shown. Which of the following is a solution (x,y)(x, y)(x,y) to the s
+  Ans: 
+  Corr: 
+  Wrongs: (−1,5)(-1, 5)(−1,5) /// (0,0)(0, 0)(0,0) /// (0,9)(0, 9)(0,9) /// (−2.4,0)(-2.4, 0)(−2.4,0)
+  Pic: https://res.cloudinary.com/drxqzhgce/image/upload/v1789486115/questionPic/zovdqj0ba6jgbarizyfb.png
+  Exp: NONE
+
+Q3 [6aa9647dec7ba02921a45414]
+  Stem: An object moves at a speed of 350\frac{3}{50}503​ feet per second. What is this speed, in yards per second? (3feet=1yard)(3 feet = 1 yard)(3
+  Ans: 
+  Corr: 
+  Wrongs: 505050 /// 666 /// 950\frac{9}{50}509​ /// 150\frac{1}{50}501​
+  Pic: none
+  Exp: NONE
+
+Q4 [6aa964c9ec7ba02921a4541a]
+  Stem: Which expression is equivalent to 158t3−24t2u158t^{3} - 24t^{2}u158t3−24t2u ?
+  Ans: 
+  Corr: 
+  Wrongs: 2t2(79t2−12u)2t^{2}(79t^{2} - 12u)2t2(79t2−12u) /// 2t2(79t−12u)2t^{2}(79t - 12u)2t2(79t−12u) /// 2tu(79t2−12)2tu(79t^{2} - 12)2tu(79t2−12) /// 2t2u(79t−12)2t^{2}u(79t - 12)2t2u(79t−12)
+  Pic: none
+  Exp: NONE
+
+Q5 [6aa96543ec7ba02921a45420]
+  Stem: Circle KKK has a radius of 222 millimeters (mm)(\text{mm})(mm) . Circle L LL has an area of 144π144\pi144π mm2\text{mm}^{2}mm2 . What is the
+  Ans: 
+  Corr: 
+  Wrongs: 14π14\pi14π /// 28π28\pi28π /// 56π56\pi56π /// 148π148\pi148π
+  Pic: none
+  Exp: NONE
+
+Q6 [6aa96583ec7ba02921a45424]
+  Stem: Which expression is equivalent to 2(x−32)(x+14)2\left(x - \frac{3}{2}\right)\left(x + 14\right)2(x−23​)(x+14)
+  Ans: 
+  Corr: 
+  Wrongs: x2+25x−21x^{2} + 25x - 21x2+25x−21 /// 2x2+11x−212x^{2} + 11x - 212x2+11x−21 /// 2x2+25x−422x^{2} + 25x - 422x2+25x−42 /// 2x2−422x^{2} - 422x2−42
+  Pic: none
+  Exp: NONE
+
+Q7 [6aa965ddec7ba02921a4542c]
+  Stem: The function fff is defined by f(x)=(−7)(4)x+31 f(x) = (-7)(4)^{x} + 31f(x)=(−7)(4)x+31 . What is the y-intercept of the graph of y=f(x)y = 
+  Ans: 
+  Corr: 
+  Wrongs: (0,24)(0, 24)(0,24) /// (0,4)(0, 4)(0,4) /// (0,31)(0, 31)(0,31) /// (0,−7)(0, -7)(0,−7)
+  Pic: none
+  Exp: NONE
+
+Q8 [6aa96678ec7ba02921a45430]
+  Stem: In right triangle RSTRSTRST , the sum of the measures of angle RRR and angle SSS is 9090 90 degrees. The value of sin⁡(R)\sin(R) sin(R) is 2
+  Ans: 
+  Corr: 
+  Wrongs: 31020\frac{3\sqrt{10}}{20}20310​​ /// 2107\frac{2\sqrt{10}}{7}7210​​ /// 71020\frac{7\sqrt{10}}{20}20710​​ /// 2103\frac{2\sqrt{10}}{3}3210​​
+  Pic: none
+  Exp: NONE
+
+Q9 [6aa966d8ec7ba02921a4543a]
+  Stem: y&lt;42−7xy &lt; 42 - 7xy&lt;42−7x y7&gt;10\frac{y}{7} &gt; 107y​&gt;10 Which inequality represents the x values for all solutions (x, y) th
+  Ans: 
+  Corr: 
+  Wrongs: x&gt;6x &gt; 6x&gt;6 /// x&lt;6x &lt; 6x&lt;6 /// x&gt;−4x &gt; -4x&gt;−4 /// x&lt;−4x &lt; -4x&lt;−4
+  Pic: none
+  Exp: NONE
+
+Q10 [6aa9672dec7ba02921a45441]
+  Stem: In the xy-plane, an equation of circle A is (x−2)2+(y−3)2=9(x - 2)^{2} + (y - 3)^{2} = 9(x−2)2+(y−3)2=9 . Circle B has the same center as ci
+  Ans: 
+  Corr: 
+  Wrongs: (x−2)2+(y−3)2=18(x - 2)^{2} + (y - 3)^{2} = 18(x−2)2+(y−3)2=18 /// (x−2)2+(y−3)2=36(x - 2)^{2} + (y - 3)^{2} = 36(x−2)2+(y−3)2=36 /// (x−2)2+(y−3)2=54(x - 2)^{2} + (y - 3)^{2} = 54(x−2)2+(y−3)2=54 /// (x−2)2+(y−3)2=81(x - 2)^{2} + (y - 3)^{2} = 81(x−2)2+(y−3)2=81
+  Pic: none
+  Exp: NONE
+
+Q11 [6aa96803ec7ba02921a4544e]
+  Stem: In the figure, line PR‾\overline{PR}PR intersects line ST‾\overline{ST}ST at point QQQ ,and ∠PTQ≅∠RSQ\angle PTQ \cong \angle RSQ∠PTQ≅∠RSQ . 
+  Ans: 960096009600
+  Corr: 
+  Wrongs: 
+  Pic: https://res.cloudinary.com/drxqzhgce/image/upload/v1789487106/questionPic/tinemmacwch7prtypqqu.png
+  Exp: NONE
+
+Q12 [6aa96868ec7ba02921a45458]
+  Stem: PC=N(44−C)PC = N(44 - C)PC=N(44−C) Which equation correctly gives CCC in terms of NNN and PPP ?
+  Ans: 
+  Corr: C(N+P)N\frac{C(N+P)}{N}NC(N+P)​
+  Wrongs: C(N+P)N\frac{C(N+P)}{N}NC(N+P)​ /// PC44−C\frac{PC}{44-C}44−CPC​ /// 44NN+P\frac{44N}{N+P}N+P44N​ /// 44NP+1\frac{44N}{P+1}P+144N​
+  Pic: none
+  Exp: NONE
+
+Q13 [6aa968edec7ba02921a45462]
+  Stem: In the figure shown, the measure of angle XXX is 52∘52^{\circ}52∘ . The length of XY‾\overline{XY}XY is 242424 units and the length of XZ‾\o
+  Ans: 
+  Corr: 204204204
+  Wrongs: 204204204 /// 408408408 /// 204sin⁡52∘204 \sin 52^{\circ}204sin52∘ /// 408sin⁡52∘408 \sin 52^{\circ}408sin52∘
+  Pic: https://res.cloudinary.com/drxqzhgce/image/upload/v1789487341/questionPic/qlqbmnsjs9d13z2hwwba.png
+  Exp: NONE
+
+Q14 [6aa96919ec7ba02921a45470]
+  Stem: A partially filled container containing 24milliliters of water is placed under a leaky faucet that produces one 0.03-milliliter drop of wate
+  Ans: 
+  Corr: 
+  Wrongs: v = 0.01t + 24 /// v = 0.03t + 24 /// v = 0.09t + 24 /// v = 3t
+  Pic: none
+  Exp: NONE
+
+Q15 [6aa96a11ec7ba02921a45474]
+  Stem: A research manager selected 2 random samples of ovens of a certain type to estimate the average amount of time this type of oven takes to pr
+  Ans: 
+  Corr: 
+  Wrongs: The first sample contained more ovens than the second sample. /// The first sample contained fewer ovens than the second sample. /// The first sample took more time on average to preheat to 325∘F325^{\circ}\text{F}325∘F Than the second sample. /// The first sample took less time on average to preheat to 325∘F325^{\circ}\text{F}325∘F than the second sample.
+  Pic: none
+  Exp: NONE
+
+Q16 [6aa96b74ec7ba02921a45478]
+  Stem: −319rx+s8=10−557x-\frac{3}{19}rx + \frac{s}{8} = 10 - \frac{5}{57}x−193​rx+8s​=10−575​x In the given equation, rrr , and sss are constants. 
+  Ans: 59\frac{5}{9}95​ | 0.550.550.55 | .555.555.555 | 0.560.560.56 | .556.556.556
+  Corr: 
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q17 [6aa96c1eec7ba02921a4547c]
+  Stem: −8x(x+9)=40-8x(x + 9) = 40−8x(x+9)=40 One solution to the given equation can be written as x=−s+t2x = \frac{-s+\sqrt{t}}{2}x=2−s+t​​ where s
+  Ans: 
+  Corr: 9101\frac{9}{101}1019​
+  Wrongs: 9101\frac{9}{101}1019​ /// 976\frac{9}{76}769​ /// 961\frac{9}{61}619​ /// 1861\frac{18}{61}6118​
+  Pic: none
+  Exp: NONE
+
+Q18 [6aa96cbcec7ba02921a45480]
+  Stem: The equation N(m)=65(Q)m4N(m) = 65(Q)^{\frac{m}{4}}N(m)=65(Q)4m​ gives the predicted population N(m)N(m)N(m) , in thousands, of a certain ba
+  Ans: 
+  Corr: 100(Q32+1)100\left(Q^{\frac{3}{2}} + 1\right)100(Q23​+1)
+  Wrongs: 100(Q32+1)100\left(Q^{\frac{3}{2}} + 1\right)100(Q23​+1) /// 100(Q30+1)100\left(Q^{30} + 1\right)100(Q30+1) /// 100(Q12−1)100\left(Q^{\frac{1}{2}} - 1\right)100(Q21​−1) /// 100(Q30−1)100\left(Q^{30} - 1\right)100(Q30−1)
+  Pic: none
+  Exp: NONE
+
+Q19 [6aa96cd2ec7ba02921a45487]
+  Stem: A quadratic function models the height, in feet, of an object above the ground in terms of the time, in seconds, after the object was launch
+  Ans: 1456
+  Corr: 
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q20 [6aa96d0cec7ba02921a4548e]
+  Stem: The function p is defined by p(x)=a((x+5)2−b)((x+5)2−c)p(x) = a((x + 5)^{2} - b)((x + 5)^{2} - c)p(x)=a((x+5)2−b)((x+5)2−c) , where a, b, an
+  Ans: 372
+  Corr: 
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q21 [6aa96d57ec7ba02921a45493]
+  Stem: 13(x−n)=13y+13n13(x - n) = 13y + 13n13(x−n)=13y+13n One of the equations in a system of two linear equations is given, where n is a positive
+  Ans: 
+  Corr: 2x−2y=4n2x - 2y = 4n2x−2y=4n
+  Wrongs: 2x−2y=4n2x - 2y = 4n2x−2y=4n /// 2x+2y=2n2x + 2y = 2n2x+2y=2n /// 2x+2y=4n2x + 2y = 4n2x+2y=4n /// 2x−2y=2n2x - 2y = 2n2x−2y=2n
+  Pic: none
+  Exp: NONE
+
+Q22 [6aa96d7cec7ba02921a454a7]
+  Stem: (x−k)2=(k−4a)(x−k)(x - k)^{2} = (k - 4a)(x - k)(x−k)2=(k−4a)(x−k) In the given equation, a and k are constants, where k &gt; 4a. The sum of 
+  Ans: −354-\frac{35}{4}−435​
+  Corr: 
+  Wrongs: 
+  Pic: none
+  Exp: NONE

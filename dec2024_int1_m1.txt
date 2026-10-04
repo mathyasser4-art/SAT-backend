@@ -1,0 +1,153 @@
+Q1 [6aa58665ec7ba02921a44445]
+  Stem: The graph of a system of two linear equations is shown. The solution to the system is (x,y)(x, y)(x,y) . What is the value of yyy ?
+  Ans: 
+  Wrongs: −5-5−5 | −4-4−4 | 222 | 333
+  Pic: none
+  Exp: NONE
+
+Q2 [6aa586b2ec7ba02921a44449]
+  Stem: The function fff is defined by f(x)=15x+10f(x) = 15x + 10f(x)=15x+10 . What is the value of f(x)f(x) f(x) when x=2x = 2x=2 ?
+  Ans: 
+  Wrongs: 272727 | 303030 | 404040 | 505050
+  Pic: none
+  Exp: NONE
+
+Q3 [6aa5874bec7ba02921a4444d]
+  Stem: The table shows three values of x and their corresponding values of y. There is a linear relationship between x and y. Which of the followin
+  Ans: 
+  Wrongs: y = x + 22 | y = 24x | y = 24x + 2 | y = 22x
+  Pic: none
+  Exp: NONE
+
+Q4 [6aa5883eec7ba02921a44458]
+  Stem: In the xy-plane, the graph of y=f(x)y = f(x) y=f(x) is a line that passes through (0,21)(0, 21)(0,21) and has a slope of 4. Which equation d
+  Ans: 
+  Wrongs: f(x)=21xf(x) = 21xf(x)=21x | f(x)=21x+4f(x) = 21x + 4f(x)=21x+4 | f(x)=4xf(x) = 4xf(x)=4x | f(x)=4x+21f(x) = 4x + 21f(x)=4x+21
+  Pic: none
+  Exp: NONE
+
+Q5 [6aa588bbec7ba02921a4445c]
+  Stem: One of the two equations in a system of linear equations is given. The system has infinitely many solutions. If the second equation in the s
+  Ans: 
+  Wrongs: −2-2−2 | −12-\frac{1}{2}−21​ | 12\frac{1}{2}21​ | 222
+  Pic: none
+  Exp: NONE
+
+Q6 [6aa5896aec7ba02921a44460]
+  Stem: An object was launched upward from a platform. The graph shown models the height above ground, yyy , in meters, of the object xxx seconds af
+  Ans: 
+  Wrongs: From x=0x = 0x=0 to x=2x=2x=2 | From x=0x = 0x=0 to x=4x=4x=4 | From x=2x=2x=2 to x=3x=3x=3 | From x=3x=3x=3 to x=4x=4x=4
+  Pic: none
+  Exp: NONE
+
+Q7 [6aa589e3ec7ba02921a44464]
+  Stem: The relationship between the variables rrr and yyy is defined by an exponential equation. When x=0x = 0x=0 , the value of yyy is 909090 , an
+  Ans: 
+  Wrongs: y=90(1.20)xy = 90(1.20)^xy=90(1.20)x | y=90(1.02)xy = 90(1.02)^xy=90(1.02)x | y=20(1.90)xy = 20(1.90)^xy=20(1.90)x | y=20(1.09)xy = 20(1.09)^xy=20(1.09)x
+  Pic: none
+  Exp: NONE
+
+Q8 [6aa58a32ec7ba02921a44468]
+  Stem: The table shows the amount of time it took a participant in a study to complete each tasks. What was the mean time, in minutes, for this par
+  Ans: 
+  Wrongs: 888 | 101010 | 111111 | 121212
+  Pic: none
+  Exp: NONE
+
+Q9 [6aa58a70ec7ba02921a4446c]
+  Stem: The function hhh is defined by h(x)=7∣x∣ h(x) = 7|x|h(x)=7∣x∣ . What is the value of h(−2)h(-2)h(−2) ?
+  Ans: 
+  Wrongs: −14-14−14 | 555 | 999 | 141414
+  Pic: none
+  Exp: NONE
+
+Q10 [6aa58ad8ec7ba02921a44470]
+  Stem: Which of the following is closest to the slope of the line of best fit shown?
+  Ans: 
+  Wrongs: −11.19-11.19−11.19 | −0.84-0.84−0.84 | 0.840.840.84 | 11.1911.1911.19
+  Pic: none
+  Exp: NONE
+
+Q11 [6aa58b67ec7ba02921a44474]
+  Stem: In the figure, line qqq is parallel to line rrr , and both lines are intersected by line sss . If y=2x+7y = 2x + 7y=2x+7 , what is the value
+  Ans: 
+  Wrongs: 353535 | 424242 | 484848 | 585858
+  Pic: none
+  Exp: NONE
+
+Q12 [6aa58f14ec7ba02921a44482]
+  Stem: Raheem bought 9 shirts that were each the same price. He used a coupon for 54 dollar off the entire purchase. The cost for the entire purcha
+  Ans: 18
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q13 [6aa58f72ec7ba02921a44486]
+  Stem: Line ttt in the xy-plane has a slope of −13-\frac{1}{3}−31​ and passes through the point (9,4)(9, 4)(9,4) . Which equation defines line ttt 
+  Ans: 
+  Wrongs: y=7x−13y = 7x - \frac{1}{3}y=7x−31​ | y=9x+4y = 9x + 4y=9x+4 | y=−x3+4y = -\frac{x}{3} + 4y=−3x​+4 | y=−x3+7y = -\frac{x}{3} + 7y=−3x​+7
+  Pic: none
+  Exp: NONE
+
+Q14 [6aa58f92ec7ba02921a4448a]
+  Stem: (x - 16)(x - 12)(x + 7)(x + 13) = 0 What is a positive solution to the given equation?
+  Ans: 12, 16
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q15 [6aa59015ec7ba02921a4448e]
+  Stem: A right circular cone has a height of 131313 centimeters (cm)(cm)(cm) and a base with a radius of 666 cmcmcm . What is the volume, in cm3\te
+  Ans: 
+  Wrongs: 26π26\pi26π | 78π78\pi78π | 156π156\pi156π | 468π468\pi468π
+  Pic: none
+  Exp: NONE
+
+Q16 [6aa5902dec7ba02921a44492]
+  Stem: A linear model estimates the population of a city from 1995 to 2019. The model estimates the population was 55 thousand in 1995, 217 thousan
+  Ans: 249
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q17 [6aa5906cec7ba02921a44496]
+  Stem: The equation gives the estimated number of online newsletter subscribers at the end of every six-month period, x, starting from the end of J
+  Ans: 
+  Wrongs: The estimated number of online newsletter subscribers at the end of the first six-month period was 500. | The estimated number of online newsletter subscribers at the end of January 1997 was 500. | The estimated number of online newsletter subscribers at the end of January 1998 was 1,000. | The estimated number of online newsletter subscribers at the end of January 1997 was 1,000.
+  Pic: none
+  Exp: NONE
+
+Q18 [6aa59163ec7ba02921a4449d]
+  Stem: x7+5(y−14)=29\frac{x}{7} + 5(y - 14) = 297x​+5(y−14)=29 x3−5(y−14)=41\frac{x}{3} - 5(y - 14) = 413x​−5(y−14)=41 The solution to the given sy
+  Ans: 147014701470
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q19 [6aa591b1ec7ba02921a444a1]
+  Stem: When several resistors are connected in series in a circuit, the total resistance of the circuit is the sum of the resistances of these resi
+  Ans: 
+  Wrongs: 0 &lt; x &lt; 8 | 0 &lt; x &lt; 40 | 40 &lt; x &lt; 90 | 40 &lt; x &lt; 130
+  Pic: none
+  Exp: NONE
+
+Q20 [6aa591f2ec7ba02921a444a5]
+  Stem: A family has money in an account for renting movies online. Each time the family rents a movie, the cost of the rental is withdrawn from the
+  Ans: 
+  Wrongs: 3m3m3m | 333 | 212121 | 21−3m21-3m21−3m
+  Pic: none
+  Exp: NONE
+
+Q21 [6aa59229ec7ba02921a444a9]
+  Stem: If 9−4(4−9x)=2−5(4−9x)9 - 4(4 - 9x) = 2 - 5(4 - 9x)9−4(4−9x)=2−5(4−9x) , what is the value of 4−9x4 - 9x4−9x ?
+  Ans: -7
+  Wrongs: 
+  Pic: none
+  Exp: NONE
+
+Q22 [6aa59278ec7ba02921a444ad]
+  Stem: On a plot of land, 52.0% of the square footage is farmland and the remaining square footage is pasture. There are buildings on exactly 21.5%
+  Ans: 17910\frac{179}{10}10179​, 17.917.917.9
+  Wrongs: 
+  Pic: none
+  Exp: NONE

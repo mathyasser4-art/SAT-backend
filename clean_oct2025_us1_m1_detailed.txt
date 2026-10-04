@@ -1,0 +1,281 @@
+====================================================
+OCTOBER 2025 · US 1 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6659d1c3d08d90637d3a06 | TYPE: Essay
+STEM:
+A quadratic function models the height, in feet, of an object above the ground in terms of the time, in seconds, after the object was launched. The model estimates that the object was launched from an initial height of 0.00 feet above the ground and was at a maximum height of 207.36 feet above the ground 3.6 seconds after it was launched. The model also estimates that the object was at a height of 184.32 feet above the ground xxx seconds after it was launched. What is a possible value of xxx ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["2.4","12/5"]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a665a6fc3d08d90637d3a0e | TYPE: MCQ
+STEM:
+The function hhh is defined by h(x)=5(9x−10)h(x) = 5(9x - 10)h(x)=5(9x−10) . What is the value of h(10)h(10)h(10) ?
+
+CORRECT ANSWER:
+400
+
+WRONG ANSWERS (4):
+  [1] 400
+  [2] 10
+  [3] 50
+  [4] 90
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a665ab0c3d08d90637d3a12 | TYPE: MCQ
+STEM:
+A pet service that takes care of both cats and dogs can care for at most 43 animals. Which inequality represents this situation, where ccc is the number of cats and ddd is the number of dogs?
+
+CORRECT ANSWER:
+c+d≤43c + d \leq 43c+d≤43
+
+WRONG ANSWERS (4):
+  [1] c−d≤43c - d \leq 43c−d≤43
+  [2] c−d≰43c - d \nleq 43c−d≰43
+  [3] c+d≥43c + d \geq 43c+d≥43
+  [4] c+d≤43c + d \leq 43c+d≤43
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a665af1c3d08d90637d3a1e | TYPE: Essay
+STEM:
+9x+17=9x+k9x + 17 = 9x + k9x+17=9x+k In the given equation, kkk is a constant. The equation has infinitely many solutions. What is the value of kkk ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["17"]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a665b5ac3d08d90637d3a22 | TYPE: Essay
+STEM:
+The yyy -intercept of the graph of y=6(1.85)xy = 6(1.85)^xy=6(1.85)x in the xyxyxy -plane is (0,y)(0, y)(0,y) . What is the value of yyy ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["6"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a665b96c3d08d90637d3a26 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785093014/questionPic/klimoj4q6gntad172bud.png
+STEM:
+The graph of the linear function fff is shown, where y = f(x). What is the slope of the graph of fff ?
+
+CORRECT ANSWER:
+16\frac{1}{6}61​
+
+WRONG ANSWERS (4):
+  [1] 16\frac{1}{6}61​
+  [2] −7-7−7
+  [3] −16-\frac{1}{6}−61​
+  [4] 7
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a665bc9c3d08d90637d3a2c | TYPE: Essay
+STEM:
+A triathlon is a multisport race consisting of three different legs. A triathlon participant completed the cycling leg with an average speed of 17.700 miles per hour. What was the average speed, in yards per hour, of the participant during the cycling leg? (1 mile = 1, 760 yards)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["31152"]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a665c46c3d08d90637d3a30 | TYPE: MCQ
+STEM:
+Triangle ABCABCABC is similar to triangle DEFDEFDEF , where angle AAA corresponds to angle DDD and angle CCC corresponds to angle FFF . Angles CCC and FFF are right angles. If tan⁡A=612613\tan A = \frac{612}{613}tanA=613612​ , what is the value of sin⁡D\sin DsinD ?
+
+CORRECT ANSWER:
+612613\frac{612}{613}613612​
+
+WRONG ANSWERS (4):
+  [1] 612613\frac{612}{613}613612​
+  [2] 35613\frac{35}{613}61335​
+  [3] 613612\frac{613}{612}612613​
+  [4] 61335\frac{613}{35}35613​
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a665caac3d08d90637d3a34 | TYPE: MCQ
+STEM:
+The function A(b)=7b2A(b) = 7b^2A(b)=7b2 gives the area of a right triangle, in square centimeters ( cm2\text{cm}^2cm2 ), if the length of its base is bbb cm and the length of its height is 14 times the length of its base. Which of the following is the best interpretation of A(18)=2,268A(18) = 2,268A(18)=2,268 ?
+
+CORRECT ANSWER:
+If the length of the base of the triangle is 18 cm, then the area of the triangle is 2,268 cm2\text{cm}^2cm2 .
+
+WRONG ANSWERS (4):
+  [1] If the length of the base of the triangle is 2,268 cm, then the length of the height of the triangle is 18 cm.
+  [2] If the length of the base of the triangle is 18 cm, then the length of the height of the triangle is 2,268 cm.
+  [3] If the length of the base of the triangle is 18 cm, then the area of the triangle is 2,268 cm2\text{cm}^2cm2 .
+  [4] If the length of the base of the triangle is 2,268 cm, then the area of the triangle is 18 cm2\text{cm}^2cm2 .
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a665cd8c3d08d90637d3a38 | TYPE: MCQ
+STEM:
+−4(v−9)(v−2)(v+7)=0-4(v - 9)(v - 2)(v + 7) = 0−4(v−9)(v−2)(v+7)=0 What value of vvv is a solution to the given equation?
+
+CORRECT ANSWER:
+9
+
+WRONG ANSWERS (4):
+  [1] -2
+  [2] 7
+  [3] 9
+  [4] -4
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a665d29c3d08d90637d3a3c | TYPE: MCQ
+STEM:
+Circle KKK has a radius of 8 millimeters (mm). Circle LLL has an area of 144 π mm2\pi\text{ mm}^2π mm2 . What is the total area, in mm2\text{mm}^2mm2 , of circles KKK and LLL ?
+
+CORRECT ANSWER:
+208π208\pi208π
+
+WRONG ANSWERS (4):
+  [1] 40π40\pi40π
+  [2] 20π20\pi20π
+  [3] 80π80\pi80π
+  [4] 208π208\pi208π
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a665d60c3d08d90637d3a42 | TYPE: MCQ
+STEM:
+x^2 + 49x + 1 = 0What is one of the solutions to the given equation?
+
+CORRECT ANSWER:
+−49+(49)2−4(1)(1)2(1)\frac{-49+\sqrt{(49)^2-4(1)(1)}}{2(1)}2(1)−49+(49)2−4(1)(1)​​
+
+WRONG ANSWERS (4):
+  [1] −49+(49)2−4(1)(1)2(1)\frac{-49+\sqrt{(49)^2-4(1)(1)}}{2(1)}2(1)−49+(49)2−4(1)(1)​​
+  [2] −49+(49)2−4(49)(49)2(49)\frac{-49+\sqrt{(49)^2-4(49)(49)}}{2(49)}2(49)−49+(49)2−4(49)(49)​​
+  [3] −1+(1)2−4(1)(49)2(1)\frac{-1+\sqrt{(1)^2-4(1)(49)}}{2(1)}2(1)−1+(1)2−4(1)(49)​​
+  [4] −1+(1)2−4(49)(1)2(49)\frac{-1+\sqrt{(1)^2-4(49)(1)}}{2(49)}2(49)−1+(1)2−4(49)(1)​​
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a665da1c3d08d90637d3a46 | TYPE: MCQ
+STEM:
+A model estimates that the initial number of photons in an X-ray beam is 800 when the beam reaches the surface of a certain material. The model also estimates that when the beam passes through this material, the number of photons in the beam decreases by 50% for each 7 millimeters of the material the beam passes through. Which equation represents this model, where III is the estimated number of photons in the beam when the beam reaches a point xxx millimeters from the surface?
+
+CORRECT ANSWER:
+I=800(0.5)x7I = 800(0.5)^{\frac{x}{7}}I=800(0.5)7x​
+
+WRONG ANSWERS (4):
+  [1] I=800(7)x2I = 800(7)^{\frac{x}{2}}I=800(7)2x​
+  [2] I=800(0.5)xI = 800(0.5)^xI=800(0.5)x
+  [3] I=800(2)x7I = 800(2)^{\frac{x}{7}}I=800(2)7x​
+  [4] I=800(0.5)x7I = 800(0.5)^{\frac{x}{7}}I=800(0.5)7x​
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a665de2c3d08d90637d3a4a | TYPE: MCQ
+STEM:
+In the xyxyxy -plane, line kkk passes through the points (3,0)(3, 0)(3,0) and (0,5)(0, 5)(0,5) . Which of the following is an equation of line kkk ?
+
+CORRECT ANSWER:
+5x+3y=155x + 3y = 155x+3y=15
+
+WRONG ANSWERS (4):
+  [1] 3x−5y=153x - 5y = 153x−5y=15
+  [2] 5x+3y=155x + 3y = 155x+3y=15
+  [3] 3x+5y=153x + 5y = 153x+5y=15
+  [4] 5x−3y=155x - 3y = 155x−3y=15
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a665e3dc3d08d90637d3a4e | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785093692/questionPic/ytv0pgot0adl6n72hj49.png
+STEM:
+In right triangle ABCABCABC shown, what is the measure of triangle CCC ?
+
+CORRECT ANSWER:
+34°
+
+WRONG ANSWERS (4):
+  [1] 124°
+  [2] 146°
+  [3] 56°
+  [4] 34°
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a665e73c3d08d90637d3a52 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785093747/questionPic/bv7poqgpec5dg9xyizms.png
+STEM:
+x+4y=−3x + 4y = -3x+4y=−3 4x−y=224x - y = 224x−y=22 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of 3x−5y3x - 5y3x−5y ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["25"]
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a665eb7c3d08d90637d3a5e | TYPE: MCQ
+STEM:
+A circle in the xy-plane has its center at (−4,1)(-4, 1)(−4,1) and the point (−8,4)(-8, 4)(−8,4) lies on the circle. Which equation represents this circle?
+
+CORRECT ANSWER:
+(x+4)2+(y−1)2=25(x + 4)^2 + (y - 1)^2 = 25(x+4)2+(y−1)2=25
+
+WRONG ANSWERS (4):
+  [1] (x−4)2+(y+1)2=5(x - 4)^2 + (y + 1)^2 = 5(x−4)2+(y+1)2=5
+  [2] (x+4)2+(y−1)2=25(x + 4)^2 + (y - 1)^2 = 25(x+4)2+(y−1)2=25
+  [3] (x−4)2+(y+1)2=25(x - 4)^2 + (y + 1)^2 = 25(x−4)2+(y+1)2=25
+  [4] (x+4)2+(y−1)2=5(x + 4)^2 + (y - 1)^2 = 5(x+4)2+(y−1)2=5
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a665f19c3d08d90637d3a62 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785093913/questionPic/zttomfrgsz3vaudhayzi.png
+STEM:
+In the figure, lines rrr and sss are parallel and line ttt intersects both lines. If a=4k+57a = 4k + 57a=4k+57 and b=k4+55b = \frac{k}{4} + 55b=4k​+55 , what is the value of ccc ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["121"]
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a665f50c3d08d90637d3a66 | TYPE: MCQ
+STEM:
+0.5x+1.2y=90.5x + 1.2y = 90.5x+1.2y=9 1.5x+3.6y=271.5x + 3.6y = 271.5x+3.6y=27 How many solutions does the given system of equations have?
+
+CORRECT ANSWER:
+Infinitely many
+
+WRONG ANSWERS (4):
+  [1] Infinitely many
+  [2] Exactly two
+  [3] Exactly one
+  [4] Zero
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6660c6c3d08d90637d3a6c | TYPE: MCQ
+STEM:
+For a study, a research team measured the heights of 380 king penguins from the Kerguelen Islands and 190 king penguins from the Falkland islands. The research team determined that the mean height of the 380 king penguins from the Kerguelen Islands was 87 centimeters and the mean height of the 190 king penguins from the Falkland Islands was 93 centimeters. What was the mean height, in centimeters, of all 570 king penguins the research team measured for this study?
+
+CORRECT ANSWER:
+89
+
+WRONG ANSWERS (4):
+  [1] 91
+  [2] 89
+  [3] 90
+  [4] 88
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6660f6c3d08d90637d3a70 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785094389/questionPic/c09rw9tsicya59xgnqwk.png
+STEM:
+Which of the following equations is the most appropriate model for the data shown in the scatterplot?
+
+CORRECT ANSWER:
+y=6(1.55)x+18y = 6(1.55)^x + 18y=6(1.55)x+18
+
+WRONG ANSWERS (4):
+  [1] y=24(1.55)xy = 24(1.55)^xy=24(1.55)x
+  [2] y=24(1.55)x+18y = 24(1.55)^x + 18y=24(1.55)x+18
+  [3] y=6(1.55)x+23y = 6(1.55)^x + 23y=6(1.55)x+23
+  [4] y=6(1.55)x+18y = 6(1.55)^x + 18y=6(1.55)x+18
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a666167c3d08d90637d3a74 | TYPE: MCQ
+STEM:
+18qrt−2qrs+10rst=018qrt - 2qrs + 10rst = 018qrt−2qrs+10rst=0 In the given equation, qqq , rrr , sss , and ttt are positive, and ttt is greater than 5. Which expression is equivalent to sss ?
+
+CORRECT ANSWER:
+9qtq−5t\frac{9qt}{q-5t}q−5t9qt​
+
+WRONG ANSWERS (4):
+  [1] −9qtq−5t\frac{-9qt}{q-5t}q−5t−9qt​
+  [2] 9qtq−5t\frac{9qt}{q-5t}q−5t9qt​
+  [3] 18qrt18qrt18qrt
+  [4] 2qtq−5t\frac{2qt}{q-5t}q−5t2qt​
+

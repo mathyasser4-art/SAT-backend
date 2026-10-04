@@ -1,0 +1,375 @@
+================================================================================
+DECEMBER 2025 · US 1 · MODULE 2 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: Essay | ID: 6a5b131ec3d08d90637d2eae
+--------------------------------------------------------------------------------
+STEM:
+A line passes through the points (5, 7) and (13, 35) in the xy-plane.
+What is the slope of the line?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["3.5","7/2"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: Essay | ID: 6a5b139ec3d08d90637d2eba
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = 5\left(\frac{1}{4} - x\right)^2 + \frac{3}{4}5(41​−x)2+43​. What is the value of f\left(\frac{1}{4}\right)41​)?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["0.75","3/4",".75"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a5b140cc3d08d90637d2ec6
+--------------------------------------------------------------------------------
+STEM:
+p(x) = 132 - 4x132−4x The function p shown gives the number of blank sheets of paper, p(x), remaining in a printer x days after the printer had been loaded with paper. Which statement is the best interpretation of p(6) = 108108?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] The number of blank sheets of paper remaining in the printer decreased by a total of 6 sheets after 108 days.
+  [B] There were 6 blank sheets of paper remaining in the printer 108 days after the printer had been loaded with paper.
+  [C] (CORRECT KEY) There were 108 blank sheets of paper remaining in the printer 6 days after the printer had been loaded with paper.
+  [D] The number of blank sheets of paper remaining in the printer decreased by a total of 108 sheets after 6 days
+
+CORRECT ANSWER FIELD:
+There were 108 blank sheets of paper remaining in the printer 6 days after the printer had been loaded with paper.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: MCQ | ID: 6a5b1458c3d08d90637d2eca
+--------------------------------------------------------------------------------
+STEM:
+A student needs at least 80 signatures from classmates to run for class treasurer. The student collects 55 signatures on Monday and collects enough additional signatures on Tuesday to run for class treasurer. Which inequality represents the number of additional signatures, s, that the student collects on Tuesday?
+
+CHOICES (4):
+  [A] s + 55 \le 8055≤80
+  [B] (CORRECT KEY) s + 55 \ge 8055≥80
+  [C] s - 55 \le 8055≤80
+  [D] s - 55 \ge 8055≥80
+
+CORRECT ANSWER FIELD:
+s + 55 \ge 8055≥80
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a5b14b4c3d08d90637d2ece
+--------------------------------------------------------------------------------
+STEM:
+A group of 10 gardeners recorded data on the germination rates of their tomato crop for one growing season. The scatterplot shows the relationship between the number of tomato seeds planted, a, and the number of tomato seeds that germinated, y, for each of the gardeners. A line of best fit is also shown. Which of the following is the best interpretation of the slope of the line of best fit in this context?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1784353972/questionPic/jfarihofozeogb4pyjtk.png
+
+CHOICES (4):
+  [A] The number of tomato seeds planted is predicted to increase by 70 seeds every 100 days.
+  [B] The number of tomato seeds planted is predicted to increase by 350 seeds every 100 days.
+  [C] (CORRECT KEY) The number of tomato seeds that germinate is predicted to increase by 70 seeds for every additional 100 tomato seeds that are planted.
+  [D] The number of tomato seeds that germinate is predicted to increase by 350 seeds for every additional 100 tomato seeds that are planted.
+
+CORRECT ANSWER FIELD:
+The number of tomato seeds that germinate is predicted to increase by 70 seeds for every additional 100 tomato seeds that are planted.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: MCQ | ID: 6a5b1565c3d08d90637d2edc
+--------------------------------------------------------------------------------
+STEM:
+Triangle XYZ shown is a right triangle. Which of the following has the same value as \sin X?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1784354149/questionPic/a2mss6ypxob8oiimtsx8.png
+
+CHOICES (4):
+  [A] (CORRECT KEY) \cos Y
+  [B] \cos X
+  [C] \tan Y
+  [D] \tan X
+
+CORRECT ANSWER FIELD:
+\cos Y
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a5b15c7c3d08d90637d2ee8
+--------------------------------------------------------------------------------
+STEM:
+x^2 - 2x = 33−2x=33 
+What is one of the solutions to the given equation?
+
+CHOICES (4):
+  [A] \frac{\sqrt{33}}{2}33​​
+  [B] (CORRECT KEY) 1 + \frac{\sqrt{33}}{2}233​​
+  [C] 34
+  [D] 33 + \frac{\sqrt{33}}{\sqrt{2}}2​33​​
+
+CORRECT ANSWER FIELD:
+1 + \frac{\sqrt{33}}{2}233​​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a5b16d4c3d08d90637d2eee
+--------------------------------------------------------------------------------
+STEM:
+\begin{array}{|c|l|} \hline x & y \\ \hline 0 & r \\ \hline 3 & r - 24 \\ \hline 6 & r - 48 \\ \hline \end{array}036​yrr−24r−48​​ 
+For a linear relationship between x and y, the table gives three values of y in terms of a constant r. What is the slope of the line in the xy-plane that represents this relationship?
+
+CHOICES (4):
+  [A] -24
+  [B] (CORRECT KEY) -8
+  [C] 8
+  [D] 24
+
+CORRECT ANSWER FIELD:
+-8
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: MCQ | ID: 6a5b172ec3d08d90637d2ef2
+--------------------------------------------------------------------------------
+STEM:
+The graph of the equation y = 2^x + k2x+k is shown, where k is a constant. What is the value of k?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1784354606/questionPic/yhhfgsqejdfplq3oqgzv.png
+
+CHOICES (4):
+  [A] (CORRECT KEY) -6
+  [B] -5
+  [C] 5
+  [D] 6
+
+CORRECT ANSWER FIELD:
+-6
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: Essay | ID: 6a5b180ac3d08d90637d2ef6
+--------------------------------------------------------------------------------
+STEM:
+In triangle RST, the measure of angle R is 37^\circ, the measure of angle S is x^\circ, and the measure of angle T is (3x - 5)^\circ5)∘. Point L lies on \bar{RS}ˉ, point K lies on \bar{ST}ˉ, and \bar{LT}ˉ is parallel to \bar{RT}ˉ. What is the measure, in degrees, of angle SKL? (Disregard the degree symbol when entering your answer.)
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["106"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: MCQ | ID: 6a5b1915c3d08d90637d2f02
+--------------------------------------------------------------------------------
+STEM:
+31x - 32y = c32y=c In the given system of equations, c is a positive constant. Which of the following could be the point where the graphs of the equations in this system intersect in the xy-plane?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] (c, 0) \frac{c}{63}c​
+  [B] \left(c, \frac{c}{63}\right)c,63c​)
+  [C] (10, 630)
+  [D] (CORRECT KEY) \left(10, -\frac{10}{63}\right)10,−6310​)
+
+CORRECT ANSWER FIELD:
+\left(10, -\frac{10}{63}\right)10,−6310​)
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: MCQ | ID: 6a5b1a30c3d08d90637d2f06
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between x and y for the 9 data points in data set A. A quadratic model for the data in data set A can be written as y = 0.04x^2 - 0.06x + 6.570.04x2−0.06x+6.57 . The graph of this model is shown in the xy-plane. The data point x = 00 was found to be the result of a recording error and was removed from data set A to create data set B, consisting of the remaining 8 data points. A quadratic model for the data in data set B can be written as y = ax^2 + bx + cax2+bx+c, where a, b, and c are constants. If the quadratic models for data sets A and B are calculated in the same way, which of the following statements must be true?
+I.a > 0.040.04 
+II.c < 6.576.57
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] I only
+  [B] II only
+  [C] (CORRECT KEY) I and II
+  [D] Neither I nor II
+
+CORRECT ANSWER FIELD:
+I and II
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: MCQ | ID: 6a5b1b33c3d08d90637d2f10
+--------------------------------------------------------------------------------
+STEM:
+Which measure, in radians, is equivalent to (47 \times 180)^\circ180)∘?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 47\pi
+  [B] \pi + 4747
+  [C] -\frac{\pi}{47}π​
+  [D] \pi - 4747
+
+CORRECT ANSWER FIELD:
+47\pi
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a5b1bc6c3d08d90637d2f22
+--------------------------------------------------------------------------------
+STEM:
+A biologist mixed a solution that is 0.1\% sodium chloride by mass with a solution that is 0.05\% sodium chloride by mass to obtain a new solution, which has a mass of 90 grams and contains 0.07 grams of sodium chloride. How many grams of 0.1\% sodium chloride solution did the biologist use?
+
+CHOICES (4):
+  [A] 0.14
+  [B] 40
+  [C] (CORRECT KEY) 50
+  [D] 89.86
+
+CORRECT ANSWER FIELD:
+50
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: Essay | ID: 6a5b1c3dc3d08d90637d2f26
+--------------------------------------------------------------------------------
+STEM:
+The expression 6(9x + 16)(x - 5) - (4x + 17)16)(x−5)−(4x+17) can be written in the form ax^2 + bx + c+bx+c, where a, b, and c are constants. What is the value of b?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["-178"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: MCQ | ID: 6a5b1cd9c3d08d90637d2f2c
+--------------------------------------------------------------------------------
+STEM:
+The triangle inequality theorem states that the sum of any two sides of a triangle must be greater than the length of the third side. If a triangle has side lengths of 9 and 13, which inequality represents the possible lengths, x, of the third side of the triangle?
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] x < 2222
+  [B] x > 2222
+  [C] (CORRECT KEY) 4 < x < 22x<22
+  [D] x < 4 \text{ or } x > 224 or x>22
+
+CORRECT ANSWER FIELD:
+4 < x < 22x<22
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a5b1e60c3d08d90637d2f32
+--------------------------------------------------------------------------------
+STEM:
+At different times on a certain day, a manager at a theme park recorded the number of visitors. An exponential model gives the estimated number of visitors, V, at the theme park t hours after the theme park opened, where t \le 33. Based on the model, 85 visitors were estimated to be at the theme park when it opened, and every 30 minutes the estimated number of visitors increased by 120% of the estimated number of visitors 30 minutes earlier. Which of the following equations best represents this model?
+
+CHOICES (4):
+  [A] (CORRECT KEY) V = 85(2.20)^{2t}85(2.20)2t
+  [B] V = 85(2.20)^{\frac{t}{30}}85(2.20)30t​
+  [C] V = 85(1.20)^{2t}85(1.20)2t
+  [D] V = 85(1.20)^{\frac{t}{30}}85(1.20)30t​
+
+CORRECT ANSWER FIELD:
+V = 85(2.20)^{2t}85(2.20)2t
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: MCQ | ID: 6a5b1fbfc3d08d90637d2f36
+--------------------------------------------------------------------------------
+STEM:
+42(x - 1) = 6(-7 + 7x)1)=6(−7+7x) 
+How many solutions does the given equation have?
+
+CHOICES (4):
+  [A] Zero
+  [B] Exactly one
+  [C] Exactly two
+  [D] (CORRECT KEY) Infinitely many
+
+CORRECT ANSWER FIELD:
+Infinitely many
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: MCQ | ID: 6a5b20a0c3d08d90637d2f43
+--------------------------------------------------------------------------------
+STEM:
+The functions f and g are defined by the given equations, where x > 00, a and b are integer constants, a < bb, and a > 11. If y = f(x)f(x) and y = g(x)g(x) are graphed in the xy-plane, which of the following equations displays, as a constant or coefficient, the minimum value of the function it defines, where x \ge 00?
+I.f(x) = a(0.54)^{-bx}a(0.54)−bx 
+II.g(x) = a(1.46)^{x+2} + ba(1.46)x+2+b
+
+⚠️ VISUAL MENTIONED IN STEM BUT NO questionPic ATTACHED!
+
+CHOICES (4):
+  [A] (CORRECT KEY) I only
+  [B] II only
+  [C] I and II
+  [D] Neither I nor II
+
+CORRECT ANSWER FIELD:
+I only
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: Essay | ID: 6a5b2114c3d08d90637d2f47
+--------------------------------------------------------------------------------
+STEM:
+The mass of object A is 481% of the mass of object B, and the mass of object A is 0.740% of the mass of object C. If the mass of object C is p% of the mass of object B, what is the value of p?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["65000"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a5b214fc3d08d90637d2f4b
+--------------------------------------------------------------------------------
+STEM:
+Which expression is a factor of y^2(x - 8) - 16(x - 8)^3(x−8)−16(x−8)3?
+
+CHOICES (4):
+  [A] y(x - 8)8)
+  [B] (x - 8)(x - 4)8)(x−4)
+  [C] y + x - 8x−8
+  [D] (CORRECT KEY) y + 4x - 324x−32
+
+CORRECT ANSWER FIELD:
+y + 4x - 324x−32
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: MCQ | ID: 6a5b2185c3d08d90637d2f4f
+--------------------------------------------------------------------------------
+STEM:
+For a study, a group of gophers will be selected from a habitat consisting of 220 gophers, and a group of groundhogs will be selected from a habitat consisting of 200 groundhogs. Some of the gophers and groundhogs will be in a treatment group, and some of the gophers and groundhogs will be in a control group. Which of the following is necessary for this study to attempt to establish a cause-and-effect relationship between two variables?
+
+CHOICES (4):
+  [A] The number of gophers in the treatment group is equal to the number of groundhogs in the treatment group, and the number of gophers in the control group is equal to the number of groundhogs in the control group.
+  [B] The gophers and the groundhogs are randomly selected from their respective habitats.
+  [C] (CORRECT KEY) The gophers and the groundhogs are randomly assigned to the treatment and control groups.
+  [D] The average age of the gophers in the treatment group is equal to the average age of the groundhogs in the treatment group, and the average age of the gophers in the control group is equal to the average age of the groundhogs in the control group.
+
+CORRECT ANSWER FIELD:
+The gophers and the groundhogs are randomly assigned to the treatment and control groups.
+
+EXPLANATION: [None provided]
+

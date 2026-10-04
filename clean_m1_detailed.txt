@@ -1,0 +1,350 @@
+================================================================================
+DECEMBER 2025 · US 1 · MODULE 1 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a53fde24d554e04aa1bfc06
+--------------------------------------------------------------------------------
+STEM:
+The price to rent an event space is 1,050 dollars for the first 3 hours and $250 for each additional hour. What is the total price, in dollars, to rent the event space for 10 hours?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 1,750
+  [B] 2,800
+  [C] 3,550
+  [D] 4,900
+
+CORRECT ANSWER FIELD:
+1,750
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: Essay | ID: 6a53fe4a4d554e04aa1bfc15
+--------------------------------------------------------------------------------
+STEM:
+A triathlon is a multisport race consisting of three different consecutive events. A triathlon participant plans to complete the cycling event with an average speed of 33,792 yards per hour. What is this average speed, in miles per hour? (1 \text{ mile} = 1,760 \text{ yards}=1,760 yards )
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["19.2","96/5"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a53fe9c4d554e04aa1bfc20
+--------------------------------------------------------------------------------
+STEM:
+If 5x + 4 = 344=34, what is the value of 50x + 4040?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 340
+  [B] 90
+  [C] 60
+  [D] 6
+
+CORRECT ANSWER FIELD:
+340
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: MCQ | ID: 6a53ff254d554e04aa1bfc24
+--------------------------------------------------------------------------------
+STEM:
+In the figure, line p is parallel to line r, and line t intersects both lines. What is the value of x?
+
+CHOICES (4):
+  [A] 25
+  [B] (CORRECT KEY) 50
+  [C] 180
+  [D] 230
+
+CORRECT ANSWER FIELD:
+50
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a53ffdf4d554e04aa1bfc31
+--------------------------------------------------------------------------------
+STEM:
+Which expression is equivalent to 6xy(2x^{2} + 7y)+7y)?
+
+CHOICES (4):
+  [A] 8x^{3}y + 13xy^{2}y+13xy2
+  [B] 12x^{2}y + 7yy+7y
+  [C] 12x^{2}y + 42xyy+42xy
+  [D] (CORRECT KEY) 12x^3y + 42xy^2y+42xy2
+
+CORRECT ANSWER FIELD:
+12x^3y + 42xy^2y+42xy2
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: Essay | ID: 6a5400fb4d554e04aa1bfc42
+--------------------------------------------------------------------------------
+STEM:
+\begin{array}{|c|c|} \hline \text{\textbf{Type of entree}} & \text{\textbf{Number of people}} \\ \hline \text{Beef} & 16 \\ \hline \text{Chicken} & 29 \\ \hline \text{Fish} & 2 \\ \hline \text{Vegetarian} & 3 \\ \hline \text{\textbf{Total}} & 50 \\ \hline \end{array}BeefChickenFishVegetarianTotal​Number of people16292350​​ 
+A total of 50 people attended a conference and were offered a choice of 4 types of entrees. The table shows the number of people who chose each type of entree. If one of these people is selected at random, what is the probability of selecting a person who chose a vegetarian entree? (Express your answer as a decimal or fraction, not as a percent.)
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["3/50","0.06",".06"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a54015e4d554e04aa1bfc52
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between two variables, x and y. Which of the following equations is the most appropriate linear model for the data shown?
+
+CHOICES (4):
+  [A] y = 0.9 + 9.10.9+9.1
+  [B] y = 0.9 - 9.1x0.9−9.1x
+  [C] y = 9.1 + 0.9x9.1+0.9x
+  [D] (CORRECT KEY) y = 9.1 - 0.9x9.1−0.9x
+
+CORRECT ANSWER FIELD:
+y = 9.1 - 0.9x9.1−0.9x
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a5401ce4d554e04aa1bfc60
+--------------------------------------------------------------------------------
+STEM:
+The length of a side of square X is 8 centimeters. The area of rectangle Y is 45 square centimeters. What is the total area, in square centimeters, of square X and rectangle Y?
+
+CHOICES (4):
+  [A] 154
+  [B] (CORRECT KEY) 109
+  [C] 106
+  [D] 64
+
+CORRECT ANSWER FIELD:
+109
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: MCQ | ID: 6a5402884d554e04aa1bfc6e
+--------------------------------------------------------------------------------
+STEM:
+In each of the following data sets of 5 values, p is a constant. Which of these data sets has the largest standard deviation?
+
+CHOICES (4):
+  [A] p - 5, p - 5, p, p + 5, p + 55,p−5,p,p+5,p+5
+  [B] p - 6, p, p, p, p + 66,p,p,p,p+6
+  [C] (CORRECT KEY) p - 9, p - 6, p, p + 6, p + 99,p−6,p,p+6,p+9
+  [D] p, p, p, p, p
+
+CORRECT ANSWER FIELD:
+p - 9, p - 6, p, p + 6, p + 99,p−6,p,p+6,p+9
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: MCQ | ID: 6a5402eb4d554e04aa1bfc7a
+--------------------------------------------------------------------------------
+STEM:
+The function f(x) = 900(0.5)^{\frac{x}{12}}900(0.5)12x​ gives the predicted intensity of a beam f(x), in number of photons in the beam, x millimeters below the surface of a certain material. What is the best interpretation of f(12) = 450450?
+
+CHOICES (4):
+  [A] A beam at the surface of the material has a predicted intensity of 12 photons in the beam.
+  [B] A beam at the surface of the material has a predicted intensity of 450 photons in the beam.
+  [C] (CORRECT KEY) A beam 12 millimeters below the surface of the material has a predicted intensity of 450 photons in the beam.
+  [D] A beam 450 millimeters below the surface of the material has a predicted intensity of 900 photons in the beam.
+
+CORRECT ANSWER FIELD:
+A beam 12 millimeters below the surface of the material has a predicted intensity of 450 photons in the beam.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: MCQ | ID: 6a54031f4d554e04aa1bfc86
+--------------------------------------------------------------------------------
+STEM:
+A certain university's research farm is 1,000 acres, of which 76 acres contain rice. What percentage of the acres of this research farm contain rice?
+
+CHOICES (4):
+  [A] 0.76\%
+  [B] (CORRECT KEY) 7.6\%
+  [C] 76\%
+  [D] 760\%
+
+CORRECT ANSWER FIELD:
+7.6\%
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: MCQ | ID: 6a5404684d554e04aa1bfc92
+--------------------------------------------------------------------------------
+STEM:
+\begin{array}{|c|c|} \hline \text{\textbf{Number of food tickets (x)}} & \text{\textbf{Total amount paid (y)}} \\ \hline 10 & 34.00 \\ \hline 15 & 41.50 \\ \hline 25 & 56.50 \\ \hline \end{array}101525​Total amount paid (y)34.0041.5056.50​​ 
+At a fundraiser, a family pays a fixed entrance fee. They then purchase food tickets, which each have the same cost. The table shows the relationship between the number of food tickets, x, that are purchased and the total amount paid y, in dollars, for both the entrance fee and the food tickets. Which equation represents the relationship between x and y?
+
+CHOICES (4):
+  [A] (CORRECT KEY) y = \frac{3}{2}x + 1923​x+19
+  [B] y = \frac{3}{2}x - 4123​x−41
+  [C] y = \frac{3}{2}x + \frac{82}{3}23​x+382​
+  [D] y = \frac{3}{2}x + \frac{82}{3}23​x+382​
+
+CORRECT ANSWER FIELD:
+y = \frac{3}{2}x + 1923​x+19
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: MCQ | ID: 6a5406d14d554e04aa1bfca0
+--------------------------------------------------------------------------------
+STEM:
+b^2 + 4c = 7d+4c=7d 
+The given equation relates the real numbers b ,c ,and d ,where d >\frac{4}{7}4​c. Which equation correctly expresses b in terms of c and d ?
+
+CHOICES (4):
+  [A] b = \frac{7d+4c}{2}27d+4c​
+  [B] b = \frac{7d-4c}{2}27d−4c​
+  [C] b = \frac{7d+4c}{2} \pm \sqrt{7d + 4c}27d+4c​±7d+4c​
+  [D] (CORRECT KEY) b = \frac{7d+4c}{2} \pm \sqrt{7d - 4c}27d+4c​±7d−4c​
+
+CORRECT ANSWER FIELD:
+b = \frac{7d+4c}{2} \pm \sqrt{7d - 4c}27d+4c​±7d−4c​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: Essay | ID: 6a5408dd4d554e04aa1bfcb0
+--------------------------------------------------------------------------------
+STEM:
+The graph of 4x + y = 19y=19 in the xy-plane is a line. What is the slope of this line?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["-4"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a540dda4d554e04aa1bfcbc
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = \frac{x+17}{5} + 1755x+17​+175, and f(a) = -19−19, where a is a constant. What is the value of a?
+
+CHOICES (4):
+  [A] (CORRECT KEY) -987
+  [B] −970
+  [C] −194
+  [D] −953
+
+CORRECT ANSWER FIELD:
+-987
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: Essay | ID: 6a540eab4d554e04aa1bfcc2
+--------------------------------------------------------------------------------
+STEM:
+A linear function g is defined by g(x) = ax + bax+b, where a and b are constants. If g(-4) = -6−6 and g(3) = 88, what is the value of a?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["2","2.0"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: Essay | ID: 6a540f3d4d554e04aa1bfcdd
+--------------------------------------------------------------------------------
+STEM:
+h(t) = -16t^2 + b−16t2+b 
+The function h(t) estimates an object's height, in feet, above the ground t seconds after the object is dropped, where b is a constant. The function estimates that the object is 43.56 feet above the ground when it is dropped at t = 00. How many seconds after being dropped does the function estimate the object will hit the ground?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["1.65","33/20"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: MCQ | ID: 6a540f754d554e04aa1bfcef
+--------------------------------------------------------------------------------
+STEM:
+\frac{3x-54+3}{6} + 36 = 93x−54+3​+36=9 
+What is the sum of the solutions to the given equation?
+
+CHOICES (4):
+  [A] 1
+  [B] 35
+  [C] (CORRECT KEY) 36
+  [D] 54
+
+CORRECT ANSWER FIELD:
+36
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: Essay | ID: 6a540fc84d554e04aa1bfcff
+--------------------------------------------------------------------------------
+STEM:
+8x - 3y = 3y + 93y=3y+9 
+hy = 2 + 8x2+8x 
+In the given system of equations, h is a constant. If the system has no solution, what is the value of h?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["6","6.0"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: MCQ | ID: 6a5410164d554e04aa1bfd0d
+--------------------------------------------------------------------------------
+STEM:
+In triangle QRS shown, QR < RSRS. Which expression represents the length of \overline{QS}​?
+
+CHOICES (4):
+  [A] 22\cos(Q)
+  [B] 22\sin(Q)
+  [C] \frac{22}{\cos Q}Q22​
+  [D] (CORRECT KEY) \frac{22}{\sin Q}Q22​
+
+CORRECT ANSWER FIELD:
+\frac{22}{\sin Q}Q22​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a5410564d554e04aa1bfd13
+--------------------------------------------------------------------------------
+STEM:
+The shaded region shown represents the solutions to which inequality?
+
+CHOICES (4):
+  [A] y > 2x - 152x−15
+  [B] y < 2x - 152x−15
+  [C] (CORRECT KEY) y > 10x - 1510x−15
+  [D] y < 10x - 1510x−15
+
+CORRECT ANSWER FIELD:
+y > 10x - 1510x−15
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: MCQ | ID: 6a54109c4d554e04aa1bfd17
+--------------------------------------------------------------------------------
+STEM:
+The graph of the equation y = 4^x + k4x+k is shown, where k is a constant. What is the value of k?
+
+CHOICES (4):
+  [A] (CORRECT KEY) -5
+  [B] -4
+  [C] 4
+  [D] 5
+
+CORRECT ANSWER FIELD:
+-5
+
+EXPLANATION: [None provided]
+

@@ -1,0 +1,278 @@
+====================================================
+JUNE 2025 · INT 2 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6d4cc114cab24f9785a82f | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785547969/questionPic/itswtyjm1hcgxtgoywja.png
+STEM:
+In the figure, line nnn intersects lines rrr and sss . Line rrr is parallel to line sss . What is the value of xxx ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["164"]
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6d4d8214cab24f9785a841 | TYPE: MCQ
+STEM:
+During a portion of a flight, a small airplane's cruising speed varied between 175 miles per hour and 195 miles per hour. Which inequality best represents this situation, where sss is the cruising speed, in miles per hour, during this portion of the flight?
+
+CORRECT ANSWER:
+175≤s≤195175 \le s \le 195175≤s≤195
+
+WRONG ANSWERS (4):
+  [1] s≤20s \le 20s≤20
+  [2] s≤175s \le 175s≤175
+  [3] s≤195s \le 195s≤195
+  [4] 175≤s≤195175 \le s \le 195175≤s≤195
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6d4dd614cab24f9785a847 | TYPE: MCQ
+STEM:
+If 5x=95x = 95x=9 , what is the value of 20x20x20x ?
+
+CORRECT ANSWER:
+36
+
+WRONG ANSWERS (4):
+  [1] 5
+  [2] 13
+  [3] 36
+  [4] 49
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a6d4e0214cab24f9785a84b | TYPE: MCQ
+STEM:
+Which expression is equivalent to?
+
+CORRECT ANSWER:
+x3+14x2−8x+40x^3 + 14x^2 - 8x + 40x3+14x2−8x+40
+
+WRONG ANSWERS (4):
+  [1] x3+14x2−8x+40x^3 + 14x^2 - 8x + 40x3+14x2−8x+40
+  [2] x3+9x2=8x+40x^3 + 9x^2 = 8x + 40x3+9x2=8x+40
+  [3] x3+5x2−8x+40x^3 + 5x^2 - 8x + 40x3+5x2−8x+40
+  [4] x3+8x2−8x+40x^3 + 8x^2 - 8x + 40x3+8x2−8x+40
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6d56bb14cab24f9785a89a | TYPE: Essay
+STEM:
+The function fff is defined by f(x)=x3+9f(x) = x^3 + 9f(x)=x3+9 . What is the value of f(2)f(2)f(2) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["17"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6d570014cab24f9785a89e | TYPE: Essay
+STEM:
+The function ggg is defined by g(x)=x2g(x) = \frac{x}{2}g(x)=2x​ . For what value of xxx does g(x)=620g(x) = 620g(x)=620 ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1240"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6d573014cab24f9785a8a2 | TYPE: MCQ
+STEM:
+The scatterplot shows the relationship between two variables, xxx and yyy . Which of the following equations is the most appropriate linear model for the data shown?
+
+CORRECT ANSWER:
+y=8.7−0.8xy = 8.7 - 0.8xy=8.7−0.8x
+
+WRONG ANSWERS (4):
+  [1] y=0.8+8.7xy = 0.8 + 8.7xy=0.8+8.7x
+  [2] y=0.8−8.7xy = 0.8 - 8.7xy=0.8−8.7x
+  [3] y=8.7+0.8xy = 8.7 + 0.8xy=8.7+0.8x
+  [4] y=8.7−0.8xy = 8.7 - 0.8xy=8.7−0.8x
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6d577914cab24f9785a8a8 | TYPE: MCQ
+STEM:
+3x−2y=−183x - 2y = -183x−2y=−18 For the given equation, which table gives three values of xxx and their corresponding values of yyy ?
+
+CORRECT ANSWER:
+x024y91215\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 2 &amp; 4 \\ \hline y &amp; 9 &amp; 12 &amp; 15 \\ \hline \end{array}xy​09​212​415​​
+
+WRONG ANSWERS (4):
+  [1] x024y91215\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 2 &amp; 4 \\ \hline y &amp; 9 &amp; 12 &amp; 15 \\ \hline \end{array}xy​09​212​415​​
+  [2] x024y15129\begin{array}{|c|c|c|c|} \hline x &amp; 0 &amp; 2 &amp; 4 \\ \hline y &amp; 15 &amp; 12 &amp; 9 \\ \hline \end{array}xy​015​212​49​​
+  [3] x91215y024\begin{array}{|c|c|c|c|} \hline x &amp; 9 &amp; 12 &amp; 15 \\ \hline y &amp; 0 &amp; 2 &amp; 4 \\ \hline \end{array}xy​90​122​154​​
+  [4] x91215y420\begin{array}{|c|c|c|c|} \hline x &amp; 9 &amp; 12 &amp; 15 \\ \hline y &amp; 4 &amp; 2 &amp; 0 \\ \hline \end{array}xy​94​122​150​​
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6d579014cab24f9785a8ac | TYPE: Essay
+STEM:
+A chemist combines water and isopropanol to make a mixture with a volume of 41 milliliters (mL). The volume of isopropanol in the mixture is 10 mL. What is the volume of water, in mL, in the mixture? (Assume that the volume of the mixture is the sum of the volumes of water and isopropanol before they were mixed.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["31"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6d57b014cab24f9785a8b0 | TYPE: Essay
+STEM:
+A clothing store buys shirts at a wholesale price of 4.00 dollars each and resells them each at a retail price that is 280% of the wholesale price. At the end of the season, any remaining shirts are marked at a discounted price that is 80% off the retail price. What is the discounted price of each remaining shirt, in dollars?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["56/25","2.24"]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6d57ef14cab24f9785a8b6 | TYPE: MCQ
+STEM:
+y=−14xy = -\frac{1}{4}xy=−41​x y=16xy = \frac{1}{6}xy=61​x The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of xxx ?
+
+CORRECT ANSWER:
+0
+
+WRONG ANSWERS (4):
+  [1] -4
+  [2] 0
+  [3] 2
+  [4] 6
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6d581714cab24f9785a8ba | TYPE: MCQ
+STEM:
+PC=N(18−C)PC = N(18 - C)PC=N(18−C)
+
+CORRECT ANSWER:
+18NN+P\frac{18N}{N+P}N+P18N​
+
+WRONG ANSWERS (4):
+  [1] C(N+P)N\frac{C(N+P)}{N}NC(N+P)​
+  [2] PC18−C\frac{PC}{18-C}18−CPC​
+  [3] 18NN+P\frac{18N}{N+P}N+P18N​
+  [4] 18NP+1\frac{18N}{P+1}P+118N​
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6d584e14cab24f9785a8be | TYPE: MCQ
+STEM:
+A company has a customer loyalty program. In January 2018, there were 200 customers enrolled in the loyalty program. For the next 24 months after January 2018, the total number of customers enrolled in the loyalty program each month was 4% greater than the total number enrolled the previous month. Which equation gives the total number of customers, ccc , enrolled in the company's loyalty program mmm months after January 2018, where m≤24m \le 24m≤24 ?
+
+CORRECT ANSWER:
+c=200(1.04)mc = 200(1.04)^mc=200(1.04)m
+
+WRONG ANSWERS (4):
+  [1] c=200(0.04)mc = 200(0.04)^mc=200(0.04)m
+  [2] c=200(1.04)mc = 200(1.04)^mc=200(1.04)m
+  [3] c=200(1.4)mc = 200(1.4)^mc=200(1.4)m
+  [4] c=200(4)mc = 200(4)^mc=200(4)m
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6d5f2f14cab24f9785a8c4 | TYPE: Essay
+STEM:
+The function f(t)=8,000(2)t300f(t) = 8,000(2)^{\frac{t}{300}}f(t)=8,000(2)300t​ gives the number of bacteria in a population ttt minutes after an initial observation. How much time, in minutes, does it take for the number of bacteria in the population to double?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["300"]
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6d5f5d14cab24f9785a8c8 | TYPE: MCQ
+STEM:
+One of two equations in a system of linear equations is given. The system has infinitely many solutions. What is the slope of the graph of the second equation? y=29x+8y = \frac{2}{9}x + 8y=92​x+8
+
+CORRECT ANSWER:
+29\frac{2}{9}92​
+
+WRONG ANSWERS (4):
+  [1] −92-\frac{9}{2}−29​
+  [2] −29-\frac{2}{9}−92​
+  [3] 29\frac{2}{9}92​
+  [4] 92\frac{9}{2}29​
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6d5f8b14cab24f9785a8cc | TYPE: MCQ
+STEM:
+If 3x2−6x−30=03x^2 - 6x - 30 = 03x2−6x−30=0 , what is the value of x2−2xx^2 - 2xx2−2x ?
+
+CORRECT ANSWER:
+10
+
+WRONG ANSWERS (4):
+  [1] 10
+  [2] 3
+  [3] 2
+  [4] 0
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6d5fd714cab24f9785a8d0 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=(x−4)(x−11)(x+k)f(x) = (x - 4)(x - 11)(x + k)f(x)=(x−4)(x−11)(x+k) , where kkk is a constant. In the xy-plane, the graph of y=f(x)y = f(x)y=f(x) passes through the point (−2,0)(-2, 0)(−2,0) . What is the value of f(0)f(0)f(0) ?
+
+CORRECT ANSWER:
+88
+
+WRONG ANSWERS (4):
+  [1] -156
+  [2] -2
+  [3] 13
+  [4] 88
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6d603714cab24f9785a8d6 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785552951/questionPic/rzzzlmegvvmjmypxd06i.png
+STEM:
+Line kkk is shown in the xy-plane. Line jjj (not shown) is perpendicular to line kkk and passes through the point (−15,−28)(-15, -28)(−15,−28) . Which equation defines line jjj ?
+
+CORRECT ANSWER:
+y=43x−8y = \frac{4}{3}x - 8y=34​x−8
+
+WRONG ANSWERS (4):
+  [1] y=43x−8y = \frac{4}{3}x - 8y=34​x−8
+  [2] y=43x−48y = \frac{4}{3}x - 48y=34​x−48
+  [3] y=34x−8y = \frac{3}{4}x - 8y=43​x−8
+  [4] y=34x−48y = \frac{3}{4}x - 48y=43​x−48
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6d609114cab24f9785a8da | TYPE: MCQ
+STEM:
+In right triangle ABCABCABC , angles AAA and BBB are acute, side ACACAC has a length of 23.2, and tan⁡B=17\tan B = \frac{1}{7}tanB=71​ . What is the length of side BCBCBC , rounded to the nearest tenth?
+
+CORRECT ANSWER:
+162.4
+
+WRONG ANSWERS (4):
+  [1] 538.2
+  [2] 162.4
+  [3] 4.8
+  [4] 3.3
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6d60ae14cab24f9785a8de | TYPE: MCQ
+STEM:
+A rectangular banner has an area of 3,500 square inches. A copy of the banner is made in which the length and width of the original banner are each increased by 40%. What is the area of the copy, in square inches?
+
+CORRECT ANSWER:
+6,860
+
+WRONG ANSWERS (4):
+  [1] 6,860
+  [2] 4,900
+  [3] 3,580
+  [4] 3,540
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6d60ce14cab24f9785a8e2 | TYPE: MCQ
+STEM:
+f(x)=(x−1)2+7f(x) = (x - 1)^2 + 7f(x)=(x−1)2+7
+
+CORRECT ANSWER:
+7
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 6
+  [3] 7
+  [4] 8
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6d611914cab24f9785a8e6 | TYPE: MCQ
+STEM:
+Point FFF lies on a unit circle in the xy-plane and has coordinates (1, 0). Point GGG is the center of the circle and has coordinates (0, 0). Point HHH also lies on the circle and has coordinates (-1, yyy ), where yyy is a constant. Which of the following could be the positive measure of angle FGHFGHFGH , in radians?
+
+CORRECT ANSWER:
+11π11\pi11π
+
+WRONG ANSWERS (4):
+  [1] 13π2\frac{13\pi}{2}213π​
+  [2] 15π2\frac{15\pi}{2}215π​
+  [3] 10π10\pi10π
+  [4] 11π11\pi11π
+

@@ -1,0 +1,384 @@
+================================================================================
+MARCH 2026 · US 2 · MODULE 1 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a52d4d14d554e04aa1bf38c
+--------------------------------------------------------------------------------
+STEM:
+f(x) = 231.20^x231.20x 
+For the given function f, the value of f(x) increased by p\% for every increase of x by 8. What is the value of p?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 20
+  [B] (CORRECT KEY) 20
+  [C] 31
+  [D] 40
+  [E] 44
+
+CORRECT ANSWER FIELD:
+20
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: MCQ | ID: 6a52d5b34d554e04aa1bf39a
+--------------------------------------------------------------------------------
+STEM:
+A model estimates that in a particular forest, the number of trees with any given diameter measured at shoulder height is 21% less for each 1-inch increase in tree diameter measured at shoulder height. The model can be written in the form f(x) = ab^xabx, where a and b are constants and x is the tree's diameter, in inches, measured at shoulder height, and x \ge 55. The model estimates that 3,100 trees in this forest have a diameter of 13 inches measured at shoulder height. Which function best represents this model?
+
+CHOICES (5):
+  [A] (CORRECT KEY) f(x) = 66000 \cdot 0.79^x66000⋅0.79x
+  [B] f(x) = 3100 \cdot 0.21^x3100⋅0.21x
+  [C] f(x) = 3100 \cdot 0.79^x3100⋅0.79x
+  [D] f(x) = 66000 \cdot 0.21^x66000⋅0.21x
+  [E] (CORRECT KEY) f(x) = 66000 \cdot 0.79^x66000⋅0.79x
+
+CORRECT ANSWER FIELD:
+f(x) = 66000 \cdot 0.79^x66000⋅0.79x
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a52d69a4d554e04aa1bf3a4
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between two variables, t and d. Which of the following equations is the most appropriate linear model for the data shown?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783813786/questionPic/qafevbimxtteqssoegla.png
+
+CHOICES (5):
+  [A] (CORRECT KEY) d = 359.8 + 2.0t359.8+2.0t
+  [B] d = -60.1 + 2.0t−60.1+2.0t
+  [C] d = 160.1 + 2.0t160.1+2.0t
+  [D] (CORRECT KEY) d = 359.8 + 2.0t359.8+2.0t
+  [E] d = 394.8 + 2.0t394.8+2.0t
+
+CORRECT ANSWER FIELD:
+d = 359.8 + 2.0t359.8+2.0t
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: MCQ | ID: 6a52d8864d554e04aa1bf3b8
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = a^x - bax−b, where a and b are constants. In the xy-plane, the graph of y = f(x)f(x) passes through the points (c, 11) and (2c, 221), where c is a constant. Which of the following could be the value of b?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 4
+  [B] (CORRECT KEY) 4
+  [C] 25
+  [D] 210
+  [E] 232
+
+CORRECT ANSWER FIELD:
+4
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a52da814d554e04aa1bf3c4
+--------------------------------------------------------------------------------
+STEM:
+In triangle ABC, the measure of angle A is 56° and AC = 3030. In triangle PQR, the measure of angle P is 56° and PR = 9090. Which additional piece of information is sufficient to prove that triangle ABC is similar to triangle PQR?
+
+CHOICES (5):
+  [A] (CORRECT KEY) AB = 1010 and PQ = 3030.
+  [B] AB = 2020 and PQ = 2020.
+  [C] AB = 2020 and QR = 6060.
+  [D] The measures of angle B and angle R are 48° and 76°, respectively.
+  [E] (CORRECT KEY) AB = 1010 and PQ = 3030.
+
+CORRECT ANSWER FIELD:
+AB = 1010 and PQ = 3030.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: Essay | ID: 6a52e1af4d554e04aa1bf406
+--------------------------------------------------------------------------------
+STEM:
+In the equation x^2 + 6x + k = 0,+6x+k=0, k is a positive constant. The product of the solutions to the equation is 20. What is the value of k?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["20","20.0"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a52e25a4d554e04aa1bf40c
+--------------------------------------------------------------------------------
+STEM:
+In the given equation, p and w are integer constants. The equation has exactly one real solution. Which is NOT a possible value of w? 
+4x^2 - px + w = 86−px+w=86
+
+CHOICES (5):
+  [A] (CORRECT KEY) 14
+  [B] -22
+  [C] (CORRECT KEY) 14
+  [D] 25
+  [E] 314
+
+CORRECT ANSWER FIELD:
+14
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a52e2fb4d554e04aa1bf418
+--------------------------------------------------------------------------------
+STEM:
+If \frac{x+6}{5} = \frac{x+6}{13}x+6​=13x+6​, the value of x+66 is between which of the following pairs of values?
+
+CHOICES (5):
+  [A] (CORRECT KEY) -2 and 2
+  [B] -7 and -5
+  [C] (CORRECT KEY) -2 and 2
+  [D] 2 and 7
+  [E] 8 and 13
+
+CORRECT ANSWER FIELD:
+-2 and 2
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: Essay | ID: 6a52e3b64d554e04aa1bf41e
+--------------------------------------------------------------------------------
+STEM:
+The expression 6x^4 + 17x^2 + 5+17x2+5 can be rewritten as (3x^2 + a)(x^2 + b)+a)(x2+b), where a and b are positive integers, or as (3x^2 + c)(x^2 + d)+c)(x2+d), where c and d are positive nonintegers. What is the value of a + cc?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["17/2","8.5"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: MCQ | ID: 6a52e48f4d554e04aa1bf42a
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between two variables, x and y. A line of best fit is also shown. Which of the following equations best represents the line of best fit shown?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783817358/questionPic/fgjnwqbzyevhh1exq5g6.png
+
+CHOICES (5):
+  [A] (CORRECT KEY) y = 9.5 - 0.4x9.5−0.4x
+  [B] y = 9.5 + 0.4x9.5+0.4x
+  [C] (CORRECT KEY) y = 9.5 - 0.4x9.5−0.4x
+  [D] y = -9.5 + 0.4x−9.5+0.4x
+  [E] y = -9.5 - 0.4x−9.5−0.4x
+
+CORRECT ANSWER FIELD:
+y = 9.5 - 0.4x9.5−0.4x
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: MCQ | ID: 6a52e5844d554e04aa1bf439
+--------------------------------------------------------------------------------
+STEM:
+The graph of the polynomial function f in the xy-plane, where y = f(x)f(x), passes through the point (9, 8). Which of the following must be true?
+
+CHOICES (5):
+  [A] (CORRECT KEY) f(9) = 88
+  [B] f(0) = 88
+  [C] f(8) = 99
+  [D] f(9) = 00
+  [E] (CORRECT KEY) f(9) = 88
+
+CORRECT ANSWER FIELD:
+f(9) = 88
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: Essay | ID: 6a52e6254d554e04aa1bf43f
+--------------------------------------------------------------------------------
+STEM:
+For the exponential function g, the value of g(x) doubles for every increase of 2 in the value of x. If g(4) = 99, what is the value of g(6)?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["18"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: MCQ | ID: 6a52e7b54d554e04aa1bf456
+--------------------------------------------------------------------------------
+STEM:
+Sunspots are temporary dark spots on the surface of the Sun. The monthly mean number of sunspots for one calendar month is the average of the number of sunspots observed each day during the month. The linear function s models the monthly mean number of sunspots as a function of the number of months, x, since December 2013, where 0 \le x \le 30x≤30. The graph of y = s(x)s(x) is shown. Which of the following is the best estimate for the monthly mean number of sunspots in December 2014?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783818165/questionPic/msyjn38ksimcs1t0gbsi.png
+
+CHOICES (5):
+  [A] (CORRECT KEY) 61
+  [B] (CORRECT KEY) 61
+  [C] 71
+  [D] 81
+  [E] 91
+
+CORRECT ANSWER FIELD:
+61
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a52e8764d554e04aa1bf45c
+--------------------------------------------------------------------------------
+STEM:
+What is the x-intercept of a line in the xy-plane that has a slope of -\frac{4}{7}4​ and passes through the point (0, 12)?
+
+CHOICES (5):
+  [A] (CORRECT KEY) (21, 0)
+  [B] (-21, 0)
+  [C] (-4, 0)
+  [D] (7, 0)
+  [E] (CORRECT KEY) (21, 0)
+
+CORRECT ANSWER FIELD:
+(21, 0)
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a52e8e44d554e04aa1bf462
+--------------------------------------------------------------------------------
+STEM:
+The shaded region shown represents the solutions to which inequality?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783818468/questionPic/ze3ff1u71g8qnuxioii4.png
+
+CHOICES (5):
+  [A] (CORRECT KEY) y > \frac{1}{4}x + 141​x+1
+  [B] y < \frac{1}{4}x + 141​x+1
+  [C] y < 4x + 14x+1
+  [D] (CORRECT KEY) y > \frac{1}{4}x + 141​x+1
+  [E] y > 4x + 14x+1
+
+CORRECT ANSWER FIELD:
+y > \frac{1}{4}x + 141​x+1
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: MCQ | ID: 6a52e95e4d554e04aa1bf468
+--------------------------------------------------------------------------------
+STEM:
+y = 5x + 185x+18
+y = 5x - 185x−18
+How many solutions does the given system of equations have?
+
+CHOICES (5):
+  [A] (CORRECT KEY) Zero
+  [B] (CORRECT KEY) Zero
+  [C] Exactly one
+  [D] Exactly two
+  [E] Infinitely many
+
+CORRECT ANSWER FIELD:
+Zero
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a52ea514d554e04aa1bf46e
+--------------------------------------------------------------------------------
+STEM:
+If \cos A = 0.650.65, what is the value of \sin C?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783818833/questionPic/cpiylh5ehvo16fbcti8w.png
+
+CHOICES (5):
+  [A] (CORRECT KEY) 0.65
+  [B] 0.87
+  [C] (CORRECT KEY) 0.65
+  [D] 0.35
+  [E] 0.13
+
+CORRECT ANSWER FIELD:
+0.65
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: Essay | ID: 6a52ead44d554e04aa1bf472
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by f(x) = 3x - 73x−7 and f(b) = \frac{1}{5}51​. What is the value of b?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["12/5","2.4"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: MCQ | ID: 6a52eb234d554e04aa1bf47e
+--------------------------------------------------------------------------------
+STEM:
+97 - x^2 + 5 = 95x2+5=95
+What is the sum of the solutions to the given equation?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 0
+  [B] (CORRECT KEY) 0
+  [C] 10
+  [D] 3
+  [E] -14
+
+CORRECT ANSWER FIELD:
+0
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: MCQ | ID: 6a52eb914d554e04aa1bf484
+--------------------------------------------------------------------------------
+STEM:
+The function f is defined by the given equation. Which of the following equivalent forms of the equation displays the minimum value of the function as a constant or coefficient?
+f(x) = x^2 - 4x - 780x2−4x−780
+
+CHOICES (5):
+  [A] (CORRECT KEY) f(x) = (x - 2)^2 - 784(x−2)2−784
+  [B] f(x) = (x - 30)(x + 26)(x−30)(x+26)
+  [C] (CORRECT KEY) f(x) = (x - 2)^2 - 784(x−2)2−784
+  [D] f(x) = x(x - 4) - 780x(x−4)−780
+  [E] f(x) = (x + 30)(x - 26)(x+30)(x−26)
+
+CORRECT ANSWER FIELD:
+f(x) = (x - 2)^2 - 784(x−2)2−784
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: Essay | ID: 6a52ec734d554e04aa1bf490
+--------------------------------------------------------------------------------
+STEM:
+The graph of y = 6x^2 + bx + c6x2+bx+c is shown, where b and c are constants. What is the value of bc?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783819378/questionPic/lhpnrci0wlkdppj4op9s.png
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["-36"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: MCQ | ID: 6a53b6694d554e04aa1bf6c9
+--------------------------------------------------------------------------------
+STEM:
+The value of a painting increased by 166\% from the end of 2011 to the end of 2012 and then decreased by 14\% from the end of 2012 to the end of 2013. What was the net percentage increase in the value of the painting from the end of 2011 to the end of 2013?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 128.76\%
+  [B] (CORRECT KEY) 128.76\%
+  [C] 142.76\%
+  [D] 152.00\%
+  [E] 203.24\%
+
+CORRECT ANSWER FIELD:
+128.76\%
+
+EXPLANATION: [None provided]
+

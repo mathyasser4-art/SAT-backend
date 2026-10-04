@@ -1,0 +1,284 @@
+====================================================
+NOVEMBER 2025 · INT 1 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a5b5480c3d08d90637d31e9 | TYPE: MCQ
+STEM:
+Zuri has a goal to run at least 161616 miles per week while training for a race. This week, she has run 444 miles. If xxx represents the additional number of miles Zuri needs to run this week to meet her goal, which inequality represents this situation?
+
+CORRECT ANSWER:
+4+x≥164 + x \geq 164+x≥16
+
+WRONG ANSWERS (4):
+  [1] 4−x≤164 - x \leq 164−x≤16
+  [2] 4+x≤164 + x \leq 164+x≤16
+  [3] 4−x≥164 - x \geq 164−x≥16
+  [4] 4+x≥164 + x \geq 164+x≥16
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a5b54fdc3d08d90637d31f5 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784370429/questionPic/hc0xcs1ihhm0qnpr4yfw.png
+STEM:
+In the figure shown, line kkk intersects lines rrr and sss . If w=147w = 147w=147 , which additional piece of information is sufficient to prove that lines rrr and sss are parallel?
+
+CORRECT ANSWER:
+y=147y = 147y=147
+
+WRONG ANSWERS (4):
+  [1] x=33x = 33x=33
+  [2] y=147y = 147y=147
+  [3] w+y=180w + y = 180w+y=180
+  [4] y+z=180y + z = 180y+z=180
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a5b557fc3d08d90637d321e | TYPE: MCQ
+STEM:
+Number of food ticketsTotal amount paid10dollar44.0015dollar51.5025dollar66.50\begin{array}{|c|c|} \hline \text{Number of food tickets} &amp; \text{Total amount paid} \\ \hline 10 &amp; \text{dollar} 44.00 \\ \hline 15 &amp; \text{dollar} 51.50 \\ \hline 25 &amp; \text{dollar} 66.50 \\ \hline \end{array}Number of food tickets101525​Total amount paiddollar44.00dollar51.50dollar66.50​​ At a fundraiser, a family pays a fixed entrance fee. They then purchase food tickets, which each have the same cost. The table shows the relationship between the number of food tickets, xxx , that are purchased and the total amount paid yyy , in dollars, for both the entrance fee and the food tickets. Which equation represents the relationship between xxx and yyy ?
+
+CORRECT ANSWER:
+y=32x+29y = \frac{3}{2}x + 29y=23​x+29
+
+WRONG ANSWERS (4):
+  [1] y=32x+29y = \frac{3}{2}x + 29y=23​x+29
+  [2] y=32x−56y = \frac{3}{2}x - 56y=23​x−56
+  [3] y=23x+1123y = \frac{2}{3}x + \frac{112}{3}y=32​x+3112​
+  [4] y=23x+583y = \frac{2}{3}x + \frac{58}{3}y=32​x+358​
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a5b55c7c3d08d90637d3222 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784370630/questionPic/annd7ciuxnumcvecjjnp.png
+STEM:
+A group of 10 gardeners recorded data on the germination rates of their tomato crop for one growing season. The scatterplot shows the relationship between the number of tomato seeds planted, xxx , and the number of tomato seeds that germinated, yyy , for each of the gardeners. A line of best fit is also shown. Which of the following is the best interpretation of the slope of the line of best fit in this context?
+
+CORRECT ANSWER:
+The number of tomato seeds that germinate is predicted to increase by 60 seeds for every additional 100 tomato seeds that are planted.
+
+WRONG ANSWERS (4):
+  [1] The number of tomato seeds planted is predicted to increase by 60 seeds every 100 days.
+  [2] The number of tomato seeds planted is predicted to increase by 300 seeds every 100 days.
+  [3] The number of tomato seeds that germinate is predicted to increase by 60 seeds for every additional 100 tomato seeds that are planted.
+  [4] The number of tomato seeds that germinate is predicted to increase by 300 seeds for every additional 100 tomato seeds that are planted.
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a5b56cec3d08d90637d322e | TYPE: Essay
+STEM:
+The graph of 2x+y=112x + y = 112x+y=11 in the xyxyxy -plane is a line. What is the slope of the line?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-2"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a5b5748c3d08d90637d3232 | TYPE: MCQ
+STEM:
+f(x)=2x+3f(x) = 2x + 3f(x)=2x+3 g(x)=7x−2g(x) = 7x - 2g(x)=7x−2 h(x)=5x−6h(x) = 5x - 6h(x)=5x−6 The functions fff , ggg , and hhh are defined as shown. If f(x)⋅g(x)−h(x)=ax2+bx+cf(x) \cdot g(x) - h(x) = ax^2 + bx + cf(x)⋅g(x)−h(x)=ax2+bx+c , where aaa , bbb , and ccc are constants, what is the value of bbb ?
+
+CORRECT ANSWER:
+12
+
+WRONG ANSWERS (4):
+  [1] -5
+  [2] 12
+  [3] 20
+  [4] 22
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a5b57a4c3d08d90637d3236 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=x−115f(x) = \frac{x-11}{5}f(x)=5x−11​ , and f(a)=−18f(a) = -18f(a)=−18 , where aaa is a constant. What is the value of aaa ?
+
+CORRECT ANSWER:
+−79-79−79
+
+WRONG ANSWERS (4):
+  [1] −101-101−101
+  [2] −79-79−79
+  [3] −795-\frac{79}{5}−579​
+  [4] −75-\frac{7}{5}−57​
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a5b5847c3d08d90637d323a | TYPE: MCQ
+STEM:
+The table shows values of xxx and their corresponding values of yyy for three points on line jjj in the xyxyxy -plane. xy0−101−422\begin{array}{|c|c|} \hline x &amp; y \\ \hline 0 &amp; -10 \\ \hline 1 &amp; -4 \\ \hline 2 &amp; 2 \\ \hline \end{array}x012​y−10−42​​ Line kkk also lies in the xyxyxy -plane and is defined by the equation y=4xy = 4xy=4x . At what point (x,y)(x, y)(x,y) do lines jjj and kkk intersect?
+
+CORRECT ANSWER:
+(5,20)(5, 20)(5,20)
+
+WRONG ANSWERS (4):
+  [1] (5,20)(5, 20)(5,20)
+  [2] (5,44)(5, 44)(5,44)
+  [3] (6,24)(6, 24)(6,24)
+  [4] (6,26)(6, 26)(6,26)
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a5b58cbc3d08d90637d323e | TYPE: Essay
+STEM:
+The function hhh estimates an object's height, in feet, above the ground ttt seconds after the object is dropped, where bbb is a constant. The function estimates that the object is 19.3619.3619.36 feet above the ground when it is dropped at t=0t = 0t=0 . How many seconds after being dropped does the function estimate the object will hit the ground? h(t)=−16t2+bh(t) = -16t^2 + bh(t)=−16t2+b
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1.1","11/10"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a5b5903c3d08d90637d3242 | TYPE: MCQ
+STEM:
+∣4x−3∣=−9|4x - 3| = -9∣4x−3∣=−9 How many solutions does the given equation have?
+
+CORRECT ANSWER:
+Zero
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] One
+  [3] Two
+  [4] Infinitely many
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a5b5964c3d08d90637d3246 | TYPE: MCQ
+STEM:
+The function hhh is defined by h(x)=ax+bh(x) = a^x + bh(x)=ax+b , where aaa and bbb are positive constants. The graph of y=h(x)y = h(x)y=h(x) in the xyxyxy -plane passes through the points (0,10)(0, 10)(0,10) and (2,13)(2, 13)(2,13) . What is the value of ababab ?
+
+CORRECT ANSWER:
+18
+
+WRONG ANSWERS (4):
+  [1] 13
+  [2] 18
+  [3] 20
+  [4] 26
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a5b59bbc3d08d90637d324a | TYPE: Essay
+STEM:
+A circle has center PPP , and points AAA and BBB lie on the circle. The measure of arc ABABAB is 45∘45^{\circ}45∘ and the length of arc ABABAB is 4π4\pi4π units. What is the length, in units, of the radius of the circle?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["16"]
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a5b5a0cc3d08d90637d324e | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=56(0.19)xf(x) = 56(0.19)^xf(x)=56(0.19)x . For any positive integer nnn , the value of f(n)f(n)f(n) is p%p\%p% less than the value of f(n−1)f(n - 1)f(n−1) . What is the value of ppp ?
+
+CORRECT ANSWER:
+81
+
+WRONG ANSWERS (4):
+  [1] 19
+  [2] 44
+  [3] 56
+  [4] 81
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a5b5a52c3d08d90637d3252 | TYPE: MCQ
+STEM:
+x2+(k−3)x+42=0x^2 + (k - 3)x + 42 = 0x2+(k−3)x+42=0 In the given equation, kkk is a constant. The equation has exactly one real solution. What is the value of kkk ?
+
+CORRECT ANSWER:
+171
+
+WRONG ANSWERS (4):
+  [1] 171
+  [2] 168
+  [3] 165
+  [4] 45
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a5b5adac3d08d90637d3258 | TYPE: MCQ
+STEM:
+x2+y2=36x^2 + y^2 = 36x2+y2=36 y=mx−b4y = mx - \frac{b}{4}y=mx−4b​ In the given system of equations, mmm and bbb are negative constants. In the xyxyxy -plane, the graphs of the equations in the given system intersect at the point (−5,y)(-5, y)(−5,y) , where y&lt;0y &lt; 0y&lt;0 . Which expression represents the value of bbb ?
+
+CORRECT ANSWER:
+−20m+411-20m + 4\sqrt{11}−20m+411​
+
+WRONG ANSWERS (4):
+  [1] 5m4+114\frac{5m}{4} + \frac{\sqrt{11}}{4}45m​+411​​
+  [2] 5m4−114\frac{5m}{4} - \frac{\sqrt{11}}{4}45m​−411​​
+  [3] −20m+411-20m + 4\sqrt{11}−20m+411​
+  [4] 20m−41120m - 4\sqrt{11}20m−411​
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a5b5b2dc3d08d90637d325c | TYPE: MCQ
+STEM:
+A biologist mixed a solution that is 0.3%0.3\%0.3% sodium chloride by mass with a solution that is 0.15%0.15\%0.15% sodium chloride by mass to obtain a new solution, which has a mass of 808080 grams and contains 0.210.210.21 grams of sodium chloride. How many grams of 0.3%0.3\%0.3% sodium chloride solution did the biologist use?
+
+CORRECT ANSWER:
+60
+
+WRONG ANSWERS (4):
+  [1] 0.14
+  [2] 20
+  [3] 60
+  [4] 79.86
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a5b5bb6c3d08d90637d3268 | TYPE: MCQ
+STEM:
+For data set A, the table summarizes the distribution of the number of pieces of mail received by a business each day during a period of 11 days. Pieces of mailDays023242526171131\begin{array}{|c|c|} \hline \text{Pieces of mail} &amp; \text{Days} \\ \hline 0 &amp; 2 \\ \hline 3 &amp; 2 \\ \hline 4 &amp; 2 \\ \hline 5 &amp; 2 \\ \hline 6 &amp; 1 \\ \hline 7 &amp; 1 \\ \hline 13 &amp; 1 \\ \hline \end{array}Pieces of mail03456713​Days2222111​​ The data value 13 is removed from data set A to create data set B, which consists of the remaining 10 data values. Which statement best compares the median of data set A and the median of data set B?
+
+CORRECT ANSWER:
+The median of data set B is equal to the median of data set A.
+
+WRONG ANSWERS (4):
+  [1] The median of data set B is less than the median of data set A.
+  [2] The median of data set B is greater than the median of data set A.
+  [3] The median of data set B is equal to the median of data set A.
+  [4] There is not enough information to compare the medians of the two data sets.
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a5b5cafc3d08d90637d326e | TYPE: MCQ
+STEM:
+x5+y9=4745\frac{x}{5} + \frac{y}{9} = \frac{47}{45}5x​+9y​=4547​ An engineer connects resistors in series, where the resistors in the series have a total resistance of 4745\frac{47}{45}4547​ ohms. In this series, there are xxx resistors of type A, which each have a resistance of aaa ohms, and yyy resistors of type B, which each have a resistance of bbb ohms. The given equation represents this situation. According to this equation, what is the positive difference between the value of aaa and the value of bbb ?
+
+CORRECT ANSWER:
+445\frac{4}{45}454​
+
+WRONG ANSWERS (4):
+  [1] 47
+  [2] 4
+  [3] 4715\frac{47}{15}1547​
+  [4] 445\frac{4}{45}454​
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a5b5cf1c3d08d90637d3272 | TYPE: Essay
+STEM:
+9x2+8=nx9x^2 + 8 = nx9x2+8=nx In the given equation, nnn is a constant. The equation has exactly one solution. What is the value of n28\frac{n^2}{8}8n2​ ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["36"]
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a5b5d6bc3d08d90637d3276 | TYPE: MCQ
+STEM:
+The table gives the areas and perimeters of two similar rectangles, where nnn is a constant.Rectangles A and B RectangleArea (square inches)Perimeter (inches)A630210B2,520n\begin{array}{|c|c|c|} \hline \text{Rectangle} &amp; \text{Area (square inches)} &amp; \text{Perimeter (inches)} \\ \hline \text{A} &amp; 630 &amp; 210 \\ \hline \text{B} &amp; 2,520 &amp; n \\ \hline \end{array}RectangleAB​Area (square inches)6302,520​Perimeter (inches)210n​​ What is the value of nnn ?
+
+CORRECT ANSWER:
+420
+
+WRONG ANSWERS (4):
+  [1] 2,100
+  [2] 1,680
+  [3] 840
+  [4] 420
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a5b6097c3d08d90637d327c | TYPE: Essay
+STEM:
+The mass of object A is 444%444\%444% of the mass of object B, and the mass of object A is 0.740%0.740\%0.740% of the mass of object C. If the mass of object C is p%p\%p% of the mass of object B, what is the value of ppp ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["60000"]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a5b6125c3d08d90637d3282 | TYPE: MCQ
+STEM:
+Which expression is a factor of y2(x−3)−25(x−3)3y^2(x - 3) - 25(x - 3)^3y2(x−3)−25(x−3)3 ?
+
+CORRECT ANSWER:
+y+5x−15y + 5x - 15y+5x−15
+
+WRONG ANSWERS (4):
+  [1] y(x−3)y(x - 3)y(x−3)
+  [2] (x−5)(x−3)(x - 5)(x - 3)(x−5)(x−3)
+  [3] y−x−3y - x - 3y−x−3
+  [4] y+5x−15y + 5x - 15y+5x−15
+

@@ -1,0 +1,283 @@
+====================================================
+NOVEMBER 2025 · INT 3 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a62427dc3d08d90637d3557 | TYPE: MCQ
+STEM:
+The equation d=20w+100d = 20w + 100d=20w+100 gives the total amount of money ddd , in dollars, that Janna plans to save www weeks after she starts to save. What is the total amount of money, in dollars, she plans to save in 10 weeks?
+
+CORRECT ANSWER:
+300
+
+WRONG ANSWERS (4):
+  [1] 250
+  [2] 300
+  [3] 350
+  [4] 400
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6242afc3d08d90637d355b | TYPE: Essay
+STEM:
+x+2y=28x + 2y = 28x+2y=28 2y=152y = 152y=15 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of xxx ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["13"]
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6243b2c3d08d90637d3572 | TYPE: MCQ
+STEM:
+b2+5c=6db^2 + 5c = 6db2+5c=6d The given equation relates the real numbers bbb , ccc , and ddd , where d&gt;56cd &gt; \frac{5}{6}cd&gt;65​c . Which equation correctly expresses bbb in terms of ccc and ddd ?
+
+CORRECT ANSWER:
+b=±6d−5cb = \pm\sqrt{6d - 5c}b=±6d−5c​
+
+WRONG ANSWERS (4):
+  [1] b=6d−5c2b = \frac{6d-5c}{2}b=26d−5c​
+  [2] b=6d+5c2b = \frac{6d+5c}{2}b=26d+5c​
+  [3] b=±6d−5cb = \pm\sqrt{6d - 5c}b=±6d−5c​
+  [4] b=±6d+5cb = \pm\sqrt{6d + 5c}b=±6d+5c​
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a624414c3d08d90637d359a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1784824851/questionPic/oq84h6wx7hjyoz8jldzb.png
+STEM:
+The area of triangle ABCABCABC is 210 square centimeters. What is the height hhh , in centimeters, of this triangle?
+
+CORRECT ANSWER:
+42
+
+WRONG ANSWERS (4):
+  [1] 10
+  [2] 21
+  [3] 42
+  [4] 84
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a624464c3d08d90637d35a6 | TYPE: MCQ
+STEM:
+g(x)=2(14x−15)g(x) = 2(14x - 15)g(x)=2(14x−15) What is the yyy -coordinate of the yyy -intercept of the graph of y=g(x)−5y = g(x) - 5y=g(x)−5 in the xyxyxy -plane?
+
+CORRECT ANSWER:
+-35
+
+WRONG ANSWERS (4):
+  [1] -35
+  [2] -30
+  [3] -20
+  [4] -15
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a624492c3d08d90637d35aa | TYPE: MCQ
+STEM:
+The table shows the distribution of people in a certain city by age group. Age groupProportionLess than 18 years old28%18–40 years old24%41–65 years old22%Greater than 65 years old26%\begin{array}{|l|l|} \hline \textbf{Age group} &amp; \textbf{Proportion} \\ \hline \text{Less than 18 years old} &amp; 28\% \\ \hline \text{18--40 years old} &amp; 24\% \\ \hline \text{41--65 years old} &amp; 22\% \\ \hline \text{Greater than 65 years old} &amp; 26\% \\ \hline \end{array}Age groupLess than 18 years old18–40 years old41–65 years oldGreater than 65 years old​Proportion28%24%22%26%​​ If a person in this city is selected at random, which of the following is closest to the probability of selecting a person who is greater than 65 years old, given that the person is at least 18 years old?
+
+CORRECT ANSWER:
+0.36
+
+WRONG ANSWERS (4):
+  [1] 0.26
+  [2] 0.36
+  [3] 0.46
+  [4] 0.93
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6244e1c3d08d90637d35ae | TYPE: Essay
+STEM:
+h(t)=−16t2+bh(t) = -16t^2 + bh(t)=−16t2+b The function hhh estimates an object's height, in feet, above the ground ttt seconds after the object is dropped, where bbb is a constant. The function estimates that the object is 23.04 feet above the ground when it is dropped at t=0t = 0t=0 . How many seconds after being dropped does the function estimate the object will hit the ground?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1.2","6/5"]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a62451ac3d08d90637d35b2 | TYPE: MCQ
+STEM:
+The length of a rectangle's diagonal is 106\sqrt{106}106​ , and the length of one of the rectangle's sides is 9. What is the perimeter of the rectangle?
+
+CORRECT ANSWER:
+28
+
+WRONG ANSWERS (4):
+  [1] 106
+  [2] 45
+  [3] 28
+  [4] 14
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6245cec3d08d90637d35b6 | TYPE: MCQ
+STEM:
+Circle A: (x−7)2+(y−p)2=21(x - 7)^2 + (y - p)^2 = 21(x−7)2+(y−p)2=21 Circle B: (x+7)2+(y−p)2=21(x + 7)^2 + (y - p)^2 = 21(x+7)2+(y−p)2=21 In the given equations, ppp is a positive constant. Which statement correctly compares the graphs of circles AAA and BBB in the xyxyxy -plane?
+
+CORRECT ANSWER:
+Circle BBB is the reflection of circle AAA across the yyy -axis.
+
+WRONG ANSWERS (4):
+  [1] Circle BBB is the reflection of circle AAA across the xxx -axis.
+  [2] Circle BBB is the reflection of circle AAA across the yyy -axis.
+  [3] Circle BBB is the translation of circle AAA 14 units up.
+  [4] Circle BBB is the translation of circle AAA 14 units to the right.
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a624665c3d08d90637d35cc | TYPE: MCQ
+STEM:
+a(9−x)=36−4xa(9 - x) = 36 - 4xa(9−x)=36−4x In the given equation, aaa is a constant. The equation has exactly one solution. Which of the following CANNOT be the value of aaa ?
+
+CORRECT ANSWER:
+4
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 4
+  [3] 9
+  [4] 36
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6246b8c3d08d90637d35d0 | TYPE: MCQ
+STEM:
+a,26,29,b,33,49,ca, 26, 29, b, 33, 49, ca,26,29,b,33,49,c For the given data set, the data values are listed in ascending order, where aaa , bbb , and ccc are constants. For this data set, the mean is 36, the median is 29, and the range is 72. What is the value of ccc ?
+
+CORRECT ANSWER:
+79
+
+WRONG ANSWERS (4):
+  [1] 53
+  [2] 72
+  [3] 79
+  [4] 98
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a624727c3d08d90637d35d4 | TYPE: MCQ
+STEM:
+How many times does the graph of the given equation in the xyxyxy -plane cross the xxx -axis, where aaa , bbb , and ccc are positive constants such that a&gt;6a &gt; 6a&gt;6 and b&gt;cb &gt; cb&gt;c ? y=3(a6)x+c−by = 3\left(\frac{a}{6}\right)^{x+c} - by=3(6a​)x+c−b
+
+CORRECT ANSWER:
+One
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] One
+  [3] Two
+  [4] Three
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a624768c3d08d90637d35d8 | TYPE: Essay
+STEM:
+A linear function ggg is defined by g(x)=ax+bg(x) = ax + bg(x)=ax+b , where aaa and bbb are constants. If g(−2)=−7g(-2) = -7g(−2)=−7 and g(1)=5g(1) = 5g(1)=5 , what is the value of aaa ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["4"]
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6247c9c3d08d90637d35e6 | TYPE: MCQ
+STEM:
+2x2−8x−21=02x^2 - 8x - 21 = 02x2−8x−21=0 One solution to the given equation can be written as x=h−12kx = h - \frac{1}{2}\sqrt{k}x=h−21​k​ , where hhh and kkk are integer constants. What is the value of h+kh + kh+k ?
+
+CORRECT ANSWER:
+60
+
+WRONG ANSWERS (4):
+  [1] -24
+  [2] 10
+  [3] 29
+  [4] 60
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a624816c3d08d90637d35ea | TYPE: Essay
+STEM:
+r(x)=9(x−3)r(x) = 9(x - 3)r(x)=9(x−3) s(x)=x3+nx2+3nx+27s(x) = x^3 + nx^2 + 3nx + 27s(x)=x3+nx2+3nx+27 For the given functions rrr and sss , nnn is a constant. If r(x)⋅s(x)=9(x4−81)r(x) \cdot s(x) = 9(x^4 - 81)r(x)⋅s(x)=9(x4−81) , what is the value of nnn ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["3"]
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a62485dc3d08d90637d35f6 | TYPE: MCQ
+STEM:
+At different times on a certain day, a manager at a theme park recorded the number of visitors. VVV , at the theme park ttt hours after the theme park opened, where t≤3t \le 3t≤3 . Based on the model, 85 visitors were estimated to be at the theme park when it opened, and every 30 minutes the estimated number of visitors increased by 140% of the estimated number of visitors 30 minutes earlier. Which of the following equations best represents this model?
+
+CORRECT ANSWER:
+V=85(2.40)2tV = 85(2.40)^{2t}V=85(2.40)2t
+
+WRONG ANSWERS (4):
+  [1] V=85(1.40)t30V = 85(1.40)^{\frac{t}{30}}V=85(1.40)30t​
+  [2] V=85(1.40)2tV = 85(1.40)^{2t}V=85(1.40)2t
+  [3] V=85(2.40)t30V = 85(2.40)^{\frac{t}{30}}V=85(2.40)30t​
+  [4] V=85(2.40)2tV = 85(2.40)^{2t}V=85(2.40)2t
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6248cfc3d08d90637d35fa | TYPE: MCQ
+STEM:
+The function vvv is defined by the equation v(x)=x2+bx+c(x+5)(x−19)v(x) = \frac{x^2 + bx + c}{(x + 5)(x - 19)}v(x)=(x+5)(x−19)x2+bx+c​ , where bbb and ccc are constants. In the xyxyxy -plane, the graph of y=v(x)y = v(x)y=v(x) passes through the points (0,6695)\left(0, \frac{66}{95}\right)(0,9566​) and (11,0)(11, 0)(11,0) . If v(q)=0v(q) = 0v(q)=0 , which of the following could be the value of qqq ?
+
+CORRECT ANSWER:
+-6
+
+WRONG ANSWERS (4):
+  [1] -6
+  [2] -5
+  [3] 5
+  [4] 6
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a62492ac3d08d90637d35fe | TYPE: Essay
+STEM:
+Line sss is defined by x−4y=24x - 4y = 24x−4y=24 . Line ttt is perpendicular to line sss in the xyxyxy -plane and passes through the points (k,0)(k, 0)(k,0) and (60,−k)(60, -k)(60,−k) . What is the value of kkk ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["48"]
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a62498ec3d08d90637d3602 | TYPE: MCQ
+STEM:
+An engineer connects resistors in series, where the resistors in the series have a total resistance of 4135\frac{41}{35}3541​ ohms. In this series, there are xxx resistors of type A, which each have a resistance of aaa ohms, and yyy resistors of type B, which each have a resistance of bbb ohms. The given equation represents this situation. According to this equation, what is the positive difference between the value of aaa and the value of bbb ? x7+y5=4135\frac{x}{7} + \frac{y}{5} = \frac{41}{35}7x​+5y​=3541​
+
+CORRECT ANSWER:
+235\frac{2}{35}352​
+
+WRONG ANSWERS (4):
+  [1] 414141
+  [2] 222
+  [3] 4135\frac{41}{35}3541​
+  [4] 235\frac{2}{35}352​
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a624b02c3d08d90637d3608 | TYPE: MCQ
+STEM:
+The functions fff and ggg are defined by the given equations, where x≥0x \ge 0x≥0 , aaa and bbb are integer constants, a&lt;ba &lt; ba&lt;b , and a&gt;1a &gt; 1a&gt;1 . If y=f(x)y = f(x)y=f(x) and y=g(x)y = g(x)y=g(x) are graphed in the xyxyxy -plane, which of the following equations displays, as a constant or coefficient, the minimum value of the function it defines, where x≥0x \ge 0x≥0 ?I. f(x)=a(0.63)−bxf(x) = a(0.63)^{-bx}f(x)=a(0.63)−bx II. g(x)=a(1.37)x+2+bg(x) = a(1.37)^{x+2} + bg(x)=a(1.37)x+2+b
+
+CORRECT ANSWER:
+I only
+
+WRONG ANSWERS (4):
+  [1] I only
+  [2] II only
+  [3] I and II
+  [4] Neither I nor II
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a624b9cc3d08d90637d360c | TYPE: MCQ
+STEM:
+In triangle XYZXYZXYZ , the measure of angle XXX is x∘x^\circx∘ , the measure of angle YYY is y∘y^\circy∘ , and the measure of angle ZZZ is 31∘31^\circ31∘ . If x&gt;y&gt;31x &gt; y &gt; 31x&gt;y&gt;31 , which of the following additional pieces of information is NOT sufficient to determine the values of xxx and yyy ?
+
+CORRECT ANSWER:
+The value of 31−3x−3y31 - 3x - 3y31−3x−3y
+
+WRONG ANSWERS (4):
+  [1] The value of 31−x−3y31 - x - 3y31−x−3y
+  [2] The value of 31+3x+y31 + 3x + y31+3x+y
+  [3] The value of 31−3x+3y31 - 3x + 3y31−3x+3y
+  [4] The value of 31−3x−3y31 - 3x - 3y31−3x−3y
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a624bd9c3d08d90637d3610 | TYPE: MCQ
+STEM:
+In 2013, Chloe earned 11% more than in 2012, and in 2014 Chloe earned 6% more than in 2013. If Chloe earned yyy times as much in 2012 as in 2014, which of the following is closest to the value of yyy ?
+
+CORRECT ANSWER:
+0.84990.84990.8499
+
+WRONG ANSWERS (4):
+  [1] 0.54550.54550.5455
+  [2] 0.66000.66000.6600
+  [3] 0.84990.84990.8499
+  [4] 1.17661.17661.1766
+

@@ -1,0 +1,356 @@
+================================================================================
+MARCH 2026 · US 1 · MODULE 1 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a518ce14d554e04aa1bec40
+--------------------------------------------------------------------------------
+STEM:
+The shaded region shown represents the solutions to which inequality?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783729376/questionPic/ebhzlm51pngueiroz3ly.png
+
+CHOICES (4):
+  [A] y < \frac{1}{3}x + 12 y < 3 1 ​ x + 12
+  [B] (CORRECT KEY) y < 3x + 12 y < 3 x + 12
+  [C] y > \frac{1}{3}x + 12 y > 3 1 ​ x + 12
+  [D] y > 3x + 12 y > 3 x + 12
+
+CORRECT ANSWER FIELD:
+y < 3x + 12 y < 3 x + 12
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: Essay | ID: 6a518f184d554e04aa1bec48
+--------------------------------------------------------------------------------
+STEM:
+In the figure shown, d, e, d , e , and f f are constants and the value of k k is 2. If the measure of angles D, E, D , E , and F F are 42^\circ, x^\circ, 4 2 ∘ , x ∘ , and 2x + 12^\circ 2 x + 1 2 ∘ , respectively, what is the measure, in degrees, of angle S S ?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783729943/questionPic/rrh6xqouqr6hjhuiavoc.png
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["96"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a5190284d554e04aa1bec60
+--------------------------------------------------------------------------------
+STEM:
+3x^2 - 13x + 19 = 0 3 x 2 − 13 x + 19 = 0 How many distinct real solutions does the given equation have?
+
+CHOICES (4):
+  [A] (CORRECT KEY) \text{Zero} Zero
+  [B] \text{Exactly one} Exactly one
+  [C] \text{Exactly two} Exactly two
+  [D] \text{Infinitely many} Infinitely many
+
+CORRECT ANSWER FIELD:
+\text{Zero} Zero
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: MCQ | ID: 6a5190c54d554e04aa1bec66
+--------------------------------------------------------------------------------
+STEM:
+The graph of a system of a linear equation and a quadratic equation is shown. What is the solution (x, y) ( x , y ) to this system?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783730373/questionPic/su89kkweiikh38k8yjr1.png
+
+CHOICES (4):
+  [A] (0, 3) ( 0 , 3 )
+  [B] (0, 5) ( 0 , 5 )
+  [C] (CORRECT KEY) (-5, 3) ( − 5 , 3 )
+  [D] (5, -3) ( 5 , − 3 )
+
+CORRECT ANSWER FIELD:
+(-5, 3) ( − 5 , 3 )
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a5191724d554e04aa1bec70
+--------------------------------------------------------------------------------
+STEM:
+The function h h is defined by h = \frac{x}{6} h = 6 x ​ . What is the value of hx h x when x = 48 x = 48 ?
+
+CHOICES (4):
+  [A] 6
+  [B] (CORRECT KEY) 384
+  [C] 42
+  [D] 54
+
+CORRECT ANSWER FIELD:
+384
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: Essay | ID: 6a5191ea4d554e04aa1bec92
+--------------------------------------------------------------------------------
+STEM:
+A certain striped marlin can swim at a maximum speed of 22 meters per second. At this maximum speed, how many meters would this striped marlin swim in 3 seconds?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["66"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: Essay | ID: 6a5192e94d554e04aa1bec9c
+--------------------------------------------------------------------------------
+STEM:
+What value of x x makes the given equation true? \frac{13}{x} + 1 = \frac{13}{7} x 13 ​ + 1 = 7 13 ​
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["91/6","15,166","15.167"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: Essay | ID: 6a51955e4d554e04aa1becca
+--------------------------------------------------------------------------------
+STEM:
+In the figure, two lines intersect at a point. If r = 52 r = 52 , what is the value of s s ?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783731550/questionPic/ep7tpng1bdfn7xyzh2ty.png
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["52"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: MCQ | ID: 6a519bf74d554e04aa1bed14
+--------------------------------------------------------------------------------
+STEM:
+Kayra spent 49 dollars at a book sale and bought a total of 21 books. She bought h h hardcover books for 3 dollars each and p p paperback books for 2 dollars each. Which system of equations represents this situation?
+
+CHOICES (4):
+  [A] \begin{cases} h + p = 21 \\ 2h + 3p = 49 \end{cases} { h + p = 21 2 h + 3 p = 49 ​
+  [B] (CORRECT KEY) \begin{cases} h + p = 21 \\ 3h + 2p = 49 \end{cases} { h + p = 21 3 h + 2 p = 49 ​
+  [C] \begin{cases} h + p = 49 \\ 2h + 3p = 21 \end{cases} { h + p = 49 2 h + 3 p = 21 ​
+  [D] \begin{cases} h + p = 49 \\ 3h + 2p = 21 \end{cases} { h + p = 49 3 h + 2 p = 21 ​
+
+CORRECT ANSWER FIELD:
+\begin{cases} h + p = 21 \\ 3h + 2p = 49 \end{cases} { h + p = 21 3 h + 2 p = 49 ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: MCQ | ID: 6a519cbc4d554e04aa1bed4a
+--------------------------------------------------------------------------------
+STEM:
+The number b b is 15 more than half of the number a a . Which equation represents the relationship between a a and b b ?
+
+CHOICES (4):
+  [A] b = \frac{30a}{2} b = 2 30 a ​
+  [B] b = 15a + 2 b = 15 a + 2
+  [C] b = \frac{a}{15} + 2 b = 15 a ​ + 2
+  [D] (CORRECT KEY) b = \frac{a}{2} + 15 b = 2 a ​ + 15
+
+CORRECT ANSWER FIELD:
+b = \frac{a}{2} + 15 b = 2 a ​ + 15
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: Essay | ID: 6a519cee4d554e04aa1bed56
+--------------------------------------------------------------------------------
+STEM:
+A manager is responsible for ordering supplies for a coffee shop. The shop's inventory starts with 8,900 disposable cups, and the manager estimates that 120 of these cups are used each day. Based on this estimate, in how many days will the inventory of disposable cups reach 1,700?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["60"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: Essay | ID: 6a519d914d554e04aa1bed62
+--------------------------------------------------------------------------------
+STEM:
+A line in the xy x y -plane passes through the points (9, 0) ( 9 , 0 ) and (c, 0) ( c , 0 ) . If the distance between the two points is 7 units and c > 9 c > 9 , what is the value of c c ?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["16"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: MCQ | ID: 6a519f4a4d554e04aa1bed8e
+--------------------------------------------------------------------------------
+STEM:
+Which shaded region represents the solutions to the inequality y \le -\frac{1}{4}x + 7 y ≤ − 4 1 ​ x + 7 ?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783734089/questionPic/nb2v2ig5kfseu9irq50g.png
+
+CHOICES (4):
+  [A] A
+  [B] ​B
+  [C] (CORRECT KEY) ​C
+  [D] ​D
+
+CORRECT ANSWER FIELD:
+​C
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a51a0204d554e04aa1beda6
+--------------------------------------------------------------------------------
+STEM:
+q(x) = 28(2^x) q ( x ) = 28 ( 2 x ) Which table gives three values of x x and their corresponding values of q(x) q ( x ) for function q q ?
+
+CHOICES (4):
+  [A] (CORRECT KEY) \begin{array}{|c|c|c|c|} \hline x & -1 & 0 & 1 \\ \hline q(x) & 14 & 28 & 56 \\ \hline \end{array} x q ( x ) ​ − 1 14 ​ 0 28 ​ 1 56 ​ ​
+  [B] \begin{array}{|c|c|c|c|} \hline x & -1 & 0 & 1 \\ \hline q(x) & \frac{1}{14} & 28 & 56 \\ \hline \end{array} x q ( x ) ​ − 1 14 1 ​ ​ 0 28 ​ 1 56 ​ ​
+  [C] \begin{array}{|c|c|c|c|} \hline x & -1 & 0 & 1 \\ \hline q(x) & \frac{1}{14} & 2 & 56 \\ \hline \end{array} x q ( x ) ​ − 1 14 1 ​ ​ 0 2 ​ 1 56 ​ ​
+  [D] \begin{array}{|c|c|c|c|} \hline x & -1 & 0 & 1 \\ \hline q(x) & -56 & 1 & 56 \\ \hline \end{array} x q ( x ) ​ − 1 − 56 ​ 0 1 ​ 1 56 ​ ​
+
+CORRECT ANSWER FIELD:
+\begin{array}{|c|c|c|c|} \hline x & -1 & 0 & 1 \\ \hline q(x) & 14 & 28 & 56 \\ \hline \end{array} x q ( x ) ​ − 1 14 ​ 0 28 ​ 1 56 ​ ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a51a2be4d554e04aa1bedd4
+--------------------------------------------------------------------------------
+STEM:
+If 3x - 9 - 4 = 8x - 9 + 4 3 x − 9 − 4 = 8 x − 9 + 4 , what is the value of x - 9 x − 9 ?
+
+CHOICES (4):
+  [A] \frac{7}{5} 5 7 ​
+  [B] (CORRECT KEY) -\frac{53}{5} − 5 53 ​
+  [C] \frac{3}{8} 8 3 ​
+  [D] \frac{8}{11} 11 8 ​
+
+CORRECT ANSWER FIELD:
+-\frac{53}{5} − 5 53 ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: MCQ | ID: 6a51a94f4d554e04aa1bedf8
+--------------------------------------------------------------------------------
+STEM:
+An inspector checked a sample of 330 scales selected at random from a population of 8,000 scales to estimate what percentage of the 8,000 scales were inaccurate. From this sample, the inspector estimated that 7% of the 8,000 scales were inaccurate, with an associated margin of error of 2.8%. Which of the following is the most appropriate conclusion?
+
+CHOICES (4):
+  [A] (CORRECT KEY) It is plausible that between 336 and 784 of the scales in the population are inaccurate.
+  [B] It is plausible that fewer than 336 of the scales in the population are inaccurate.
+  [C] Exactly 560 of the scales in the population are inaccurate.
+  [D] It is plausible that more than 784 of the scales in the population are inaccurate.
+
+CORRECT ANSWER FIELD:
+It is plausible that between 336 and 784 of the scales in the population are inaccurate.
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a51acfb4d554e04aa1bee59
+--------------------------------------------------------------------------------
+STEM:
+To earn a bachelor's degree at a certain university, students are required to complete at least 120 credit hours. If a student has completed 42 credit hours, what is the minimum number of additional credit hours the student is required to complete to earn a bachelor's degree at this university?
+
+CHOICES (4):
+  [A] 162
+  [B] 120
+  [C] (CORRECT KEY) 78
+  [D] 20
+
+CORRECT ANSWER FIELD:
+78
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: MCQ | ID: 6a51ad784d554e04aa1bee5d
+--------------------------------------------------------------------------------
+STEM:
+The graph of a system of a linear equation and a quadratic equation is shown. What is a solution (x, y) ( x , y ) to this system?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783737720/questionPic/a4s2gun9f8v64ocgwuwj.png
+
+CHOICES (4):
+  [A] (0, 0) ( 0 , 0 )
+  [B] (0, 7) ( 0 , 7 )
+  [C] (6, 0) ( 6 , 0 )
+  [D] (CORRECT KEY) (6, 7) ( 6 , 7 )
+
+CORRECT ANSWER FIELD:
+(6, 7) ( 6 , 7 )
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: MCQ | ID: 6a51ae0c4d554e04aa1bee67
+--------------------------------------------------------------------------------
+STEM:
+During an experiment, a particle's speed was 48 feet per second. What is this speed in feet per minute?
+
+CHOICES (4):
+  [A] 78
+  [B] 108
+  [C] 1440
+  [D] (CORRECT KEY) 2880
+
+CORRECT ANSWER FIELD:
+2880
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: MCQ | ID: 6a51ae874d554e04aa1bee71
+--------------------------------------------------------------------------------
+STEM:
+The bar graph shows the distribution of the number of students in each of four sports programs at a high school. How many more students are in the hockey program than the volleyball program?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783737990/questionPic/wybtyni354tjpse1fryf.png
+
+CHOICES (4):
+  [A] (CORRECT KEY) 10
+  [B] 30
+  [C] 40
+  [D] 70
+
+CORRECT ANSWER FIELD:
+10
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a51af064d554e04aa1bee77
+--------------------------------------------------------------------------------
+STEM:
+y = 5x^2 - 40x + 35 y = 5 x 2 − 40 x + 35 The given equation represents a parabola in the xy-plane. Which of the following equations that represent the same parabola displays the x-intercepts as constants or coefficients?
+
+CHOICES (4):
+  [A] y = 5x^2 - 8x + 35 y = 5 x 2 − 8 x + 35
+  [B] y = 5x(x - 8) + 35 y = 5 x ( x − 8 ) + 35
+  [C] y = 5(x - 4)^2 - 45 y = 5 ( x − 4 ) 2 − 45
+  [D] (CORRECT KEY) y = 5(x - 1)(x - 7) y = 5 ( x − 1 ) ( x − 7 )
+
+CORRECT ANSWER FIELD:
+y = 5(x - 1)(x - 7) y = 5 ( x − 1 ) ( x − 7 )
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: MCQ | ID: 6a72aa91fb6980734c71b5e4
+--------------------------------------------------------------------------------
+STEM:
+A biologist recorded the pinching force of wild coconut crabs. The lowest pinching force recorded was 86.2 newtons and the highest pinching force recorded was 121.4 newtons. Which inequality is true for all values of c c , where c c represents any pinching force, in newtons, recorded for these wild coconut crabs?
+
+CHOICES (4):
+  [A] (CORRECT KEY) |c - 103.8| \le 17.6 ∣ c − 103.8∣ ≤ 17.6
+  [B] |c - 103.8| \ge 17.6 ∣ c − 103.8∣ ≥ 17.6
+  [C] |c - 17.6| \le 103.8 ∣ c − 17.6∣ ≤ 103.8
+  [D] |c - 17.6| \ge 103.8 ∣ c − 17.6∣ ≥ 103.8
+
+CORRECT ANSWER FIELD:
+|c - 103.8| \le 17.6 ∣ c − 103.8∣ ≤ 17.6
+
+EXPLANATION: [None provided]

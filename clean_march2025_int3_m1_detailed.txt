@@ -1,0 +1,281 @@
+====================================================
+MARCH 2025 · INT 3 — M1 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6aa47ca1ec7ba02921a43f38 | TYPE: MCQ
+STEM:
+s=40+2ts = 40 + 2ts=40+2t The equation gives the speed sss , in miles per hour, of a certain car ttt seconds after it began to accelerate. What is the speed, in miles per hour, of the car 3 seconds after it began to accelerate?
+
+CORRECT ANSWER:
+46
+
+WRONG ANSWERS (4):
+  [1] 40
+  [2] 42
+  [3] 43
+  [4] 46
+
+----------------------------------------------------
+QUESTION 2 | ID: 6aa47cdbec7ba02921a43f3c | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789164762/questionPic/aa0i8xzr0oaqfppkvrzx.png
+STEM:
+Which of the following equations best represents the line of best fit shown?
+
+CORRECT ANSWER:
+y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x
+
+WRONG ANSWERS (4):
+  [1] y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x
+  [2] y=0.8−1.7xy = 0.8 - 1.7xy=0.8−1.7x
+  [3] y=−0.8+1.7xy = -0.8 + 1.7xy=−0.8+1.7x
+  [4] y=−0.8−1.7xy = -0.8 - 1.7xy=−0.8−1.7x
+
+----------------------------------------------------
+QUESTION 3 | ID: 6aa47d03ec7ba02921a43f40 | TYPE: MCQ
+STEM:
+The width of a rectangle is 5 centimeters. The length of the rectangle is 30 centimeters longer than the width. What is the area, in square centimeters, of this rectangle?
+
+CORRECT ANSWER:
+y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x
+
+WRONG ANSWERS (4):
+  [1] 175
+  [2] 40
+  [3] 10
+  [4] 5
+
+----------------------------------------------------
+QUESTION 4 | ID: 6aa47d27ec7ba02921a43f44 | TYPE: Essay
+STEM:
+If 7+x=37 + x = 37+x=3 , what is the value of 56+8x56 + 8x56+8x ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["24"]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6aa47d6bec7ba02921a43f48 | TYPE: MCQ
+STEM:
+In one week in 2017, a technician earned a total of 1, 055 dollar by working at her regular job and at a second job doing part-time work. The equation 20h+17c=1,05520h + 17c = 1, 05520h+17c=1,055 represents this situation, where hhh is the number of hours worked at her regular job and ccc is the number of hours worked at her second job. Which of the following is the best interpretation of 20 in this context?
+
+CORRECT ANSWER:
+y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x
+
+WRONG ANSWERS (4):
+  [1] The amount, in dollars, the technician earned for each hour she worked at her regular job
+  [2] The amount, in dollars, the technician earned for each hour she worked at her second job
+  [3] The number of hours the technician worked in one week at her regular job
+  [4] The number of hours the technician worked in one week at her second job
+
+----------------------------------------------------
+QUESTION 6 | ID: 6aa47dafec7ba02921a43f4c | TYPE: MCQ
+STEM:
+The table shows the frequency of values in a data set. ValueFrequency206261326383\begin{array}{|c|c|} \hline \text{Value} &amp; \text{Frequency} \\ \hline 20 &amp; 6 \\ \hline 26 &amp; 1 \\ \hline 32 &amp; 6 \\ \hline 38 &amp; 3 \\ \hline \end{array}Value20263238​Frequency6163​​ What is the minimum value of the data set?
+
+CORRECT ANSWER:
+20
+
+WRONG ANSWERS (4):
+  [1] 1
+  [2] 6
+  [3] 20
+  [4] 26
+
+----------------------------------------------------
+QUESTION 7 | ID: 6aa47dffec7ba02921a43f50 | TYPE: Essay
+STEM:
+The list gives the mass, in grams, of 5 ruffed lemurs.3810; 3810; 3030; 3850; 3050 What is the mean mass, in grams, of these 5 ruffed lemurs?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["3510"]
+
+----------------------------------------------------
+QUESTION 8 | ID: 6aa47e45ec7ba02921a43f54 | TYPE: MCQ
+STEM:
+x+7=13x + 7 = 13x+7=13 y=5x2+5y = 5x^2 + 5y=5x2+5 At what point (x,y)(x, y)(x,y) do the graphs of the equations in the given system intersect?
+
+CORRECT ANSWER:
+(6, 185)
+
+WRONG ANSWERS (4):
+  [1] (6, 180)
+  [2] (6, 185)
+  [3] (13, 5)
+  [4] (13, 850)
+
+----------------------------------------------------
+QUESTION 9 | ID: 6aa47e74ec7ba02921a43f58 | TYPE: Essay
+STEM:
+The expression 19x5+20x5−10x519x^5 + 20x^5 - 10x^519x5+20x5−10x5 is equivalent to bx5bx^5bx5 , where bbb is a constant. What is the value of bbb ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["29"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6aa47ec1ec7ba02921a43f5c | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789165248/questionPic/kv5h0v5xkii7e1e8zg4v.png
+STEM:
+The point (v,−5)(v, -5)(v,−5) lies on the line shown. What is the value of vvv ?
+
+CORRECT ANSWER:
+(6, 185)
+
+WRONG ANSWERS (4):
+  [1] −7211-\frac{72}{11}−1172​
+  [2] −1112-\frac{11}{12}−1211​
+  [3] 7211\frac{72}{11}1172​
+  [4] 19211\frac{192}{11}11192​
+
+----------------------------------------------------
+QUESTION 11 | ID: 6aa47fc5ec7ba02921a43f60 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789165509/questionPic/hkgn4pu40rzd7gke1q59.png
+STEM:
+In the figure shown, line kkk intersects lines rrr and sss . If w=146w = 146w=146 , which additional piece of information is sufficient to prove that lines rrr and sss are parallel?
+
+CORRECT ANSWER:
+y=146y = 146y=146
+
+WRONG ANSWERS (4):
+  [1] x=34x = 34x=34
+  [2] y=146y = 146y=146
+  [3] w+y=180w + y = 180w+y=180
+  [4] y+z=180y + z = 180y+z=180
+
+----------------------------------------------------
+QUESTION 12 | ID: 6aa4801bec7ba02921a43f64 | TYPE: MCQ
+STEM:
+Which expression is equivalent to (133y)12(133y)^{\frac{1}{2}}(133y)21​ , where y&gt;1y &gt; 1y&gt;1 ?
+
+CORRECT ANSWER:
+133y\sqrt{133y}133y​
+
+WRONG ANSWERS (4):
+  [1] 133∗y133 * \sqrt{y}133∗y​
+  [2] 133∗y\sqrt{133} * y133​∗y
+  [3] 133y\sqrt{133y}133y​
+  [4] (133y)2\sqrt{(133y)^2}(133y)2​
+
+----------------------------------------------------
+QUESTION 13 | ID: 6aa48077ec7ba02921a43f6b | TYPE: MCQ
+STEM:
+The measure of angle BBB is 3π4\frac{3\pi}{4}43π​ radians. What is the value of sin⁡(B)\sin(B)sin(B) ?
+
+CORRECT ANSWER:
+22\frac{\sqrt{2}}{2}22​​
+
+WRONG ANSWERS (4):
+  [1] −32-\frac{\sqrt{3}}{2}−23​​
+  [2] −22-\frac{\sqrt{2}}{2}−22​​
+  [3] 12\frac{1}{2}21​
+  [4] 22\frac{\sqrt{2}}{2}22​​
+
+----------------------------------------------------
+QUESTION 14 | ID: 6aa480aaec7ba02921a43f6f | TYPE: Essay
+STEM:
+A school is ordering tablet computers for its students. The tablets cost 164 each, and 6% tax is added to the total cost of the order. If the school can spend no more than 44800 on the tablets, including tax, what is the maximum number of tablets that the school can order?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["257"]
+
+----------------------------------------------------
+QUESTION 15 | ID: 6aa48108ec7ba02921a43f76 | TYPE: Essay
+STEM:
+A triangular prism has a height of 3 cm and a volume of 60 cm³. What is the area, in cm², of the base of the prism? (The volume of a triangular prism is equal to BhBhBh , where BBB is the area of the base and hhh is the height of the prism.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["20"]
+
+----------------------------------------------------
+QUESTION 16 | ID: 6aa48173ec7ba02921a43f7a | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789165939/questionPic/lqmmfedho1mb6gfksgof.png
+STEM:
+The graph of y=f(x)y = f(x)y=f(x) is shown, where f(x)=abx+cf(x) = ab^x + cf(x)=abx+c , and aaa , bbb , and ccc are constants. For how many values of xxx does f(x)=0f(x) = 0f(x)=0 ?
+
+CORRECT ANSWER:
+Zero
+
+WRONG ANSWERS (4):
+  [1] Three
+  [2] Two
+  [3] One
+  [4] Zero
+
+----------------------------------------------------
+QUESTION 17 | ID: 6aa4819aec7ba02921a43f7e | TYPE: MCQ
+STEM:
+x(x+4)−140=3x(x−10)x(x + 4) - 140 = 3x(x - 10)x(x+4)−140=3x(x−10) What is the sum of the solutions to the given equation?
+
+CORRECT ANSWER:
+Zero
+
+WRONG ANSWERS (4):
+  [1] 6
+  [2] 10
+  [3] 14
+  [4] 17
+
+----------------------------------------------------
+QUESTION 18 | ID: 6aa481edec7ba02921a43f85 | TYPE: MCQ
+STEM:
+−3x2−7x+1=0-3x^2 - 7x + 1 = 0−3x2−7x+1=0 What is the greatest solution to the given equation?
+
+CORRECT ANSWER:
+−76+616-\frac{7}{6} + \frac{\sqrt{61}}{6}−67​+661​​
+
+WRONG ANSWERS (4):
+  [1] −73+616-\frac{7}{3} + \frac{\sqrt{61}}{6}−37​+661​​
+  [2] −73−613-\frac{7}{3} - \frac{\sqrt{61}}{3}−37​−361​​
+  [3] −76+616-\frac{7}{6} + \frac{\sqrt{61}}{6}−67​+661​​
+  [4] −76−616-\frac{7}{6} - \frac{\sqrt{61}}{6}−67​−661​​
+
+----------------------------------------------------
+QUESTION 19 | ID: 6aa48223ec7ba02921a43f89 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1789166114/questionPic/gelt2rap21o93u0791tp.png
+STEM:
+In triangle ABCABCABC , BC=363BC = 36\sqrt{3}BC=363​ . What is the value of cos⁡A\cos AcosA ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["1/2"]
+
+----------------------------------------------------
+QUESTION 20 | ID: 6aa48283ec7ba02921a43f8d | TYPE: MCQ
+STEM:
+The positive number aaa is 2,047% of the sum of the positive numbers bbb and ccc , and bbb is 89% of ccc . What percent of bbb is aaa ?
+
+CORRECT ANSWER:
+4,347%
+
+WRONG ANSWERS (4):
+  [1] 21.36%
+  [2] 38.69%
+  [3] 2,300%
+  [4] 4,347%
+
+----------------------------------------------------
+QUESTION 21 | ID: 6aa482bfec7ba02921a43f91 | TYPE: MCQ
+STEM:
+−2∣3x+7∣+8=−6-2 |3x + 7| + 8 = -6−2∣3x+7∣+8=−6
+
+CORRECT ANSWER:
+0 and −143-\frac{14}{3}−314​
+
+WRONG ANSWERS (4):
+  [1] 0
+  [2] 0 and 83\frac{8}{3}38​
+  [3] 0 and −143-\frac{14}{3}−314​
+  [4] There is no solution.
+
+----------------------------------------------------
+QUESTION 22 | ID: 6aa48304ec7ba02921a43f98 | TYPE: MCQ
+STEM:
+A square map has a side length of 55 inches, and 1 inch on the map represents an actual distance of 13 miles. A smaller version of the same map is printed as a square with the side length 70% shorter than the side length of the previous map. On the smaller map, which of the following is closest to the actual distance, in miles, represented by 1 inch?
+
+CORRECT ANSWER:
+43.33
+
+WRONG ANSWERS (4):
+  [1] 3.90
+  [2] 7.65
+  [3] 38.50
+  [4] 43.33
+

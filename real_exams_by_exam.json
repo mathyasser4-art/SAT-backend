@@ -1,0 +1,922 @@
+{
+  "March 2026 · US1 > Module2": [
+    {
+      "qNum": 21,
+      "qId": "6a526b154d554e04aa1bf247",
+      "snippet": "The measure of angle SSS is π11\\frac{\\pi}{11}11π​ radians. The measure of angle ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates of Text (\"9π11×902\\frac{9\\pi}{11} \\times 902119π​×902\")"
+        }
+      ]
+    }
+  ],
+  "December 2025 · US 1 > Module1": [
+    {
+      "qNum": 12,
+      "qId": "6a5404684d554e04aa1bfc92",
+      "snippet": "Number of food tickets (x)Total amount paid (y)1034.001541.502556.50\\begin{array",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"y=32x+823y = \\frac{3}{2}x + \\frac{82}{3}y=23​x\")"
+        }
+      ]
+    }
+  ],
+  "December 2025 · US 1 > Module2": [
+    {
+      "qNum": 4,
+      "qId": "6a5b1458c3d08d90637d2eca",
+      "snippet": "A student needs at least 80 signatures from classmates to run for class treasure",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (s+55���80s + 55 \\ge 80s+55≥80) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "November 2025 · INT 3 > Module1": [
+    {
+      "qNum": 13,
+      "qId": "6a62352dc3d08d90637d3503",
+      "snippet": "The graph of the function fff, where y=f(x)y = f(x)y=f(x), gives the total cost ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice C are identical duplicates of Text (\"Each game costs dollar\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"The video game system costs dollar\")"
+        }
+      ]
+    }
+  ],
+  "September 2025 · US 2 > Module1": [
+    {
+      "qNum": 13,
+      "qId": "6a6b728ac3d08d90637d3e84",
+      "snippet": "The given equation relates the positive numbers bbb, xxx, and yyy. Which equatio",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates of Text (\"x=b−19yx = \\frac{b-19}{y}x=yb−19​\")"
+        }
+      ]
+    }
+  ],
+  "June 2025 · US 1 > Module2": [
+    {
+      "qNum": 4,
+      "qId": "6a6e10adf37fd34c9d2ad115",
+      "snippet": "cubic centimeters. What is the density, in grams per cubic centimeter, of the ob",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"280\")"
+        }
+      ]
+    },
+    {
+      "qNum": 6,
+      "qId": "6a6e1127f37fd34c9d2ad11d",
+      "snippet": "Which equation defines the linear function fff?",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice A and Choice B are identical duplicates of Text (\"f(x)=−14x−9f(x) = -14x - 9f(x)=−14x−9\")"
+        }
+      ]
+    }
+  ],
+  "May 2025 · INT 1 > Module1": [
+    {
+      "qNum": 7,
+      "qId": "6a98507ee57881aee77ea953",
+      "snippet": "Hakim has a bag of 50 tiles, where 45 are labeled with a letter and 5 are blank.",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 13,
+      "qId": "6a985535e57881aee77ead74",
+      "snippet": "The function fff is defined by f(x)=2x+bf(x) = 2x + bf(x)=2x+b, where bbb is a c",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 16,
+      "qId": "6a9af216838c4fe747f6d9b5",
+      "snippet": "In Circle A shown is defined by the equation x2+(y−5)2=7x^2 + (y - 5)^2 = 7x2+(y",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 17,
+      "qId": "6a9af2e2838c4fe747f6de37",
+      "snippet": "The function h(t)=−16t2+bh(t) = -16t^2 + bh(t)=−16t2+b estimates an object's hei",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 19,
+      "qId": "6a9af4ec838c4fe747f6e335",
+      "snippet": "For a set of 3 consecutive integers, the result of subtracting the greatest inte",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    }
+  ],
+  "May 2025 · INT 1 > Module2": [
+    {
+      "qNum": 10,
+      "qId": "6a9b007c838c4fe747f6f1ef",
+      "snippet": "The figure shown is a right rectangular pyramid, where l=18l=18l=18 units, w=9w=",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 13,
+      "qId": "6a9b0d96838c4fe747f71f58",
+      "snippet": "A researcher surveyed undergraduate students, graduate students, and postdoctora",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 14,
+      "qId": "6a9b0f07111ffc76c2e5f937",
+      "snippet": "In the given system of equations, ttt is a constant. If the system has no soluti",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 18,
+      "qId": "6a9b11fc111ffc76c2e5fed3",
+      "snippet": "59(5x+9)(x+5k+9)(x−5k+9)=0\\frac{5}{9}(5x + 9)\\left(x + \\sqrt{5k + 9}\\right)\\left",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 20,
+      "qId": "6a9b12d5111ffc76c2e600fa",
+      "snippet": "In the xy-plane, a unit circle with center at the origin OOO contains point AAA ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    },
+    {
+      "qNum": 21,
+      "qId": "6a9b13a9111ffc76c2e603c4",
+      "snippet": "The function hhh is defined byh(x)=−x2+bx+ch(x) = -\\sqrt{x^2 + bx + c}h(x)=−x2+b",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice C are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice B and Choice D are identical duplicates of Text (\"-\")"
+        },
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"-\")"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 1 > Module 1": [
+    {
+      "qNum": 14,
+      "qId": "6aa0fe0ddf63ca493d479a64",
+      "snippet": "In right triangle RST, the sum of the measures of angle R and angle S is 90∘ 90^",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (31020\\frac{3\\sqrt{10}}{20}20310���​) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 1 > Module 2": [
+    {
+      "qNum": 2,
+      "qId": "6aa11386febc2d25093882c8",
+      "snippet": "For the linear function ppp , p(c)=−5p(c) = -5p(c)=−5 , where ccc is a constant,",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 5,
+      "qId": "6aa1169efebc2d25093882d4",
+      "snippet": "f(x)=5(g(x))−3f(x) = 5(g(x)) - 3f(x)=5(g(x))−3 g(x)=∣12x−7∣ g(x) = |12x - 7|g(x)",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 6,
+      "qId": "6aa1172ef5c99543faeb6316",
+      "snippet": "At a convention center, there are a total of 225visitors. Each visitor is locate",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 8,
+      "qId": "6aa117aef5c99543faeb63ec",
+      "snippet": "Which of the following expressions is equivalent to 11x10−11x9+77x11x^{10} - 11x",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (Increasing linear) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 10,
+      "qId": "6aa1181bf5c99543faeb6434",
+      "snippet": "Audrey's hair will grow at a constant rate from a length of 7 inches to a length",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 11,
+      "qId": "6aa119ccf5c99543faeb65aa",
+      "snippet": "A certain elephant calf weighed 226 pounds when it was born. The elephant calf g",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 16,
+      "qId": "6aa11e30ec7ba02921a31b7e",
+      "snippet": "The triangle inequality theorem states that the sum of any two sides of a triang",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 2 > Module 1": [
+    {
+      "qNum": 8,
+      "qId": "6aa46dd4ec7ba02921a43df8",
+      "snippet": "The scatterplot shows the relationship between two variables, xxx and yyy. A lin",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (400%) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 16,
+      "qId": "6aa470a9ec7ba02921a43e3d",
+      "snippet": "A circle in the xyxyxy-plane has its center at (18, 16) and has a radius of 6k6k",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (x−60612f(x)12244896\\begin{array}{|c|c|c|c|c|} \\hli) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 18,
+      "qId": "6aa47145ec7ba02921a43e45",
+      "snippet": "The difference between the measure of angle AAA and the measure of angle BBB is ",
+      "issues": [
+        {
+          "type": "DUPLICATE_CHOICES",
+          "detail": "Choice C and Choice D are identical duplicates of Text (\"−512π⋅360∘π-\\frac{5}{12}\\pi \\cdot \\frac{360^\\c\")"
+        }
+      ]
+    },
+    {
+      "qNum": 21,
+      "qId": "6aa47237ec7ba02921a43e51",
+      "snippet": "In the xyxyxy-plane, line kkk and line lll are perpendicular and intersect at th",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (84) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 2 > Module 2": [
+    {
+      "qNum": 5,
+      "qId": "6aa47590ec7ba02921a43e87",
+      "snippet": "At a convention center, there are a total of 375 visitors. Each visitor is locat",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (56∘56^\\circ56∘) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 16,
+      "qId": "6aa4799eec7ba02921a43ee1",
+      "snippet": "The graph of y=f(x)+2y = f(x) + 2y=f(x)+2 is shown. Which equation defines funct",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (15x+15015x + 15015x+150) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 3 > Module1": [
+    {
+      "qNum": 3,
+      "qId": "6aa47d03ec7ba02921a43f40",
+      "snippet": "The width of a rectangle is 5 centimeters. The length of the rectangle is 30 cen",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 5,
+      "qId": "6aa47d6bec7ba02921a43f48",
+      "snippet": "In one week in 2017, a technician earned a total of 1, 055 dollar by working at ",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (y=0.8+1.7xy = 0.8 + 1.7xy=0.8+1.7x) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 10,
+      "qId": "6aa47ec1ec7ba02921a43f5c",
+      "snippet": "The point (v,−5)(v, -5)(v,−5) lies on the line shown. What is the value of vvv?",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer ((6, 185)) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 17,
+      "qId": "6aa4819aec7ba02921a43f7e",
+      "snippet": "x(x+4)−140=3x(x−10)x(x + 4) - 140 = 3x(x - 10)x(x+4)−140=3x(x−10) What is the su",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (Zero) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "March 2025 · INT 3 > Module2": [
+    {
+      "qNum": 11,
+      "qId": "6aa489ecec7ba02921a4402e",
+      "snippet": "The function fff is defined by f(x)=−10(3)x+1kf(x) = -10(3)^x + \\frac{1}{k}f(x)=",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (Rx−12y=−108Rx - 12y = -108Rx−12y=−108) is not present in the 4 answer choices"
+        }
+      ]
+    }
+  ],
+  "December 2024 · INT1 > Module 1": [
+    {
+      "qNum": 6,
+      "qId": "6aa5896aec7ba02921a44460",
+      "snippet": "An object was launched upward from a platform. The graph shown models the height",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 7,
+      "qId": "6aa589e3ec7ba02921a44464",
+      "snippet": "The relationship between the variables rrr and yyy is defined by an exponential ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 8,
+      "qId": "6aa58a32ec7ba02921a44468",
+      "snippet": "The table shows the amount of time it took a participant in a study to complete ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 9,
+      "qId": "6aa58a70ec7ba02921a4446c",
+      "snippet": "The function hhh is defined by h(x)=7∣x∣ h(x) = 7|x|h(x)=7∣x∣ . What is the valu",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 10,
+      "qId": "6aa58ad8ec7ba02921a44470",
+      "snippet": "Which of the following is closest to the slope of the line of best fit shown?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 11,
+      "qId": "6aa58b67ec7ba02921a44474",
+      "snippet": "In the figure, line qqq is parallel to line rrr , and both lines are intersected",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    }
+  ],
+  "December 2024 · INT1 > Module 2": [
+    {
+      "qNum": 11,
+      "qId": "6aa59d26ec7ba02921a444ef",
+      "snippet": "In the given equation, aaa is a constant. The equation has infinitely many solut",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 15,
+      "qId": "6aa5addaec7ba02921a44514",
+      "snippet": "z(w)=(0.829)2wz(w) = (0.829)^{2w}z(w)=(0.829)2w The function zzz is defined by t",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 16,
+      "qId": "6aa5aeb1ec7ba02921a44518",
+      "snippet": "The graph of the linear function y=f(x)+11 y = f(x) + 11 y=f(x)+11 is shown. If ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 18,
+      "qId": "6aa5af7dec7ba02921a44520",
+      "snippet": "The speeds of particles A, B, and C are a meters per second, b meters per second",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 19,
+      "qId": "6aa5afe1ec7ba02921a44524",
+      "snippet": "−16(5x−3)2+4(5x−2)2-16(5x - 3)^2 + 4(5x - 2)^2−16(5x−3)2+4(5x−2)2 The given expr",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 20,
+      "qId": "6aa5b053ec7ba02921a4460e",
+      "snippet": "f(x)=66bxf(x) = 66b^xf(x)=66bx In the given function, bbb is a positive constant",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 21,
+      "qId": "6aa5b082ec7ba02921a44612",
+      "snippet": "On average, a certain tree grows 87 centimeters every m months. At this rate, wh",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    }
+  ],
+  "December 2024 · INT2 > Module 1": [
+    {
+      "qNum": 4,
+      "qId": "6aa69242ec7ba02921a448ad",
+      "snippet": "A certain pigeon species can fly at an average speed of 16 meters per second whe",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (180+x≥240180 + x \\ge 240180+x≥240) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 5,
+      "qId": "6aa69290ec7ba02921a448b5",
+      "snippet": "In the given scatterplot, a line of best fit for the data is shown. Which of the",
+      "issues": [
+        {
+          "type": "CORRECT_ANSWER_NOT_IN_CHOICES",
+          "detail": "Correct answer (180+x≥240180 + x \\ge 240180+x≥240) is not present in the 4 answer choices"
+        }
+      ]
+    },
+    {
+      "qNum": 6,
+      "qId": "6aa692c9ec7ba02921a448b9",
+      "snippet": "The function ddd is defined by d(x)=200−6xd(x) = 200 - 6^xd(x)=200−6x . What is ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 7,
+      "qId": "6aa69381ec7ba02921a448bd",
+      "snippet": "The relationship between the variables x and y is defined by an exponential equa",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 8,
+      "qId": "6aa693f5ec7ba02921a448d7",
+      "snippet": "Line kkk is defined by y=7x+2y = 7x + 2y=7x+2 . Line jj j is parallel to line kk",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 17,
+      "qId": "6aa699a4ec7ba02921a4495a",
+      "snippet": "Jasmin grows bean pods in her garden. This year, she harvested 330 bean pods and",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 18,
+      "qId": "6aa69a68ec7ba02921a44966",
+      "snippet": "A sphere has a radius of 83\\frac{8}{3}38​ feet. What is the volume, in cubic fee",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 19,
+      "qId": "6aa69b4bec7ba02921a44972",
+      "snippet": "A company that manufactures stapler's calculates its monthly profit, in dollars,",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 20,
+      "qId": "6aa69c11ec7ba02921a4497a",
+      "snippet": "If x−1627=x−169,\\frac{x-16}{27} = \\frac{x-16}{9},27x−16​=9x−16​, what is the val",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 21,
+      "qId": "6aa69c93ec7ba02921a44981",
+      "snippet": "The graph of line h is shown in the xy-plane. Line k (not shown) is defined by s",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 22,
+      "qId": "6aa69cbdec7ba02921a44985",
+      "snippet": "8∣7−x∣+1=818|7 - x| + 1 = 818∣7−x∣+1=81 What is the sum of the solutions to the ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    }
+  ],
+  "December 2024 · INT2 > Module 2": [
+    {
+      "qNum": 2,
+      "qId": "6aa96424ec7ba02921a45410",
+      "snippet": "The graph of a system of a linear equation and a quadratic equation is shown. Wh",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 3,
+      "qId": "6aa9647dec7ba02921a45414",
+      "snippet": "An object moves at a speed of 350\\frac{3}{50}503​ feet per second. What is this ",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 4,
+      "qId": "6aa964c9ec7ba02921a4541a",
+      "snippet": "Which expression is equivalent to 158t3−24t2u158t^{3} - 24t^{2}u158t3−24t2u ?",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 5,
+      "qId": "6aa96543ec7ba02921a45420",
+      "snippet": "Circle KKK has a radius of 222 millimeters (mm)(\\text{mm})(mm) . Circle L LL has",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 6,
+      "qId": "6aa96583ec7ba02921a45424",
+      "snippet": "Which expression is equivalent to 2(x−32)(x+14)2\\left(x - \\frac{3}{2}\\right)\\lef",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 7,
+      "qId": "6aa965ddec7ba02921a4542c",
+      "snippet": "The function fff is defined by f(x)=(−7)(4)x+31 f(x) = (-7)(4)^{x} + 31f(x)=(−7)",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 8,
+      "qId": "6aa96678ec7ba02921a45430",
+      "snippet": "In right triangle RSTRSTRST , the sum of the measures of angle RRR and angle SSS",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 9,
+      "qId": "6aa966d8ec7ba02921a4543a",
+      "snippet": "y<42−7xy < 42 - 7xy<42−7x y7>10\\frac{y}{7} > 107y​>10 Which inequality represent",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 10,
+      "qId": "6aa9672dec7ba02921a45441",
+      "snippet": "In the xy-plane, an equation of circle A is (x−2)2+(y−3)2=9(x - 2)^{2} + (y - 3)",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 14,
+      "qId": "6aa96919ec7ba02921a45470",
+      "snippet": "A partially filled container containing 24milliliters of water is placed under a",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    },
+    {
+      "qNum": 15,
+      "qId": "6aa96a11ec7ba02921a45474",
+      "snippet": "A research manager selected 2 random samples of ovens of a certain type to estim",
+      "issues": [
+        {
+          "type": "MISSING_CORRECT_ANSWER",
+          "detail": "Correct answer field is completely missing or blank"
+        }
+      ]
+    }
+  ]
+}

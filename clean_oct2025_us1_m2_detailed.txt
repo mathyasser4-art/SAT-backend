@@ -1,0 +1,284 @@
+====================================================
+OCTOBER 2025 · US 1 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a666305c3d08d90637d3a82 | TYPE: MCQ
+STEM:
+y&gt;−36y &gt; -36y&gt;−36 Which shaded region represents the solutions to the given inequality?
+
+CORRECT ANSWER:
+⠀
+
+WRONG ANSWERS (4):
+  [1] ⠀
+  [2] ⠀
+  [3] ⠀
+  [4] ⠀
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6673e5c3d08d90637d3a92 | TYPE: MCQ
+STEM:
+A chemist combines 25 grams of compound A, 35 grams of compound B, and xxx grams of compound C. The resulting mixture has a mass of 125 grams. What is the value of xxx ?
+
+CORRECT ANSWER:
+65
+
+WRONG ANSWERS (4):
+  [1] 25
+  [2] 65
+  [3] 35
+  [4] 10
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a667416c3d08d90637d3a96 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785099284/questionPic/hu8ctgjrzzgny0iuujko.png
+STEM:
+The graph of a system of a linear equation and a nonlinear equation is shown. What is the solution (x,y)(x, y)(x,y) to this system?
+
+CORRECT ANSWER:
+(5, 4)
+
+WRONG ANSWERS (4):
+  [1] (4, 0)
+  [2] (5, 4)
+  [3] (0, 0)
+  [4] (0, 5)
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a667434c3d08d90637d3a9a | TYPE: MCQ
+STEM:
+Carmen needs at least 100 signatures to submit a petition. If Carmen already has 51 signatures, what is the minimum number of additional signatures Carmen needs to submit the petition?
+
+CORRECT ANSWER:
+49
+
+WRONG ANSWERS (4):
+  [1] 41
+  [2] 151
+  [3] 49
+  [4] 51
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a667457c3d08d90637d3a9e | TYPE: MCQ
+STEM:
+There are a total of 340 seats in a school auditorium. During an assembly, students occupied 50% of the seats in the auditorium. How many seats did the students occupy during this assembly?
+
+CORRECT ANSWER:
+170
+
+WRONG ANSWERS (4):
+  [1] 290
+  [2] 25
+  [3] 170
+  [4] 50
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a66749ac3d08d90637d3aa2 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785099417/questionPic/jd8et8dywl6af1adlbuj.png
+STEM:
+The graph of the polynomial function fff , where y=f(x)y = f(x)y=f(x) , is shown. The yyy -intercept of the graph is (0,y)(0, y)(0,y) . What is the value of yyy ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["5"]
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6674cec3d08d90637d3aa8 | TYPE: MCQ
+STEM:
+If 5c=155c = 155c=15 , what is the value of 5c−85c - 85c−8 ?
+
+CORRECT ANSWER:
+7
+
+WRONG ANSWERS (4):
+  [1] 3
+  [2] 67
+  [3] 7
+  [4] 23
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a66750cc3d08d90637d3aac | TYPE: MCQ
+STEM:
+The ratio of kkk to ppp is constant. If k=7k = 7k=7 , then p=6p = 6p=6 . What is the value of kkk when p=336p = 336p=336 ?
+
+CORRECT ANSWER:
+392
+
+WRONG ANSWERS (4):
+  [1] 288
+  [2] 56
+  [3] 48
+  [4] 392
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a667578c3d08d90637d3ab2 | TYPE: MCQ
+STEM:
+Each of 185 animals can be classified as one of three species, as shown in the frequency table. ClassificationFrequencyspecies X112species Y3species Z70\begin{array}{|c|c|} \hline \textbf{Classification} &amp; \textbf{Frequency} \\ \hline \text{species X} &amp; 112 \\ \hline \text{species Y} &amp; 3 \\ \hline \text{species Z} &amp; 70 \\ \hline \end{array}Classificationspecies Xspecies Yspecies Z​Frequency112370​​ If one of the animals is selected at random, what is the probability of selecting an animal of species YYY ?
+
+CORRECT ANSWER:
+3185\frac{3}{185}1853​
+
+WRONG ANSWERS (4):
+  [1] 70185\frac{70}{185}18570​
+  [2] 3185\frac{3}{185}1853​
+  [3] 182185\frac{182}{185}185182​
+  [4] 112185\frac{112}{185}185112​
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6675eac3d08d90637d3ab8 | TYPE: Essay
+STEM:
+For certain air temperatures, the table gives wind chill temperatures for two different wind speeds. Air temperatureWind chill temperature at wind speed 5 mphWind chill temperature at wind speed 15 mph27∘F21∘F15∘F29∘F24∘F18∘F31∘F26∘F20∘F\begin{array}{|c|c|c|} \hline \text{Air temperature} &amp; \text{Wind chill temperature at wind speed 5 mph} &amp; \text{Wind chill temperature at wind speed 15 mph} \\ \hline 27^\circ\text{F} &amp; 21^\circ\text{F} &amp; 15^\circ\text{F} \\ \hline 29^\circ\text{F} &amp; 24^\circ\text{F} &amp; 18^\circ\text{F} \\ \hline 31^\circ\text{F} &amp; 26^\circ\text{F} &amp; 20^\circ\text{F} \\ \hline \end{array}Air temperature27∘F29∘F31∘F​Wind chill temperature at wind speed 5 mph21∘F24∘F26∘F​Wind chill temperature at wind speed 15 mph15∘F18∘F20∘F​​ According to the table, what is the wind chill temperature, in degrees Fahrenheit (°F), when the air temperature is 29°F and the wind speed is 15 miles per hour (mph)? (Disregard the degree symbol when entering your answer.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["18"]
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a667618c3d08d90637d3abc | TYPE: Essay
+STEM:
+In a right triangle, the measure of one of the acute angles is 14∘14^\circ14∘ . What is the measure of the other acute angle, in degrees? (Disregard the degree symbol when entering your answer.)
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["14"]
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a667672c3d08d90637d3ac2 | TYPE: MCQ
+STEM:
+Which expression is a factor of 3x2+57x+153x^2 + 57x + 153x2+57x+15 ?
+
+CORRECT ANSWER:
+333
+
+WRONG ANSWERS (4):
+  [1] 3x23x^23x2
+  [2] 5x5x5x
+  [3] 333
+  [4] 57x57x57x
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a667740c3d08d90637d3ac6 | TYPE: MCQ
+STEM:
+A city has an area of xxx square miles and a population density of 1,035 people per square mile. The suburb adjacent to the city has an area of yyy square miles and a population density of 535 people per square mile. The combined population of the city and the suburb adjacent to the city is 13,165 people. Which equation represents this situation?
+
+CORRECT ANSWER:
+1,035x+535y=13,1651,035x + 535y = 13,1651,035x+535y=13,165
+
+WRONG ANSWERS (4):
+  [1] 1,035x+535y=13,1651,035x + 535y = 13,1651,035x+535y=13,165
+  [2] 1,035x+535=13,165y1,035x + 535 = 13,165y1,035x+535=13,165y
+  [3] 1,035x+535=1,570y1,035x + 535 = 1,570y1,035x+535=1,570y
+  [4] 1,035x+535y=1,5701,035x + 535y = 1,5701,035x+535y=1,570
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a66775fc3d08d90637d3aca | TYPE: MCQ
+STEM:
+A triangle has a base length of 48 centimeters and a height of 96 centimeters. What is the area, in square centimeters, of the triangle?
+
+CORRECT ANSWER:
+2, 304
+
+WRONG ANSWERS (4):
+  [1] 2, 304
+  [2] 1, 152
+  [3] 4, 608
+  [4] 144
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a667797c3d08d90637d3ace | TYPE: MCQ
+STEM:
+The function f(x)=−40x+340f(x) = -40x + 340f(x)=−40x+340 gives the predicted height above the ground f(x)f(x)f(x) , in feet, of a model airplane xxx minutes after it begins to descend. What is the predicted height above the ground, in feet, of the model airplane 3 minutes after it begins to descend?
+
+CORRECT ANSWER:
+220
+
+WRONG ANSWERS (4):
+  [1] 120
+  [2] 220
+  [3] 300
+  [4] 460
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a667844c3d08d90637d3ad2 | TYPE: MCQ
+STEM:
+5a=4b2a−20a5a = \frac{4b^2}{a} - 20a5a=a4b2​−20a The given equation relates the positive variables aaa and bbb . Which equation correctly expresses aaa in terms of bbb ?
+
+CORRECT ANSWER:
+a=2b5a = \frac{2b}{5}a=52b​
+
+WRONG ANSWERS (4):
+  [1] a=4b25a = \frac{4b}{25}a=254b​
+  [2] a=4b225a = \frac{4b^2}{25}a=254b2​
+  [3] a=2b5a = \frac{2b}{5}a=52b​
+  [4] a=2b25a = \frac{2b^2}{5}a=52b2​
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a667875c3d08d90637d3ad6 | TYPE: Essay
+STEM:
+Charles saves 35\frac{3}{5}53​ of the 225 dollar he earns each week from his summer job. If Charles continues to save at this rate, how much money, in dollars, will Charles save in 3 weeks?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["405"]
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6678c2c3d08d90637d3adc | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=2x3+13x2−xf(x) = 2x^3 + \frac{1}{3}x^2 - xf(x)=2x3+31​x2−x . What is the value of f(1)f(1)f(1) ?
+
+CORRECT ANSWER:
+43\frac{4}{3}34​
+
+WRONG ANSWERS (4):
+  [1] 43\frac{4}{3}34​
+  [2] 222
+  [3] 103\frac{10}{3}310​
+  [4] 666
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a66791ac3d08d90637d3ae0 | TYPE: MCQ
+STEM:
+In the xyxyxy -plane, what is the slope of the line that passes through the points (0,0)(0, 0)(0,0) and (13,14)(13, 14)(13,14) ?
+
+CORRECT ANSWER:
+1413\frac{14}{13}1314​
+
+WRONG ANSWERS (4):
+  [1] 13
+  [2] 1413\frac{14}{13}1314​
+  [3] 1314\frac{13}{14}1413​
+  [4] 14
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a667971c3d08d90637d3ae4 | TYPE: MCQ
+STEM:
+Function fff is defined as f(x)=(2x−5)2f(x) = (2x - 5)^2f(x)=(2x−5)2 , and function ggg is defined as g(x)=2(2x+7)g(x) = 2(2x + 7)g(x)=2(2x+7) . Which of the following is equivalent to f(x)+g(x)f(x) + g(x)f(x)+g(x) ?
+
+CORRECT ANSWER:
+4x2−16x+394x^2 - 16x + 394x2−16x+39
+
+WRONG ANSWERS (4):
+  [1] 4x2−16x+114x^2 - 16x + 114x2−16x+11
+  [2] 4x2−16x+394x^2 - 16x + 394x2−16x+39
+  [3] 4x2−6x+394x^2 - 6x + 394x2−6x+39
+  [4] 4x2−24x+114x^2 - 24x + 114x2−24x+11
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a667996c3d08d90637d3ae8 | TYPE: Essay
+STEM:
+15x2=15(9)15x^2 = 15(9)15x2=15(9) What is the negative solution to the given equation?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-3"]
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6679eac3d08d90637d3aec | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=a(4)xf(x) = a(4)^xf(x)=a(4)x , where aaa is a positive constant. In the xyxyxy -plane, the graph of y=f(x)y = f(x)y=f(x) passes through the point (0,13)(0, 13)(0,13) . What is the value of f(0)f(0)f(0) ?
+
+CORRECT ANSWER:
+13
+
+WRONG ANSWERS (4):
+  [1] 4
+  [2] 1
+  [3] 13
+  [4] 9
+

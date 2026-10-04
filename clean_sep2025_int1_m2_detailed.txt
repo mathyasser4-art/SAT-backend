@@ -1,0 +1,360 @@
+================================================================================
+SEPTEMBER 2025 · INT 1 · MODULE 2 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a687f82c3d08d90637d3c12
+--------------------------------------------------------------------------------
+STEM:
+In triangle EFGEFGEFG, the sum of the measures of angles EEE and FFF is 22∘22^\circ22∘. What is the measure of angle GGG?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 158∘158^\circ158∘
+  [B] (CORRECT KEY) 158∘158^\circ158∘
+  [C] 136∘136^\circ136∘
+  [D] 68∘68^\circ68∘
+  [E] 22∘22^\circ22∘
+
+CORRECT ANSWER FIELD:
+158∘158^\circ158∘
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: MCQ | ID: 6a687fbbc3d08d90637d3c16
+--------------------------------------------------------------------------------
+STEM:
+Which of the following lists represents a data set with the smallest standard deviation?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 84, 85, 85, 85, 86
+  [B] 83, 84, 85, 86, 87
+  [C] (CORRECT KEY) 84, 85, 85, 85, 86
+  [D] 83, 83, 85, 87, 87
+  [E] 82, 83, 85, 87, 88
+
+CORRECT ANSWER FIELD:
+84, 85, 85, 85, 86
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: MCQ | ID: 6a688096c3d08d90637d3c1d
+--------------------------------------------------------------------------------
+STEM:
+y=(x−25)(x−75)y = (x - 25)(x - 75)y=(x−25)(x−75) y=0y = 0y=0 The graphs of the equations in the given system of equations intersect at the point (x,y)(x, y)(x,y) in the xyxyxy-plane. What is a possible value of xxx?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 75
+  [B] (CORRECT KEY) 75
+  [C] 100
+  [D] 3
+  [E] 0
+
+CORRECT ANSWER FIELD:
+75
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: MCQ | ID: 6a68813fc3d08d90637d3c27
+--------------------------------------------------------------------------------
+STEM:
+The cost to rent a kayak consists of a fixed fee for the first hour and an hourly fee for each additional hour. The table shows the rental cost for 2 hours and for 4 hours. Rental hoursRental cost (dollars)2654125\begin{array}{|c|c|} \hline \text{Rental hours} & \text{Rental cost (dollars)} \\ \hline 2 & 65 \\ \hline 4 & 125 \\ \hline \end{array}Rental hours24​Rental cost (dollars)65125​​ Which function fff gives the rental cost, in dollars, for xxx hours rental, where x≥1x \ge 1x≥1?
+
+CHOICES (5):
+  [A] (CORRECT KEY) f(x)=30x+5f(x) = 30x + 5f(x)=30x+5
+  [B] (CORRECT KEY) f(x)=30x+5f(x) = 30x + 5f(x)=30x+5
+  [C] f(x)=35xf(x) = 35xf(x)=35x
+  [D] f(x)=30x+65f(x) = 30x + 65f(x)=30x+65
+  [E] f(x)=30xf(x) = 30xf(x)=30x
+
+CORRECT ANSWER FIELD:
+f(x)=30x+5f(x) = 30x + 5f(x)=30x+5
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a68820dc3d08d90637d3c2d
+--------------------------------------------------------------------------------
+STEM:
+g(x)=(38−2x)(32+2x)g(x) = (38 - 2x)(32 + 2x)g(x)=(38−2x)(32+2x) The function ggg is defined by the given equation. For what value of xxx does g(x)g(x)g(x) reach its maximum?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 1.5
+  [B] 3
+  [C] 35
+  [D] (CORRECT KEY) 1.5
+  [E] 17.5
+
+CORRECT ANSWER FIELD:
+1.5
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: MCQ | ID: 6a6882fbc3d08d90637d3c31
+--------------------------------------------------------------------------------
+STEM:
+Rectangle XXX has a length of 24 millimeters ( mmmmmm ) and a width of 7.5 mmmmmm. Right triangle YYY has a base of 60 mmmmmm. The area of rectangle XXX is 3 times the area of right triangle YYY. What is the height, in mmmmmm, of right triangle YYY?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 2
+  [B] 6
+  [C] (CORRECT KEY) 2
+  [D] 3
+  [E] 1
+
+CORRECT ANSWER FIELD:
+2
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a6883b5c3d08d90637d3c35
+--------------------------------------------------------------------------------
+STEM:
+There is a linear relationship between xxx and yyy. The table shows three values of xxx and their corresponding values of yyy in terms of a constant nnn. What is the slope of the line in the xyxyxy-plane that represents this relationship?xy0n4n+218n+42\begin{array}{|c|c|} \hline x & y \\ \hline 0 & n \\ \hline 4 & n + 21 \\ \hline 8 & n + 42 \\ \hline \end{array}x048​ynn+21n+42​​
+
+CHOICES (5):
+  [A] (CORRECT KEY) 214\frac{21}{4}421​
+  [B] 21
+  [C] 2
+  [D] (CORRECT KEY) 214\frac{21}{4}421​
+  [E] 12\frac{1}{2}21​
+
+CORRECT ANSWER FIELD:
+214\frac{21}{4}421​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a68849ec3d08d90637d3c4e
+--------------------------------------------------------------------------------
+STEM:
+If a=5k+6ra = 5k + 6ra=5k+6r and b=8k−11r+3b = 8k - 11r + 3b=8k−11r+3, which expression is equivalent to a−ba - ba−b?
+
+CHOICES (5):
+  [A] (CORRECT KEY) −3k−5r−3-3k - 5r - 3−3k−5r−3
+  [B] −3k+17r+3-3k + 17r + 3−3k+17r+3
+  [C] (CORRECT KEY) −3k−5r−3-3k - 5r - 3−3k−5r−3
+  [D] −3k+17r−3-3k + 17r - 3−3k+17r−3
+  [E] −3k−5r+3-3k - 5r + 3−3k−5r+3
+
+CORRECT ANSWER FIELD:
+−3k−5r−3-3k - 5r - 3−3k−5r−3
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: Essay | ID: 6a6884fcc3d08d90637d3c52
+--------------------------------------------------------------------------------
+STEM:
+An exponential function fff is defined by f(x)=cxf(x) = c^xf(x)=cx, where ccc is a constant greater than 1. If f(6)=25⋅f(4)f(6) = 25 \cdot f(4)f(6)=25⋅f(4), what is the value of ccc?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["5"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: Essay | ID: 6a688580c3d08d90637d3c56
+--------------------------------------------------------------------------------
+STEM:
+The function ggg is defined by g(x)=18x+31g(x) = 18x + 31g(x)=18x+31. For what value of xxx does g(x)=34g(x) = 34g(x)=34?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["1/6"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: Essay | ID: 6a68860dc3d08d90637d3c5a
+--------------------------------------------------------------------------------
+STEM:
+The equation h=9(v−273.15)5+32h = \frac{9(v - 273.15)}{5} + 32h=59(v−273.15)​+32 gives the corresponding temperature hhh, in degrees Fahrenheit, of any substance that has a temperature of vvv kelvins, where v>0v > 0v>0. If a substance has a temperature of 845.33 degrees Fahrenheit, what is the corresponding temperature, in kelvins, of this substance?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["725"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: MCQ | ID: 6a68868ac3d08d90637d3c5e
+--------------------------------------------------------------------------------
+STEM:
+25x2+1039x+p=025x^2 + 10\sqrt{39}x + p = 025x2+1039​x+p=0 In the given equation, ppp is a constant. The equation has exactly one real solution. What is the value of ppp ?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 393939
+  [B] 39\sqrt{39}39​
+  [C] 2392\sqrt{39}239​
+  [D] 392\frac{39}{2}239​
+  [E] (CORRECT KEY) 393939
+
+CORRECT ANSWER FIELD:
+393939
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: MCQ | ID: 6a688775c3d08d90637d3c68
+--------------------------------------------------------------------------------
+STEM:
+The function fff gives the value, in dollars, of a certain piece of equipment after xxx months of use. If the value of the equipment decreases each year by p%p\%p% of its value the preceding year, what is the value of ppp?f(x)=2,570(0.28)x12f(x) = 2,570(0.28)^{\frac{x}{12}}f(x)=2,570(0.28)12x​
+
+CHOICES (5):
+  [A] (CORRECT KEY) 72
+  [B] 10
+  [C] 28
+  [D] (CORRECT KEY) 72
+  [E] 2
+
+CORRECT ANSWER FIELD:
+72
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a6889a5c3d08d90637d3c6c
+--------------------------------------------------------------------------------
+STEM:
+In triangle RSTRSTRST, RS=STRS = STRS=ST and the length of RT‾\overline{RT}RT is 48 units. If tan⁡R=724\tan R = \frac{7}{24}tanR=247​, what is the area, in square units, of triangle RSTRSTRST?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 168
+  [B] (CORRECT KEY) 168
+  [C] 288
+  [D] 84
+  [E] 336
+
+CORRECT ANSWER FIELD:
+168
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a688a19c3d08d90637d3c70
+--------------------------------------------------------------------------------
+STEM:
+An equilateral triangle has a height of 21321\sqrt{3}213​ units. What is the length, in units, of one side of this triangle?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 42
+  [B] (CORRECT KEY) 42
+  [C] 21321\sqrt{3}213​
+  [D] 42342\sqrt{3}423​
+  [E] 21
+
+CORRECT ANSWER FIELD:
+42
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: MCQ | ID: 6a688aa5c3d08d90637d3c76
+--------------------------------------------------------------------------------
+STEM:
+Which expression is NOT a factor of 1,440x4−56,2501, 440x^4 - 56, 2501,440x4−56,250?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 2x2−52x^2 - 52x2−5
+  [B] 90
+  [C] 4x2+254x^2 + 254x2+25
+  [D] (CORRECT KEY) 2x2−52x^2 - 52x2−5
+  [E] 2x+52x + 52x+5
+
+CORRECT ANSWER FIELD:
+2x2−52x^2 - 52x2−5
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a688b1bc3d08d90637d3c80
+--------------------------------------------------------------------------------
+STEM:
+2970x=5940x2970x = 5940x2970x=5940x How many solutions does the equation have?
+
+CHOICES (5):
+  [A] (CORRECT KEY) Exactly one
+  [B] Infinitely many
+  [C] Exactly two
+  [D] Zero
+  [E] (CORRECT KEY) Exactly one
+
+CORRECT ANSWER FIELD:
+Exactly one
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: Essay | ID: 6a688be0c3d08d90637d3c84
+--------------------------------------------------------------------------------
+STEM:
+In the xyxyxy-plane, line rrr passes through the points (3, 12) and (7, 13). Line sss passes through the point (1, 2) and is perpendicular to line rrr. An equation of line sss is ax+7y=cax + 7y = cax+7y=c, where aaa and ccc are constants. What is the value of ccc?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["42"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: Essay | ID: 6a688c8ec3d08d90637d3c88
+--------------------------------------------------------------------------------
+STEM:
+For 100 neurons, the table summarizes the distribution of classification and cell body diameter.\multicolumn3c∣Cell body diameter (micrometers)ClassificationLess than 2020 to 30Greater than 30Sensory neuron1274Motor neuron01718Interneuron10320\begin{array}{|c|c|c|c|} \hline & \multicolumn{3}{c|}{\text{Cell body diameter (micrometers)}} \\ \hline \text{Classification} & \text{Less than 20} & \text{20 to 30} & \text{Greater than 30} \\ \hline \text{Sensory neuron} & 12 & 7 & 4 \\ \hline \text{Motor neuron} & 0 & 17 & 18 \\ \hline \text{Interneuron} & 10 & 32 & 0 \\ \hline \end{array}ClassificationSensory neuronMotor neuronInterneuron​\multicolumn3c∣Cell body diameter (micrometers)Less than 2012010​20 to 3071732​Greater than 304180​​ One of these neurons will be selected at random. What is the probability of selecting a neuron with a cell body diameter that is less than or equal to 30 micrometers, given that it is not classified as a motor neuron? (Express your answer as a decimal or fraction, not as a percent.)
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["0.93"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: MCQ | ID: 6a688d07c3d08d90637d3c8e
+--------------------------------------------------------------------------------
+STEM:
+The value of a painting increased by 179% from the end of 2017 to the end of 2018 and then decreased by 27% from the end of 2018 to the end of 2019. What was the net percentage increase in the value of the painting from the end of 2017 to the end of 2019?
+
+CHOICES (5):
+  [A] (CORRECT KEY) 103.67103.67%103.67
+  [B] 254.33254.33%254.33
+  [C] 152.00152.00%152.00
+  [D] 130.67130.67%130.67
+  [E] (CORRECT KEY) 103.67103.67%103.67
+
+CORRECT ANSWER FIELD:
+103.67103.67%103.67
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a688da0c3d08d90637d3c92
+--------------------------------------------------------------------------------
+STEM:
+5x+3y=65x + 3y = 65x+3y=6 The given equation is one equation in a system of two linear equations. If the system of equations has at least one solution, which of the following equations could be the other equation in the system? I 7.5x+4.5y=97.5x + 4.5y = 97.5x+4.5y=9 II 7.5x−4.5y=4.57.5x - 4.5y = 4.57.5x−4.5y=4.5
+
+CHOICES (5):
+  [A] (CORRECT KEY) I and II
+  [B] II only
+  [C] Neither I nor II
+  [D] (CORRECT KEY) I and II
+  [E] I only
+
+CORRECT ANSWER FIELD:
+I and II
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: Essay | ID: 6a688e61c3d08d90637d3c96
+--------------------------------------------------------------------------------
+STEM:
+In the figure shown, points A,B,CA, B, CA,B,C, and EEE lie on the circle, and AB<BCAB < BCAB<BC. Segment ACACAC is perpendicular to segment BEBEBE at point DDD, and BD=390BD = \sqrt{390}BD=390​. The diameter of the circle is 197. If CDAD=r\frac{CD}{AD} = rADCD​=r, what is the value of rrr?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1785237089/questionPic/tkyhawydoh5yc2ermelg.png
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["97.5","195/2"]
+
+EXPLANATION: [None provided]

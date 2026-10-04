@@ -1,0 +1,293 @@
+====================================================
+JUNE 2025 · US 1 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6e0f88f37fd34c9d2ad0f5 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785597831/questionPic/exnxosaeayhuuuu9ne4n.png
+STEM:
+The bar graph shows the distribution of flower type for the 700 flowers that a florist has in stock. For which two types of flowers is the total number of flowers of the two types exactly 25\frac{2}{5}52​ of the florist's stock?
+
+CORRECT ANSWER:
+Orchid and lily
+
+WRONG ANSWERS (4):
+  [1] Daisy and orchid
+  [2] Orchid and lily
+  [3] Orchid and sunflower
+  [4] Lily and sunflower
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6e101bf37fd34c9d2ad105 | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785597979/questionPic/n8kmuzebtwksvglbdncl.png
+STEM:
+The scatterplot shows the relationship between two variables, xxx and yyy , for data set A. A line of best fit for the data is also shown. Data set B is created by subtracting 11 units from the value of yyy for each data point from data set A. Which of the following is closest to the yyy -coordinate of the yyy -intercept of the line of best fit for data set B?
+
+CORRECT ANSWER:
+42.75
+
+WRONG ANSWERS (4):
+  [1] 62.75
+  [2] 53.75
+  [3] 42.75
+  [4] 31.75
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6e1082f37fd34c9d2ad111 | TYPE: MCQ
+STEM:
+If 4(2x+11)−2(2x−5)=−9+13x4(2x + 11) - 2(2x - 5) = -9 + 13x4(2x+11)−2(2x−5)=−9+13x , what is the value of 12x12x12x ?
+
+CORRECT ANSWER:
+84
+
+WRONG ANSWERS (4):
+  [1] 712\frac{7}{12}127​
+  [2] 7
+  [3] 12
+  [4] 84
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a6e10adf37fd34c9d2ad115 | TYPE: MCQ
+STEM:
+cubic centimeters. What is the density, in grams per cubic centimeter, of the object?
+
+CORRECT ANSWER:
+11
+
+WRONG ANSWERS (4):
+  [1] 11
+  [2] 280
+  [3] 280
+  [4] 8624
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6e10f1f37fd34c9d2ad119 | TYPE: MCQ
+STEM:
+In the xy-plane, which of the following does NOT contain any points that are part of the solution set to 3x−7y&gt;213x - 7y &gt; 213x−7y&gt;21 ?
+
+CORRECT ANSWER:
+x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+
+WRONG ANSWERS (4):
+  [1] x&lt;0x &lt; 0x&lt;0 and y&gt;0y &gt; 0y&gt;0
+  [2] x&lt;0x &lt; 0x&lt;0 and y&lt;0y &lt; 0y&lt;0
+  [3] x&gt;10x &gt; 10x&gt;10 and y&lt;0y &lt; 0y&lt;0
+  [4] The x-axis
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6e1127f37fd34c9d2ad11d | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785598247/questionPic/yn7ykhrhhaiehjagzemc.png
+STEM:
+Which equation defines the linear function fff ?
+
+CORRECT ANSWER:
+f(x)=−14x−9f(x) = -14x - 9f(x)=−14x−9
+
+WRONG ANSWERS (4):
+  [1] f(x)=−14x−9f(x) = -14x - 9f(x)=−14x−9
+  [2] f(x)=−14x−9f(x) = -14x - 9f(x)=−14x−9
+  [3] f(x)=−5x+8f(x) = -5x + 8f(x)=−5x+8
+  [4] f(x)=−14x+8f(x) = -14x + 8f(x)=−14x+8
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6e123cf37fd34c9d2ad123 | TYPE: MCQ
+STEM:
+In triangle FGHFGHFGH and triangle KLMKLMKLM , the measures of angles GGG and LLL are each 30∘30^\circ30∘ . The lengths of GH‾\overline{GH}GH and LM‾\overline{LM}LM are each 34 centimeters, and GHGF=LMLK\frac{GH}{GF} = \frac{LM}{LK}GFGH​=LKLM​ . Which additional piece of information would be necessary to prove that triangle FGHFGHFGH is congruent to triangle KLMKLMKLM ?
+
+CORRECT ANSWER:
+No additional information is necessary.
+
+WRONG ANSWERS (4):
+  [1] The lengths of FG‾\overline{FG}FG and KM‾\overline{KM}KM are each 17 centimeters.
+  [2] The measures of angles HHH and MMM are each 60∘60^\circ60∘ .
+  [3] The measures of angles FFF and KKK are each 90∘90^\circ90∘ .
+  [4] No additional information is necessary.
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6e12d5f37fd34c9d2ad127 | TYPE: MCQ
+STEM:
+Given the system of equations: y=3x+9y = 3x + 9y=3x+9 and 3y=8x−63y = 8x - 63y=8x−6 The solution to the given system of equations is (x,y)(x, y)(x,y) . What is the value of x−yx - yx−y ?
+
+CORRECT ANSWER:
+57
+
+WRONG ANSWERS (4):
+  [1] -123
+  [2] -33
+  [3] 3
+  [4] 57
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6e1310f37fd34c9d2ad12b | TYPE: Essay
+STEM:
+An exponential function fff is defined by f(x)=cxf(x) = c^xf(x)=cx , where ccc is a constant greater than 1. If f(6)=9⋅f(4)f(6) = 9 \cdot f(4)f(6)=9⋅f(4) , what is the value of ccc ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["3"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6e13fd808167941fdca6dd | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785598972/questionPic/bs2hgv0oqgfdyksid1gg.png
+STEM:
+In the right triangle shown, what is the value of sin⁡x∘\sin x^\circsinx∘ ?
+
+CORRECT ANSWER:
+6373\frac{63}{73}7363​
+
+WRONG ANSWERS (4):
+  [1] 173\frac{1}{73}731​
+  [2] 1073\frac{10}{73}7310​
+  [3] 6373\frac{63}{73}7363​
+  [4] 13673\frac{136}{73}73136​
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6e17e7808167941fdca799 | TYPE: Essay
+STEM:
+−x−wy=−337-x - wy = -337−x−wy=−337 2x−wy=472x - wy = 472x−wy=47 In the given system of equations, www is a constant. In the xyxyxy -plane, the graphs of these equations intersect at the point (q,19)(q, 19)(q,19) , where qqq is a constant. What is the value of www ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["11"]
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6e1898808167941fdca79d | TYPE: MCQ
+STEM:
+The table shows the distribution of two types of trees at two different sites. If a tree represented in the table is selected at random, what is the probability of selecting tree from site A, given that the tree is a red maple? (Express your answer as a decimal or fraction, not as a percent.)
+
+CORRECT ANSWER:
+3550\frac{35}{50}5035​
+
+WRONG ANSWERS (4):
+  [1] 0.30.30.3
+  [2] 13010\frac{130}{10}10130​
+  [3] 3550\frac{35}{50}5035​
+  [4] No such possibility
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6e19e5808167941fdca7a3 | TYPE: Essay
+STEM:
+A beaker containing a liquid is placed on a table. The function g(t)=295+(361−295)(2.72)−0.104tg(t) = 295 + (361 - 295)(2.72)^{-0.104t}g(t)=295+(361−295)(2.72)−0.104t gives the approximate temperature, in kelvins, of the liquid ttt minutes after the beaker was placed on the table. According to this function, what was the approximate temperature, in kelvins, of the liquid when the beaker was placed on the table?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["361"]
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6e1aa8808167941fdca7a9 | TYPE: MCQ
+STEM:
+For the exponential function fff , the value of f(1)f(1)f(1) is kkk , where kkk is a constant. Which of the following equivalent forms of the function fff shows the value of kkk as the coefficient or the base?
+
+CORRECT ANSWER:
+f(x)=144.5(1.7)x−1f(x) = 144.5(1.7)^{x-1}f(x)=144.5(1.7)x−1
+
+WRONG ANSWERS (4):
+  [1] f(x)=50(1.7)x+1f(x) = 50(1.7)^{x+1}f(x)=50(1.7)x+1
+  [2] f(x)=85(1.7)xf(x) = 85(1.7)^xf(x)=85(1.7)x
+  [3] f(x)=144.5(1.7)x−1f(x) = 144.5(1.7)^{x-1}f(x)=144.5(1.7)x−1
+  [4] f(x)=245.65(1.7)x−2f(x) = 245.65(1.7)^{x-2}f(x)=245.65(1.7)x−2
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6e1af8808167941fdca7ad | TYPE: MCQ
+STEM:
+y=9(a6)x+c−by = 9\left(\frac{a}{6}\right)^{x+c} - by=9(6a​)x+c−b How many times does the graph of the given equation in the xyxyxy -plane cross the xxx -axis, where aaa , bbb , and ccc are positive constants such that a&gt;6a &gt; 6a&gt;6 and b&gt;cb &gt; cb&gt;c ?
+
+CORRECT ANSWER:
+One
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] One
+  [3] Two
+  [4] Three
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6e1b80808167941fdca7b1 | TYPE: MCQ
+STEM:
+For a polynomial function fff , the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane contains the points (−6,0)(-6, 0)(−6,0) , (7,0)(7, 0)(7,0) , (0,0)(0, 0)(0,0) , and (4,0)(4, 0)(4,0) . Which of the following must be a factor of f(x)f(x)f(x) ?
+
+CORRECT ANSWER:
+x2−7xx^2 - 7xx2−7x
+
+WRONG ANSWERS (4):
+  [1] x2−2x−24x^2 - 2x - 24x2−2x−24
+  [2] x2−x+42x^2 - x + 42x2−x+42
+  [3] x2−11x−28x^2 - 11x - 28x2−11x−28
+  [4] x2−7xx^2 - 7xx2−7x
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6e1d73808167941fdca7b5 | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785601394/questionPic/dqjha0noenxf0biqll4t.png
+STEM:
+In the given figure, NP‾\overline{NP}NP is the diameter of semicircle OOO . Angles QQQ , RRR , and SSS are right angles, and point PPP is the midpoint of NQ‾\overline{NQ}NQ​ . If PQ=52PQ = 52PQ=52 feet and NS=18NS = 18NS=18 feet, the area of the figure can be expressed as aπ+ba\pi + baπ+b square feet, where aaa and bbb are integers. What is the value of a−ba - ba−b ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-1534"]
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6e1dee808167941fdca7bb | TYPE: MCQ
+STEM:
+15xy+xyz=14yz\frac{1}{5xy} + xyz = \frac{1}{4yz}5xy1​+xyz=4yz1​ In the given equation, xxx , yyy , and zzz are positive numbers. Which expression is equivalent to yyy ?
+
+CORRECT ANSWER:
+5x−4z20x2z2\sqrt{\frac{5x - 4z}{20x^2z^2}}20x2z25x−4z​​
+
+WRONG ANSWERS (4):
+  [1] 5x−4z20x2z2\frac{5x - 4z}{20x^2z^2}20x2z25x−4z​
+  [2] 5x−4z20x2z2\sqrt{\frac{5x - 4z}{20x^2z^2}}20x2z25x−4z​​
+  [3] 14xz2−5x2z\frac{1}{4xz^2 - 5x^2z}4xz2−5x2z1​
+  [4] 14xz2−5x2z\sqrt{\frac{1}{4xz^2 - 5x^2z}}4xz2−5x2z1​​
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6e1f345db514110caca794 | TYPE: MCQ
+STEM:
+The equation 2∣x−5∣=k2|x - 5| = k2∣x−5∣=k , where kkk is a constant, has exactly one solution. Which of the following could be the value of k2\frac{k}{2}2k​ ?
+
+CORRECT ANSWER:
+0 only
+
+WRONG ANSWERS (4):
+  [1] -5 only
+  [2] -5 or 5
+  [3] 0 only
+  [4] 5 only
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6e1f8e5db514110caca798 | TYPE: MCQ
+STEM:
+The percent increase in mass of a certain red kangaroo from 80 days old to 160 days old was 676%. If this red kangaroo's mass was kkk grams at 80 days old, which expression represents its mass, in grams, at 160 days old?
+
+CORRECT ANSWER:
+7.76k
+
+WRONG ANSWERS (4):
+  [1] 7.76k
+  [2] 6.76k
+  [3] 1.08k
+  [4] 0.08k
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6e22c75db514110caca79c | TYPE: MCQ
+STEM:
+The table shows three values of xxx and their corresponding values of g(x)g(x)g(x) , where g(x)=f(x)x+3g(x) = \frac{f(x)}{x+3}g(x)=x+3f(x)​ and fff is a linear function. What is the y-intercept of the graph of y=f(x)y = f(x)y=f(x) in the xy-plane? xg(x)−212−90154\begin{array}{|c|c|} \hline x &amp; g(x) \\ \hline -21 &amp; 2 \\ \hline -9 &amp; 0 \\ \hline 15 &amp; 4 \\ \hline \end{array}x−21−915​g(x)204​​
+
+CORRECT ANSWER:
+(0,27)(0, 27)(0,27)
+
+WRONG ANSWERS (4):
+  [1] (0,−9)(0, -9)(0,−9)
+  [2] (0,3)(0, 3)(0,3)
+  [3] (0,9)(0, 9)(0,9)
+  [4] (0,27)(0, 27)(0,27)
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6e23015db514110caca7a0 | TYPE: MCQ
+STEM:
+For groups of 25 or more people, a museum charges 28 USD per person for the first 25 people and 17 USD for each additional person. Which function fff gives the total charge, in dollars, for a tour group with nnn people, where n≥25n \ge 25n≥25 ?
+
+CORRECT ANSWER:
+f(n)=17n+275f(n) = 17n + 275f(n)=17n+275
+
+WRONG ANSWERS (4):
+  [1] f(n)=17n+275f(n) = 17n + 275f(n)=17n+275
+  [2] f(n)=17n+28f(n) = 17n + 28f(n)=17n+28
+  [3] f(n)=17n+700f(n) = 17n + 700f(n)=17n+700
+  [4] f(n)=45n−425f(n) = 45n - 425f(n)=45n−425
+

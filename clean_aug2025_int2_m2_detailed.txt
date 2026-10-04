@@ -1,0 +1,278 @@
+====================================================
+AUGUST 2025 · INT 2 — M2 (22 QUESTIONS)
+====================================================
+
+----------------------------------------------------
+QUESTION 1 | ID: 6a6ce567709cb26e3aea323d | TYPE: MCQ
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785521510/questionPic/uoqeccyted8jpsvdyocw.png
+STEM:
+Note: Figure not drawn to scale.In the figure, line shown line rrr is parallel to line sss . What is the value of xxx ?
+
+CORRECT ANSWER:
+21
+
+WRONG ANSWERS (4):
+  [1] 21
+  [2] 32
+  [3] 58
+  [4] 68
+
+----------------------------------------------------
+QUESTION 2 | ID: 6a6ce76d709cb26e3aea3243 | TYPE: MCQ
+STEM:
+y=(x−6)(x+5)y = (x - 6)(x + 5)y=(x−6)(x+5) y=11x−66y = 11x - 66y=11x−66 Which ordered pair (x,y)(x, y)(x,y) is the solution to the given system of equations?
+
+CORRECT ANSWER:
+(6,0)(6, 0)(6,0)
+
+WRONG ANSWERS (4):
+  [1] (6,0)(6, 0)(6,0)
+  [2] (6,−5)(6, -5)(6,−5)
+  [3] (0,6)(0, 6)(0,6)
+  [4] (−5,6)(-5, 6)(−5,6)
+
+----------------------------------------------------
+QUESTION 3 | ID: 6a6d167064c8e41fac128f61 | TYPE: MCQ
+STEM:
+There is a linear relationship between the amount of salt xxx , in grams, and the amount of water yyy , in liters, in a certain body of seawater. The table shows this relationship for three samples of this seawater. Amount of salt (grams)Amount of water (liters)217724882799\begin{array}{|c|c|} \hline \text{Amount of salt (grams)} &amp; \text{Amount of water (liters)} \\ \hline 217 &amp; 7 \\ \hline 248 &amp; 8 \\ \hline 279 &amp; 9 \\ \hline \end{array}Amount of salt (grams)217248279​Amount of water (liters)789​​ Which equation represents this relationship?
+
+CORRECT ANSWER:
+y=131xy = \frac{1}{31}xy=311​x
+
+WRONG ANSWERS (4):
+  [1] y=162xy = \frac{1}{62}xy=621​x
+  [2] y=131xy = \frac{1}{31}xy=311​x
+  [3] y=31xy = 31xy=31x
+  [4] y=62xy = 62xy=62x
+
+----------------------------------------------------
+QUESTION 4 | ID: 6a6d16b164c8e41fac128f65 | TYPE: Essay
+STEM:
+The function mmm is defined by m(x)=3x+6m(x) = 3x + 6m(x)=3x+6 , and the function ppp is defined by p(x)=6−xp(x) = 6 - xp(x)=6−x . What is the value of 2m(6)−p(6)2m(6) - p(6)2m(6)−p(6) ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["48"]
+
+----------------------------------------------------
+QUESTION 5 | ID: 6a6d16f564c8e41fac128f69 | TYPE: Essay
+STEM:
+What is the estimated breaking strength, in pounds, of a rope of this type that has a circumference of 8.50 inches? For a certain type of rope, the equation y=900ax2y = 900ax^2y=900ax2 , where aaa is a constant, gives the estimated breaking strength yyy , in pounds, of a rope with a circumference of xxx inches. Based on this equation, if a rope of this type has a circumference of 2.75 inches, it has an estimated breaking strength of 9,528.75 pounds.
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["91035"]
+
+----------------------------------------------------
+QUESTION 6 | ID: 6a6d174a64c8e41fac128f6d | TYPE: MCQ
+STEM:
+Kai used fabric measuring 4 yards in length to make each costume for a school play. The relationship between the number of costumes that Kai made, xxx , and the total length of fabric that he purchased yyy , in yards, is represented by the equation y−4x=5y - 4x = 5y−4x=5 . What is the best interpretation of 5 in this context?
+
+CORRECT ANSWER:
+Kai purchased 5 yards more fabric than he used to make the costumes.
+
+WRONG ANSWERS (4):
+  [1] Kai made 5 costumes.
+  [2] Kai purchased a total of 5 yards of fabric.
+  [3] Kai used a total of 5 yards of fabric to make the costumes.
+  [4] Kai purchased 5 yards more fabric than he used to make the costumes.
+
+----------------------------------------------------
+QUESTION 7 | ID: 6a6d17a364c8e41fac128f73 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=7x−165f(x) = 7x - 165f(x)=7x−165 . If the point (k,2k)(k, 2k)(k,2k) lies on the graph of y=f(x)y = f(x)y=f(x) in the xyxyxy -plane, where kkk is a constant, what is the value of kkk ?
+
+CORRECT ANSWER:
+33
+
+WRONG ANSWERS (4):
+  [1] 7
+  [2] 14
+  [3] 33
+  [4] 165
+
+----------------------------------------------------
+QUESTION 8 | ID: 6a6d17d664c8e41fac128f77 | TYPE: MCQ
+STEM:
+(x+k)2+31=31(x + k)^2 + 31 = 31(x+k)2+31=31 In the given equation, kkk is a constant. How many distinct real solutions does this equation have?
+
+CORRECT ANSWER:
+Exactly one
+
+WRONG ANSWERS (4):
+  [1] Zero
+  [2] Exactly one
+  [3] Exactly two
+  [4] Infinitely many
+
+----------------------------------------------------
+QUESTION 9 | ID: 6a6d186464c8e41fac128f7b | TYPE: Essay
+IMAGE: https://res.cloudinary.com/drxqzhgce/image/upload/v1785534564/questionPic/kln7xnuq8bne99qf09dz.png
+STEM:
+In quadrilateral KLMNKLMNKLMN shown, KL=3KL = 3KL=3 , LM=3LM = 3LM=3 , KN=27KN = 27KN=27 , and MN=27MN = 27MN=27 . Diagonals KMKMKM and LNLNLN (not shown) intersect at point GGG (not shown), where GK=1GK = 1GK=1 and GM=1GM = 1GM=1 . If the length of diagonal LNLNLN is p+w\sqrt{p} + \sqrt{w}p​+w​ , where ppp and of p+wp + wp+w ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["736"]
+
+----------------------------------------------------
+QUESTION 10 | ID: 6a6d188864c8e41fac128f7f | TYPE: MCQ
+STEM:
+Four different research groups each surveyed a random sample of students from a certain high school to estimate the percentage of students at the school who speak a second language. The table shows the resulting estimates and their associated margins of error. GroupPercentage of students who speak a second languageMargin of error141%13%245%11%345%8%447%15%\begin{array}{|c|c|c|} \hline \text{Group} &amp; \text{Percentage of students who speak a second language} &amp; \text{Margin of error} \\ \hline 1 &amp; 41\% &amp; 13\% \\ \hline 2 &amp; 45\% &amp; 11\% \\ \hline 3 &amp; 45\% &amp; 8\% \\ \hline 4 &amp; 47\% &amp; 15\% \\ \hline \end{array}Group1234​Percentage of students who speak a second language41%45%45%47%​Margin of error13%11%8%15%​​ Assuming the margins of error were calculated in the same way, which group had the largest sample size?
+
+CORRECT ANSWER:
+Group 3
+
+WRONG ANSWERS (4):
+  [1] Group 4
+  [2] Group 3
+  [3] Group 2
+  [4] Group 1
+
+----------------------------------------------------
+QUESTION 11 | ID: 6a6d196364c8e41fac128f91 | TYPE: MCQ
+STEM:
+In the given equation, ccc and kkk are constants. The equation has exactly one solution. Which of the following statements must be true? c(x−6)=−7(x+k)c(x - 6) = -7(x + k)c(x−6)=−7(x+k) Which of the following statements must be true?
+
+CORRECT ANSWER:
+A The value of ccc cannot be −7-7−7 .
+
+WRONG ANSWERS (4):
+  [1] A The value of ccc cannot be −7-7−7 .
+  [2] The value of ccc cannot be −76-\frac{7}{6}−67​
+  [3] The value of kkk cannot be 67\frac{6}{7}76​ .
+  [4] The value of kkk −6-6−6
+
+----------------------------------------------------
+QUESTION 12 | ID: 6a6d19b964c8e41fac128f95 | TYPE: Essay
+STEM:
+During the first 8.00 seconds after a car started moving, its speed increased to 11.0 meters per second. From 8.00 seconds to 14.0 seconds after the car started moving, its speed increased from 11.0 meters per second to 23.0 meters per second. To the nearest hundredth, what is the positive difference between the average rate of change of the speed of the car, in meters per second per second, during the first 8.00 seconds after the car started moving and the average rate of change of the speed of the car, in meters per second per second, from 8.00 seconds to 14.0 seconds after the car started moving?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["63/100","0.63",".63"]
+
+----------------------------------------------------
+QUESTION 13 | ID: 6a6d1a3164c8e41fac128f99 | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=ax−bf(x) = a^x - bf(x)=ax−b , where aaa and bbb are constants. In the xyxyxy -plane, the graph of y=f(x)y = f(x)y=f(x) passes through the points (c,4)(c, 4)(c,4) and (2c,114)(2c, 114)(2c,114) , where ccc is a constant. Which of the following could be the value of bbb ?
+
+CORRECT ANSWER:
+7
+
+WRONG ANSWERS (4):
+  [1] 7
+  [2] 14
+  [3] 110
+  [4] 118
+
+----------------------------------------------------
+QUESTION 14 | ID: 6a6d1afa14cab24f9785a495 | TYPE: MCQ
+STEM:
+f(x)=4x2+56x+197f(x) = 4x^2 + 56x + 197f(x)=4x2+56x+197 The function ggg is defined by g(x)=f(x+6)g(x) = f(x + 6)g(x)=f(x+6) . What is the minimum value of g(x)g(x)g(x) ?
+
+CORRECT ANSWER:
+1
+
+WRONG ANSWERS (4):
+  [1] -13
+  [2] -7
+  [3] 1
+  [4] 7
+
+----------------------------------------------------
+QUESTION 15 | ID: 6a6d1b4414cab24f9785a4c4 | TYPE: MCQ
+STEM:
+A circle in the xyxyxy -plane has its center at (−4,−7)(-4, -7)(−4,−7) . Line kkk is tangent to this circle at the point (−7,−8)(-7, -8)(−7,−8) . What is the slope of line kkk ?
+
+CORRECT ANSWER:
+-3
+
+WRONG ANSWERS (4):
+  [1] -3
+  [2] −13-\frac{1}{3}−31​
+  [3] 13\frac{1}{3}31​
+  [4] 333
+
+----------------------------------------------------
+QUESTION 16 | ID: 6a6d1b9b14cab24f9785a4f9 | TYPE: Essay
+STEM:
+(x−k)2=(k−4a)(x−k)(x - k)^2 = (k - 4a)(x - k)(x−k)2=(k−4a)(x−k) aaa and kkk are constants, where k&gt;4ak &gt; 4ak&gt;4a . The sum of the solutions to the equation is 3k+373k + 373k+37 . What is the value of aaa ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-37/4","-9.25"]
+
+----------------------------------------------------
+QUESTION 17 | ID: 6a6d1bc014cab24f9785a519 | TYPE: MCQ
+STEM:
+Javier deposits 45 dollars in a savings account at the end of each week. At the beginning of the 1st week of a year there was 900 dollars in that savings account. How much money, in dollars, will be in the account at the end of the 4th week of the year?
+
+CORRECT ANSWER:
+1,080
+
+WRONG ANSWERS (4):
+  [1] 720
+  [2] 945
+  [3] 949
+  [4] 1,080
+
+----------------------------------------------------
+QUESTION 18 | ID: 6a6d1c2514cab24f9785a56a | TYPE: MCQ
+STEM:
+The function fff is defined by f(x)=ax−bf(x) = a^x - bf(x)=ax−b , where aaa and bbb are constants. In the xyxyxy -plane, the graph of y=f(x)y = f(x)y=f(x) passes through the points (c,5)(c, 5)(c,5) and (2c,137)(2c, 137)(2c,137) , where ccc is a constant. Which of the following could be the value of bbb ?
+
+CORRECT ANSWER:
+7
+
+WRONG ANSWERS (4):
+  [1] 7
+  [2] 16
+  [3] 132
+  [4] 142
+
+----------------------------------------------------
+QUESTION 19 | ID: 6a6d1c5214cab24f9785a5aa | TYPE: MCQ
+STEM:
+The percent increase in mass of a certain red kangaroo from 90 days old to 160 days old was 438%. If this red kangaroo's mass was kkk grams at 90 days old, which expression represents its mass, in grams, at 160 days old?
+
+CORRECT ANSWER:
+5.38k5.38k5.38k
+
+WRONG ANSWERS (4):
+  [1] 0.06k0.06k0.06k
+  [2] 1.06k1.06k1.06k
+  [3] 4.38k4.38k4.38k
+  [4] 5.38k5.38k5.38k
+
+----------------------------------------------------
+QUESTION 20 | ID: 6a6d1d2114cab24f9785a68c | TYPE: MCQ
+STEM:
+Javier deposits 55 dollars in a savings account at the end of each week. At the beginning of the 1st week of a year there was 900 dollars in that savings account. How much money, in dollars, will be in the account at the end of the 4th week of the year?
+
+CORRECT ANSWER:
+1,120
+
+WRONG ANSWERS (4):
+  [1] 680
+  [2] 955
+  [3] 959
+  [4] 1,120
+
+----------------------------------------------------
+QUESTION 21 | ID: 6a6d1d8414cab24f9785a69e | TYPE: MCQ
+STEM:
+Which ordered pair (x,y)(x, y)(x,y) is the solution to the given system of equations? y=(x−8)(x+4)y = (x - 8)(x + 4)y=(x−8)(x+4) y=12x−96y = 12x - 96y=12x−96
+
+CORRECT ANSWER:
+(8,0)(8, 0)(8,0)
+
+WRONG ANSWERS (4):
+  [1] (0,8)(0, 8)(0,8)
+  [2] (−4,8)(-4, 8)(−4,8)
+  [3] (8,0)(8, 0)(8,0)
+  [4] (8,−4)(8, -4)(8,−4)
+
+----------------------------------------------------
+QUESTION 22 | ID: 6a6d1dbd14cab24f9785a6a2 | TYPE: Essay
+STEM:
+A quadratic equation is given: −x2+bx−49=0-x^2 + bx - 49 = 0−x2+bx−49=0 . In the given equation, bb b is an integer. The equation has no real solutions. What is the least possible value of bbb ?
+
+CORRECT GRID-IN / ESSAY ANSWER:
+["-13"]
+

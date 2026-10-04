@@ -1,0 +1,356 @@
+================================================================================
+MARCH 2026 · US 1 · MODULE 2 - AUDIT & REVISION
+Total Questions: 22
+================================================================================
+
+--------------------------------------------------------------------------------
+QUESTION 1 | Type: MCQ | ID: 6a51b5e34d554e04aa1befee
+--------------------------------------------------------------------------------
+STEM:
+A total of 50 people attended a conference and were offered 4 types of entrees. The table shows the number of people who chose each type of entree. \begin{array}{|c|c|} \hline \rule{0pt}{15pt} \text{Type of entree} & \text{Number of people} \\ \hline \rule{0pt}{15pt} \text{Beef} & 20 \\ \hline \rule{0pt}{15pt} \text{Chicken} & 19 \\ \hline \rule{0pt}{15pt} \text{Fish} & 2 \\ \hline \rule{0pt}{15pt} \text{Vegetarian} & 9 \\ \hline \rule{0pt}{15pt} \text{Total} & 50 \\ \hline \end{array} Type of entree Beef Chicken Fish Vegetarian Total ​ Number of people 20 19 2 9 50 ​ ​ If one of these people is selected at random, what is the probability of selecting a person who chose a vegetarian entree?
+
+CHOICES (4):
+  [A] \frac{9}{100} 100 9 ​
+  [B] (CORRECT KEY) \frac{9}{50} 50 9 ​
+  [C] \frac{1}{4} 4 1 ​
+  [D] \frac{1}{10} 10 1 ​
+
+CORRECT ANSWER FIELD:
+\frac{9}{50} 50 9 ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 2 | Type: MCQ | ID: 6a51b65a4d554e04aa1bf007
+--------------------------------------------------------------------------------
+STEM:
+If 3x = 7 3 x = 7 , what is the value of 12x 12 x ?
+
+CHOICES (4):
+  [A] 3
+  [B] 11
+  [C] 25
+  [D] (CORRECT KEY) 28
+
+CORRECT ANSWER FIELD:
+28
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 3 | Type: Essay | ID: 6a51b6f84d554e04aa1bf013
+--------------------------------------------------------------------------------
+STEM:
+The function f f is defined by the equation f(x) = 32x f ( x ) = 32 x . What is the value of f(10) f ( 10 ) ?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["320"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 4 | Type: Essay | ID: 6a5259f84d554e04aa1bf136
+--------------------------------------------------------------------------------
+STEM:
+The expression 4x^3 \cdot 3x^4 4 x 3 ⋅ 3 x 4 is equivalent to bx^7 b x 7 , where b b is a constant. What is the value of b b ?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["12"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 5 | Type: MCQ | ID: 6a525a634d554e04aa1bf142
+--------------------------------------------------------------------------------
+STEM:
+y = 10x + 48 One of the two equations in a system of linear equations is given. The system has infinitely many solutions. Which equation could be the second equation in this system?
+
+CHOICES (4):
+  [A] y - 10x = -48 y − 10 x = − 48
+  [B] (CORRECT KEY) y - 10x = 48 y − 10 x = 48
+  [C] y - 12x = 24 y − 12 x = 24
+  [D] y - 12x = 0 y − 12 x = 0
+
+CORRECT ANSWER FIELD:
+y - 10x = 48 y − 10 x = 48
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 6 | Type: MCQ | ID: 6a525c754d554e04aa1bf157
+--------------------------------------------------------------------------------
+STEM:
+In the right triangle shown, what is the value of \cos(A) cos ( A ) ?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783782517/questionPic/ii1fdzqvjrkahiwmp666.png
+
+CHOICES (4):
+  [A] \frac{1}{43} 43 1 ​
+  [B] \frac{1}{22} 22 1 ​
+  [C] (CORRECT KEY) \frac{22}{43} 43 22 ​
+  [D] \frac{43}{22} 22 43 ​
+
+CORRECT ANSWER FIELD:
+\frac{22}{43} 43 22 ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 7 | Type: MCQ | ID: 6a525dde4d554e04aa1bf175
+--------------------------------------------------------------------------------
+STEM:
+The given equation relates the resistance R R , in ohms, of a wire to its length l l , in meters, and its cross-sectional area A A , in square meters. Which equation correctly expresses the length, in meters, of the wire in terms of its resistance, in ohms, and its cross-sectional area, in square meters? R = \frac{0.43l}{A} R = A 0.43 l ​
+
+CHOICES (4):
+  [A] (CORRECT KEY) l = \frac{RA}{0.43} l = 0.43 R A ​
+  [B] l = \frac{R+A}{0.43} l = 0.43 R + A ​
+  [C] l = \frac{0.43R}{A} l = A 0.43 R ​
+  [D] l = \frac{AR}{0.43} l = 0.43 A R ​
+
+CORRECT ANSWER FIELD:
+l = \frac{RA}{0.43} l = 0.43 R A ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 8 | Type: MCQ | ID: 6a525e5a4d554e04aa1bf17b
+--------------------------------------------------------------------------------
+STEM:
+There are 450 objects in a box. Of these objects,8\% 8% are spheres. How many spheres are in the box?
+
+CHOICES (4):
+  [A] 8
+  [B] (CORRECT KEY) 36
+  [C] 180
+  [D] 442
+
+CORRECT ANSWER FIELD:
+36
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 9 | Type: MCQ | ID: 6a525ec84d554e04aa1bf187
+--------------------------------------------------------------------------------
+STEM:
+A rectangle has a length of 10 centimeters and a width of 6.000 centimeters. What is the area, in square centimeters, of the rectangle?
+
+CHOICES (4):
+  [A] 10
+  [B] 6.010
+  [C] (CORRECT KEY) 60.000
+  [D] 66.000
+
+CORRECT ANSWER FIELD:
+60.000
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 10 | Type: Essay | ID: 6a525fdc4d554e04aa1bf191
+--------------------------------------------------------------------------------
+STEM:
+The figure shown is a right rectangular pyramid, where l = 16 l = 16 units, w = 8 w = 8 units, and h = 18 h = 18 units. What is the surface area, in square units, of the pyramid? Express your answer as a decimal rounded to the nearest tenth.
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783783387/questionPic/vhvwiau4py3wnl2m2zpl.png
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["580.6"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 11 | Type: MCQ | ID: 6a5261c04d554e04aa1bf1b0
+--------------------------------------------------------------------------------
+STEM:
+How many solutions does the equation 6x + 4 = 22 6 x + 4 = 22 have?
+
+CHOICES (4):
+  [A] (CORRECT KEY) Exactly one
+  [B] Exactly two
+  [C] Infinitely many
+  [D] Zero
+
+CORRECT ANSWER FIELD:
+Exactly one
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 12 | Type: MCQ | ID: 6a52623d4d554e04aa1bf1b6
+--------------------------------------------------------------------------------
+STEM:
+The function f f is defined by f(x) = 3x - 7 f ( x ) = 3 x − 7 . If f(a + 1) = 2a f ( a + 1 ) = 2 a , what is the value of a a ?
+
+CHOICES (4):
+  [A] 1
+  [B] (CORRECT KEY) 4
+  [C] 6
+  [D] 8
+
+CORRECT ANSWER FIELD:
+4
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 13 | Type: Essay | ID: 6a5263144d554e04aa1bf1bc
+--------------------------------------------------------------------------------
+STEM:
+7x + 12y = 180 7 x + 12 y = 180 The equation gives the possible combinations of the number of mugs, x x , and the number of plates, y y , in a collection that is worth a total of dollar180. If there are 8 plates in the collection, how many mugs are in the collection?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["12"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 14 | Type: MCQ | ID: 6a5263854d554e04aa1bf1cc
+--------------------------------------------------------------------------------
+STEM:
+The scatterplot shows the relationship between two variables, x x and y y . A line of best fit is also shown. Which of the following equations best represents the line of best fit shown?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783784324/questionPic/xt1ycntjiconljmawc91.png
+
+CHOICES (4):
+  [A] y = 12.4 + 0.7x y = 12.4 + 0.7 x
+  [B] (CORRECT KEY) y = 12.4 - 0.7x y = 12.4 − 0.7 x
+  [C] y = -12.4 + 0.7x y = − 12.4 + 0.7 x
+  [D] y = 12.4x - 0.7x y = 12.4 x − 0.7 x
+
+CORRECT ANSWER FIELD:
+y = 12.4 - 0.7x y = 12.4 − 0.7 x
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 15 | Type: MCQ | ID: 6a5264254d554e04aa1bf1e5
+--------------------------------------------------------------------------------
+STEM:
+Which expression is equivalent to 4x^3 + 20x^2 4 x 3 + 20 x 2 ?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 4x^2(x + 5) 4 x 2 ( x + 5 )
+  [B] 4x^2 + 5 4 x 2 + 5
+  [C] 4x^3 + 16 4 x 3 + 16
+  [D] x^3 + 20x x 3 + 20 x
+
+CORRECT ANSWER FIELD:
+4x^2(x + 5) 4 x 2 ( x + 5 )
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 16 | Type: MCQ | ID: 6a5264f34d554e04aa1bf1f1
+--------------------------------------------------------------------------------
+STEM:
+In triangle KST K S T , the length of RS R S is 21, and the length of ST S T is 9. Triangle RST R S T is dilated by a scale factor of \frac{1}{3} 3 1 ​ to obtain triangle R'S'T' R ′ S ′ T ′ . What is the length of S'T' S ′ T ′ ?
+
+CHOICES (4):
+  [A] (CORRECT KEY) 3
+  [B] 7
+  [C] 27
+  [D] 63
+
+CORRECT ANSWER FIELD:
+3
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 17 | Type: MCQ | ID: 6a52657e4d554e04aa1bf201
+--------------------------------------------------------------------------------
+STEM:
+z = y + 47x z = y + 47 x The given equation relates the distinct positive values x x , y y , and z z . Which equation correctly expresses x x in terms of y y and z z ?
+
+CHOICES (4):
+  [A] x = 47z^2 - y x = 47 z 2 − y
+  [B] x = 47z - y^2 x = 47 z − y 2
+  [C] (CORRECT KEY) x = \frac{z-y}{47} x = 47 z − y ​
+  [D] x = \frac{z-y^2}{47} x = 47 z − y 2 ​
+
+CORRECT ANSWER FIELD:
+x = \frac{z-y}{47} x = 47 z − y ​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 18 | Type: MCQ | ID: 6a52661b4d554e04aa1bf215
+--------------------------------------------------------------------------------
+STEM:
+A cable company charges new customers a onetime installation fee and a monthly service fee for cable service. The equation y = 50x + 120 y = 50 x + 120 gives the total amount y y , in dollars, the cable company charges new customers for x x months of cable service. What is the amount, in dollars, of the onetime installation fee the cable company charges new customers?
+
+CHOICES (4):
+  [A] 170
+  [B] (CORRECT KEY) 120
+  [C] 70
+  [D] 0
+
+CORRECT ANSWER FIELD:
+120
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 19 | Type: MCQ | ID: 6a52681a4d554e04aa1bf22b
+--------------------------------------------------------------------------------
+STEM:
+Which shaded region represents the solutions to the inequality 4x + 5y < 9 4 x + 5 y < 9 ?
+
+QUESTION PIC: https://res.cloudinary.com/drxqzhgce/image/upload/v1783785497/questionPic/geqxki3cpqw9hdpe5hu3.png
+
+CHOICES (4):
+  [A] (CORRECT KEY) ​
+  [B] (CORRECT KEY) ​
+  [C] (CORRECT KEY) ​
+  [D] (CORRECT KEY) ​
+
+CORRECT ANSWER FIELD:
+​
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 20 | Type: Essay | ID: 6a526a854d554e04aa1bf241
+--------------------------------------------------------------------------------
+STEM:
+In the xy x y -plane, line k k has a slope of \frac{5}{13} 13 5 ​ , an x x -intercept of (-6, 0) ( − 6 , 0 ) , and a y y -intercept of (0, p) ( 0 , p ) . What is the value of p p ?
+
+STUDENT-PRODUCED RESPONSE (GRID-IN / ESSAY):
+ACCEPTED ANSWERS: ["30/13","2.307","2.308"]
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 21 | Type: MCQ | ID: 6a526b154d554e04aa1bf247
+--------------------------------------------------------------------------------
+STEM:
+The measure of angle S S is \frac{\pi}{11} 11 π ​ radians. The measure of angle T T is 2 times the measure of angle S S . Which expression represents the measure, in degrees, of angle T T ?
+
+CHOICES (4):
+  [A] \frac{9\pi}{11} \times 902 11 9 π ​ × 902
+  [B] \frac{9\pi}{11} \times 1802 11 9 π ​ × 1802
+  [C] \frac{9\pi}{11} \times 902 11 9 π ​ × 902
+  [D] (CORRECT KEY) \frac{\pi}{11} \times 1802 11 π ​ × 1802
+
+CORRECT ANSWER FIELD:
+\frac{\pi}{11} \times 1802 11 π ​ × 1802
+
+EXPLANATION: [None provided]
+
+--------------------------------------------------------------------------------
+QUESTION 22 | Type: MCQ | ID: 6a526c0e4d554e04aa1bf25c
+--------------------------------------------------------------------------------
+STEM:
+A research manager selected 2 random samples of ovens of a certain type to estimate the average amount of time this type of oven takes to preheat to 350 degrees Fahrenheit (^\circ\text{F} ∘ F ). The research manager recorded the amount of time, in minutes, each oven takes to preheat to 350^\circ\text{F} ∘ F , with an associated margin of error of 1 minute. Based on the second sample, the research manager estimated that this type of oven takes an average of 14.4 minutes to preheat to 350^\circ\text{F} ∘ F , with an associated margin of error of 2.2 minutes. Assuming the margins of error were calculated the same way, which of the following best explains why the first sample obtained a smaller margin of error than the second sample?
+
+CHOICES (4):
+  [A] The first sample contained fewer ovens than the second sample.
+  [B] (CORRECT KEY) The first sample contained more ovens than the second sample.
+  [C] The first sample took less time on average to preheat to 350^\circ\text{F} ∘ F than the second sample.
+  [D] The first sample took more time on average to preheat to 350^\circ\text{F} ∘ F than the second sample.
+
+CORRECT ANSWER FIELD:
+The first sample contained more ovens than the second sample.
+
+EXPLANATION: [None provided]
