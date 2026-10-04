@@ -48,7 +48,7 @@ ${weaknessesText}
 Write a short, personalized, 3-sentence paragraph offering encouragement and identifying exactly what they need to focus on. Keep it professional, empathetic, and actionable. Do not use markdown like bolding or bullets, just clean text. Address the student directly ("You").`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-3.8-flash',
             contents: prompt,
         });
 
