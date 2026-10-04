@@ -51,6 +51,34 @@ const callGemini = async (prompt, json = false) => {
 
 const cleanText = (t = '') => String(t).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
 
+// Offline keyword classifier (fallback when Gemini is unavailable)
+const RULES = [
+    ['Probability', /probabilit|at random|chosen randomly/i],
+    ['Circles', /circle|radius|diameter|\barc\b|circumference|sector/i],
+    ['Right triangles and trigonometry', /\\sin|\\cos|\\tan|\bsin\b|\bcos\b|\btan\b|right triangle|hypotenuse|radian/i],
+    ['Area and volume', /\barea\b|volume|cube\b|cylinder|sphere|cone|prism|surface/i],
+    ['Lines, angles and triangles', /angle|triangle|parallel|degree|perpendicular|similar|congruent/i],
+    ['Percentages', /percent|%/i],
+    ['Units and conversions', /convert|inches|feet|meters|kilometers|miles|gallons|liters|ounces|pounds/i],
+    ['Ratios, rates and proportions', /ratio|proportion|\brate\b|for every|per hour|per minute/i],
+    ['Two-variable data and scatterplots', /scatterplot|line of best fit|scatter/i],
+    ['One-variable data (mean, median, spread)', /\bmean\b|median|\bmode\b|average|standard deviation|\brange\b|data set|frequency/i],
+    ['Statistical inference and studies', /survey|margin of error|population|randomly selected|study/i],
+    ['Exponential functions', /exponential|doubles|half-life|grows by|decays|\^\{?[a-z]/i],
+    ['Quadratic functions', /quadratic|parabola|vertex|\^2|\^\{2\}|²/i],
+    ['Polynomials and radicals', /polynomial|sqrt|√|radical|\^3|\^\{3\}/i],
+    ['Systems of linear equations', /system of|systems of|how many solutions|\(x, ?y\)/i],
+    ['Linear inequalities', /inequalit|[<>≤≥]|\\le|\\ge|at least|at most/i],
+    ['Linear functions', /f\(x\)|function|slope|intercept|linear model/i],
+    ['Linear equations in two variables', /\by\s*=|xy-plane/i],
+    ['Equivalent expressions', /equivalent|expression|simplif|factor/i],
+];
+const localClassify = (q) => {
+    const text = `${cleanText(q.question)} ${(q.wrongAnswer || []).join(' ')} ${q.correctAnswer || ''}`;
+    for (const [lesson, re] of RULES) if (re.test(text)) return lesson;
+    return 'Linear equations in one variable';
+};
+
 // Classify questions without a topic, save the result in DB (so each question is classified only once)
 const classifyQuestions = async (questions) => {
     const pending = questions.filter(q => q && !q.topic);
@@ -81,8 +109,15 @@ ${JSON.stringify(items)}`;
             });
             if (ops.length) await questionModel.bulkWrite(ops);
         } catch (e) {
-            console.error('Classification batch failed:', e.message);
+            console.error('Classification batch failed, using local classifier:', e.message);
         }
+        // Anything Gemini didn't classify gets the local keyword classifier
+        const fallbackOps = [];
+        batch.filter(q => !q.topic).forEach(q => {
+            q.topic = localClassify(q);
+            fallbackOps.push({ updateOne: { filter: { _id: q._id }, update: { $set: { topic: q.topic } } } });
+        });
+        if (fallbackOps.length) await questionModel.bulkWrite(fallbackOps).catch(err => console.error(err.message));
     }
 };
 
