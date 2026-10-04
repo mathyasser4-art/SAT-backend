@@ -1,7 +1,7 @@
-const answerModel = require('../../DB/models/answer.model');
-const questionModel = require('../../DB/models/question.model');
-const chapterModel = require('../../DB/models/chapter.model');
-const assignmentModel = require('../../DB/models/assignment.model');
+const answerModel = require('../../../DB/models/answer.model');
+const questionModel = require('../../../DB/models/question.model');
+const chapterModel = require('../../../DB/models/chapter.model');
+const assignmentModel = require('../../../DB/models/assignment.model');
 const { GoogleGenAI } = require('@google/genai');
 
 const analyzeMistakes = async (req, res) => {
