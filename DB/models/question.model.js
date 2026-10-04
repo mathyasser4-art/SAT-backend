@@ -36,6 +36,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    topic: {
+        type: String,
+        default: null // AI-classified SAT lesson (cached)
+    },
 })
 
 const questionModel = mongoose.model('question', questionSchema)
