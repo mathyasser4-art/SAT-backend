@@ -47,14 +47,30 @@ ${weaknessesText}
 
 Write a short, personalized, 3-sentence paragraph offering encouragement and identifying exactly what they need to focus on. Keep it professional, empathetic, and actionable. Do not use markdown like bolding or bullets, just clean text. Address the student directly ("You").`;
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: prompt,
-        });
+        const models = ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.0-flash'];
+        let text = null;
+        let lastError = null;
+        for (const model of models) {
+            try {
+                const response = await ai.models.generateContent({ model, contents: prompt });
+                if (response && response.text) { text = response.text; break; }
+            } catch (e) {
+                lastError = e;
+                console.error(`AI model ${model} failed:`, e.message);
+            }
+        }
+
+        if (!text) {
+            // Fallback so the student still gets guidance even if Gemini is unavailable
+            text = `You're making real progress, and your results show exactly where to focus next: ${weaknessesText}. ` +
+                `Revisit the lessons for ${topWeaknesses[0].chapter} first, re-solve the questions you missed, and pay attention to why each wrong choice was tempting. ` +
+                `Then take the custom practice test below to lock in these skills.`;
+        }
 
         res.json({ 
-            analysis: response.text, 
-            topWeaknesses: topWeaknesses.map(w => w.chapter) 
+            analysis: text, 
+            topWeaknesses: topWeaknesses.map(w => w.chapter),
+            aiError: text && lastError && !text.startsWith("You're making real progress") ? undefined : (lastError ? lastError.message : undefined)
         });
 
     } catch (err) {
