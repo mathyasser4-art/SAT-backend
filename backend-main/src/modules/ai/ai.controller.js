@@ -1,6 +1,7 @@
 const answerModel = require('../../DB/models/answer.model');
 const questionModel = require('../../DB/models/question.model');
 const chapterModel = require('../../DB/models/chapter.model');
+const assignmentModel = require('../../DB/models/assignment.model');
 const { GoogleGenAI } = require('@google/genai');
 
 const analyzeMistakes = async (req, res) => {
@@ -79,10 +80,35 @@ const generateTest = async (req, res) => {
             { $sample: { size: 10 } }
         ]);
 
-        // Return the question data to the frontend to build the exam dynamically
+        if (questions.length === 0) {
+            return res.status(400).json({ message: "No questions found for these topics." });
+        }
+
+        const questionIds = questions.map(q => q._id);
+        const studentId = req.userData._id;
+
+        // Create a custom assignment for the student
+        const newAssignment = new assignmentModel({
+            title: `AI Revision: ${weaknesses[0] || 'Mixed'}`,
+            questions: questionIds,
+            createdBy: studentId, // AI generated, assign creator to student
+            classes: [], // No class
+            students: [{ attempts: 0, solveBy: studentId }],
+            createdAt: new Date().toISOString(),
+            timer: 30, // 30 minutes
+            startDate: new Date().toISOString(),
+            endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week
+            attemptsNumber: 100, // virtually unlimited
+            explanationMode: 'independent',
+            totalPoints: questions.length
+        });
+
+        const savedAssignment = await newAssignment.save();
+
+        // Return the assignment ID to the frontend to redirect
         res.json({
             message: "AI Revision Test Generated",
-            questions
+            assignmentId: savedAssignment._id
         });
 
     } catch (err) {
