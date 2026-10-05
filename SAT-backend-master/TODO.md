@@ -1,1 +1,0 @@
-# Bypass Admin Auth for Questions\n✅ DONE - 1,2,3 (publicAdminAuth added, routes updated)\n\n4. [ ] Git commit/push/PR to `blackboxai/public-admin`\n5. [ ] Test `POST /question/addQuestion` no token\n6. [ ] Merge → Railway deploy → Dashboard adds questions freely
