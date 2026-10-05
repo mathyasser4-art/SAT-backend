@@ -2,11 +2,11 @@ const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../services/jwtSecret');
 
-const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
+const isDashboardAuthDisabled = () => process.env.NODE_ENV === 'development' && process.env.DISABLE_ADMIN_AUTH === 'true';
 
 const allowDashboardBypass = (req, next, role = 'admin') => {
     if (isDashboardAuthDisabled()) {
-        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['authrization'] || req.headers['token'];
+        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['token'];
         if (!rawAuthHeader) {
             req.userData = { role };
             next();
@@ -18,14 +18,12 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
 };
 
 const extractTokenFromHeader = (headers) => {
-    return headers.authorization || headers.authrization || headers['auth-token'];
+    return headers.authorization || headers['auth-token'];
 };
 
 const getTokenFromAuthHeader = (authHeader) => {
     if (!authHeader) return null;
-    if (authHeader.startsWith('pracYas09')) {
-        return authHeader.slice(9);
-    }
+    
     if (process.env.AUTH_SECRET_KEY && authHeader.startsWith(process.env.AUTH_SECRET_KEY)) {
         return authHeader.slice(process.env.AUTH_SECRET_KEY.length);
     }
