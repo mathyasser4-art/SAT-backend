@@ -97,18 +97,9 @@ app.use(limiter);
 const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter } = require('./router/allRoutes');
 app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter);
 
-const request = require('request')
 const CronJob = require('cron').CronJob;
 const { startHwCleanupCron } = require('./src/services/hwCleanupCron');
 startHwCleanupCron();
-
-// new CronJob('*/10 * * * *', function () {
-//     request('https://practice-papers.onrender.com/', function (error, response, body) {
-//         if (!error && response.statusCode == 200) {
-//             console.log('Wake up the server')
-//         }
-//     })
-// }, null, true, 'America/New_York')
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
