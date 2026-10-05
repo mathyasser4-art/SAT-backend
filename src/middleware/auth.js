@@ -2,11 +2,14 @@ const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../services/jwtSecret');
 
-const isDashboardAuthDisabled = () => process.env.NODE_ENV === 'development' && process.env.DISABLE_ADMIN_AUTH === 'true';
+// WARNING: When DISABLE_ADMIN_AUTH=true, dashboard requests sent WITHOUT any token
+// are allowed through. The SAT dashboard currently relies on this in production.
+// Set DISABLE_ADMIN_AUTH=false on Railway once the dashboard sends a real admin token.
+const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
 
 const allowDashboardBypass = (req, next, role = 'admin') => {
     if (isDashboardAuthDisabled()) {
-        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['token'];
+        const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['authrization'] || req.headers['token'];
         if (!rawAuthHeader) {
             req.userData = { role };
             next();
@@ -17,15 +20,22 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
     return false;
 };
 
+// NOTE: 'authrization' (misspelled) is intentional — most frontend API calls send this header.
 const extractTokenFromHeader = (headers) => {
-    return headers.authorization || headers['auth-token'];
+    return headers.authorization || headers.authrization || headers['auth-token'];
 };
+
+// Clients prefix the JWT with a fixed label (e.g. "pracYas09"). The label is NOT a secret and
+// grants nothing by itself: it is stripped here and the remaining JWT is still fully verified.
+const TOKEN_PREFIXES = [process.env.AUTH_SECRET_KEY, 'pracYas09'].filter(Boolean);
 
 const getTokenFromAuthHeader = (authHeader) => {
     if (!authHeader) return null;
-    
-    if (process.env.AUTH_SECRET_KEY && authHeader.startsWith(process.env.AUTH_SECRET_KEY)) {
-        return authHeader.slice(process.env.AUTH_SECRET_KEY.length);
+
+    for (const prefix of TOKEN_PREFIXES) {
+        if (authHeader.startsWith(prefix)) {
+            return authHeader.slice(prefix.length);
+        }
     }
     if (authHeader.startsWith('Bearer ')) {
         return authHeader.slice(7);

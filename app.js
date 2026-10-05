@@ -67,16 +67,23 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 const port = process.env.PORT || 3000;
-app.use(express.json({ limit: '10mb' }))
-app.use(express.urlencoded({ extended: true, limit: '10mb' }))
+// 50mb is required: the frontend uploads homework/course PDFs as base64 JSON.
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 
 // Performance & Security Middlewares
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const compression = require('compression');
 
-app.use(helmet());
-app.use(mongoSanitize());
+// API-only server: allow our responses/files to be used by the frontend on another domain.
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: false,
+}));
+// Blocks Mongo operator injection ($gt, $ne, ...) while keeping dotted keys intact.
+app.use(mongoSanitize({ allowDots: true }));
 app.use(compression());
 
 // Fix for Railway proxy + express-rate-limit ERR_ERL_UNEXPECTED_X_FORWARDED_FOR
@@ -86,13 +93,27 @@ const connectionDB = require('./DB/connection')
 connectionDB();
 
 // Rate limiting
+// Whole classrooms often share ONE school IP, so the global limit must be generous.
 const rateLimit = require('express-rate-limit');
-const limiter = rateLimit({
+const globalLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 100,
-  message: 'Too many requests, please try again later',
+  max: 1500,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS' || req.path === '/health',
+  message: { message: 'Too many requests, please try again in a minute' },
 });
-app.use(limiter);
+// Strict brute-force protection on login/register: only FAILED attempts are counted.
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: { message: 'Too many failed login attempts, please try again in 15 minutes' },
+});
+app.use(globalLimiter);
+app.use(['/auth/login', '/auth/register', '/auth/google'], authLimiter);
 
 const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter } = require('./router/allRoutes');
 app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter);
