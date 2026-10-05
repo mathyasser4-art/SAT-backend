@@ -17,13 +17,24 @@ if (isNaN(saltRounds) || saltRounds < 1) {
 const cors = require('cors')
 
 // CORS Configuration - Allow requests from frontend domains
-const whitelist = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',') 
-  : [
-      'https://mrshahin.com',
-      'https://www.mrshahin.com',
-      'http://localhost:3000'
-    ];
+const whitelist = [
+  'https://mrshahin.com',
+  'https://www.mrshahin.com',
+  'http://mrshahin.com',
+  'http://www.mrshahin.com',
+  'https://abacusheroes.com',
+  'https://www.abacusheroes.com',
+  'https://practice-papers.com',
+  'https://practicepapers.online',
+  'https://frontend-pearl-ten-60.vercel.app',
+  'https://abacus-2ntk.onrender.com',
+  'https://backend-production-6752.up.railway.app',
+  'https://sat-backend-production.up.railway.app',
+  'https://sat-dashboard-liart.vercel.app',
+  'https://sat-frontend-eosin.vercel.app',
+  'http://localhost:54112',
+  'http://localhost:3000'
+];
 
 const isAllowedOrigin = (origin) => {
   if (!origin) {
@@ -70,15 +81,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 
-// Performance & Security Middlewares
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
-const compression = require('compression');
-
-app.use(helmet());
-app.use(mongoSanitize());
-app.use(compression());
-
 // Fix for Railway proxy + express-rate-limit ERR_ERL_UNEXPECTED_X_FORWARDED_FOR
 app.set('trust proxy', 1);
 
@@ -94,8 +96,8 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter } = require('./router/allRoutes');
-app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter);
+const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, aiRouter } = require('./router/allRoutes');
+app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, aiRouter);
 
 const request = require('request')
 const CronJob = require('cron').CronJob;
