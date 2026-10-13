@@ -65,6 +65,18 @@ const userSchema = new mongoose.Schema({
     },
     verificationCode: String,
     resetPasswordCode: String,
+    trialStartDate: {
+        type: Date,
+        default: Date.now
+    },
+    trialExpiresAt: {
+        type: Date,
+        default: () => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    },
+    isSubscribed: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const userModel = mongoose.model('user', userSchema)

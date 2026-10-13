@@ -27,7 +27,9 @@ const register = async (req, res) => {
                 req.body.verify = true; // Auto-verify new users - no email verification needed
                 if (!req.body.role) req.body.role = 'User';
                 if (cleanPhone) req.body.phone = cleanPhone;
-                if (!req.body.schoolName) req.body.schoolName = 'General';
+                if (!req.body.trialStartDate) req.body.trialStartDate = new Date();
+                if (!req.body.trialExpiresAt) req.body.trialExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+                if (typeof req.body.isSubscribed === 'undefined') req.body.isSubscribed = false;
 
                 const addUser = new userModel(req.body);
                 const userData = await addUser.save();
@@ -40,7 +42,10 @@ const register = async (req, res) => {
                         userName: userData.userName,
                         role: userData.role,
                         phone: userData.phone,
-                        id: userData._id
+                        id: userData._id,
+                        trialStartDate: userData.trialStartDate,
+                        trialExpiresAt: userData.trialExpiresAt,
+                        isSubscribed: userData.isSubscribed || false
                     });
                 } else {
                     res.json({ message: 'Error...This account has not been registered to our servers. Please try again' });

@@ -46,6 +46,17 @@ const login = async (req, res) => {
                         ? findUser.userName 
                         : (findUser.createdBy?.userName || 'SAT School');
 
+                    let trialStart = findUser.trialStartDate;
+                    let trialExpires = findUser.trialExpiresAt;
+                    if (findUser.role === 'User' && !trialExpires) {
+                        trialStart = findUser.createdAt || new Date();
+                        trialExpires = new Date(new Date(trialStart).getTime() + 7 * 24 * 60 * 60 * 1000);
+                        await userModel.updateOne(
+                            { _id: findUser._id }, 
+                            { $set: { trialStartDate: trialStart, trialExpiresAt: trialExpires } }
+                        );
+                    }
+
                     res.json({ 
                         message: 'success', 
                         userToken, 
@@ -53,7 +64,10 @@ const login = async (req, res) => {
                         role: findUser.role,
                         id: findUser._id,
                         email: findUser.email,
-                        schoolName: schoolName
+                        schoolName: schoolName,
+                        trialStartDate: trialStart,
+                        trialExpiresAt: trialExpires,
+                        isSubscribed: findUser.isSubscribed || false
                     });
                 } else {
                     res.json({ message: 'wrong password' });
