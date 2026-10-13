@@ -8,7 +8,17 @@ const getJwtSecret = require('../../../services/jwtSecret');
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const findUser = await userModel.findOne({ $or: [{ 'email': email }, { 'userName': email }] }).populate('createdBy', 'userName');
+        const cleanPhone = (email || '').toString().trim();
+        const rawDigits = cleanPhone.replace(/\D/g, '');
+        const findUser = await userModel.findOne({ 
+            $or: [
+                { 'email': email }, 
+                { 'userName': email },
+                { 'phone': email },
+                ...(cleanPhone ? [{ 'phone': cleanPhone }] : []),
+                ...(rawDigits ? [{ 'email': `${rawDigits}@satarea.user` }] : [])
+            ] 
+        }).populate('createdBy', 'userName');
 
         if (findUser) {
             if (!findUser.verify) {
