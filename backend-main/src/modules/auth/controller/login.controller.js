@@ -1,9 +1,91 @@
 const userModel = require('../../../../DB/models/user.model');
+const classModel = require('../../../../DB/models/class.model');
 const sendEmail = require('../../../services/sendEmail');
 const generateCode = require('../../../services/generateVerificationCode');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../../../services/jwtSecret');
+
+// Multi-tenant Domain Registry: maps teacher or school identifiers to custom branded domains.
+const DOMAIN_REGISTRY = [
+    { match: 'shahin', domain: 'mrshahin.com' }
+];
+
+const resolveCustomDomain = async (user) => {
+    if (!user) return { targetDomain: null, teacherName: '' };
+
+    if (user.customDomain) {
+        return { targetDomain: user.customDomain, teacherName: user.userName };
+    }
+
+    const userNameLower = (user.userName || '').toLowerCase();
+    const emailLower = (user.email || '').toLowerCase();
+    const schoolNameLower = (user.createdBy?.userName || '').toLowerCase();
+
+    if (user.role === 'Teacher' || user.role === 'School') {
+        for (const entry of DOMAIN_REGISTRY) {
+            if (userNameLower.includes(entry.match) || emailLower.includes(entry.match) || schoolNameLower.includes(entry.match)) {
+                return { targetDomain: entry.domain, teacherName: user.userName };
+            }
+        }
+        return { targetDomain: null, teacherName: user.userName };
+    }
+
+    if (user.role === 'Student') {
+        let teacherName = '';
+        let targetDomain = null;
+
+        const classIds = [];
+        if (user.class) classIds.push(user.class);
+        if (Array.isArray(user.classList) && user.classList.length > 0) {
+            classIds.push(...user.classList);
+        }
+
+        if (classIds.length > 0) {
+            try {
+                const studentClasses = await classModel.find({ _id: { $in: classIds } }).populate('teachers', 'userName email customDomain');
+                for (const cls of studentClasses) {
+                    if (Array.isArray(cls.teachers)) {
+                        for (const teacher of cls.teachers) {
+                            if (teacher && teacher.userName) {
+                                teacherName = teacher.userName;
+                                if (teacher.customDomain) {
+                                    targetDomain = teacher.customDomain;
+                                    break;
+                                }
+                                const tName = teacher.userName.toLowerCase();
+                                const tEmail = (teacher.email || '').toLowerCase();
+                                for (const entry of DOMAIN_REGISTRY) {
+                                    if (tName.includes(entry.match) || tEmail.includes(entry.match)) {
+                                        targetDomain = entry.domain;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (targetDomain) break;
+                        }
+                    }
+                    if (targetDomain) break;
+                }
+            } catch (e) {
+                console.error('Error resolving student domain:', e);
+            }
+        }
+
+        if (!targetDomain && schoolNameLower) {
+            for (const entry of DOMAIN_REGISTRY) {
+                if (schoolNameLower.includes(entry.match)) {
+                    targetDomain = entry.domain;
+                    break;
+                }
+            }
+        }
+
+        return { targetDomain, teacherName };
+    }
+
+    return { targetDomain: null, teacherName: '' };
+};
 
 const login = async (req, res) => {
     try {
@@ -46,6 +128,8 @@ const login = async (req, res) => {
                         ? findUser.userName 
                         : (findUser.createdBy?.userName || 'SAT School');
 
+                    const { targetDomain, teacherName } = await resolveCustomDomain(findUser);
+
                     res.json({ 
                         message: 'success', 
                         userToken, 
@@ -53,7 +137,9 @@ const login = async (req, res) => {
                         role: findUser.role,
                         id: findUser._id,
                         email: findUser.email,
-                        schoolName: schoolName
+                        schoolName: schoolName,
+                        teacherName: teacherName || '',
+                        targetDomain: targetDomain || null
                     });
                 } else {
                     res.json({ message: 'wrong password' });
