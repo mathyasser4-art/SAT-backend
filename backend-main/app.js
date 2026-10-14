@@ -22,6 +22,10 @@ const whitelist = [
   'https://www.mrshahin.com',
   'http://mrshahin.com',
   'http://www.mrshahin.com',
+  'https://satarea.tech',
+  'https://www.satarea.tech',
+  'http://satarea.tech',
+  'http://www.satarea.tech',
   'https://abacusheroes.com',
   'https://www.abacusheroes.com',
   'https://practice-papers.com',
@@ -54,8 +58,9 @@ const isAllowedOrigin = (origin) => {
     const isVercel = parsedOrigin.hostname.endsWith('.vercel.app');
     const isRailway = parsedOrigin.hostname.endsWith('.railway.app');
     const isMrShahin = parsedOrigin.hostname === 'mrshahin.com' || parsedOrigin.hostname.endsWith('.mrshahin.com');
+    const isSatArea = parsedOrigin.hostname === 'satarea.tech' || parsedOrigin.hostname.endsWith('.satarea.tech');
 
-    return isLocalhost || isVercel || isRailway || isMrShahin;
+    return isLocalhost || isVercel || isRailway || isMrShahin || isSatArea;
   } catch (error) {
     return false;
   }
