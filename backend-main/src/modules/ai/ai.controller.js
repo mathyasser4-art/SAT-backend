@@ -117,4 +117,45 @@ const generateTest = async (req, res) => {
     }
 }
 
-module.exports = { analyzeMistakes, generateTest };
+const { processCopilotChat, auditHomework } = require('./aiCopilot.service');
+
+const copilotChat = async (req, res) => {
+    try {
+        const { message, history } = req.body;
+        if (!message || !message.trim()) {
+            return res.status(400).json({ message: "Message is required" });
+        }
+
+        const userData = req.userData || null;
+        const result = await processCopilotChat({
+            message,
+            userData,
+            history: history || []
+        });
+
+        res.json({
+            message: "success",
+            ...result
+        });
+    } catch (err) {
+        console.error("Copilot Chat Error:", err);
+        res.status(500).json({ message: "Failed to process AI chat.", error: err.message });
+    }
+};
+
+const auditAssignmentDirect = async (req, res) => {
+    try {
+        const { assignmentId } = req.params;
+        const userData = req.userData || null;
+        const result = await auditHomework({ query: assignmentId, userData });
+        res.json({
+            message: "success",
+            audit: result
+        });
+    } catch (err) {
+        console.error("Audit Direct Error:", err);
+        res.status(500).json({ message: "Failed to audit assignment", error: err.message });
+    }
+};
+
+module.exports = { analyzeMistakes, generateTest, copilotChat, auditAssignmentDirect };
