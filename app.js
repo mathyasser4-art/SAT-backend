@@ -118,8 +118,8 @@ const authLimiter = rateLimit({
 app.use(globalLimiter);
 app.use(['/auth/login', '/auth/register', '/auth/google'], authLimiter);
 
-const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter } = require('./router/allRoutes');
-app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter);
+const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter } = require('./router/allRoutes');
+app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter);
 
 const CronJob = require('cron').CronJob;
 const { startHwCleanupCron } = require('./src/services/hwCleanupCron');
