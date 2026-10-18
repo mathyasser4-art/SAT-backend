@@ -679,12 +679,13 @@ Available Actions & Tools:
     if (!reply && geminiKey) {
         try {
             const ai = new GoogleGenAI({ apiKey: geminiKey });
+            const configuredModel = process.env.AI_MODEL && process.env.AI_MODEL !== 'gemini-3.8-flash' ? process.env.AI_MODEL : null;
             const candidateModels = [
+                configuredModel,
                 'gemini-3.5-flash',
                 'gemini-3.7-flash',
-                process.env.AI_MODEL,
-                'gemini-flash-latest',
-                'gemini-3.8-flash'
+                'gemini-3.1-flash-lite',
+                'gemini-flash-latest'
             ].filter(Boolean);
 
             const geminiTools = [{
@@ -735,6 +736,23 @@ Available Actions & Tools:
                 ]
             }];
 
+            // Build multi-turn memory contents for Gemini
+            const geminiContents = [];
+            if (Array.isArray(history) && history.length > 0) {
+                history.forEach(h => {
+                    if (h.content && h.content.trim()) {
+                        geminiContents.push({
+                            role: h.role === 'model' || h.role === 'assistant' ? 'model' : 'user',
+                            parts: [{ text: h.content.trim() }]
+                        });
+                    }
+                });
+            }
+            geminiContents.push({
+                role: 'user',
+                parts: [{ text: rawMessage }]
+            });
+
             let response = null;
             let lastErr = null;
 
@@ -742,7 +760,7 @@ Available Actions & Tools:
                 try {
                     response = await ai.models.generateContent({
                         model,
-                        contents: rawMessage,
+                        contents: geminiContents,
                         config: {
                             systemInstruction,
                             tools: geminiTools
