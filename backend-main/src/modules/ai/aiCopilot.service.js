@@ -428,6 +428,22 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
 }
 
 /**
+ * Raw Tool Execution (for agentic 2-turn reasoning)
+ */
+async function executeRawTool({ fnName, args, userData }) {
+    if (fnName === 'assign_homework') {
+        return await assignHomework({ ...args, userData });
+    } else if (fnName === 'audit_homework') {
+        return await auditHomework({ query: args.assignmentTitle, userData });
+    } else if (fnName === 'lookup_student') {
+        return await lookupStudent({ studentName: args.studentName });
+    } else if (fnName === 'get_platform_stats') {
+        return await getPlatformOverview();
+    }
+    return { error: `Unknown tool: ${fnName}` };
+}
+
+/**
  * Shared Tool Execution Dispatcher
  */
 async function executeToolAction({ fnName, args, userData, inArabic }) {
@@ -555,28 +571,190 @@ async function processCopilotChat({ message, userData, history = [] }) {
     const rawMessage = (message || '').trim();
     const inArabic = isArabic(rawMessage);
 
-    const systemInstruction = `You are the official intelligent AI Assistant & Copilot for "SAT Area / Mr. Shahin".
-You are helpful, professional, encouraging, and clear.
-You support both English and Arabic fluently (when Arabic is used, reply in natural, friendly Modern/Egyptian Arabic).
-Provide clear markdown formatting for visual responses.
+    const systemInstruction = `You are "Mr. Shahin's AI Copilot" — the premier, state-of-the-art educational AI assistant for the SAT Area platform.
+You combine elite SAT Math & English mastery with the responsiveness, warmth, and proactive intelligence of an expert co-teacher and mentor.
 
-Available Actions & Tools:
-1. assign_homework: Call this whenever the user asks to assign, create, or give homework, practice, quiz, exam, or test to a student (e.g. "can you assign hw to adam?") or a class. Always invoke this tool directly with default questionCount: 5 if not specified.
-2. audit_homework: Call this ONLY when the user asks who submitted or who did not submit homework, or asks for a homework status report. DO NOT call this for general homework questions or requests to create/assign homework!
-3. lookup_student: Call this when the user asks about a student's grades, scores, or performance.
-4. get_platform_stats: Call this when the user asks for platform statistics, number of students, teachers, or courses.
-5. Educational & Math Questions: If the user asks how to solve a question, SAT math problem, grammar rule, or general advice, answer directly with clear step-by-step explanations, formulas, and encouraging tone without calling audit tools.`;
+Your Core Directives:
+1. High Intelligence: When explaining SAT concepts, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and clean formulas.
+2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot. When you take an action (assigning homework, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions (e.g., offering follow-ups, reminder alerts, or practice tips). Never sound like a rigid template.
+3. Bilingual Mastery: Fluent in English and Arabic. When the user speaks Arabic, reply naturally in warm, friendly, modern Egyptian/Standard Arabic.
+4. Action Execution: You have direct access to database tools. Always invoke the appropriate tool when asked to assign homework, audit submissions, or check student stats.
+
+Available Tools:
+- assign_homework: Creates and assigns homework, quiz, or practice questions to a student or class.
+- audit_homework: Checks who completed or did not complete an existing assignment and provides submission metrics.
+- lookup_student: Looks up student progress, past submissions, and average scores.
+- get_platform_stats: Platform overview metrics (students, teachers, questions, classes).`;
 
     let reply = '';
     let voiceText = '';
     let toolData = null;
     let detectedIntent = 'general';
 
+    // Standard OpenAI/OpenRouter tools schema
+    const standardTools = [
+        {
+            name: 'assign_homework',
+            description: 'Creates and assigns homework, exam, quiz, or practice questions to a student or class. Invoke whenever the user asks to assign/create/give homework, test or exam.',
+            parameters: {
+                type: 'object',
+                properties: {
+                    studentName: { type: 'string', description: 'Student name to assign to (e.g. Adam, ahmed5)' },
+                    className: { type: 'string', description: 'Class or group name' },
+                    topic: { type: 'string', description: 'Topic, chapter, or exam title' },
+                    questionCount: { type: 'integer', description: 'Number of questions (default: 5)' },
+                    timer: { type: 'integer', description: 'Time limit in minutes' }
+                }
+            }
+        },
+        {
+            name: 'audit_homework',
+            description: 'Reports who did or did not submit an existing assignment. Use ONLY for homework submission status questions.',
+            parameters: {
+                type: 'object',
+                properties: {
+                    assignmentTitle: { type: 'string', description: 'Assignment title (empty = check latest)' }
+                }
+            }
+        },
+        {
+            name: 'lookup_student',
+            description: 'Looks up a student progress, submissions, and average scores.',
+            parameters: {
+                type: 'object',
+                properties: {
+                    studentName: { type: 'string', description: 'Student name to look up' }
+                },
+                required: ['studentName']
+            }
+        },
+        {
+            name: 'get_platform_stats',
+            description: 'Gets platform overview metrics (students, teachers, questions, classes).',
+            parameters: { type: 'object', properties: {} }
+        }
+    ].map(f => ({ type: 'function', function: f }));
+
+    // Standard OpenAI/OpenRouter messages builder
+    const buildStandardMessages = () => {
+        const msgs = [{ role: 'system', content: systemInstruction }];
+        if (Array.isArray(history) && history.length > 0) {
+            history.forEach(h => {
+                if (h.content && h.content.trim()) {
+                    msgs.push({
+                        role: h.role === 'model' || h.role === 'assistant' ? 'assistant' : 'user',
+                        content: h.content.trim()
+                    });
+                }
+            });
+        }
+        msgs.push({ role: 'user', content: rawMessage });
+        return msgs;
+    };
+
     // ==========================================
-    // 1. Anthropic Claude 3.7 Sonnet (Flagship Tier)
+    // 0. OpenRouter Claude Sonnet (Flagship Railway-Level Tier)
+    // ==========================================
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+    if (!reply && openrouterKey && openrouterKey.trim().length > 10) {
+        try {
+            const orMessages = buildStandardMessages();
+            const orModels = [
+                process.env.OPENROUTER_MODEL,
+                'anthropic/claude-sonnet-5.5',
+                'anthropic/claude-sonnet-5',
+                'anthropic/claude-haiku-5.5'
+            ].filter(Boolean);
+
+            for (const model of orModels) {
+                try {
+                    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${openrouterKey.trim()}`,
+                            'Content-Type': 'application/json',
+                            'HTTP-Referer': 'https://satarea.com',
+                            'X-Title': 'SAT Area Copilot'
+                        },
+                        body: JSON.stringify({
+                            model,
+                            messages: orMessages,
+                            tools: standardTools,
+                            tool_choice: 'auto',
+                            max_tokens: 1500
+                        })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
+                    const msg = data.choices?.[0]?.message;
+                    const call = msg?.tool_calls?.[0];
+
+                    if (call) {
+                        let args = {};
+                        try { args = JSON.parse(call.function.arguments || '{}'); } catch (_) { }
+
+                        const rawResult = await executeRawTool({ fnName: call.function.name, args, userData });
+                        detectedIntent = call.function.name;
+                        toolData = rawResult;
+
+                        // Agentic 2-turn reasoning: Feed tool output back to Claude
+                        orMessages.push(msg);
+                        orMessages.push({
+                            role: 'tool',
+                            tool_call_id: call.id,
+                            content: JSON.stringify(rawResult)
+                        });
+
+                        try {
+                            const secondRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${openrouterKey.trim()}`,
+                                    'Content-Type': 'application/json',
+                                    'HTTP-Referer': 'https://satarea.com',
+                                    'X-Title': 'SAT Area Copilot'
+                                },
+                                body: JSON.stringify({
+                                    model,
+                                    messages: orMessages,
+                                    max_tokens: 1500
+                                })
+                            });
+                            const secondData = await secondRes.json();
+                            const secondContent = secondData.choices?.[0]?.message?.content;
+                            if (secondContent) {
+                                reply = secondContent;
+                                voiceText = cleanForVoice(reply);
+                            }
+                        } catch (sErr) {
+                            console.warn("OpenRouter 2nd turn error:", sErr.message);
+                        }
+
+                        // Fallback to structured receipt if second turn failed
+                        if (!reply) {
+                            const actionRes = await executeToolAction({ fnName: call.function.name, args, userData, inArabic });
+                            reply = actionRes.reply;
+                            voiceText = actionRes.voiceText;
+                        }
+                    } else if (msg?.content) {
+                        reply = msg.content;
+                        voiceText = cleanForVoice(reply);
+                    }
+                    if (reply) break;
+                } catch (orModelErr) {
+                    console.warn(`OpenRouter model ${model} error (${String(orModelErr.message).slice(0, 100)}), trying next...`);
+                }
+            }
+        } catch (orErr) {
+            console.error("OpenRouter Error:", orErr.message);
+        }
+    }
+
+    // ==========================================
+    // 1. Anthropic Direct Tier (if ANTHROPIC_API_KEY provided)
     // ==========================================
     const anthropicKey = process.env.ANTHROPIC_API_KEY;
-    if (anthropicKey && anthropicKey.trim().length > 10) {
+    if (!reply && anthropicKey && anthropicKey.trim().length > 10) {
         try {
             const anthropic = new Anthropic({ apiKey: anthropicKey.trim() });
             const claudeTools = [
@@ -625,7 +803,6 @@ Available Actions & Tools:
                 }
             ];
 
-            // Build multi-turn messages for Claude
             const claudeMessages = [];
             if (Array.isArray(history) && history.length > 0) {
                 history.forEach(h => {
@@ -642,7 +819,7 @@ Available Actions & Tools:
             const claudeModel = process.env.CLAUDE_MODEL || 'claude-3-7-sonnet-20250219';
             const claudeResponse = await anthropic.messages.create({
                 model: claudeModel,
-                max_tokens: 2048,
+                max_tokens: 1500,
                 system: systemInstruction,
                 tools: claudeTools,
                 messages: claudeMessages
@@ -650,16 +827,42 @@ Available Actions & Tools:
 
             const toolUse = claudeResponse.content.find(b => b.type === 'tool_use');
             if (toolUse) {
-                const actionRes = await executeToolAction({
-                    fnName: toolUse.name,
-                    args: toolUse.input || {},
-                    userData,
-                    inArabic
+                const rawResult = await executeRawTool({ fnName: toolUse.name, args: toolUse.input || {}, userData });
+                detectedIntent = toolUse.name;
+                toolData = rawResult;
+
+                // Agentic 2nd turn
+                claudeMessages.push({ role: 'assistant', content: claudeResponse.content });
+                claudeMessages.push({
+                    role: 'user',
+                    content: [{
+                        type: 'tool_result',
+                        tool_use_id: toolUse.id,
+                        content: JSON.stringify(rawResult)
+                    }]
                 });
-                reply = actionRes.reply;
-                voiceText = actionRes.voiceText;
-                toolData = actionRes.toolData;
-                detectedIntent = actionRes.detectedIntent;
+
+                try {
+                    const secondClaude = await anthropic.messages.create({
+                        model: claudeModel,
+                        max_tokens: 1500,
+                        system: systemInstruction,
+                        messages: claudeMessages
+                    });
+                    const textBlock = secondClaude.content.find(b => b.type === 'text');
+                    if (textBlock && textBlock.text) {
+                        reply = textBlock.text;
+                        voiceText = cleanForVoice(reply);
+                    }
+                } catch (scErr) {
+                    console.warn("Direct Claude 2nd turn error:", scErr.message);
+                }
+
+                if (!reply) {
+                    const actionRes = await executeToolAction({ fnName: toolUse.name, args: toolUse.input || {}, userData, inArabic });
+                    reply = actionRes.reply;
+                    voiceText = actionRes.voiceText;
+                }
             } else {
                 const textBlock = claudeResponse.content.find(b => b.type === 'text');
                 if (textBlock && textBlock.text) {
@@ -668,7 +871,7 @@ Available Actions & Tools:
                 }
             }
         } catch (claudeErr) {
-            console.error("Claude 3.7 Error (falling back to Gemini):", claudeErr.message);
+            console.error("Direct Claude Error (falling back to Groq):", claudeErr.message);
         }
     }
 
@@ -678,43 +881,58 @@ Available Actions & Tools:
     const groqKey = process.env.GROQ_API_KEY;
     if (!reply && groqKey && groqKey.trim().length > 10) {
         try {
-            const groqTools = [
-                { name: 'assign_homework', description: 'Creates and assigns homework, exam, quiz, or practice questions to a student or class. Invoke whenever the user asks to assign/create/give homework, test or exam.', parameters: { type: 'object', properties: { studentName: { type: 'string', description: 'Student name' }, className: { type: 'string', description: 'Class or group name' }, topic: { type: 'string', description: 'Topic, chapter, or exam title' }, questionCount: { type: 'integer', description: 'Number of questions (default 5)' }, timer: { type: 'integer', description: 'Time limit in minutes' } } } },
-                { name: 'audit_homework', description: 'Reports who did / did not submit an existing assignment. Use ONLY for submission status questions.', parameters: { type: 'object', properties: { assignmentTitle: { type: 'string', description: 'Assignment title (empty = latest)' } } } },
-                { name: 'lookup_student', description: 'Looks up a student progress, submissions and average score.', parameters: { type: 'object', properties: { studentName: { type: 'string' } }, required: ['studentName'] } },
-                { name: 'get_platform_stats', description: 'Platform overview metrics (students, teachers, questions, classes).', parameters: { type: 'object', properties: {} } }
-            ].map(f => ({ type: 'function', function: f }));
-
-            const groqMessages = [{ role: 'system', content: systemInstruction }];
-            if (Array.isArray(history)) {
-                history.forEach(h => {
-                    if (h.content && h.content.trim()) {
-                        groqMessages.push({ role: h.role === 'model' || h.role === 'assistant' ? 'assistant' : 'user', content: h.content.trim() });
-                    }
-                });
-            }
-            groqMessages.push({ role: 'user', content: rawMessage });
-
+            const groqMessages = buildStandardMessages();
             const groqModels = [process.env.GROQ_MODEL, 'openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b'].filter(Boolean);
+
             for (const model of groqModels) {
                 try {
                     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${groqKey.trim()}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ model, messages: groqMessages, tools: groqTools, tool_choice: 'auto', max_tokens: 2048 })
+                        body: JSON.stringify({ model, messages: groqMessages, tools: standardTools, tool_choice: 'auto', max_tokens: 1500 })
                     });
                     const data = await res.json();
                     if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
                     const msg = data.choices?.[0]?.message;
                     const call = msg?.tool_calls?.[0];
+
                     if (call) {
                         let args = {};
                         try { args = JSON.parse(call.function.arguments || '{}'); } catch (_) { }
-                        const actionRes = await executeToolAction({ fnName: call.function.name, args, userData, inArabic });
-                        reply = actionRes.reply;
-                        voiceText = actionRes.voiceText;
-                        toolData = actionRes.toolData;
-                        detectedIntent = actionRes.detectedIntent;
+
+                        const rawResult = await executeRawTool({ fnName: call.function.name, args, userData });
+                        detectedIntent = call.function.name;
+                        toolData = rawResult;
+
+                        // Agentic 2-turn reasoning
+                        groqMessages.push(msg);
+                        groqMessages.push({
+                            role: 'tool',
+                            tool_call_id: call.id,
+                            content: JSON.stringify(rawResult)
+                        });
+
+                        try {
+                            const secondRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                                method: 'POST',
+                                headers: { 'Authorization': `Bearer ${groqKey.trim()}`, 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ model, messages: groqMessages, max_tokens: 1500 })
+                            });
+                            const secondData = await secondRes.json();
+                            const secondContent = secondData.choices?.[0]?.message?.content;
+                            if (secondContent) {
+                                reply = secondContent;
+                                voiceText = cleanForVoice(reply);
+                            }
+                        } catch (sgErr) {
+                            console.warn("Groq 2nd turn error:", sgErr.message);
+                        }
+
+                        if (!reply) {
+                            const actionRes = await executeToolAction({ fnName: call.function.name, args, userData, inArabic });
+                            reply = actionRes.reply;
+                            voiceText = actionRes.voiceText;
+                        }
                     } else if (msg?.content) {
                         reply = msg.content;
                         voiceText = cleanForVoice(reply);
