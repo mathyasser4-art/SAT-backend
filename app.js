@@ -97,13 +97,24 @@ connectionDB();
 
 // Rate limiting
 // Whole classrooms often share ONE school IP, so the global limit must be generous.
+// Dashboard/staff route prefixes are exempt from the global count because the dashboard
+// issues many requests per minute (student lists, question edits) and these routes are
+// protected by route-level JWT auth. Auth/login/register/OTP, student and other public
+// routes (including /admin/login) are NOT exempt and stay rate-limited.
+const DASHBOARD_PREFIXES = [
+  '/teacher/', '/question/', '/unit/', '/chapter/', '/subject/', '/system/',
+  '/questionType/', '/school/', '/schoolSubject/', '/class/', '/it/', '/supervisor/',
+];
 const rateLimit = require('express-rate-limit');
 const globalLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 1500,
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.method === 'OPTIONS' || req.path === '/health',
+  skip: (req) =>
+    req.method === 'OPTIONS' ||
+    req.path === '/health' ||
+    DASHBOARD_PREFIXES.some((prefix) => req.path.startsWith(prefix)),
   message: { message: 'Too many requests, please try again in a minute' },
 });
 // Strict brute-force protection on login/register: only FAILED attempts are counted.

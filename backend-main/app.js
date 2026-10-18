@@ -93,11 +93,20 @@ const connectionDB = require('./DB/connection')
 connectionDB();
 
 // Rate limiting
+// Dashboard/staff route prefixes are exempt from the global count because the dashboard
+// issues many requests per minute (student lists, question edits) and these routes are
+// protected by route-level JWT auth. Auth/login/register/OTP, student and other public
+// routes (including /admin/login) are NOT exempt and stay rate-limited.
+const DASHBOARD_PREFIXES = [
+  '/teacher/', '/question/', '/unit/', '/chapter/', '/subject/', '/system/',
+  '/questionType/', '/school/', '/schoolSubject/', '/class/', '/it/', '/supervisor/',
+];
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
   windowMs: 60 * 1000,
   max: 100,
   message: 'Too many requests, please try again later',
+  skip: (req) => DASHBOARD_PREFIXES.some((prefix) => req.path.startsWith(prefix)),
 });
 app.use(limiter);
 
