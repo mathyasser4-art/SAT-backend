@@ -279,22 +279,47 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
 
         // 1. Resolve Target Student
         if (studentName && studentName.trim().length > 0) {
-            resolvedStudent = await userModel.findOne({
+            const cleanName = studentName.trim();
+            const matchingStudents = await userModel.find({
                 role: 'Student',
-                userName: { $regex: studentName.trim(), $options: 'i' }
-            }).select('_id userName email class role');
+                userName: { $regex: cleanName, $options: 'i' }
+            }).select('_id userName email class role').populate('class');
 
-            if (!resolvedStudent) {
-                resolvedStudent = await userModel.findOne({
-                    userName: { $regex: studentName.trim(), $options: 'i' }
-                }).select('_id userName email class role');
+            let candidates = matchingStudents;
+            if (candidates.length === 0) {
+                candidates = await userModel.find({
+                    userName: { $regex: cleanName, $options: 'i' }
+                }).select('_id userName email class role').populate('class');
             }
 
-            if (resolvedStudent) {
-                targetStudents.push({ solveBy: resolvedStudent._id, attempts: 0 });
-                if (resolvedStudent.class) {
-                    targetClasses.push(resolvedStudent.class);
-                }
+            if (candidates.length === 0) {
+                return {
+                    success: false,
+                    notFound: true,
+                    studentName: cleanName,
+                    message: `No student named "${cleanName}" exists in the database.`
+                };
+            }
+
+            if (candidates.length > 1) {
+                return {
+                    success: false,
+                    ambiguous: true,
+                    studentName: cleanName,
+                    candidates: candidates.map(s => ({
+                        id: s._id,
+                        name: s.userName,
+                        email: s.email,
+                        className: s.class ? s.class.class : 'No Class'
+                    }))
+                };
+            }
+
+            // Exactly 1 student resolved
+            resolvedStudent = candidates[0];
+            targetStudents.push({ solveBy: resolvedStudent._id, attempts: 0 });
+            if (resolvedStudent.class && resolvedStudent.class._id) {
+                targetClasses.push(resolvedStudent.class._id);
             }
         }
 
@@ -385,8 +410,10 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
             assignment: {
                 id: newAssignment._id,
                 title: newAssignment.title,
-                studentName: resolvedStudent ? resolvedStudent.userName : studentName,
-                className: resolvedClass ? resolvedClass.class : className,
+                studentName: resolvedStudent ? resolvedStudent.userName : null,
+                studentEmail: resolvedStudent ? resolvedStudent.email : null,
+                studentClass: resolvedStudent && resolvedStudent.class ? resolvedStudent.class.class : null,
+                className: resolvedClass ? resolvedClass.class : null,
                 questionsCount: questionIds.length,
                 totalPoints: totalPoints,
                 startDate: today,
@@ -495,12 +522,34 @@ Available Actions & Tools:
                 if (fnName === 'assign_homework') {
                     detectedIntent = 'assign_homework';
                     toolData = await assignHomework({ ...args, userData });
-                    if (toolData.success) {
+                    if (toolData.ambiguous) {
+                        const list = toolData.candidates.map(c => `• **${c.name}** (${c.className} • ${c.email})`).join('\n');
+                        reply = inArabic
+                            ? `### ⚠️ وجدت أكثر من طالب باسم "${toolData.studentName}":\n\n${list}\n\n*يرجى تحديد اسم الطالب بالكامل أو فصله لتكليفه بالواجب.*`
+                            : `### ⚠️ I found multiple students matching "${toolData.studentName}":\n\n${list}\n\n*Please specify the full student name or their class to assign the homework.*`;
+                        voiceText = inArabic
+                            ? `وجدت أكثر من طالب باسم ${toolData.studentName}. يرجى تحديد الطالب المطلوب.`
+                            : `I found multiple students named ${toolData.studentName}. Please specify which one you mean.`;
+                    } else if (toolData.notFound) {
+                        reply = inArabic
+                            ? `### ⚠️ لم يتم العثور على طالب باسم "${toolData.studentName}"\n\n* لا يوجد طالب بهذا الاسم مسجل في النظام حالياً.\n* يمكنك التحقق من قائمة الطلاب أو تعيين الواجب لفصل دراسي كامل.`
+                            : `### ⚠️ No student found with the name "${toolData.studentName}"\n\n* No user with this name is registered in your student database.\n* Please check the student's name or assign the homework to a class instead.`;
+                        voiceText = inArabic
+                            ? `لم يتم العثور على طالب مسجل باسم ${toolData.studentName}.`
+                            : `No student named ${toolData.studentName} was found in the database.`;
+                    } else if (toolData.success) {
                         const asgn = toolData.assignment;
+                        const studentDetails = asgn.studentName
+                            ? `**${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
+                            : (asgn.className ? `فصل: **${asgn.className}**` : 'الطلاب');
+                        const studentDetailsEn = asgn.studentName
+                            ? `Student: **${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
+                            : (asgn.className ? `Class: **${asgn.className}**` : 'Students');
+
                         if (inArabic) {
                             reply = `### ✅ تم تكليف الواجب بنجاح!\n\n` +
                                 `* 📝 **عنوان الواجب:** ${asgn.title}\n` +
-                                `* 👤 **المُعيّن له:** ${asgn.studentName ? `الطالب: **${asgn.studentName}**` : (asgn.className ? `فصل: **${asgn.className}**` : 'الطلاب')}\n` +
+                                `* 👤 **المُعيّن له:** ${studentDetails}\n` +
                                 `* ❓ **عدد الأسئلة:** ${asgn.questionsCount} أسئلة\n` +
                                 `* 🎯 **إجمالي الدرجات:** ${asgn.totalPoints} نقطة\n` +
                                 `* 📅 **تاريخ البدء:** ${asgn.startDate}\n` +
@@ -510,7 +559,7 @@ Available Actions & Tools:
                         } else {
                             reply = `### ✅ Homework Assigned Successfully!\n\n` +
                                 `* 📝 **Title:** ${asgn.title}\n` +
-                                `* 👤 **Assigned To:** ${asgn.studentName ? `Student: **${asgn.studentName}**` : (asgn.className ? `Class: **${asgn.className}**` : 'Students')}\n` +
+                                `* 👤 **Assigned To:** ${studentDetailsEn}\n` +
                                 `* ❓ **Questions Count:** ${asgn.questionsCount} questions\n` +
                                 `* 🎯 **Total Points:** ${asgn.totalPoints} pts\n` +
                                 `* 📅 **Start Date:** ${asgn.startDate}\n` +
@@ -524,6 +573,7 @@ Available Actions & Tools:
                             : `⚠️ Unable to assign homework: ${toolData.message || toolData.error}`;
                         voiceText = cleanForVoice(reply);
                     }
+
                 } else if (fnName === 'audit_homework') {
                     detectedIntent = 'homework_audit';
                     toolData = await auditHomework({ query: args.assignmentTitle, userData });
