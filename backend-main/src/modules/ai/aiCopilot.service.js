@@ -673,6 +673,63 @@ Available Actions & Tools:
     }
 
     // ==========================================
+    // 1b. Groq Tier (free, OpenAI-compatible)
+    // ==========================================
+    const groqKey = process.env.GROQ_API_KEY;
+    if (!reply && groqKey && groqKey.trim().length > 10) {
+        try {
+            const groqTools = [
+                { name: 'assign_homework', description: 'Creates and assigns homework, exam, quiz, or practice questions to a student or class. Invoke whenever the user asks to assign/create/give homework, test or exam.', parameters: { type: 'object', properties: { studentName: { type: 'string', description: 'Student name' }, className: { type: 'string', description: 'Class or group name' }, topic: { type: 'string', description: 'Topic, chapter, or exam title' }, questionCount: { type: 'integer', description: 'Number of questions (default 5)' }, timer: { type: 'integer', description: 'Time limit in minutes' } } } },
+                { name: 'audit_homework', description: 'Reports who did / did not submit an existing assignment. Use ONLY for submission status questions.', parameters: { type: 'object', properties: { assignmentTitle: { type: 'string', description: 'Assignment title (empty = latest)' } } } },
+                { name: 'lookup_student', description: 'Looks up a student progress, submissions and average score.', parameters: { type: 'object', properties: { studentName: { type: 'string' } }, required: ['studentName'] } },
+                { name: 'get_platform_stats', description: 'Platform overview metrics (students, teachers, questions, classes).', parameters: { type: 'object', properties: {} } }
+            ].map(f => ({ type: 'function', function: f }));
+
+            const groqMessages = [{ role: 'system', content: systemInstruction }];
+            if (Array.isArray(history)) {
+                history.forEach(h => {
+                    if (h.content && h.content.trim()) {
+                        groqMessages.push({ role: h.role === 'model' || h.role === 'assistant' ? 'assistant' : 'user', content: h.content.trim() });
+                    }
+                });
+            }
+            groqMessages.push({ role: 'user', content: rawMessage });
+
+            const groqModels = [process.env.GROQ_MODEL, 'openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b'].filter(Boolean);
+            for (const model of groqModels) {
+                try {
+                    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${groqKey.trim()}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ model, messages: groqMessages, tools: groqTools, tool_choice: 'auto', max_tokens: 2048 })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
+                    const msg = data.choices?.[0]?.message;
+                    const call = msg?.tool_calls?.[0];
+                    if (call) {
+                        let args = {};
+                        try { args = JSON.parse(call.function.arguments || '{}'); } catch (_) { }
+                        const actionRes = await executeToolAction({ fnName: call.function.name, args, userData, inArabic });
+                        reply = actionRes.reply;
+                        voiceText = actionRes.voiceText;
+                        toolData = actionRes.toolData;
+                        detectedIntent = actionRes.detectedIntent;
+                    } else if (msg?.content) {
+                        reply = msg.content;
+                        voiceText = cleanForVoice(reply);
+                    }
+                    if (reply) break;
+                } catch (gErr) {
+                    console.warn(`Groq model ${model} error (${String(gErr.message).slice(0, 80)}), trying next...`);
+                }
+            }
+        } catch (groqErr) {
+            console.error("Groq Error (falling back to Gemini):", groqErr.message);
+        }
+    }
+
+    // ==========================================
     // 2. Google Gemini Fallback Tier
     // ==========================================
     const geminiKey = process.env.GEMINI_API_KEY;
