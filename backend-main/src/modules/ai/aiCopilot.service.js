@@ -567,7 +567,7 @@ async function executeToolAction({ fnName, args, userData, inArabic }) {
 /**
  * Master Copilot Chat Function
  */
-async function processCopilotChat({ message, userData, history = [] }) {
+async function processCopilotChat({ message, userData, history = [], image = null }) {
     const rawMessage = (message || '').trim();
     const inArabic = isArabic(rawMessage);
 
@@ -575,7 +575,7 @@ async function processCopilotChat({ message, userData, history = [] }) {
 You combine elite SAT Math & English mastery with the responsiveness, warmth, and proactive intelligence of an expert co-teacher and mentor.
 
 Your Core Directives:
-1. High Intelligence: When explaining SAT concepts, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and clean formulas.
+1. High Intelligence & Vision: When explaining SAT concepts or analyzing an uploaded image/screenshot of a problem, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and clean formulas.
 2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot. When you take an action (assigning homework, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions (e.g., offering follow-ups, reminder alerts, or practice tips). Never sound like a rigid template.
 3. Bilingual Mastery: Fluent in English and Arabic. When the user speaks Arabic, reply naturally in warm, friendly, modern Egyptian/Standard Arabic.
 4. Action Execution: You have direct access to database tools. Always invoke the appropriate tool when asked to assign homework, audit submissions, or check student stats.
@@ -648,7 +648,24 @@ Available Tools:
                 }
             });
         }
-        msgs.push({ role: 'user', content: rawMessage });
+
+        if (image && typeof image === 'string' && image.startsWith('data:image/')) {
+            msgs.push({
+                role: 'user',
+                content: [
+                    {
+                        type: 'text',
+                        text: rawMessage || (inArabic ? 'يرجى مراجعة وشرح الصورة المرفقة بالتفصيل وحل المسألة الرياضية الواردة بها خطوة بخطوة.' : 'Please analyze the attached image in detail and solve any SAT math question shown step-by-step.')
+                    },
+                    {
+                        type: 'image_url',
+                        image_url: { url: image }
+                    }
+                ]
+            });
+        } else {
+            msgs.push({ role: 'user', content: rawMessage || (inArabic ? 'مرحباً' : 'Hello') });
+        }
         return msgs;
     };
 
@@ -1023,9 +1040,19 @@ Available Tools:
                     }
                 });
             }
+            const userParts = [];
+            if (image && typeof image === 'string' && image.startsWith('data:image/')) {
+                const m = image.match(/^data:([^;]+);base64,(.+)$/);
+                if (m) {
+                    userParts.push({ inlineData: { mimeType: m[1], data: m[2] } });
+                }
+            }
+            userParts.push({
+                text: rawMessage || (inArabic ? 'يرجى مراجعة وشرح الصورة المرفقة بالتفصيل.' : 'Please analyze the attached image.')
+            });
             geminiContents.push({
                 role: 'user',
-                parts: [{ text: rawMessage }]
+                parts: userParts
             });
 
             let response = null;

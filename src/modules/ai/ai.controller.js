@@ -236,16 +236,17 @@ const { processCopilotChat, auditHomework } = require('./aiCopilot.service');
 
 const copilotChat = async (req, res) => {
     try {
-        const { message, history } = req.body;
-        if (!message || !message.trim()) {
-            return res.status(400).json({ message: "Message is required" });
+        const { message, history, image } = req.body;
+        if ((!message || !message.trim()) && !image) {
+            return res.status(400).json({ message: "Message or image is required" });
         }
 
         const userData = req.userData || null;
         const result = await processCopilotChat({
-            message,
+            message: (message || '').trim(),
             userData,
-            history: history || []
+            history: history || [],
+            image: image || null
         });
 
         res.json({
