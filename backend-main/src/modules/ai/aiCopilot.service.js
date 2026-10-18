@@ -5,6 +5,7 @@ const classModel = require('../../../DB/models/class.model');
 const questionModel = require('../../../DB/models/question.model');
 const courseModel = require('../../../DB/models/course.model');
 const { GoogleGenAI } = require('@google/genai');
+const Anthropic = require('@anthropic-ai/sdk');
 const mongoose = require('mongoose');
 
 /**
@@ -427,6 +428,127 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
 }
 
 /**
+ * Shared Tool Execution Dispatcher
+ */
+async function executeToolAction({ fnName, args, userData, inArabic }) {
+    let reply = '';
+    let voiceText = '';
+    let toolData = null;
+    let detectedIntent = fnName;
+
+    if (fnName === 'assign_homework') {
+        detectedIntent = 'assign_homework';
+        toolData = await assignHomework({ ...args, userData });
+        if (toolData.ambiguous) {
+            const list = toolData.candidates.map(c => `• **${c.name}** (${c.className} • ${c.email})`).join('\n');
+            reply = inArabic
+                ? `### ⚠️ وجدت أكثر من طالب باسم "${toolData.studentName}":\n\n${list}\n\n*يرجى تحديد اسم الطالب بالكامل أو فصله لتكليفه بالواجب.*`
+                : `### ⚠️ I found multiple students matching "${toolData.studentName}":\n\n${list}\n\n*Please specify the full student name or their class to assign the homework.*`;
+            voiceText = inArabic
+                ? `وجدت أكثر من طالب باسم ${toolData.studentName}. يرجى تحديد الطالب المطلوب.`
+                : `I found multiple students named ${toolData.studentName}. Please specify which one you mean.`;
+        } else if (toolData.notFound) {
+            reply = inArabic
+                ? `### ⚠️ لم يتم العثور على طالب باسم "${toolData.studentName}"\n\n* لا يوجد طالب بهذا الاسم مسجل في النظام حالياً.\n* يمكنك التحقق من قائمة الطلاب أو تعيين الواجب لفصل دراسي كامل.`
+                : `### ⚠️ No student found with the name "${toolData.studentName}"\n\n* No user with this name is registered in your student database.\n* Please check the student's name or assign the homework to a class instead.`;
+            voiceText = inArabic
+                ? `لم يتم العثور على طالب مسجل باسم ${toolData.studentName}.`
+                : `No student named ${toolData.studentName} was found in the database.`;
+        } else if (toolData.success) {
+            const asgn = toolData.assignment;
+            const studentDetails = asgn.studentName
+                ? `**${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
+                : (asgn.className ? `فصل: **${asgn.className}**` : 'الطلاب');
+            const studentDetailsEn = asgn.studentName
+                ? `Student: **${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
+                : (asgn.className ? `Class: **${asgn.className}**` : 'Students');
+
+            if (inArabic) {
+                reply = `### ✅ تم تكليف الواجب بنجاح!\n\n` +
+                    `* 📝 **عنوان الواجب:** ${asgn.title}\n` +
+                    `* 👤 **المُعيّن له:** ${studentDetails}\n` +
+                    `* ❓ **عدد الأسئلة:** ${asgn.questionsCount} أسئلة\n` +
+                    `* 🎯 **إجمالي الدرجات:** ${asgn.totalPoints} نقطة\n` +
+                    `* 📅 **تاريخ البدء:** ${asgn.startDate}\n` +
+                    `* ⏳ **آخر موعد للتسليم:** ${asgn.endDate}\n\n` +
+                    `*تم حفظ الواجب في قاعدة البيانات وهو متاح الآن للطالب.*`;
+                voiceText = `تم تعيين الواجب بنجاح لـ ${asgn.studentName || 'الطلاب'} بعدد ${asgn.questionsCount} أسئلة، وآخر موعد للتسليم هو ${asgn.endDate}.`;
+            } else {
+                reply = `### ✅ Homework Assigned Successfully!\n\n` +
+                    `* 📝 **Title:** ${asgn.title}\n` +
+                    `* 👤 **Assigned To:** ${studentDetailsEn}\n` +
+                    `* ❓ **Questions Count:** ${asgn.questionsCount} questions\n` +
+                    `* 🎯 **Total Points:** ${asgn.totalPoints} pts\n` +
+                    `* 📅 **Start Date:** ${asgn.startDate}\n` +
+                    `* ⏳ **Due Date:** ${asgn.endDate}\n\n` +
+                    `*The assignment is created in the database and is now live on the student dashboard.*`;
+                voiceText = `I have successfully assigned ${asgn.title} with ${asgn.questionsCount} questions to ${asgn.studentName || 'the student'}, due on ${asgn.endDate}.`;
+            }
+        } else {
+            reply = inArabic
+                ? `⚠️ لم أتمكن من إتمام التكليف: ${toolData.message || toolData.error}`
+                : `⚠️ Unable to assign homework: ${toolData.message || toolData.error}`;
+            voiceText = cleanForVoice(reply);
+        }
+    } else if (fnName === 'audit_homework') {
+        detectedIntent = 'homework_audit';
+        toolData = await auditHomework({ query: args.assignmentTitle, userData });
+        if (toolData && toolData.found) {
+            if (inArabic) {
+                const pendingNames = toolData.notSubmitted.map(s => `• **${s.name}** (${s.phone !== 'N/A' ? s.phone : 'بدون هاتف'})`).join('\n');
+                reply = `### 📋 تقرير الواجب: "${toolData.assignmentTitle}"\n\n` +
+                    `* **إجمالي الطلاب:** ${toolData.totalEnrolled} طالب\n` +
+                    `* ✅ **تم التسليم:** ${toolData.totalSubmitted} طالب (${toolData.completionRate}%)\n` +
+                    `* ⏳ **لم يسلموا بعد:** ${toolData.totalPending} طالب\n` +
+                    `* 📊 **متوسط الدرجات:** ${toolData.avgScore} نقطة\n\n` +
+                    (toolData.totalPending > 0
+                        ? `#### ⚠️ الطلاب الذين لم يسلموا الواجب بعد:\n${pendingNames}\n\n*هل ترغب في إرسال تنبيه أو رسالة تذكير لهم؟*`
+                        : `🎉 **ممتاز! جميع الطلاب قاموا بتسليم الواجب.**`);
+                voiceText = `في واجب ${toolData.assignmentTitle}، سلم ${toolData.totalSubmitted} طالب من أصل ${toolData.totalEnrolled}.`;
+            } else {
+                const pendingNames = toolData.notSubmitted.map(s => `• **${s.name}** (Phone: ${s.phone})`).join('\n');
+                reply = `### 📋 Homework Report: "${toolData.assignmentTitle}"\n\n` +
+                    `* **Total Enrolled:** ${toolData.totalEnrolled} students\n` +
+                    `* ✅ **Submitted:** ${toolData.totalSubmitted} (${toolData.completionRate}%)\n` +
+                    `* ⏳ **Pending (Not Submitted):** ${toolData.totalPending}\n` +
+                    `* 📊 **Average Score:** ${toolData.avgScore} pts\n\n` +
+                    (toolData.totalPending > 0
+                        ? `#### ⚠️ Students who have NOT submitted yet:\n${pendingNames}\n\n*Would you like to send them a reminder?*`
+                        : `🎉 **Great job! All students have completed this assignment.**`);
+                voiceText = `For ${toolData.assignmentTitle}, ${toolData.totalSubmitted} out of ${toolData.totalEnrolled} students submitted.`;
+            }
+        } else {
+            reply = inArabic ? `لم أجد أي واجبات مطابقة حالياً.` : `I couldn't find matching assignments.`;
+            voiceText = cleanForVoice(reply);
+        }
+    } else if (fnName === 'lookup_student') {
+        detectedIntent = 'student_lookup';
+        toolData = await lookupStudent({ studentName: args.studentName });
+        if (toolData && toolData.found) {
+            const st = toolData.student;
+            reply = inArabic
+                ? `### 👤 تقرير الطالب: **${st.name}**\n\n* 📧 **البريد:** ${st.email}\n* 📝 **إجمالي التسليمات:** ${toolData.totalSubmissions}\n* 📊 **متوسط الدرجات:** ${toolData.averageScore} نقطة`
+                : `### 👤 Student Profile: **${st.name}**\n\n* 📧 **Email:** ${st.email}\n* 📝 **Total Submissions:** ${toolData.totalSubmissions}\n* 📊 **Average Score:** ${toolData.averageScore} pts`;
+            voiceText = `Student ${st.name} has submitted ${toolData.totalSubmissions} assignments with an average score of ${toolData.averageScore} points.`;
+        } else {
+            reply = inArabic ? `لم يتم العثور على طالب باسم "${args.studentName}".` : `Student "${args.studentName}" was not found.`;
+            voiceText = cleanForVoice(reply);
+        }
+    } else if (fnName === 'get_platform_stats') {
+        detectedIntent = 'platform_stats';
+        toolData = await getPlatformOverview();
+        if (toolData) {
+            reply = inArabic
+                ? `### 📊 نظرة عامة على منصة SAT Area:\n\n* 🎓 **الطلاب النشطون:** ${toolData.totalStudents}\n* 👨‍🏫 **المعلمون:** ${toolData.totalTeachers}\n* 🏫 **الفصول:** ${toolData.totalClasses}\n* 📝 **الواجبات:** ${toolData.totalAssignments}\n* 📚 **بنك الأسئلة:** ${toolData.totalQuestions} سؤال`
+                : `### 📊 SAT Area Platform Overview:\n\n* 🎓 **Active Students:** ${toolData.totalStudents}\n* 👨‍🏫 **Teachers:** ${toolData.totalTeachers}\n* 🏫 **Classes:** ${toolData.totalClasses}\n* 📝 **Assignments / Tests:** ${toolData.totalAssignments}\n* 📚 **Question Bank:** ${toolData.totalQuestions} questions`;
+            voiceText = `The platform has ${toolData.totalStudents} students, ${toolData.totalClasses} classes, and ${toolData.totalQuestions} questions.`;
+        }
+    }
+
+    return { reply, voiceText, toolData, detectedIntent };
+}
+
+/**
  * Master Copilot Chat Function
  */
 async function processCopilotChat({ message, userData, history = [] }) {
@@ -439,75 +561,122 @@ You support both English and Arabic fluently (when Arabic is used, reply in natu
 Provide clear markdown formatting for visual responses.
 
 Available Actions & Tools:
-1. assign_homework: Call this whenever the user asks to assign, create, or give homework, practice, quiz, or test to a student (e.g. "can you assign hw to adam?") or a class. Always invoke this tool directly with default questionCount: 5 if not specified.
+1. assign_homework: Call this whenever the user asks to assign, create, or give homework, practice, quiz, exam, or test to a student (e.g. "can you assign hw to adam?") or a class. Always invoke this tool directly with default questionCount: 5 if not specified.
 2. audit_homework: Call this ONLY when the user asks who submitted or who did not submit homework, or asks for a homework status report. DO NOT call this for general homework questions or requests to create/assign homework!
 3. lookup_student: Call this when the user asks about a student's grades, scores, or performance.
 4. get_platform_stats: Call this when the user asks for platform statistics, number of students, teachers, or courses.
 5. Educational & Math Questions: If the user asks how to solve a question, SAT math problem, grammar rule, or general advice, answer directly with clear step-by-step explanations, formulas, and encouraging tone without calling audit tools.`;
-
-    const tools = [{
-        functionDeclarations: [
-            {
-                name: 'assign_homework',
-                description: 'Creates and assigns homework or practice questions to a student or class in the SAT platform. Always invoke this when the user asks to assign, create, or give homework/test.',
-                parameters: {
-                    type: 'OBJECT',
-                    properties: {
-                        studentName: { type: 'STRING', description: 'Name of the student to assign to (e.g. Adam)' },
-                        className: { type: 'STRING', description: 'Name of the class or group' },
-                        topic: { type: 'STRING', description: 'Topic or chapter e.g. Circles, Linear Equations, Algebra' },
-                        questionCount: { type: 'INTEGER', description: 'Number of questions (default: 5)' },
-                        timer: { type: 'INTEGER', description: 'Time limit in minutes if requested' }
-                    }
-                }
-            },
-            {
-                name: 'audit_homework',
-                description: 'Checks who completed or did not complete an existing assignment and provides submission stats. Use ONLY when asked who did/did not submit homework or for assignment reports.',
-                parameters: {
-                    type: 'OBJECT',
-                    properties: {
-                        assignmentTitle: { type: 'STRING', description: 'Title or query of the assignment to check. Leave empty to check the latest.' }
-                    }
-                }
-            },
-            {
-                name: 'lookup_student',
-                description: 'Looks up a student progress, submissions, and average scores.',
-                parameters: {
-                    type: 'OBJECT',
-                    properties: {
-                        studentName: { type: 'STRING', description: 'Name of the student to look up' }
-                    },
-                    required: ['studentName']
-                }
-            },
-            {
-                name: 'get_platform_stats',
-                description: 'Gets platform overview metrics (students, teachers, questions, classes).',
-                parameters: {
-                    type: 'OBJECT',
-                    properties: {}
-                }
-            }
-        ]
-    }];
 
     let reply = '';
     let voiceText = '';
     let toolData = null;
     let detectedIntent = 'general';
 
-    // 1. Try calling Gemini API
-    const geminiKey = process.env.GEMINI_API_KEY;
-    let apiErrorMsg = null;
+    // ==========================================
+    // 1. Anthropic Claude 3.7 Sonnet (Flagship Tier)
+    // ==========================================
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    if (anthropicKey && anthropicKey.trim().length > 10) {
+        try {
+            const anthropic = new Anthropic({ apiKey: anthropicKey.trim() });
+            const claudeTools = [
+                {
+                    name: 'assign_homework',
+                    description: 'Creates and assigns homework, exam, quiz, or practice questions to a student or class in the SAT platform. Always invoke this when the user asks to assign, create, or give homework/test/exam.',
+                    input_schema: {
+                        type: 'object',
+                        properties: {
+                            studentName: { type: 'string', description: 'Name of the student to assign to (e.g. Adam, ahmed5)' },
+                            className: { type: 'string', description: 'Name of the class or group' },
+                            topic: { type: 'string', description: 'Topic, chapter, or real exam title' },
+                            questionCount: { type: 'integer', description: 'Number of questions to assign (default: 5)' },
+                            timer: { type: 'integer', description: 'Time limit in minutes if requested' }
+                        }
+                    }
+                },
+                {
+                    name: 'audit_homework',
+                    description: 'Checks who completed or did not complete an existing assignment and provides submission stats. Use ONLY when asked who did or did not submit homework.',
+                    input_schema: {
+                        type: 'object',
+                        properties: {
+                            assignmentTitle: { type: 'string', description: 'Title or query of the assignment to check' }
+                        }
+                    }
+                },
+                {
+                    name: 'lookup_student',
+                    description: 'Looks up a student progress, submissions, and average scores.',
+                    input_schema: {
+                        type: 'object',
+                        properties: {
+                            studentName: { type: 'string', description: 'Name of the student to look up' }
+                        },
+                        required: ['studentName']
+                    }
+                },
+                {
+                    name: 'get_platform_stats',
+                    description: 'Gets platform overview metrics (students, teachers, questions, classes).',
+                    input_schema: {
+                        type: 'object',
+                        properties: {}
+                    }
+                }
+            ];
 
-    if (!geminiKey) {
-        reply = inArabic
-            ? `⚠️ مفتاح الذكاء الاصطناعي (GEMINI_API_KEY) غير متاح في إعدادات الخادم (Railway). يرجى التأكد من الضغط على Deploy للمتغيرات المحفوظة.`
-            : `⚠️ GEMINI_API_KEY is not set on the server environment. If you staged it in Railway, please click "Deploy Changes" in your Railway dashboard to make it live.`;
-        voiceText = cleanForVoice(reply);
-    } else {
+            // Build multi-turn messages for Claude
+            const claudeMessages = [];
+            if (Array.isArray(history) && history.length > 0) {
+                history.forEach(h => {
+                    if (h.content && h.content.trim()) {
+                        claudeMessages.push({
+                            role: h.role === 'model' || h.role === 'assistant' ? 'assistant' : 'user',
+                            content: h.content.trim()
+                        });
+                    }
+                });
+            }
+            claudeMessages.push({ role: 'user', content: rawMessage });
+
+            const claudeModel = process.env.CLAUDE_MODEL || 'claude-3-7-sonnet-20250219';
+            const claudeResponse = await anthropic.messages.create({
+                model: claudeModel,
+                max_tokens: 2048,
+                system: systemInstruction,
+                tools: claudeTools,
+                messages: claudeMessages
+            });
+
+            const toolUse = claudeResponse.content.find(b => b.type === 'tool_use');
+            if (toolUse) {
+                const actionRes = await executeToolAction({
+                    fnName: toolUse.name,
+                    args: toolUse.input || {},
+                    userData,
+                    inArabic
+                });
+                reply = actionRes.reply;
+                voiceText = actionRes.voiceText;
+                toolData = actionRes.toolData;
+                detectedIntent = actionRes.detectedIntent;
+            } else {
+                const textBlock = claudeResponse.content.find(b => b.type === 'text');
+                if (textBlock && textBlock.text) {
+                    reply = textBlock.text;
+                    voiceText = cleanForVoice(reply);
+                }
+            }
+        } catch (claudeErr) {
+            console.error("Claude 3.7 Error (falling back to Gemini):", claudeErr.message);
+        }
+    }
+
+    // ==========================================
+    // 2. Google Gemini Fallback Tier
+    // ==========================================
+    const geminiKey = process.env.GEMINI_API_KEY;
+    if (!reply && geminiKey) {
         try {
             const ai = new GoogleGenAI({ apiKey: geminiKey });
             const candidateModels = [
@@ -517,6 +686,54 @@ Available Actions & Tools:
                 'gemini-flash-latest',
                 'gemini-3.8-flash'
             ].filter(Boolean);
+
+            const geminiTools = [{
+                functionDeclarations: [
+                    {
+                        name: 'assign_homework',
+                        description: 'Creates and assigns homework or practice questions to a student or class in the SAT platform. Always invoke this when the user asks to assign, create, or give homework/test/exam.',
+                        parameters: {
+                            type: 'OBJECT',
+                            properties: {
+                                studentName: { type: 'STRING', description: 'Name of the student to assign to (e.g. Adam, ahmed5)' },
+                                className: { type: 'STRING', description: 'Name of the class or group' },
+                                topic: { type: 'STRING', description: 'Topic or chapter e.g. Circles, Real Exam, Algebra' },
+                                questionCount: { type: 'INTEGER', description: 'Number of questions (default: 5)' },
+                                timer: { type: 'INTEGER', description: 'Time limit in minutes if requested' }
+                            }
+                        }
+                    },
+                    {
+                        name: 'audit_homework',
+                        description: 'Checks who completed or did not complete an existing assignment and provides submission stats. Use ONLY when asked who did/did not submit homework or for assignment reports.',
+                        parameters: {
+                            type: 'OBJECT',
+                            properties: {
+                                assignmentTitle: { type: 'STRING', description: 'Title or query of the assignment to check. Leave empty to check the latest.' }
+                            }
+                        }
+                    },
+                    {
+                        name: 'lookup_student',
+                        description: 'Looks up a student progress, submissions, and average scores.',
+                        parameters: {
+                            type: 'OBJECT',
+                            properties: {
+                                studentName: { type: 'STRING', description: 'Name of the student to look up' }
+                            },
+                            required: ['studentName']
+                        }
+                    },
+                    {
+                        name: 'get_platform_stats',
+                        description: 'Gets platform overview metrics (students, teachers, questions, classes).',
+                        parameters: {
+                            type: 'OBJECT',
+                            properties: {}
+                        }
+                    }
+                ]
+            }];
 
             let response = null;
             let lastErr = null;
@@ -528,7 +745,7 @@ Available Actions & Tools:
                         contents: rawMessage,
                         config: {
                             systemInstruction,
-                            tools
+                            tools: geminiTools
                         }
                     });
                     if (response) break;
@@ -538,138 +755,30 @@ Available Actions & Tools:
                 }
             }
 
-            if (!response) {
-                throw lastErr || new Error("All candidate Gemini models failed.");
-            }
-
             if (response && response.functionCalls && response.functionCalls.length > 0) {
                 const call = response.functionCalls[0];
-                const fnName = call.name;
-                const args = call.args || {};
-
-                if (fnName === 'assign_homework') {
-                    detectedIntent = 'assign_homework';
-                    toolData = await assignHomework({ ...args, userData });
-                    if (toolData.ambiguous) {
-                        const list = toolData.candidates.map(c => `• **${c.name}** (${c.className} • ${c.email})`).join('\n');
-                        reply = inArabic
-                            ? `### ⚠️ وجدت أكثر من طالب باسم "${toolData.studentName}":\n\n${list}\n\n*يرجى تحديد اسم الطالب بالكامل أو فصله لتكليفه بالواجب.*`
-                            : `### ⚠️ I found multiple students matching "${toolData.studentName}":\n\n${list}\n\n*Please specify the full student name or their class to assign the homework.*`;
-                        voiceText = inArabic
-                            ? `وجدت أكثر من طالب باسم ${toolData.studentName}. يرجى تحديد الطالب المطلوب.`
-                            : `I found multiple students named ${toolData.studentName}. Please specify which one you mean.`;
-                    } else if (toolData.notFound) {
-                        reply = inArabic
-                            ? `### ⚠️ لم يتم العثور على طالب باسم "${toolData.studentName}"\n\n* لا يوجد طالب بهذا الاسم مسجل في النظام حالياً.\n* يمكنك التحقق من قائمة الطلاب أو تعيين الواجب لفصل دراسي كامل.`
-                            : `### ⚠️ No student found with the name "${toolData.studentName}"\n\n* No user with this name is registered in your student database.\n* Please check the student's name or assign the homework to a class instead.`;
-                        voiceText = inArabic
-                            ? `لم يتم العثور على طالب مسجل باسم ${toolData.studentName}.`
-                            : `No student named ${toolData.studentName} was found in the database.`;
-                    } else if (toolData.success) {
-                        const asgn = toolData.assignment;
-                        const studentDetails = asgn.studentName
-                            ? `**${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
-                            : (asgn.className ? `فصل: **${asgn.className}**` : 'الطلاب');
-                        const studentDetailsEn = asgn.studentName
-                            ? `Student: **${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
-                            : (asgn.className ? `Class: **${asgn.className}**` : 'Students');
-
-                        if (inArabic) {
-                            reply = `### ✅ تم تكليف الواجب بنجاح!\n\n` +
-                                `* 📝 **عنوان الواجب:** ${asgn.title}\n` +
-                                `* 👤 **المُعيّن له:** ${studentDetails}\n` +
-                                `* ❓ **عدد الأسئلة:** ${asgn.questionsCount} أسئلة\n` +
-                                `* 🎯 **إجمالي الدرجات:** ${asgn.totalPoints} نقطة\n` +
-                                `* 📅 **تاريخ البدء:** ${asgn.startDate}\n` +
-                                `* ⏳ **آخر موعد للتسليم:** ${asgn.endDate}\n\n` +
-                                `*تم حفظ الواجب في قاعدة البيانات وهو متاح الآن للطالب.*`;
-                            voiceText = `تم تعيين الواجب بنجاح لـ ${asgn.studentName || 'الطلاب'} بعدد ${asgn.questionsCount} أسئلة، وآخر موعد للتسليم هو ${asgn.endDate}.`;
-                        } else {
-                            reply = `### ✅ Homework Assigned Successfully!\n\n` +
-                                `* 📝 **Title:** ${asgn.title}\n` +
-                                `* 👤 **Assigned To:** ${studentDetailsEn}\n` +
-                                `* ❓ **Questions Count:** ${asgn.questionsCount} questions\n` +
-                                `* 🎯 **Total Points:** ${asgn.totalPoints} pts\n` +
-                                `* 📅 **Start Date:** ${asgn.startDate}\n` +
-                                `* ⏳ **Due Date:** ${asgn.endDate}\n\n` +
-                                `*The assignment is created in the database and is now live on the student dashboard.*`;
-                            voiceText = `I have successfully assigned ${asgn.title} with ${asgn.questionsCount} questions to ${asgn.studentName || 'the student'}, due on ${asgn.endDate}.`;
-                        }
-                    } else {
-                        reply = inArabic
-                            ? `⚠️ لم أتمكن من إتمام التكليف: ${toolData.message || toolData.error}`
-                            : `⚠️ Unable to assign homework: ${toolData.message || toolData.error}`;
-                        voiceText = cleanForVoice(reply);
-                    }
-
-                } else if (fnName === 'audit_homework') {
-                    detectedIntent = 'homework_audit';
-                    toolData = await auditHomework({ query: args.assignmentTitle, userData });
-                    if (toolData && toolData.found) {
-                        if (inArabic) {
-                            const pendingNames = toolData.notSubmitted.map(s => `• **${s.name}** (${s.phone !== 'N/A' ? s.phone : 'بدون هاتف'})`).join('\n');
-                            reply = `### 📋 تقرير الواجب: "${toolData.assignmentTitle}"\n\n` +
-                                `* **إجمالي الطلاب:** ${toolData.totalEnrolled} طالب\n` +
-                                `* ✅ **تم التسليم:** ${toolData.totalSubmitted} طالب (${toolData.completionRate}%)\n` +
-                                `* ⏳ **لم يسلموا بعد:** ${toolData.totalPending} طالب\n` +
-                                `* 📊 **متوسط الدرجات:** ${toolData.avgScore} نقطة\n\n` +
-                                (toolData.totalPending > 0
-                                    ? `#### ⚠️ الطلاب الذين لم يسلموا الواجب بعد:\n${pendingNames}\n\n*هل ترغب في إرسال تنبيه أو رسالة تذكير لهم؟*`
-                                    : `🎉 **ممتاز! جميع الطلاب قاموا بتسليم الواجب.**`);
-                            voiceText = `في واجب ${toolData.assignmentTitle}، سلم ${toolData.totalSubmitted} طالب من أصل ${toolData.totalEnrolled}.`;
-                        } else {
-                            const pendingNames = toolData.notSubmitted.map(s => `• **${s.name}** (Phone: ${s.phone})`).join('\n');
-                            reply = `### 📋 Homework Report: "${toolData.assignmentTitle}"\n\n` +
-                                `* **Total Enrolled:** ${toolData.totalEnrolled} students\n` +
-                                `* ✅ **Submitted:** ${toolData.totalSubmitted} (${toolData.completionRate}%)\n` +
-                                `* ⏳ **Pending (Not Submitted):** ${toolData.totalPending}\n` +
-                                `* 📊 **Average Score:** ${toolData.avgScore} pts\n\n` +
-                                (toolData.totalPending > 0
-                                    ? `#### ⚠️ Students who have NOT submitted yet:\n${pendingNames}\n\n*Would you like to send them a reminder?*`
-                                    : `🎉 **Great job! All students have completed this assignment.**`);
-                            voiceText = `For ${toolData.assignmentTitle}, ${toolData.totalSubmitted} out of ${toolData.totalEnrolled} students submitted.`;
-                        }
-                    } else {
-                        reply = inArabic ? `لم أجد أي واجبات مطابقة حالياً.` : `I couldn't find matching assignments.`;
-                        voiceText = cleanForVoice(reply);
-                    }
-                } else if (fnName === 'lookup_student') {
-                    detectedIntent = 'student_lookup';
-                    toolData = await lookupStudent({ studentName: args.studentName });
-                    if (toolData && toolData.found) {
-                        const st = toolData.student;
-                        reply = inArabic
-                            ? `### 👤 تقرير الطالب: **${st.name}**\n\n* 📧 **البريد:** ${st.email}\n* 📝 **إجمالي التسليمات:** ${toolData.totalSubmissions}\n* 📊 **متوسط الدرجات:** ${toolData.averageScore} نقطة`
-                            : `### 👤 Student Profile: **${st.name}**\n\n* 📧 **Email:** ${st.email}\n* 📝 **Total Submissions:** ${toolData.totalSubmissions}\n* 📊 **Average Score:** ${toolData.averageScore} pts`;
-                        voiceText = `Student ${st.name} has submitted ${toolData.totalSubmissions} assignments with an average score of ${toolData.averageScore} points.`;
-                    } else {
-                        reply = inArabic ? `لم يتم العثور على طالب باسم "${args.studentName}".` : `Student "${args.studentName}" was not found.`;
-                        voiceText = cleanForVoice(reply);
-                    }
-                } else if (fnName === 'get_platform_stats') {
-                    detectedIntent = 'platform_stats';
-                    toolData = await getPlatformOverview();
-                    if (toolData) {
-                        reply = inArabic
-                            ? `### 📊 نظرة عامة على منصة SAT Area:\n\n* 🎓 **الطلاب النشطون:** ${toolData.totalStudents}\n* 👨‍🏫 **المعلمون:** ${toolData.totalTeachers}\n* 🏫 **الفصول:** ${toolData.totalClasses}\n* 📝 **الواجبات:** ${toolData.totalAssignments}\n* 📚 **بنك الأسئلة:** ${toolData.totalQuestions} سؤال`
-                            : `### 📊 SAT Area Platform Overview:\n\n* 🎓 **Active Students:** ${toolData.totalStudents}\n* 👨‍🏫 **Teachers:** ${toolData.totalTeachers}\n* 🏫 **Classes:** ${toolData.totalClasses}\n* 📝 **Assignments / Tests:** ${toolData.totalAssignments}\n* 📚 **Question Bank:** ${toolData.totalQuestions} questions`;
-                        voiceText = `The platform has ${toolData.totalStudents} students, ${toolData.totalClasses} classes, and ${toolData.totalQuestions} questions.`;
-                    }
-                }
+                const actionRes = await executeToolAction({
+                    fnName: call.name,
+                    args: call.args || {},
+                    userData,
+                    inArabic
+                });
+                reply = actionRes.reply;
+                voiceText = actionRes.voiceText;
+                toolData = actionRes.toolData;
+                detectedIntent = actionRes.detectedIntent;
             } else if (response && response.text) {
                 reply = response.text;
                 voiceText = cleanForVoice(reply);
             }
         } catch (apiErr) {
             console.error("Gemini Copilot Error:", apiErr);
-            apiErrorMsg = apiErr.message;
-            reply = `⚠️ AI Error: ${apiErr.message}`;
-            voiceText = cleanForVoice(reply);
         }
     }
 
-
-    // 2. Fallback Engine: Only if API is down or unavailable
+    // ==========================================
+    // 3. Fallback Engine: If all models are unavailable
+    // ==========================================
     if (!reply) {
         const lowerMsg = rawMessage.toLowerCase();
         const isAuditQuestion = /who didn't|who submitted|pending|مين عمل|مين معملش|تسليم/i.test(lowerMsg);
@@ -714,4 +823,5 @@ module.exports = {
     solveQuestion,
     assignHomework
 };
+
 
