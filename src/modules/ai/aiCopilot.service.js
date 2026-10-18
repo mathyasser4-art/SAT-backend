@@ -510,16 +510,37 @@ Available Actions & Tools:
     } else {
         try {
             const ai = new GoogleGenAI({ apiKey: geminiKey });
-            const modelName = process.env.AI_MODEL || 'gemini-3.8-flash';
+            const candidateModels = [
+                'gemini-3.5-flash',
+                'gemini-3.7-flash',
+                process.env.AI_MODEL,
+                'gemini-flash-latest',
+                'gemini-3.8-flash'
+            ].filter(Boolean);
 
-            const response = await ai.models.generateContent({
-                model: modelName,
-                contents: rawMessage,
-                config: {
-                    systemInstruction,
-                    tools
+            let response = null;
+            let lastErr = null;
+
+            for (const model of candidateModels) {
+                try {
+                    response = await ai.models.generateContent({
+                        model,
+                        contents: rawMessage,
+                        config: {
+                            systemInstruction,
+                            tools
+                        }
+                    });
+                    if (response) break;
+                } catch (mErr) {
+                    lastErr = mErr;
+                    console.warn(`Gemini model ${model} error (${mErr.message.slice(0, 80)}), trying next fallback model...`);
                 }
-            });
+            }
+
+            if (!response) {
+                throw lastErr || new Error("All candidate Gemini models failed.");
+            }
 
             if (response && response.functionCalls && response.functionCalls.length > 0) {
                 const call = response.functionCalls[0];
