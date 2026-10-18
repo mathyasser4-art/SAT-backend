@@ -500,7 +500,14 @@ Available Actions & Tools:
 
     // 1. Try calling Gemini API
     const geminiKey = process.env.GEMINI_API_KEY;
-    if (geminiKey) {
+    let apiErrorMsg = null;
+
+    if (!geminiKey) {
+        reply = inArabic
+            ? `⚠️ مفتاح الذكاء الاصطناعي (GEMINI_API_KEY) غير متاح في إعدادات الخادم (Railway). يرجى التأكد من الضغط على Deploy للمتغيرات المحفوظة.`
+            : `⚠️ GEMINI_API_KEY is not set on the server environment. If you staged it in Railway, please click "Deploy Changes" in your Railway dashboard to make it live.`;
+        voiceText = cleanForVoice(reply);
+    } else {
         try {
             const ai = new GoogleGenAI({ apiKey: geminiKey });
             const modelName = process.env.AI_MODEL || 'gemini-3.8-flash';
@@ -634,8 +641,12 @@ Available Actions & Tools:
             }
         } catch (apiErr) {
             console.error("Gemini Copilot Error:", apiErr);
+            apiErrorMsg = apiErr.message;
+            reply = `⚠️ AI Error: ${apiErr.message}`;
+            voiceText = cleanForVoice(reply);
         }
     }
+
 
     // 2. Fallback Engine: Only if API is down or unavailable
     if (!reply) {
