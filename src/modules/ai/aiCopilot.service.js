@@ -1229,10 +1229,11 @@ Available Tools:
         }
     }
 
+    const replyIsArabic = isArabic(reply) || isArabic(voiceText) || inArabic;
     return {
         reply,
-        voiceText: voiceText || cleanForVoice(reply),
-        language: inArabic ? 'ar' : 'en',
+        voiceText: voiceText || cleanForVoice(reply, replyIsArabic),
+        language: replyIsArabic ? 'ar' : 'en',
         data: toolData,
         intent: detectedIntent
     };
