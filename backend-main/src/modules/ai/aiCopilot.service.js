@@ -3,6 +3,8 @@ const answerModel = require('../../../DB/models/answer.model');
 const userModel = require('../../../DB/models/user.model');
 const classModel = require('../../../DB/models/class.model');
 const questionModel = require('../../../DB/models/question.model');
+const chapterModel = require('../../../DB/models/chapter.model');
+const questionReportModel = require('../../../DB/models/questionReport.model');
 const courseModel = require('../../../DB/models/course.model');
 const { GoogleGenAI } = require('@google/genai');
 const Anthropic = require('@anthropic-ai/sdk');
@@ -490,6 +492,153 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
 }
 
 /**
+ * Audits questions in an exam, test, or chapter for errors, missing images, duplicate choices, broken LaTeX, and student reports
+ */
+async function auditExamQuestions({ examName, limit = 25 }) {
+    try {
+        if (!examName || !examName.trim()) {
+            return { success: false, message: 'Please specify an exam or chapter name to audit.' };
+        }
+
+        const cleanName = examName.trim();
+        const chapters = await chapterModel.find({
+            chapterName: { $regex: cleanName, $options: 'i' }
+        }).limit(5);
+
+        let questions = [];
+        let resolvedExamTitle = cleanName;
+
+        if (chapters && chapters.length > 0) {
+            const chapter = chapters[0];
+            resolvedExamTitle = chapter.chapterName;
+            if (chapter.questions && chapter.questions.length > 0) {
+                questions = await questionModel.find({ _id: { $in: chapter.questions } }).lean();
+            } else {
+                questions = await questionModel.find({ chapter: chapter._id }).lean();
+            }
+        }
+
+        if (!questions || questions.length === 0) {
+            questions = await questionModel.find({
+                $or: [
+                    { topic: { $regex: cleanName, $options: 'i' } },
+                    { question: { $regex: cleanName, $options: 'i' } }
+                ]
+            }).limit(limit).lean();
+        }
+
+        if (!questions || questions.length === 0) {
+            return {
+                success: false,
+                notFound: true,
+                examName: cleanName,
+                message: `No exam or questions found matching "${cleanName}".`
+            };
+        }
+
+        const questionIds = questions.map(q => q._id);
+        let reportsMap = {};
+        try {
+            const reports = await questionReportModel.find({
+                question: { $in: questionIds },
+                status: { $in: ['pending', 'reviewed'] }
+            }).lean();
+            reports.forEach(r => {
+                const qid = r.question.toString();
+                if (!reportsMap[qid]) reportsMap[qid] = [];
+                reportsMap[qid].push({
+                    reason: r.reason,
+                    comment: r.comment,
+                    reporter: r.reporterName
+                });
+            });
+        } catch (repErr) {
+            // ignore
+        }
+
+        const issues = [];
+        const healthyQuestions = [];
+
+        questions.slice(0, limit).forEach((q, idx) => {
+            const qNum = idx + 1;
+            const qId = q._id.toString();
+            const text = q.question || '';
+            const qType = q.typeOfAnswer || 'MCQ';
+            const questionIssues = [];
+
+            if (!text || text.trim().length < 5) {
+                questionIssues.push('Empty or truncated question prompt');
+            }
+
+            const imagePhrases = ['shown above', 'refer to the figure', 'in the figure', 'graph above', 'shown in the graph', 'shown below', 'diagram above', 'pictured above'];
+            const mentionsImage = imagePhrases.some(phrase => text.toLowerCase().includes(phrase));
+            if (mentionsImage && !q.questionPic) {
+                questionIssues.push('Question text mentions a figure/graph, but questionPic is missing');
+            }
+
+            if (qType === 'MCQ') {
+                const choices = [q.correctAnswer, ...(q.wrongAnswer || [])].filter(Boolean);
+                if (!q.correctAnswer) {
+                    questionIssues.push('Missing correct answer (correctAnswer is empty)');
+                }
+                if (!q.wrongAnswer || q.wrongAnswer.length < 3) {
+                    questionIssues.push(`Incomplete choices: only has ${q.wrongAnswer ? q.wrongAnswer.length : 0} wrong options`);
+                }
+                const cleanChoices = choices.map(c => String(c).trim().toLowerCase());
+                const uniqueChoices = new Set(cleanChoices);
+                if (uniqueChoices.size < cleanChoices.length) {
+                    questionIssues.push('Duplicate choices detected in options');
+                }
+            } else if (qType === 'Essay') {
+                const acceptableAnswers = Array.isArray(q.answer) ? q.answer : [q.answer];
+                if (!acceptableAnswers.filter(Boolean).length && !q.correctAnswer) {
+                    questionIssues.push('Missing student-produced response key (answer array is empty)');
+                }
+            } else if (qType === 'Graph') {
+                if (!q.correctPicAnswer) {
+                    questionIssues.push('Graph question missing correctPicAnswer image');
+                }
+            }
+
+            const dollarCount = (text.match(/\$/g) || []).length;
+            if (dollarCount % 2 !== 0) {
+                questionIssues.push('Unbalanced LaTeX dollar signs ($) in question text');
+            }
+
+            if (reportsMap[qId] && reportsMap[qId].length > 0) {
+                const reps = reportsMap[qId].map(r => `${r.reason}: "${r.comment || 'Flagged by student'}"`).join(', ');
+                questionIssues.push(`Student reports lodged against this question (${reps})`);
+            }
+
+            if (questionIssues.length > 0) {
+                issues.push({
+                    questionNumber: qNum,
+                    questionId: qId,
+                    type: qType,
+                    snippet: text.substring(0, 80) + (text.length > 80 ? '...' : ''),
+                    problems: questionIssues
+                });
+            } else {
+                healthyQuestions.push(qNum);
+            }
+        });
+
+        return {
+            success: true,
+            examTitle: resolvedExamTitle,
+            totalAudited: Math.min(questions.length, limit),
+            healthyCount: healthyQuestions.length,
+            issuesCount: issues.length,
+            issues: issues,
+            healthyQuestions: healthyQuestions
+        };
+    } catch (err) {
+        console.error("auditExamQuestions Error:", err);
+        return { success: false, error: err.message };
+    }
+}
+
+/**
  * Raw Tool Execution (for agentic 2-turn reasoning)
  */
 async function executeRawTool({ fnName, args, userData }) {
@@ -497,6 +646,8 @@ async function executeRawTool({ fnName, args, userData }) {
         return await assignHomework({ ...args, userData });
     } else if (fnName === 'audit_homework') {
         return await auditHomework({ query: args.assignmentTitle, userData });
+    } else if (fnName === 'audit_exam_questions') {
+        return await auditExamQuestions({ examName: args.examName, limit: args.limit });
     } else if (fnName === 'lookup_student') {
         return await lookupStudent({ studentName: args.studentName });
     } else if (fnName === 'get_platform_stats') {
@@ -618,14 +769,61 @@ async function executeToolAction({ fnName, args, userData, inArabic }) {
             reply = inArabic ? `لم يتم العثور على طالب باسم "${args.studentName}".` : `Student "${args.studentName}" was not found.`;
             voiceText = cleanForVoice(reply);
         }
-    } else if (fnName === 'get_platform_stats') {
-        detectedIntent = 'platform_stats';
-        toolData = await getPlatformOverview();
-        if (toolData) {
+    } else if (fnName === 'audit_exam_questions') {
+        detectedIntent = 'audit_exam';
+        toolData = await auditExamQuestions({ examName: args.examName, limit: args.limit });
+        if (toolData.notFound) {
             reply = inArabic
-                ? `### 📊 نظرة عامة على منصة SAT Area:\n\n* 🎓 **الطلاب النشطون:** ${toolData.totalStudents}\n* 👨‍🏫 **المعلمون:** ${toolData.totalTeachers}\n* 🏫 **الفصول:** ${toolData.totalClasses}\n* 📝 **الواجبات:** ${toolData.totalAssignments}\n* 📚 **بنك الأسئلة:** ${toolData.totalQuestions} سؤال`
-                : `### 📊 SAT Area Platform Overview:\n\n* 🎓 **Active Students:** ${toolData.totalStudents}\n* 👨‍🏫 **Teachers:** ${toolData.totalTeachers}\n* 🏫 **Classes:** ${toolData.totalClasses}\n* 📝 **Assignments / Tests:** ${toolData.totalAssignments}\n* 📚 **Question Bank:** ${toolData.totalQuestions} questions`;
-            voiceText = `The platform has ${toolData.totalStudents} students, ${toolData.totalClasses} classes, and ${toolData.totalQuestions} questions.`;
+                ? `### ⚠️ لم أتمكن من العثور على امتحان أو فصل باسم "${toolData.examName}"\n\nيرجى التأكد من اسم الامتحان (مثال: Practice Test 1، March 2024، Quadratics).`
+                : `### ⚠️ Could not find an exam or chapter matching "${toolData.examName}"\n\nPlease check the exam name (e.g., Practice Test 1, March 2024, Quadratics).`;
+            voiceText = inArabic
+                ? `لم أجد امتحاناً باسم ${toolData.examName}. يرجى التحقق من الاسم.`
+                : `I could not find an exam named ${toolData.examName}. Please verify the name.`;
+        } else if (toolData.success) {
+            const hasIssues = toolData.issuesCount > 0;
+            if (hasIssues) {
+                const issueList = toolData.issues.map(iss => {
+                    const probs = iss.problems.map(p => `   - ⚠️ ${p}`).join('\n');
+                    return `• **السؤال #${iss.questionNumber}** (${iss.type}):\n  *${iss.snippet}*\n${probs}`;
+                }).join('\n\n');
+
+                const issueListEn = toolData.issues.map(iss => {
+                    const probs = iss.problems.map(p => `   - ⚠️ ${p}`).join('\n');
+                    return `• **Question #${iss.questionNumber}** (${iss.type}):\n  *${iss.snippet}*\n${probs}`;
+                }).join('\n\n');
+
+                reply = inArabic
+                    ? `### 🔍 تقرير فحص أسئلة امتحان: **${toolData.examTitle}**\n\n` +
+                      `* **إجمالي الأسئلة المفحوصة:** ${toolData.totalAudited}\n` +
+                      `* **الأسئلة السليمة:** ✅ ${toolData.healthyCount}\n` +
+                      `* **الأسئلة التي تحتاج مراجعة:** ⚠️ ${toolData.issuesCount}\n\n` +
+                      `---\n\n` +
+                      `### ⚠️ تفاصيل المشاكل المكتشفة:\n\n${issueList}\n\n` +
+                      `*يمكنك تعديل أي سؤال مباشرة من صفحة إدارة الأسئلة.*`
+                    : `### 🔍 Exam Questions Audit Report: **${toolData.examTitle}**\n\n` +
+                      `* **Total Questions Audited:** ${toolData.totalAudited}\n` +
+                      `* **Healthy Questions:** ✅ ${toolData.healthyCount}\n` +
+                      `* **Questions Needing Review:** ⚠️ ${toolData.issuesCount}\n\n` +
+                      `---\n\n` +
+                      `### ⚠️ Detected Issues:\n\n${issueListEn}\n\n` +
+                      `*You can review or edit any question in the Question Management Studio.*`;
+
+                voiceText = inArabic
+                    ? `تم فحص امتحان ${toolData.examTitle}. فحصت ${toolData.totalAudited} سؤال، ووجدت ${toolData.issuesCount} أسئلة تحتاج إلى مراجعة وتصحيح.`
+                    : `Exam audit complete for ${toolData.examTitle}. Audited ${toolData.totalAudited} questions and found ${toolData.issuesCount} questions requiring review.`;
+            } else {
+                reply = inArabic
+                    ? `### ✅ فحص امتحان **${toolData.examTitle}**: سليم 100%!\n\n` +
+                      `* **إجمالي الأسئلة:** ${toolData.totalAudited} سؤال\n` +
+                      `* **الحالة:** تم فحص النصوص، الصور، الإجابات الصحيحة وتنسيق المعادلات — لا توجد أي مشاكل مسجلة أو مفقودات.`
+                    : `### ✅ Exam Audit for **${toolData.examTitle}**: 100% Clean!\n\n` +
+                      `* **Total Questions:** ${toolData.totalAudited} questions\n` +
+                      `* **Status:** Verified prompts, figures, answer keys, and LaTeX math formatting — zero errors or missing assets detected.`;
+
+                voiceText = inArabic
+                    ? `امتحان ${toolData.examTitle} سليم تماماً وخالٍ من أي أخطاء أو صور مفقودة.`
+                    : `Exam ${toolData.examTitle} is completely clean with zero detected errors or missing assets.`;
+            }
         }
     }
 
@@ -635,18 +833,47 @@ async function executeToolAction({ fnName, args, userData, inArabic }) {
 /**
  * Master Copilot Chat Function
  */
-async function processCopilotChat({ message, userData, history = [], image = null }) {
+async function processCopilotChat({ message, userData, history = [], image = null, brand = null }) {
     const rawMessage = (message || '').trim();
     const inArabic = isArabic(rawMessage);
 
-    const systemInstruction = `You are "Mr. Shahin's AI Copilot" — the premier, state-of-the-art educational AI assistant for the SAT Area platform.
+    // Resolve brand identity: 'ais', 'mrshahin', or 'satarea'
+    let activeBrand = (brand || '').toLowerCase().trim();
+    if (!activeBrand && userData) {
+        const uName = (userData.userName || '').toLowerCase();
+        const uEmail = (userData.email || '').toLowerCase();
+        const uSchool = (userData.school || userData.createdBy?.userName || '').toLowerCase();
+        if (uName.includes('arrowad') || uName.includes('ais') || uEmail.includes('arrowad') || uSchool.includes('arrowad')) {
+            activeBrand = 'ais';
+        } else if (uName.includes('shahin') || uEmail.includes('shahin') || uSchool.includes('shahin')) {
+            activeBrand = 'mrshahin';
+        } else {
+            activeBrand = 'satarea';
+        }
+    }
+    if (!activeBrand) activeBrand = 'satarea';
+
+    let copilotName = "SATAREA AI Copilot";
+    let platformBrandName = "the SATAREA Digital SAT platform";
+    let arabicCopilotName = "المساعد الذكي لمنصة سات إريا";
+    if (activeBrand === 'ais') {
+        copilotName = "Arrowad AI Copilot";
+        platformBrandName = "Arrowad International Schools (AIS) and the SATAREA platform";
+        arabicCopilotName = "مساعد مدارس الرواد العالمية الذكي";
+    } else if (activeBrand === 'mrshahin') {
+        copilotName = "Mr. Shahin's AI Copilot";
+        platformBrandName = "Mr. Shahin Math Academy and the SAT Area platform";
+        arabicCopilotName = "المساعد الذكي لمستر شاهين";
+    }
+
+    const systemInstruction = `You are "${copilotName}" — the premier, state-of-the-art educational AI assistant for ${platformBrandName}.
 You combine elite SAT Math & English mastery with the responsiveness, warmth, and proactive intelligence of an expert co-teacher and mentor.
 
 Your Core Directives:
 1. High Intelligence & Vision: When explaining SAT concepts or analyzing an uploaded image/screenshot of a problem, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and mathematically rigorous formulas.
-2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot (like modern ChatGPT voice chat). When you take an action (assigning homework, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions. Never sound like a rigid machine.
+2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot (like modern ChatGPT voice chat). When you take an action (assigning homework, auditing exam questions, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions. Never sound like a rigid machine.
 3. Bilingual Mastery: Fluent in English and Arabic. When the user speaks Arabic, reply naturally in warm, friendly, modern Egyptian/Standard Arabic.
-4. Action Execution: You have direct access to database tools. Always invoke the appropriate tool when asked to assign homework, audit submissions, or check student stats.
+4. Action Execution: You have direct access to database tools. Always invoke the appropriate tool when asked to assign homework, audit exam questions, check submissions, or inspect student stats.
 
 MATHEMATICAL & LATEX FORMATTING (CRITICAL):
 - ALWAYS write all mathematical expressions, formulas, fractions, equations, and variables using standard LaTeX wrapped in dollar signs.
@@ -678,7 +905,8 @@ You have intimate knowledge of the SAT Area platform structure and its 4 core se
    - Features instant auto-grading, step-by-step explanations, student mistake tracking (Mistakes Bank / بنك الأخطاء), and printable automated PDF gradebook reports for teachers and parents.
 
 Available Tools:
-- assign_homework: Creates and assigns homework, quiz, or practice questions to a student or class from any section (Basics Classified, Advanced Classified, Real Exams, or Quizzes).
+- assign_homework: Creates and assigns homework, quiz, or practice questions to a student or class from any section.
+- audit_exam_questions: Checks and audits questions in any practice exam, test, or chapter for errors (missing images, missing correct answers, duplicate choices, broken LaTeX, student problem reports).
 - audit_homework: Checks who completed or did not complete an existing assignment and provides submission metrics.
 - lookup_student: Looks up student progress, past submissions, and average scores.
 - get_platform_stats: Platform overview metrics (students, teachers, questions, classes).`;
@@ -728,6 +956,18 @@ Available Tools:
                     studentName: { type: 'string', description: 'Student name to look up' }
                 },
                 required: ['studentName']
+            }
+        },
+        {
+            name: 'audit_exam_questions',
+            description: 'Inspects and audits questions in any practice exam, test, or chapter to find problems such as missing images/diagrams, missing or duplicate answers, broken LaTeX formulas, or student reports. Always invoke when user asks to check or audit exam questions for problems.',
+            parameters: {
+                type: 'object',
+                properties: {
+                    examName: { type: 'string', description: 'Name of the exam, test, or chapter (e.g. "Practice Test 1", "March 2024", "Linear Equations")' },
+                    limit: { type: 'integer', description: 'Number of questions to check (default: 25)' }
+                },
+                required: ['examName']
             }
         },
         {
@@ -910,6 +1150,18 @@ Available Tools:
                             studentName: { type: 'string', description: 'Name of the student to look up' }
                         },
                         required: ['studentName']
+                    }
+                },
+                {
+                    name: 'audit_exam_questions',
+                    description: 'Audits questions in any exam, test, or chapter to find problems (missing diagrams/images, missing or duplicate answers, broken LaTeX, student reports).',
+                    input_schema: {
+                        type: 'object',
+                        properties: {
+                            examName: { type: 'string', description: 'Name of the exam or chapter to check' },
+                            limit: { type: 'integer', description: 'Number of questions to check (default: 25)' }
+                        },
+                        required: ['examName']
                     }
                 },
                 {
@@ -1121,6 +1373,18 @@ Available Tools:
                         }
                     },
                     {
+                        name: 'audit_exam_questions',
+                        description: 'Audits questions in any exam, test, or chapter to find problems (missing diagrams/images, missing or duplicate answers, broken LaTeX, student reports).',
+                        parameters: {
+                            type: 'OBJECT',
+                            properties: {
+                                examName: { type: 'STRING', description: 'Name of the exam or chapter to check' },
+                                limit: { type: 'INTEGER', description: 'Number of questions to check (default: 25)' }
+                            },
+                            required: ['examName']
+                        }
+                    },
+                    {
                         name: 'get_platform_stats',
                         description: 'Gets platform overview metrics (students, teachers, questions, classes).',
                         parameters: {
@@ -1223,8 +1487,8 @@ Available Tools:
             }
         } else {
             reply = inArabic
-                ? `أهلاً بك! أنا المساعد الذكي لمنصة **SAT Area / مستر شاهين**.\n\nيمكنك أن تطلب مني تعيين واجب لطالب، حل أسئلة SAT، أو فحص تسليمات الطلاب.`
-                : `Hello! I am your AI Copilot for **SAT Area / Mr. Shahin**.\n\nYou can ask me to assign homework to students, solve SAT questions, or audit homework submissions.`;
+                ? `أهلاً بك! أنا **${arabicCopilotName}**.\n\nيمكنك أن تطلب مني فحص أسئلة أي امتحان للتأكد من خلوه من الأخطاء، تعيين واجب لطالب، حل أسئلة SAT، أو فحص تسليمات الطلاب.`
+                : `Hello! I am your AI Copilot for **${copilotName}**.\n\nYou can ask me to audit any exam questions for errors, assign homework to students, solve SAT questions, or track submissions.`;
             voiceText = cleanForVoice(reply);
         }
     }
@@ -1242,6 +1506,7 @@ Available Tools:
 module.exports = {
     processCopilotChat,
     auditHomework,
+    auditExamQuestions,
     lookupStudent,
     getPlatformOverview,
     solveQuestion,
