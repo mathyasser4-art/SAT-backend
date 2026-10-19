@@ -76,6 +76,23 @@ function isArabic(text) {
 }
 
 /**
+ * Strips HTML tags and converts Quill math formulas to clean LaTeX ($...$)
+ */
+function cleanHtmlSnippet(html) {
+    if (!html) return '';
+    let str = String(html);
+    str = str.replace(/<span[^>]*class="ql-formula"[^>]*data-value="([^"]+)"[^>]*>[\s\S]*?<\/span>/gi, '$$$1$$');
+    str = str.replace(/<[^>]+>/g, ' ');
+    str = str.replace(/&nbsp;/gi, ' ')
+             .replace(/&amp;/gi, '&')
+             .replace(/&lt;/gi, '<')
+             .replace(/&gt;/gi, '>')
+             .replace(/&ge;/gi, '≥')
+             .replace(/&le;/gi, '≤');
+    return str.replace(/\s+/g, ' ').trim();
+}
+
+/**
  * Tool: Get Homework / Assignment Audit (Who did it, who didn't, scores)
  */
 async function auditHomework({ query, userData }) {
@@ -763,13 +780,17 @@ async function auditExamQuestions({ examName, limit = 25 }) {
                 questionIssues.push(`Student reports lodged (${reps})`);
             }
 
+            const cleanStem = cleanHtmlSnippet(text);
+            const rawAns = q.correctAnswer || (q.answer ? q.answer.join(', ') : null) || q.correctPicAnswer || 'N/A';
+            const cleanAns = cleanHtmlSnippet(rawAns);
+
             const qSummary = {
                 questionNumber: qNum,
                 questionId: qId,
                 type: qType,
-                stem: text.length > 120 ? text.substring(0, 120) + '...' : text,
-                correctAnswer: q.correctAnswer || (q.answer ? q.answer.join(', ') : null) || q.correctPicAnswer || 'N/A',
-                choices: qType === 'MCQ' ? [q.correctAnswer, ...(q.wrongAnswer || [])].filter(Boolean) : null,
+                stem: cleanStem.length > 140 ? cleanStem.substring(0, 140) + '...' : cleanStem,
+                correctAnswer: cleanAns,
+                choices: qType === 'MCQ' ? [q.correctAnswer, ...(q.wrongAnswer || [])].filter(Boolean).map(c => cleanHtmlSnippet(c)) : null,
                 hasImage: Boolean(q.questionPic),
                 problems: questionIssues
             };
