@@ -76,6 +76,10 @@ const userSchema = new mongoose.Schema({
     isSubscribed: {
         type: Boolean,
         default: false
+    },
+    customDomain: {
+        type: String,
+        default: null
     }
 })
 

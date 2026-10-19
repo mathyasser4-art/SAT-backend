@@ -8,7 +8,9 @@ const getJwtSecret = require('../../../services/jwtSecret');
 
 // Multi-tenant Domain Registry: maps teacher or school identifiers to custom branded domains.
 const DOMAIN_REGISTRY = [
-    { match: 'shahin', domain: 'mrshahin.com' }
+    { match: 'shahin', domain: 'mrshahin.com' },
+    { match: 'arrowad', domain: 'ais.satarea.tech' },
+    { match: 'ais', domain: 'ais.satarea.tech' }
 ];
 
 const resolveCustomDomain = async (user) => {
