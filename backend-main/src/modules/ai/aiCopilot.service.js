@@ -9,14 +9,57 @@ const Anthropic = require('@anthropic-ai/sdk');
 const mongoose = require('mongoose');
 
 /**
- * Helper to strip markdown symbols for smooth, natural Text-to-Speech playback
+ * Helper to transform math/LaTeX expressions and strip markdown symbols
+ * for smooth, fluent, natural Text-to-Speech playback
  */
-function cleanForVoice(text) {
+function cleanForVoice(text, isAr = null) {
     if (!text) return '';
-    return text
-        .replace(/[*#_`~>\[\]\(\)\\]/g, '') // remove markdown symbols
-        .replace(/\n+/g, '. ')               // replace newlines with natural pauses
-        .replace(/\s+/g, ' ')                // collapse whitespace
+    let t = String(text);
+    const arabic = isAr !== null ? isAr : isArabic(t);
+
+    // 1. Convert LaTeX fractions \frac{a}{b} -> 'a على b' (Arabic) or 'a over b' (English)
+    t = t.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, (m, num, den) => {
+        return arabic ? (`${num.trim()} على ${den.trim()}`) : (`${num.trim()} over ${den.trim()}`);
+    });
+
+    // 2. Convert powers and roots
+    if (arabic) {
+        t = t.replace(/([a-zA-Z0-9]+)\^2\b/g, '$1 تربيع');
+        t = t.replace(/([a-zA-Z0-9]+)\^3\b/g, '$1 تكعيب');
+        t = t.replace(/([a-zA-Z0-9]+)\^{?([0-9a-zA-Z]+)}?/g, '$1 أس $2');
+        t = t.replace(/\\sqrt\{([^{}]+)\}/g, 'جذر $1');
+        t = t.replace(/\\pm\b/g, ' موجب أو سالب ');
+        t = t.replace(/\\leq?\b/g, ' أصغر من أو يساوي ');
+        t = t.replace(/\\geq?\b/g, ' أكبر من أو يساوي ');
+        t = t.replace(/\\neq\b/g, ' لا يساوي ');
+        t = t.replace(/\\times\b/g, ' في ');
+        t = t.replace(/\\cdot\b/g, ' في ');
+        t = t.replace(/\\pi\b/g, ' باي ');
+        t = t.replace(/=/g, ' يساوي ');
+    } else {
+        t = t.replace(/([a-zA-Z0-9]+)\^2\b/g, '$1 squared');
+        t = t.replace(/([a-zA-Z0-9]+)\^3\b/g, '$1 cubed');
+        t = t.replace(/([a-zA-Z0-9]+)\^{?([0-9a-zA-Z]+)}?/g, '$1 to the power of $2');
+        t = t.replace(/\\sqrt\{([^{}]+)\}/g, 'square root of $1');
+        t = t.replace(/\\pm\b/g, ' plus or minus ');
+        t = t.replace(/\\leq?\b/g, ' less than or equal to ');
+        t = t.replace(/\\geq?\b/g, ' greater than or equal to ');
+        t = t.replace(/\\neq\b/g, ' not equal to ');
+        t = t.replace(/\\times\b/g, ' times ');
+        t = t.replace(/\\cdot\b/g, ' times ');
+        t = t.replace(/\\pi\b/g, ' pi ');
+        t = t.replace(/=/g, ' equals ');
+    }
+
+    // 3. Remove dollar signs and remaining LaTeX commands
+    t = t.replace(/\$+/g, '');
+    t = t.replace(/\\[a-zA-Z]+/g, ' ');
+
+    // 4. Strip markdown formatting and symbols
+    return t
+        .replace(/[*#_`~>\[\]\(\)\{\}\\]/g, ' ')
+        .replace(/\n+/g, '. ')
+        .replace(/\s+/g, ' ')
         .trim();
 }
 
@@ -268,7 +311,7 @@ async function solveQuestion({ questionText, questionId }) {
 /**
  * Action Tool: Assign Homework / Practice to Student or Class
  */
-async function assignHomework({ studentName, className, topic, questionCount = 5, title, timer = 0, userData }) {
+async function assignHomework({ studentName, className, topic, questionCount = 5, title, timer = 0, section, userData }) {
     if (mongoose.connection.readyState !== 1) {
         return { success: false, message: "Database is not connected" };
     }
@@ -357,14 +400,32 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
         const limitCount = Math.max(1, Math.min(questionCount || 5, 25));
         let selectedQuestions = [];
 
+        // Normalize section preference
+        let resolvedSection = 'Quizzes';
+        if (section) {
+            if (/basic/i.test(section)) resolvedSection = 'Basics Classified';
+            else if (/advanced/i.test(section)) resolvedSection = 'Advanced Classified';
+            else if (/real|exam/i.test(section)) resolvedSection = 'Real Exams';
+            else if (/quiz/i.test(section)) resolvedSection = 'Quizzes';
+        }
+
+        const queryOr = [];
         if (topic && topic.trim().length > 1 && !/general|sat|any/i.test(topic.trim())) {
             const cleanTopic = topic.trim();
-            selectedQuestions = await questionModel.find({
-                $or: [
-                    { topic: { $regex: cleanTopic, $options: 'i' } },
-                    { question: { $regex: cleanTopic, $options: 'i' } }
-                ]
-            }).limit(limitCount);
+            queryOr.push({ topic: { $regex: cleanTopic, $options: 'i' } });
+            queryOr.push({ question: { $regex: cleanTopic, $options: 'i' } });
+        }
+
+        if (resolvedSection === 'Basics Classified') {
+            selectedQuestions = await questionModel.find(
+                queryOr.length > 0 ? { $or: queryOr } : {}
+            ).sort({ questionPoints: 1, _id: 1 }).limit(limitCount);
+        } else if (resolvedSection === 'Advanced Classified') {
+            selectedQuestions = await questionModel.find(
+                queryOr.length > 0 ? { $or: queryOr } : {}
+            ).sort({ questionPoints: -1, _id: -1 }).limit(limitCount);
+        } else if (queryOr.length > 0) {
+            selectedQuestions = await questionModel.find({ $or: queryOr }).limit(limitCount);
         }
 
         if (selectedQuestions.length === 0) {
@@ -384,7 +445,7 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
         // 4. Generate title and dates
         const topicName = topic && !/general/i.test(topic) ? topic.trim() : 'SAT Practice';
         const targetName = resolvedStudent ? resolvedStudent.userName : (resolvedClass ? resolvedClass.class : (studentName || 'Students'));
-        const finalTitle = title || `${topicName} - ${targetName}`;
+        const finalTitle = title || `[${resolvedSection}] ${topicName} - ${targetName}`;
 
         const today = new Date().toISOString().slice(0, 10);
         const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -411,6 +472,7 @@ async function assignHomework({ studentName, className, topic, questionCount = 5
             assignment: {
                 id: newAssignment._id,
                 title: newAssignment.title,
+                section: resolvedSection,
                 studentName: resolvedStudent ? resolvedStudent.userName : null,
                 studentEmail: resolvedStudent ? resolvedStudent.email : null,
                 studentClass: resolvedStudent && resolvedStudent.class ? resolvedStudent.class.class : null,
@@ -479,32 +541,38 @@ async function executeToolAction({ fnName, args, userData, inArabic }) {
                 ? `Student: **${asgn.studentName}** ${asgn.studentClass ? `(${asgn.studentClass} • ${asgn.studentEmail})` : `(${asgn.studentEmail})`}`
                 : (asgn.className ? `Class: **${asgn.className}**` : 'Students');
 
+            const sectionNameAr = asgn.section === 'Basics Classified' ? 'الأساسيات المصنفة (Basics Classified)' :
+                (asgn.section === 'Advanced Classified' ? 'المتقدم المصنف (Advanced Classified)' :
+                (asgn.section === 'Real Exams' ? 'الامتحانات الحقيقية (Real Exams)' : 'الكويزات والواجبات (Quizzes)'));
+
             if (inArabic) {
                 reply = `### ✅ تم تكليف الواجب بنجاح!\n\n` +
                     `* 📝 **عنوان الواجب:** ${asgn.title}\n` +
+                    `* 📚 **القسم:** ${sectionNameAr}\n` +
                     `* 👤 **المُعيّن له:** ${studentDetails}\n` +
                     `* ❓ **عدد الأسئلة:** ${asgn.questionsCount} أسئلة\n` +
                     `* 🎯 **إجمالي الدرجات:** ${asgn.totalPoints} نقطة\n` +
                     `* 📅 **تاريخ البدء:** ${asgn.startDate}\n` +
                     `* ⏳ **آخر موعد للتسليم:** ${asgn.endDate}\n\n` +
-                    `*تم حفظ الواجب في قاعدة البيانات وهو متاح الآن للطالب.*`;
-                voiceText = `تم تعيين الواجب بنجاح لـ ${asgn.studentName || 'الطلاب'} بعدد ${asgn.questionsCount} أسئلة، وآخر موعد للتسليم هو ${asgn.endDate}.`;
+                    `*تم حفظ الواجب في قاعدة البيانات وهو متاح الآن للطالب مباشرة.*`;
+                voiceText = `تم تعيين الواجب بنجاح من قسم ${asgn.section || 'الواجبات'} لـ ${asgn.studentName || 'الطلاب'} بعدد ${asgn.questionsCount} أسئلة، وآخر موعد للتسليم هو ${asgn.endDate}.`;
             } else {
                 reply = `### ✅ Homework Assigned Successfully!\n\n` +
                     `* 📝 **Title:** ${asgn.title}\n` +
+                    `* 📚 **Section:** ${asgn.section}\n` +
                     `* 👤 **Assigned To:** ${studentDetailsEn}\n` +
                     `* ❓ **Questions Count:** ${asgn.questionsCount} questions\n` +
                     `* 🎯 **Total Points:** ${asgn.totalPoints} pts\n` +
                     `* 📅 **Start Date:** ${asgn.startDate}\n` +
                     `* ⏳ **Due Date:** ${asgn.endDate}\n\n` +
                     `*The assignment is created in the database and is now live on the student dashboard.*`;
-                voiceText = `I have successfully assigned ${asgn.title} with ${asgn.questionsCount} questions to ${asgn.studentName || 'the student'}, due on ${asgn.endDate}.`;
+                voiceText = `I have successfully assigned ${asgn.title} from ${asgn.section} with ${asgn.questionsCount} questions to ${asgn.studentName || 'the student'}, due on ${asgn.endDate}.`;
             }
         } else {
             reply = inArabic
                 ? `⚠️ لم أتمكن من إتمام التكليف: ${toolData.message || toolData.error}`
                 : `⚠️ Unable to assign homework: ${toolData.message || toolData.error}`;
-            voiceText = cleanForVoice(reply);
+            voiceText = cleanForVoice(reply, inArabic);
         }
     } else if (fnName === 'audit_homework') {
         detectedIntent = 'homework_audit';
@@ -575,13 +643,42 @@ async function processCopilotChat({ message, userData, history = [], image = nul
 You combine elite SAT Math & English mastery with the responsiveness, warmth, and proactive intelligence of an expert co-teacher and mentor.
 
 Your Core Directives:
-1. High Intelligence & Vision: When explaining SAT concepts or analyzing an uploaded image/screenshot of a problem, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and clean formulas.
-2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot. When you take an action (assigning homework, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions (e.g., offering follow-ups, reminder alerts, or practice tips). Never sound like a rigid template.
+1. High Intelligence & Vision: When explaining SAT concepts or analyzing an uploaded image/screenshot of a problem, provide clear, step-by-step breakdowns, clever Desmos calculator tips, SAT strategies, and mathematically rigorous formulas.
+2. Natural Communication: Talk naturally and smartly like an intelligent human co-pilot (like modern ChatGPT voice chat). When you take an action (assigning homework, looking up students, etc.), review the tool result and summarize what you did with a warm, conversational explanation and proactive suggestions. Never sound like a rigid machine.
 3. Bilingual Mastery: Fluent in English and Arabic. When the user speaks Arabic, reply naturally in warm, friendly, modern Egyptian/Standard Arabic.
 4. Action Execution: You have direct access to database tools. Always invoke the appropriate tool when asked to assign homework, audit submissions, or check student stats.
 
+MATHEMATICAL & LATEX FORMATTING (CRITICAL):
+- ALWAYS write all mathematical expressions, formulas, fractions, equations, and variables using standard LaTeX wrapped in dollar signs.
+- For inline math and fractions, ALWAYS enclose in single dollar signs: e.g., $\\frac{a}{b}$, $\\frac{3}{4}$, $x^2 + 5x + 6 = 0$, $\\sqrt{16} = 4$, $y = mx + b$.
+- For standalone/display equations, ALWAYS enclose in double dollar signs: e.g., $$\\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$.
+- NEVER output raw unformatted LaTeX without dollar signs (e.g., do NOT write \\frac{a}{b} alone; write $\\frac{a}{b}$).
+- Fractions MUST ALWAYS be formatted as $\\frac{\\text{numerator}}{\\text{denominator}}$ so the KaTeX mathematical renderer displays them with beautiful horizontal division bars.
+
+PLATFORM ARCHITECTURE & CORE SECTIONS:
+You have intimate knowledge of the SAT Area platform structure and its 4 core sections:
+1. 📚 Basics Classified (الأساسيات المصنفة):
+   - Foundational question bank organized topic-by-topic for building core skills and concepts.
+   - Covers: Linear Equations, Systems, Quadratics basics, Heart of Algebra, Problem Solving & Data Analysis, Rates, Ratios, Percentages, and Essential Reading/Writing conventions.
+   - Purpose: Ideal for beginners or students aiming to establish a solid 600-650 foundation before tackling harder questions.
+
+2. 🚀 Advanced Classified (المتقدم المصنف):
+   - High-difficulty question bank organized topic-by-topic for students targeting 700-800 scores.
+   - Covers: Complex polynomials, hard non-linear systems, advanced circles & trigonometry, complex numbers, tricky word problems, and high-level Reading inference questions.
+   - Purpose: Perfect for advanced students seeking high-yield challenge problems and SAT traps.
+
+3. 🏆 Real Exams (الامتحانات الحقيقية):
+   - 56+ authentic, full-length official past Digital SAT tests from 2024 to 2026.
+   - Organized by Year (2026, 2025, 2024) and Region (US vs International).
+   - Features the official Bluebook-style test environment with a 35-minute timer capsule, question elimination, question review palette, and embedded Desmos graphing calculator.
+   - Purpose: Full diagnostic mocks and authentic test-day simulation.
+
+4. 📝 Quizzes & Assignments (الكويزات والواجبات):
+   - Homework sheets, timed quizzes, and custom drills assigned by teachers or created for students.
+   - Features instant auto-grading, step-by-step explanations, student mistake tracking (Mistakes Bank / بنك الأخطاء), and printable automated PDF gradebook reports for teachers and parents.
+
 Available Tools:
-- assign_homework: Creates and assigns homework, quiz, or practice questions to a student or class.
+- assign_homework: Creates and assigns homework, quiz, or practice questions to a student or class from any section (Basics Classified, Advanced Classified, Real Exams, or Quizzes).
 - audit_homework: Checks who completed or did not complete an existing assignment and provides submission metrics.
 - lookup_student: Looks up student progress, past submissions, and average scores.
 - get_platform_stats: Platform overview metrics (students, teachers, questions, classes).`;
@@ -602,6 +699,11 @@ Available Tools:
                     studentName: { type: 'string', description: 'Student name to assign to (e.g. Adam, ahmed5)' },
                     className: { type: 'string', description: 'Class or group name' },
                     topic: { type: 'string', description: 'Topic, chapter, or exam title' },
+                    section: {
+                        type: 'string',
+                        enum: ['Basics Classified', 'Advanced Classified', 'Real Exams', 'Quizzes', 'Any'],
+                        description: 'The platform section to pull questions from or categorize the assignment'
+                    },
                     questionCount: { type: 'integer', description: 'Number of questions (default: 5)' },
                     timer: { type: 'integer', description: 'Time limit in minutes' }
                 }
@@ -991,6 +1093,7 @@ Available Tools:
                                 studentName: { type: 'STRING', description: 'Name of the student to assign to (e.g. Adam, ahmed5)' },
                                 className: { type: 'STRING', description: 'Name of the class or group' },
                                 topic: { type: 'STRING', description: 'Topic or chapter e.g. Circles, Real Exam, Algebra' },
+                                section: { type: 'STRING', description: 'Platform section: Basics Classified, Advanced Classified, Real Exams, or Quizzes' },
                                 questionCount: { type: 'INTEGER', description: 'Number of questions (default: 5)' },
                                 timer: { type: 'INTEGER', description: 'Time limit in minutes if requested' }
                             }
