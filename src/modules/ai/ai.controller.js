@@ -236,7 +236,7 @@ const { processCopilotChat, auditHomework } = require('./aiCopilot.service');
 
 const copilotChat = async (req, res) => {
     try {
-        const { message, history, image } = req.body;
+        const { message, history, image, brand } = req.body;
         if ((!message || !message.trim()) && !image) {
             return res.status(400).json({ message: "Message or image is required" });
         }
@@ -246,7 +246,8 @@ const copilotChat = async (req, res) => {
             message: (message || '').trim(),
             userData,
             history: history || [],
-            image: image || null
+            image: image || null,
+            brand: brand || req.query?.brand || null
         });
 
         res.json({

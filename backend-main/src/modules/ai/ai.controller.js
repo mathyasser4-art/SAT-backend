@@ -247,7 +247,7 @@ const copilotChat = async (req, res) => {
             userData,
             history: history || [],
             image: image || null,
-            brand: brand || null
+            brand: brand || req.query?.brand || null
         });
 
         res.json({
