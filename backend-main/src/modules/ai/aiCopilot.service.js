@@ -545,7 +545,15 @@ async function auditExamQuestions({ examName, limit = 25 }) {
             const subRegexParts = [];
             if (yearMatch) subRegexParts.push(yearMatch[1]);
             if (monthMatch) subRegexParts.push(monthMatch[1].slice(0, 3));
-            if (regionMatch) subRegexParts.push(regionMatch[1].toLowerCase().startsWith('int') ? '(int|international)' : 'us');
+            if (regionMatch) {
+                const isInt = regionMatch[1].toLowerCase().startsWith('int');
+                const examNum = rawQuery.match(/(?:us|int|international|paper|test)\s*([1-9])/i)?.[1];
+                if (examNum) {
+                    subRegexParts.push(`${isInt ? '(int|international)' : 'us'}\\s*${examNum}`);
+                } else {
+                    subRegexParts.push(isInt ? '(int|international)' : 'us');
+                }
+            }
 
             candidateSubjects = await subjectModel.find({
                 $and: subRegexParts.map(part => ({
