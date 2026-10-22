@@ -13,7 +13,7 @@ const { getSchoolHierarchy } = require('../../../services/schoolContext');
 const buildStudentQuery = async (userData, additionalFilter = {}) => {
     const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
     
-    // If the user is a Teacher, strictly isolate to students in this teacher's classes or created by this teacher
+    // If the user is a Teacher, strictly isolate to students in this teacher's classes, courses, or created by this teacher
     if (userData && userData.role === 'Teacher') {
         const teacherId = userData._id;
         const teacherClassConditions = [
@@ -30,16 +30,30 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
             teacherClassIds = classes.map(c => c._id);
         } catch(e) {}
 
+        let courseStudentIds = [];
+        try {
+            const courses = await courseModel.find({ teacher: teacherId }).select('students');
+            courses.forEach(c => {
+                if (Array.isArray(c.students)) {
+                    courseStudentIds.push(...c.students);
+                }
+            });
+        } catch(e) {}
+
         const teacherStudentConditions = [
-            { createdBy: teacherId }
+            { createdBy: teacherId },
+            { teacherList: teacherId }
         ];
         if (teacherClassIds.length > 0) {
             teacherStudentConditions.push({ class: { $in: teacherClassIds } });
             teacherStudentConditions.push({ classList: { $in: teacherClassIds } });
         }
+        if (courseStudentIds.length > 0) {
+            teacherStudentConditions.push({ _id: { $in: courseStudentIds } });
+        }
 
         return {
-            role: "Student",
+            role: { $in: ["Student", "User"] },
             $or: teacherStudentConditions,
             ...additionalFilter
         };

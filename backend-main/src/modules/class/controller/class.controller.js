@@ -91,7 +91,7 @@ const getStudent = async (req, res) => {
     try {
         const { classID } = req.params;
         const findStudent = await userModel.find({
-            role: "Student",
+            role: { $in: ["Student", "User"] },
             $or: [
                 { classList: classID },
                 { class: classID }

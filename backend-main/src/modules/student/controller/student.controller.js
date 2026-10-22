@@ -13,6 +13,52 @@ const { getSchoolHierarchy } = require('../../../services/schoolContext');
 const buildStudentQuery = async (userData, additionalFilter = {}) => {
     const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
     
+    // If the user is a Teacher, strictly isolate to students in this teacher's classes, courses, or created by this teacher
+    if (userData && userData.role === 'Teacher') {
+        const teacherId = userData._id;
+        const teacherClassConditions = [
+            { teachers: teacherId },
+            { createdBy: teacherId }
+        ];
+        if (Array.isArray(userData.classList) && userData.classList.length > 0) {
+            teacherClassConditions.push({ _id: { $in: userData.classList } });
+        }
+
+        let teacherClassIds = [];
+        try {
+            const classes = await classModel.find({ $or: teacherClassConditions }).select('_id');
+            teacherClassIds = classes.map(c => c._id);
+        } catch(e) {}
+
+        let courseStudentIds = [];
+        try {
+            const courses = await courseModel.find({ teacher: teacherId }).select('students');
+            courses.forEach(c => {
+                if (Array.isArray(c.students)) {
+                    courseStudentIds.push(...c.students);
+                }
+            });
+        } catch(e) {}
+
+        const teacherStudentConditions = [
+            { createdBy: teacherId },
+            { teacherList: teacherId }
+        ];
+        if (teacherClassIds.length > 0) {
+            teacherStudentConditions.push({ class: { $in: teacherClassIds } });
+            teacherStudentConditions.push({ classList: { $in: teacherClassIds } });
+        }
+        if (courseStudentIds.length > 0) {
+            teacherStudentConditions.push({ _id: { $in: courseStudentIds } });
+        }
+
+        return {
+            role: { $in: ["Student", "User"] },
+            $or: teacherStudentConditions,
+            ...additionalFilter
+        };
+    }
+
     let schoolClassIds = [];
     try {
         const classes = await classModel.find({
@@ -35,7 +81,7 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
     ];
 
     return {
-        role: "Student",
+        role: { $in: ["Student", "User"] },
         $or: orConditions,
         ...additionalFilter
     };
