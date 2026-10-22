@@ -1,6 +1,7 @@
 const classModel = require('../../../../DB/models/class.model');
 const userModel = require('../../../../DB/models/user.model');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
+const { ensureStudentParents } = require('../../../services/parentHelper');
 
 const buildClassQuery = (associatedIds, userData) => {
     // If the user is a Teacher, strictly restrict to classes assigned to or created by THIS teacher
@@ -129,39 +130,9 @@ const getStudent = async (req, res) => {
         .populate({ path: 'class', select: 'class' })
         .populate({ path: 'parent', select: 'userName email parentPhone' });
 
-        // Auto-resolve parent accounts for students missing parent reference
+        // Auto-resolve / auto-provision parent accounts for any student missing a parent
         if (findStudent && findStudent.length > 0) {
-            const missingParentStudentIds = findStudent.filter(s => !s.parent).map(s => s._id);
-            if (missingParentStudentIds.length > 0) {
-                try {
-                    const parentUsers = await userModel.find({
-                        role: 'Parent',
-                        children: { $in: missingParentStudentIds }
-                    }).select('userName email parentPhone children');
-                    if (parentUsers && parentUsers.length > 0) {
-                        const parentMap = new Map();
-                        parentUsers.forEach(p => {
-                            if (Array.isArray(p.children)) {
-                                p.children.forEach(cId => {
-                                    parentMap.set(cId.toString(), {
-                                        _id: p._id,
-                                        userName: p.userName,
-                                        email: p.email,
-                                        parentPhone: p.parentPhone
-                                    });
-                                });
-                            }
-                        });
-                        findStudent.forEach(st => {
-                            if (!st.parent && parentMap.has(st._id.toString())) {
-                                st.parent = parentMap.get(st._id.toString());
-                            }
-                        });
-                    }
-                } catch (e) {
-                    console.warn('Parent reverse lookup error in class.controller:', e);
-                }
-            }
+            await ensureStudentParents(findStudent, req.userData?._id);
         }
 
         if (findStudent && findStudent.length !== 0) {

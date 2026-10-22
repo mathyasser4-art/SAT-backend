@@ -9,6 +9,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
 const bcrypt = require('bcryptjs');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
+const { ensureStudentParents } = require('../../../services/parentHelper');
 
 const buildStudentQuery = async (userData, additionalFilter = {}) => {
     const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
@@ -111,39 +112,9 @@ const getStudent = async (req, res) => {
         const allStudent = await query;
         const countStudent = await userModel.countDocuments(studentQuery);
 
-        // Auto-resolve parent accounts for students missing direct parent field
+        // Auto-resolve and auto-provision parent accounts for any student missing a parent
         if (allStudent && allStudent.length > 0) {
-            const missingParentStudentIds = allStudent.filter(s => !s.parent).map(s => s._id);
-            if (missingParentStudentIds.length > 0) {
-                try {
-                    const parentUsers = await userModel.find({
-                        role: 'Parent',
-                        children: { $in: missingParentStudentIds }
-                    }).select('userName email parentPhone children');
-                    if (parentUsers && parentUsers.length > 0) {
-                        const parentMap = new Map();
-                        parentUsers.forEach(p => {
-                            if (Array.isArray(p.children)) {
-                                p.children.forEach(cId => {
-                                    parentMap.set(cId.toString(), {
-                                        _id: p._id,
-                                        userName: p.userName,
-                                        email: p.email,
-                                        parentPhone: p.parentPhone
-                                    });
-                                });
-                            }
-                        });
-                        allStudent.forEach(st => {
-                            if (!st.parent && parentMap.has(st._id.toString())) {
-                                st.parent = parentMap.get(st._id.toString());
-                            }
-                        });
-                    }
-                } catch (pe) {
-                    console.warn('Parent reverse lookup error in student.controller:', pe);
-                }
-            }
+            await ensureStudentParents(allStudent, req.userData?._id);
         }
 
         res.json({
@@ -346,22 +317,32 @@ const updateStudent = async (req, res) => {
 
         const updateStudent = await userModel.findByIdAndUpdate(studentID, req.body);
         if (updateStudent) {
-            const skippedNumber = (page - 1) * 20;
+            const isAll = pageNumber === 'all' || req.query.all === 'true' || req.query.limit === 'all';
             const studentQuery = await buildStudentQuery(req.userData);
 
             const countStudent = await userModel.countDocuments(studentQuery);
-            const allStudent = await userModel.find(studentQuery)
-                .select('userName email class parent parentPhone')
+            let studentFindQuery = userModel.find(studentQuery)
+                .select('userName email class parent parentPhone parentName')
                 .populate({ path: 'class', select: 'class' })
-                .populate({ path: 'parent', select: 'userName email parentPhone' })
-                .skip(skippedNumber)
-                .limit(20);
+                .populate({ path: 'parent', select: 'userName email parentPhone' });
+
+            if (!isAll) {
+                const skippedNumber = (page - 1) * 20;
+                studentFindQuery = studentFindQuery.skip(skippedNumber).limit(20);
+            } else {
+                studentFindQuery = studentFindQuery.limit(5000);
+            }
+
+            const allStudent = await studentFindQuery;
+            if (allStudent && allStudent.length > 0) {
+                await ensureStudentParents(allStudent, req.userData?._id);
+            }
 
             res.json({
                 message: "success",
                 allStudent: allStudent || [],
-                numberOfStudent: countStudent || 0,
-                totalPage: Math.max(1, Math.ceil(countStudent / 20))
+                numberOfStudent: countStudent || (allStudent ? allStudent.length : 0),
+                totalPage: isAll ? 1 : Math.max(1, Math.ceil(countStudent / 20))
             });
         } else {
             res.json({ message: "This student is not found" });

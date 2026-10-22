@@ -3,6 +3,7 @@ const userModel = require('../../../DB/models/user.model');
 const cloudinary = require('cloudinary').v2;
 const cloudinaryConfig = require('../../services/cloudinary');
 cloudinaryConfig();
+const { ensureStudentParents } = require('../../services/parentHelper');
 
 const extractValidIds = (arr) => {
     if (!Array.isArray(arr)) return [];
@@ -45,6 +46,17 @@ const getTeacherCourses = async (req, res) => {
             })
             .populate('sessions.onlineHw')
             .populate('sessions.onlineClasswork');
+
+        if (courses && courses.length > 0) {
+            const allCourseStudents = [];
+            courses.forEach(c => {
+                if (Array.isArray(c.students)) allCourseStudents.push(...c.students);
+            });
+            if (allCourseStudents.length > 0) {
+                await ensureStudentParents(allCourseStudents, teacherId);
+            }
+        }
+
         res.status(200).json({ courses });
     } catch (error) {
         res.status(500).json({ message: "Error fetching courses", error: error.message });
