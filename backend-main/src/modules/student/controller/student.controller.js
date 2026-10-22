@@ -52,6 +52,12 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
         if (courseStudentIds.length > 0) {
             teacherStudentConditions.push({ _id: { $in: courseStudentIds } });
         }
+        if (associatedIds && associatedIds.length > 0) {
+            teacherStudentConditions.push({ createdBy: { $in: associatedIds } });
+        }
+        if (schoolId) {
+            teacherStudentConditions.push({ school: schoolId });
+        }
 
         return {
             role: { $in: ["Student", "User"] },
