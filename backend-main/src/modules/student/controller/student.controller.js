@@ -59,16 +59,16 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
         };
     }
 
+    // For School, IT, Admin, Supervisor:
     let schoolClassIds = [];
     try {
-        const classes = await classModel.find({
-            $or: [
-                { school: { $in: associatedIds } },
-                { createdBy: { $in: associatedIds } },
-                { school: { $exists: false } },
-                { school: null }
-            ]
-        }).select('_id');
+        const classConditions = [
+            { school: { $in: associatedIds } },
+            { createdBy: { $in: associatedIds } },
+            { school: { $exists: false } },
+            { school: null }
+        ];
+        const classes = await classModel.find({ $or: classConditions }).select('_id');
         schoolClassIds = classes.map(c => c._id);
     } catch(e) {}
 
@@ -89,23 +89,68 @@ const buildStudentQuery = async (userData, additionalFilter = {}) => {
 
 const getStudent = async (req, res) => {
     try {
-        const pageNumber = Math.max(1, parseInt(req.params.pageNumber) || 1);
-        const skippedNumber = (pageNumber - 1) * 20;
+        const pageParam = req.params.pageNumber;
+        const isAll = pageParam === 'all' || req.query.all === 'true' || req.query.limit === 'all';
+        const pageNumber = Math.max(1, parseInt(pageParam) || 1);
+        const limit = isAll ? 5000 : (parseInt(req.query.limit) || 20);
+        const skippedNumber = isAll ? 0 : ((pageNumber - 1) * limit);
+
         const studentQuery = await buildStudentQuery(req.userData);
 
-        const allStudent = await userModel.find(studentQuery)
-            .select('userName email class parent parentPhone')
+        let query = userModel.find(studentQuery)
+            .select('userName email class parent parentPhone parentName')
             .populate({ path: 'class', select: 'class' })
-            .populate({ path: 'parent', select: 'userName email parentPhone' })
-            .skip(skippedNumber)
-            .limit(20);
+            .populate({ path: 'parent', select: 'userName email parentPhone' });
 
+        if (!isAll) {
+            query = query.skip(skippedNumber).limit(limit);
+        } else {
+            query = query.limit(5000);
+        }
+
+        const allStudent = await query;
         const countStudent = await userModel.countDocuments(studentQuery);
+
+        // Auto-resolve parent accounts for students missing direct parent field
+        if (allStudent && allStudent.length > 0) {
+            const missingParentStudentIds = allStudent.filter(s => !s.parent).map(s => s._id);
+            if (missingParentStudentIds.length > 0) {
+                try {
+                    const parentUsers = await userModel.find({
+                        role: 'Parent',
+                        children: { $in: missingParentStudentIds }
+                    }).select('userName email parentPhone children');
+                    if (parentUsers && parentUsers.length > 0) {
+                        const parentMap = new Map();
+                        parentUsers.forEach(p => {
+                            if (Array.isArray(p.children)) {
+                                p.children.forEach(cId => {
+                                    parentMap.set(cId.toString(), {
+                                        _id: p._id,
+                                        userName: p.userName,
+                                        email: p.email,
+                                        parentPhone: p.parentPhone
+                                    });
+                                });
+                            }
+                        });
+                        allStudent.forEach(st => {
+                            if (!st.parent && parentMap.has(st._id.toString())) {
+                                st.parent = parentMap.get(st._id.toString());
+                            }
+                        });
+                    }
+                } catch (pe) {
+                    console.warn('Parent reverse lookup error in student.controller:', pe);
+                }
+            }
+        }
+
         res.json({
             message: "success",
             allStudent: allStudent || [],
-            numberOfStudent: countStudent || 0,
-            totalPage: Math.max(1, Math.ceil(countStudent / 20))
+            numberOfStudent: countStudent || (allStudent ? allStudent.length : 0),
+            totalPage: isAll ? 1 : Math.max(1, Math.ceil(countStudent / limit))
         });
     } catch (error) {
         console.error('getStudent error:', error);
@@ -134,9 +179,12 @@ const addStudent = async (req, res) => {
 
             req.body.verify = true;
             req.body.role = 'Student';
-            req.body.createdBy = schoolId;
+            req.body.createdBy = req.userData.role === 'Teacher' ? req.userData._id : (schoolId || req.userData._id);
             if (parentPhone) {
                 req.body.parentPhone = parentPhone;
+            }
+            if (req.body.class && (!req.body.classList || req.body.classList.length === 0)) {
+                req.body.classList = [req.body.class];
             }
 
             const addStudent = new userModel(req.body);
@@ -257,10 +305,43 @@ const updateStudent = async (req, res) => {
         if (req.body.parentPhone) {
             try {
                 const studentDoc = await userModel.findById(studentID);
-                if (studentDoc && studentDoc.parent) {
-                    await userModel.findByIdAndUpdate(studentDoc.parent, { parentPhone: req.body.parentPhone });
+                if (studentDoc) {
+                    if (studentDoc.parent) {
+                        await userModel.findByIdAndUpdate(studentDoc.parent, { parentPhone: req.body.parentPhone });
+                    } else {
+                        // Create or link parent account if none exists yet
+                        const cleanStudentName = (studentDoc.userName || 'student').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                        let targetParentEmail = `${cleanStudentName}.parent@school.com`;
+                        let targetParentUserName = `parent_${cleanStudentName}`;
+                        let existingParent = await userModel.findOne({
+                            $or: [{ email: targetParentEmail }, { userName: targetParentUserName }, { parentPhone: req.body.parentPhone }]
+                        });
+                        if (existingParent && existingParent.role === 'Parent') {
+                            if (!existingParent.children) existingParent.children = [];
+                            if (!existingParent.children.includes(studentDoc._id)) existingParent.children.push(studentDoc._id);
+                            existingParent.parentPhone = req.body.parentPhone;
+                            await existingParent.save();
+                            req.body.parent = existingParent._id;
+                        } else {
+                            const rawParentPassword = studentDoc.userName + '123';
+                            const hashedParentPassword = await bcrypt.hash(rawParentPassword, parseInt(process.env.SALTROUNDS) || 10);
+                            const newParent = new userModel({
+                                userName: targetParentUserName,
+                                email: targetParentEmail,
+                                password: hashedParentPassword,
+                                role: 'Parent',
+                                children: [studentDoc._id],
+                                parentPhone: req.body.parentPhone,
+                                createdBy: req.userData?._id
+                            });
+                            await newParent.save();
+                            req.body.parent = newParent._id;
+                        }
+                    }
                 }
-            } catch (pe) {}
+            } catch (pe) {
+                console.warn('Error creating/updating parent in updateStudent:', pe);
+            }
         }
 
         const updateStudent = await userModel.findByIdAndUpdate(studentID, req.body);
@@ -588,12 +669,7 @@ const getMyMistakes = async (req, res) => {
         const mistakes = questions.map(q => {
             const meta = wrongQuestionsMap[q._id.toString()];
             return {
-                _id: q._id,
-                question: q.question,
-                questionPic: q.questionPic?.secure_url || null,
-                choices: q.choices || [],
-                correctAnswers: q.correctAnswers || [],
-                explanation: q.explanation || '',
+                ...q.toObject(),
                 assignmentTitle: meta.assignmentTitle,
                 studentAnswers: [meta.firstAnswer, meta.secondAnswer].filter(Boolean)
             };

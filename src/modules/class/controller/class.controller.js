@@ -125,8 +125,44 @@ const getStudent = async (req, res) => {
                 { class: classID }
             ]
         })
-        .select('userName email class classList')
-        .populate({ path: 'class', select: 'class' });
+        .select('userName email class classList parent parentPhone parentName')
+        .populate({ path: 'class', select: 'class' })
+        .populate({ path: 'parent', select: 'userName email parentPhone' });
+
+        // Auto-resolve parent accounts for students missing parent reference
+        if (findStudent && findStudent.length > 0) {
+            const missingParentStudentIds = findStudent.filter(s => !s.parent).map(s => s._id);
+            if (missingParentStudentIds.length > 0) {
+                try {
+                    const parentUsers = await userModel.find({
+                        role: 'Parent',
+                        children: { $in: missingParentStudentIds }
+                    }).select('userName email parentPhone children');
+                    if (parentUsers && parentUsers.length > 0) {
+                        const parentMap = new Map();
+                        parentUsers.forEach(p => {
+                            if (Array.isArray(p.children)) {
+                                p.children.forEach(cId => {
+                                    parentMap.set(cId.toString(), {
+                                        _id: p._id,
+                                        userName: p.userName,
+                                        email: p.email,
+                                        parentPhone: p.parentPhone
+                                    });
+                                });
+                            }
+                        });
+                        findStudent.forEach(st => {
+                            if (!st.parent && parentMap.has(st._id.toString())) {
+                                st.parent = parentMap.get(st._id.toString());
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Parent reverse lookup error in class.controller:', e);
+                }
+            }
+        }
 
         if (findStudent && findStudent.length !== 0) {
             res.json({ message: "success", findStudent, allStudent: findStudent });

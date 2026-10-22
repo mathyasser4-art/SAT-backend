@@ -38,7 +38,11 @@ const getTeacherCourses = async (req, res) => {
     try {
         const teacherId = req.userData._id;
         const courses = await courseModel.find({ teacher: teacherId })
-            .populate('students', 'userName email')
+            .populate({
+                path: 'students',
+                select: 'userName email class parent parentPhone parentName',
+                populate: { path: 'parent', select: 'userName email parentPhone' }
+            })
             .populate('sessions.onlineHw')
             .populate('sessions.onlineClasswork');
         res.status(200).json({ courses });
