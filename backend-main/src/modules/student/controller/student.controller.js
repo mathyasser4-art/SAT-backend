@@ -106,8 +106,9 @@ const getStudent = async (req, res) => {
         const studentQuery = await buildStudentQuery(req.userData);
 
         let query = userModel.find(studentQuery)
-            .select('userName email class parent parentPhone parentName')
+            .select('userName email class classList parent parentPhone parentName')
             .populate({ path: 'class', select: 'class' })
+            .populate({ path: 'classList', select: 'class' })
             .populate({ path: 'parent', select: 'userName email parentPhone' });
 
         if (!isAll) {
@@ -121,6 +122,11 @@ const getStudent = async (req, res) => {
 
         // Auto-resolve and auto-provision parent accounts for any student missing a parent
         if (allStudent && allStudent.length > 0) {
+            allStudent.forEach(st => {
+                if (!st.class && Array.isArray(st.classList) && st.classList.length > 0) {
+                    st.class = st.classList[0];
+                }
+            });
             await ensureStudentParents(allStudent, req.userData?._id);
         }
 
@@ -329,8 +335,9 @@ const updateStudent = async (req, res) => {
 
             const countStudent = await userModel.countDocuments(studentQuery);
             let studentFindQuery = userModel.find(studentQuery)
-                .select('userName email class parent parentPhone parentName')
+                .select('userName email class classList parent parentPhone parentName')
                 .populate({ path: 'class', select: 'class' })
+                .populate({ path: 'classList', select: 'class' })
                 .populate({ path: 'parent', select: 'userName email parentPhone' });
 
             if (!isAll) {
@@ -342,6 +349,11 @@ const updateStudent = async (req, res) => {
 
             const allStudent = await studentFindQuery;
             if (allStudent && allStudent.length > 0) {
+                allStudent.forEach(st => {
+                    if (!st.class && Array.isArray(st.classList) && st.classList.length > 0) {
+                        st.class = st.classList[0];
+                    }
+                });
                 await ensureStudentParents(allStudent, req.userData?._id);
             }
 
