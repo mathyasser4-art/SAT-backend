@@ -8,6 +8,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
 const bcrypt = require('bcryptjs');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
+const { checkEmailAvailable } = require('../../../services/accountGuard');
 
 const buildTeacherQuery = (associatedIds, assignedTeacherIds, additionalFilter = {}) => {
     const orConditions = [];
@@ -72,6 +73,9 @@ const addTeacher = async (req, res) => {
             return res.json({ message: "This teacher name is already registered" });
         }
 
+        const emailError = await checkEmailAvailable(req.body);
+        if (emailError) return res.json({ message: emailError });
+
         const pageNumber = Math.max(1, parseInt(req.params.pageNumber) || 1);
         const skippedNumber = (pageNumber - 1) * 20;
 
@@ -127,6 +131,9 @@ const updateTeacher = async (req, res) => {
         } else {
             delete req.body.password;
         }
+
+        const emailError = await checkEmailAvailable(req.body, TeacherID);
+        if (emailError) return res.json({ message: emailError });
 
         const updateTeacher = await userModel.findByIdAndUpdate(TeacherID, req.body);
         if (updateTeacher) {

@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../../../services/jwtSecret');
+const { normalizeEmail, emailQuery } = require('../../../services/accountGuard');
 
 const register = async (req, res) => {
     try {
@@ -13,8 +14,13 @@ const register = async (req, res) => {
             req.body.email = email;
         }
 
+        if (email) {
+            email = normalizeEmail(email);
+            req.body.email = email;
+        }
+
         const queryOr = [];
-        if (email) queryOr.push({ email });
+        if (email) queryOr.push({ email: emailQuery(email) });
         if (cleanPhone) queryOr.push({ phone: cleanPhone });
         if (rawPhoneDigits && rawPhoneDigits !== cleanPhone) queryOr.push({ phone: rawPhoneDigits });
 

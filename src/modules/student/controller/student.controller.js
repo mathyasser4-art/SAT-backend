@@ -11,6 +11,7 @@ cloudinaryConfig()
 const bcrypt = require('bcryptjs');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
 const { ensureStudentParents } = require('../../../services/parentHelper');
+const { checkEmailAvailable, withLock } = require('../../../services/accountGuard');
 
 const buildStudentQuery = async (userData, additionalFilter = {}) => {
     const { schoolId, associatedIds } = await getSchoolHierarchy(userData);
@@ -149,6 +150,9 @@ const addStudent = async (req, res) => {
         if (!req.body.class || !String(req.body.class).trim() || req.body.class === 'Select Class') {
             return res.status(400).json({ message: "A class must be selected for the student. Students cannot be added without an assigned class." });
         }
+
+        const emailError = await checkEmailAvailable(req.body);
+        if (emailError) return res.json({ message: emailError });
 
         const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
         const findStudent = await userModel.findOne({ userName, role: "Student", createdBy: { $in: associatedIds } });
@@ -291,7 +295,11 @@ const updateStudent = async (req, res) => {
             delete req.body.password;
         }
 
+        const emailError = await checkEmailAvailable(req.body, studentID);
+        if (emailError) return res.json({ message: emailError });
+
         if (req.body.parentPhone) {
+            await withLock(`parent:${studentID}`, async () => {
             try {
                 const studentDoc = await userModel.findById(studentID);
                 if (studentDoc) {
@@ -303,7 +311,8 @@ const updateStudent = async (req, res) => {
                         let targetParentEmail = `${cleanStudentName}.parent@school.com`;
                         let targetParentUserName = `parent_${cleanStudentName}`;
                         let existingParent = await userModel.findOne({
-                            $or: [{ email: targetParentEmail }, { userName: targetParentUserName }, { parentPhone: req.body.parentPhone }]
+                            role: 'Parent',
+                            $or: [{ children: studentDoc._id }, { email: targetParentEmail }, { userName: targetParentUserName }, { parentPhone: req.body.parentPhone }]
                         });
                         if (existingParent && existingParent.role === 'Parent') {
                             if (!existingParent.children) existingParent.children = [];
@@ -331,6 +340,7 @@ const updateStudent = async (req, res) => {
             } catch (pe) {
                 console.warn('Error creating/updating parent in updateStudent:', pe);
             }
+            });
         }
 
         if (req.body.class && req.body.class !== 'Select Class') {

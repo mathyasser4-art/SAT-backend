@@ -1,5 +1,6 @@
 const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
+const { checkEmailAvailable } = require('../../../services/accountGuard');
 
 const getIT = async (req, res) => {
     try {
@@ -21,8 +22,11 @@ const addIT = async (req, res) => {
         const { userName, password } = req.body
         const schoolID = req.userData._id
         const findIT = await userModel.findOne({ userName, role: "IT", createdBy: schoolID })
+        const emailError = findIT ? null : await checkEmailAvailable(req.body)
         if (findIT) {
             res.json({ message: "This IT name is already registered" })
+        } else if (emailError) {
+            res.json({ message: emailError })
         } else {
             const hashPassword = bcrypt.hashSync(password, parseInt(process.env.SALTROUNDS))
             req.body.password = hashPassword

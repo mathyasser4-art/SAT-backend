@@ -5,6 +5,7 @@ const generateCode = require('../../../services/generateVerificationCode');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../../../services/jwtSecret');
+const { emailQuery } = require('../../../services/accountGuard');
 
 // Multi-tenant Domain Registry: maps teacher or school identifiers to custom branded domains.
 // Future schools/teachers can be added here or set directly in user.customDomain.
@@ -99,15 +100,19 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const cleanPhone = (email || '').toString().trim();
         const rawDigits = cleanPhone.replace(/\D/g, '');
-        const findUser = await userModel.findOne({ 
+        let findUser = await userModel.findOne({
             $or: [
-                { 'email': email }, 
+                { 'email': email },
                 { 'userName': email },
                 { 'phone': email },
                 ...(cleanPhone ? [{ 'phone': cleanPhone }] : []),
                 ...(rawDigits ? [{ 'email': `${rawDigits}@satarea.user` }] : [])
-            ] 
+            ]
         }).populate('createdBy', 'userName');
+        // Emails are now saved lowercased; still match accounts regardless of casing
+        if (!findUser && cleanPhone.includes('@')) {
+            findUser = await userModel.findOne({ email: emailQuery(cleanPhone) }).populate('createdBy', 'userName');
+        }
 
         if (findUser) {
             if (!findUser.verify) {

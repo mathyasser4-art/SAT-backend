@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const getJwtSecret = require('../../../services/jwtSecret');
+const { normalizeEmail, emailQuery } = require('../../../services/accountGuard');
 
 const authWithGoogle = async (req, res) => {
     try {
@@ -13,10 +14,10 @@ const authWithGoogle = async (req, res) => {
         if (data) {
             const { email_verified, email } = data
             if (email_verified == true) {
-                const findUser = await userModel.findOne({ email })
+                const findUser = await userModel.findOne({ email: emailQuery(email) })
                 if (!findUser) {
                     const { name } = data
-                    req.body.email = email
+                    req.body.email = normalizeEmail(email)
                     req.body.userName = name
                     req.body.verify = true
                     const addUser = new userModel(req.body)

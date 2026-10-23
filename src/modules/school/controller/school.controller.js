@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model')
 const classModel = require('../../../../DB/models/class.model')
 const schoolSubjectModel = require('../../../../DB/models/schoolSubject.model')
 const bcrypt = require('bcryptjs');
+const { checkEmailAvailable } = require('../../../services/accountGuard');
 
 const getSchool = async (req, res) => {
     const allSchools = await userModel.find({ role: "School" }).select('userName email disable')
@@ -16,8 +17,11 @@ const addSchool = async (req, res) => {
     try {
         const { userName, password } = req.body
         const findSchool = await userModel.findOne({ userName })
+        const emailError = findSchool ? null : await checkEmailAvailable(req.body)
         if (findSchool) {
             res.json({ message: "This school name is already registered" })
+        } else if (emailError) {
+            res.json({ message: emailError })
         } else {
             try {
                 const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALTROUNDS))

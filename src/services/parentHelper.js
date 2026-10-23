@@ -1,5 +1,6 @@
 const userModel = require('../../DB/models/user.model');
 const bcrypt = require('bcryptjs');
+const { withLock, findAccountByEmail } = require('./accountGuard');
 
 /**
  * Ensures every student in the list has an associated Parent account.
@@ -63,47 +64,71 @@ async function ensureStudentParents(students, defaultCreatorId = null) {
                 if (!st.parentPhone && pInfo.parentPhone) st.parentPhone = pInfo.parentPhone;
                 userModel.findByIdAndUpdate(st._id, { parent: pInfo._id }).catch(() => {});
             } else {
-                const rawName = st.userName || 'student';
-                const cleanName = rawName.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-                const targetParentUserName = `parent_${cleanName}`;
-                const targetParentEmail = `${cleanName}.parent@mrshahin.com`;
+                // Lock per student and re-check inside the lock: roster pages load
+                // several lists in parallel, which used to create duplicate parents.
+                const parentDoc = await withLock(`parent:${sIdStr}`, async () => {
+                    const fresh = await userModel.findById(st._id).select('parent').lean();
+                    if (fresh && fresh.parent) {
+                        const linked = await userModel.findById(fresh.parent);
+                        if (linked) return linked;
+                    }
+                    const byChild = await userModel.findOne({ role: 'Parent', children: st._id });
+                    if (byChild) {
+                        await userModel.findByIdAndUpdate(st._id, { parent: byChild._id });
+                        return byChild;
+                    }
 
-                let parentDoc = await userModel.findOne({
-                    $or: [
-                        { userName: targetParentUserName },
-                        { email: targetParentEmail },
-                        { email: `${cleanName}.parent@school.com` }
-                    ]
-                });
+                    const rawName = st.userName || 'student';
+                    const cleanName = rawName.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+                    let targetParentUserName = `parent_${cleanName}`;
+                    let targetParentEmail = `${cleanName}.parent@mrshahin.com`;
 
-                if (parentDoc) {
-                    if (parentDoc.role !== 'Parent') {
-                        parentDoc.role = 'Parent';
-                    }
-                    if (!Array.isArray(parentDoc.children)) parentDoc.children = [];
-                    if (!parentDoc.children.some(c => c && c.toString() === sIdStr)) {
-                        parentDoc.children.push(st._id);
-                    }
-                    if (!parentDoc.parentPhone && (st.parentPhone || st.phone)) {
-                        parentDoc.parentPhone = st.parentPhone || st.phone;
-                    }
-                    await parentDoc.save().catch(() => {});
-                } else {
-                    const phoneNum = st.parentPhone || st.phone || '';
-                    const rawPassword = rawName.replace(/\s+/g, '') + '123';
-                    const hashedPassword = await bcrypt.hash(rawPassword, parseInt(process.env.SALTROUNDS) || 10);
-                    parentDoc = new userModel({
-                        userName: targetParentUserName,
-                        email: targetParentEmail,
-                        password: hashedPassword,
+                    let doc = await userModel.findOne({
                         role: 'Parent',
-                        verify: true,
-                        children: [st._id],
-                        parentPhone: phoneNum,
-                        createdBy: st.createdBy || defaultCreatorId
+                        $or: [
+                            { userName: targetParentUserName },
+                            { email: targetParentEmail },
+                            { email: `${cleanName}.parent@school.com` }
+                        ]
                     });
-                    await parentDoc.save().catch(() => {});
-                }
+
+                    if (doc) {
+                        if (!Array.isArray(doc.children)) doc.children = [];
+                        if (!doc.children.some(c => c && c.toString() === sIdStr)) {
+                            doc.children.push(st._id);
+                        }
+                        if (!doc.parentPhone && (st.parentPhone || st.phone)) {
+                            doc.parentPhone = st.parentPhone || st.phone;
+                        }
+                        await doc.save().catch(() => {});
+                    } else {
+                        // Never take over a non-parent account that shares the name/email
+                        if (await findAccountByEmail(targetParentEmail) || await userModel.exists({ userName: targetParentUserName })) {
+                            const suffix = sIdStr.slice(-4);
+                            targetParentUserName = `${targetParentUserName}_${suffix}`;
+                            targetParentEmail = `${cleanName}.parent${suffix}@mrshahin.com`;
+                        }
+                        const phoneNum = st.parentPhone || st.phone || '';
+                        const rawPassword = rawName.replace(/\s+/g, '') + '123';
+                        const hashedPassword = await bcrypt.hash(rawPassword, parseInt(process.env.SALTROUNDS) || 10);
+                        doc = new userModel({
+                            userName: targetParentUserName,
+                            email: targetParentEmail,
+                            password: hashedPassword,
+                            role: 'Parent',
+                            verify: true,
+                            children: [st._id],
+                            parentPhone: phoneNum,
+                            createdBy: st.createdBy || defaultCreatorId
+                        });
+                        await doc.save();
+                    }
+                    await userModel.findByIdAndUpdate(st._id, { parent: doc._id });
+                    return doc;
+                }).catch((e) => {
+                    console.warn('ensureStudentParents create error:', e.message);
+                    return null;
+                });
 
                 if (parentDoc && parentDoc._id) {
                     st.parent = {
@@ -113,7 +138,6 @@ async function ensureStudentParents(students, defaultCreatorId = null) {
                         parentPhone: parentDoc.parentPhone || st.parentPhone || st.phone || ''
                     };
                     if (!st.parentPhone && parentDoc.parentPhone) st.parentPhone = parentDoc.parentPhone;
-                    userModel.findByIdAndUpdate(st._id, { parent: parentDoc._id }).catch(() => {});
                 }
             }
         }

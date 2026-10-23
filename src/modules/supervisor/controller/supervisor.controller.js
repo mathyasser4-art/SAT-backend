@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model');
 const assignmentModel = require('../../../../DB/models/assignment.model');
 const bcrypt = require('bcryptjs');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
+const { checkEmailAvailable } = require('../../../services/accountGuard');
 
 const getSupervisor = async (req, res) => {
     try {
@@ -26,8 +27,12 @@ const addSupervisor = async (req, res) => {
         const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
         const findSupervisor = await userModel.findOne({ userName, role: "Supervisor", createdBy: { $in: associatedIds } });
 
+        const emailError = findSupervisor ? null : await checkEmailAvailable(req.body);
+
         if (findSupervisor) {
             res.json({ message: "This supervisor name is already registered" });
+        } else if (emailError) {
+            res.json({ message: emailError });
         } else {
             try {
                 const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALTROUNDS) || 10);
