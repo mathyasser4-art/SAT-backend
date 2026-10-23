@@ -1,5 +1,6 @@
 const userModel = require('../../../../DB/models/user.model')
 const classModel = require('../../../../DB/models/class.model')
+const courseModel = require('../../../../DB/models/course.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
 const questionModel = require('../../../../DB/models/question.model')
