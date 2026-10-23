@@ -145,6 +145,11 @@ const getStudent = async (req, res) => {
 const addStudent = async (req, res) => {
     try {
         const { userName, password, parentPhone, parentEmail, parentUserName, parentPassword } = req.body;
+
+        if (!req.body.class || !String(req.body.class).trim() || req.body.class === 'Select Class') {
+            return res.status(400).json({ message: "A class must be selected for the student. Students cannot be added without an assigned class." });
+        }
+
         const { schoolId, associatedIds } = await getSchoolHierarchy(req.userData);
         const findStudent = await userModel.findOne({ userName, role: "Student", createdBy: { $in: associatedIds } });
 
@@ -326,6 +331,10 @@ const updateStudent = async (req, res) => {
             } catch (pe) {
                 console.warn('Error creating/updating parent in updateStudent:', pe);
             }
+        }
+
+        if (req.body.class && req.body.class !== 'Select Class') {
+            req.body.classList = [req.body.class];
         }
 
         const updateStudent = await userModel.findByIdAndUpdate(studentID, req.body);
