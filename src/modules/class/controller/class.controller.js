@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const classModel = require('../../../../DB/models/class.model');
 const userModel = require('../../../../DB/models/user.model');
 const { getSchoolHierarchy } = require('../../../services/schoolContext');
@@ -98,18 +99,22 @@ const removeClass = async (req, res) => {
     try {
         const { classID } = req.params;
         const { associatedIds } = await getSchoolHierarchy(req.userData);
-        const findClass = await classModel.findById(classID);
+        const isObjectId = mongoose.Types.ObjectId.isValid(classID);
+        const findQuery = isObjectId ? { _id: classID } : { class: classID };
+        const findClass = await classModel.findOne(findQuery);
         if (findClass) {
-            const removeClass = await classModel.findByIdAndDelete(classID);
-            if (removeClass) {
-                const allClasses = await classModel.find(buildClassQuery(associatedIds, req.userData)).populate({ path: 'teachers', select: 'userName email' });
-                res.json({ message: "success", allClasses: allClasses || [] });
-            } else {
-                res.json({ message: "an error is happend" });
-            }
-        } else {
-            res.json({ message: "There is no class with this id" });
+            await classModel.findByIdAndDelete(findClass._id);
+            await userModel.updateMany(
+                { classList: findClass._id },
+                { $pull: { classList: findClass._id } }
+            );
+            await userModel.updateMany(
+                { class: findClass._id },
+                { $set: { class: null }, $pull: { classList: findClass._id } }
+            );
         }
+        const allClasses = await classModel.find(buildClassQuery(associatedIds, req.userData)).populate({ path: 'teachers', select: 'userName email' });
+        res.json({ message: "success", allClasses: allClasses || [] });
     } catch (error) {
         console.error('removeClass error:', error);
         res.status(502).json({ message: error.message });
