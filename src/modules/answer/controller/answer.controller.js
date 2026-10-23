@@ -801,6 +801,9 @@ const getAllAttempts = async (req, res) => {
             }
             return calc;
         });
+        const maxAttempts = assignment.attemptsNumber || 1;
+        // A trial that was opened but not submitted can still be resumed
+        const hasOpenAttempt = currentAttemptNumber > completedAttempts.length;
         const bestScore = scores.length > 0 ? Math.max(...scores) : 0;
         const averageScore = scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
         const totalPossiblePoints = (assignment?.totalPoints && assignment.totalPoints > 0)
@@ -814,8 +817,10 @@ const getAllAttempts = async (req, res) => {
                 totalAttempts: allAttempts.length,
                 completedAttempts: completedAttempts.length,
                 currentAttempt: currentAttemptNumber,
-                remainingAttempts: Math.max(0, assignment.attemptsNumber - currentAttemptNumber),
-                maxAttempts: assignment.attemptsNumber,
+                // Counts trials not yet submitted, including one that is open
+                remainingAttempts: Math.max(0, maxAttempts - completedAttempts.length),
+                hasOpenAttempt,
+                maxAttempts,
                 bestScore: bestScore,
                 averageScore: Math.round(averageScore * 100) / 100,
                 totalPossiblePoints: totalPossiblePoints

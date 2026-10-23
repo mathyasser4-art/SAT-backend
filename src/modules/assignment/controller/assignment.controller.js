@@ -49,7 +49,21 @@ const updateAssignment = async (req, res) => {
         const { assignmentID } = req.params
         const findAssignment = await assignmentModel.findById(assignmentID)
         if (findAssignment) {
-            const updateAssignment = await assignmentModel.findByIdAndUpdate(assignmentID, req.body)
+            const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(req.userData?.role)
+            if (!isPrivileged && findAssignment.createdBy && String(findAssignment.createdBy) !== String(teacherID)) {
+                const ownsCourse = await courseModel.exists({
+                    teacher: teacherID,
+                    $or: [{ 'sessions.onlineHw': assignmentID }, { 'sessions.onlineClasswork': assignmentID }]
+                })
+                if (!ownsCourse) return res.status(403).json({ message: "Access denied - You don't own this assignment" })
+            }
+            // Student attempt records and ownership are never changed through an edit
+            const { students, createdBy, createdAt, _id, ...changes } = req.body
+            if (changes.timer === '' || changes.timer === null) {
+                delete changes.timer
+                changes.$unset = { timer: 1 }
+            }
+            const updateAssignment = await assignmentModel.findByIdAndUpdate(assignmentID, changes)
             if (updateAssignment) {
                 const getAssignment = await assignmentModel.find({ createdBy: teacherID }).select('-createdBy').populate([{ path: 'questions', select: '-chapter' }, { path: 'classes', select: 'class' }, { path: 'students.solveBy', select: 'userName' }]).sort({ _id: -1 })
                 res.json({ message: "success", allAssignment: getAssignment })
@@ -258,9 +272,19 @@ const getStudentResults = async (req, res) => {
         // Create lookup map of answer documents by student ID
         // Shows the HIGHEST score attempt across all student trials
         const studentAnswerMap = {};
+        const studentAttemptsMap = {};
         answers.forEach(answer => {
             if (answer.solveBy && answer.solveBy._id) {
                 const sId = answer.solveBy._id.toString();
+                if (!studentAttemptsMap[sId]) studentAttemptsMap[sId] = [];
+                studentAttemptsMap[sId].push({
+                    answerId: answer._id,
+                    attemptNumber: answer.attemptNumber || 1,
+                    score: getAnswerScore(answer),
+                    timeSpent: answer.time || '0:00',
+                    completed: !!answer.completedAt,
+                    completedAt: answer.completedAt || null
+                });
                 if (!studentAnswerMap[sId]) {
                     studentAnswerMap[sId] = answer;
                 } else {
@@ -276,9 +300,17 @@ const getStudentResults = async (req, res) => {
         });
 
         // 3. Build comprehensive student results list with status
+        const maxAttempts = assignment.attemptsNumber || 1;
         const students = assignedStudents.map(student => {
             const sId = student._id.toString();
             const answer = studentAnswerMap[sId];
+            const attempts = (studentAttemptsMap[sId] || []).sort((a, b) => a.attemptNumber - b.attemptNumber);
+            const attemptInfo = {
+                attempts,
+                attemptsUsed: attempts.filter(a => a.completed).length,
+                maxAttempts,
+                bestAttemptNumber: answer ? (answer.attemptNumber || 1) : null
+            };
 
             if (answer) {
                 let calculatedScore = 0;
@@ -316,7 +348,8 @@ const getStudentResults = async (req, res) => {
                     timeSpent: answer.time || '0:00',
                     percentage: percentage,
                     completedAt: answer.completedAt || answer.createdAt,
-                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints
+                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints,
+                    ...attemptInfo
                 };
             } else {
                 // Student has not started this assignment yet
@@ -332,7 +365,8 @@ const getStudentResults = async (req, res) => {
                     timeSpent: '0:00',
                     percentage: 0,
                     completedAt: null,
-                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints
+                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints,
+                    ...attemptInfo
                 };
             }
         });
@@ -345,6 +379,7 @@ const getStudentResults = async (req, res) => {
                 title: assignment.title,
                 totalPoints: totalPoints,
                 totalQuestions: assignment.questions ? assignment.questions.length : 0,
+                attemptsNumber: maxAttempts,
                 createdAt: assignment.createdAt
             }
         });
