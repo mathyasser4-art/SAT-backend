@@ -353,11 +353,12 @@ const getAssignmentAnswer = async (req, res) => {
                     stepsPic: null,
                     isCorrect: false,
                     notAnswer: true,
-                    questionPoints: q.questionPoints || 0,
+                    questionPoints: (typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1,
                     correctAnswer: buildCorrectAnswerStr(q),
                     wrongAnswer: q.wrongAnswer || [],
                     wrongPicAnswer: q.wrongPicAnswer || [],
-                    typeOfAnswer: q.typeOfAnswer || 'Essay'
+                    typeOfAnswer: q.typeOfAnswer || 'Essay',
+                    explanation: q.explanation || ''
                 }))
             };
 
@@ -707,16 +708,8 @@ const getStudentOwnReport = async (req, res) => {
 
     } catch (error) {
         console.error('getStudentOwnReport error:', error.message);
-        return res.json({ 
-            message: "success",
-            answers: {
-                assignment: { title: 'Assignment Report', totalPoints: 0 },
-                time: "0:00",
-                total: 0,
-                questionsNumber: 0
-            },
-            report: { questions: [] }
-        });
+        // Report a real error instead of an empty 0/0 report that looks like a result
+        return res.status(500).json({ message: 'Could not load your report. Please try again.' });
     }
 };
 

@@ -23,5 +23,6 @@ const parentRouter = require('../src/modules/parent/parent.routes')
 const journeyRouter = require('../src/modules/journey/journey.routes')
 const aiRouter = require('../src/modules/ai/ai.routes')
 const questionReportRouter = require('../src/modules/questionReport/questionReport.routes')
+const videoRouter = require('../src/modules/video/video.routes')
 
-module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter }
+module.exports = { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter, videoRouter }
