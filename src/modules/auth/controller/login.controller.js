@@ -99,6 +99,7 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const cleanPhone = (email || '').toString().trim();
+        const rawDigits = cleanPhone.replace(/\D/g, '');
         let queryMatches = await userModel.find({
             $or: [
                 { 'email': email },
