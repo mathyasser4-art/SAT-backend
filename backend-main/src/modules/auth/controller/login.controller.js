@@ -5,8 +5,10 @@ const generateCode = require('../../../services/generateVerificationCode');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../../../services/jwtSecret');
+const { emailQuery } = require('../../../services/accountGuard');
 
 // Multi-tenant Domain Registry: maps teacher or school identifiers to custom branded domains.
+// Future schools/teachers can be added here or set directly in user.customDomain.
 const DOMAIN_REGISTRY = [
     { match: 'shahin', domain: 'mrshahin.com' },
     { match: 'arrowad', domain: 'ais.satarea.tech' },
@@ -16,6 +18,7 @@ const DOMAIN_REGISTRY = [
 const resolveCustomDomain = async (user) => {
     if (!user) return { targetDomain: null, teacherName: '' };
 
+    // 1. Explicit customDomain defined on user record
     if (user.customDomain) {
         return { targetDomain: user.customDomain, teacherName: user.userName };
     }
@@ -24,6 +27,7 @@ const resolveCustomDomain = async (user) => {
     const emailLower = (user.email || '').toLowerCase();
     const schoolNameLower = (user.createdBy?.userName || '').toLowerCase();
 
+    // 2. Direct match for Teacher or School accounts
     if (user.role === 'Teacher' || user.role === 'School') {
         for (const entry of DOMAIN_REGISTRY) {
             if (userNameLower.includes(entry.match) || emailLower.includes(entry.match) || schoolNameLower.includes(entry.match)) {
@@ -33,6 +37,7 @@ const resolveCustomDomain = async (user) => {
         return { targetDomain: null, teacherName: user.userName };
     }
 
+    // 3. For Student accounts, resolve teacher affiliation via their assigned class
     if (user.role === 'Student') {
         let teacherName = '';
         let targetDomain = null;
@@ -74,6 +79,7 @@ const resolveCustomDomain = async (user) => {
             }
         }
 
+        // Check if school name also matches
         if (!targetDomain && schoolNameLower) {
             for (const entry of DOMAIN_REGISTRY) {
                 if (schoolNameLower.includes(entry.match)) {
@@ -93,16 +99,25 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const cleanPhone = (email || '').toString().trim();
-        const rawDigits = cleanPhone.replace(/\D/g, '');
-        const findUser = await userModel.findOne({ 
+        let queryMatches = await userModel.find({
             $or: [
-                { 'email': email }, 
+                { 'email': email },
                 { 'userName': email },
                 { 'phone': email },
                 ...(cleanPhone ? [{ 'phone': cleanPhone }] : []),
                 ...(rawDigits ? [{ 'email': `${rawDigits}@satarea.user` }] : [])
-            ] 
+            ]
         }).populate('createdBy', 'userName');
+
+        // Emails are now saved lowercased; still match accounts regardless of casing
+        if (queryMatches.length === 0 && cleanPhone.includes('@')) {
+            queryMatches = await userModel.find({ email: emailQuery(cleanPhone) }).populate('createdBy', 'userName');
+        }
+
+        // Prioritize institutional roles over general guest 'User' to ensure enrolled students always log into their class account
+        const rolePriority = { 'Teacher': 1, 'School': 2, 'Admin': 3, 'IT': 4, 'Supervisor': 5, 'Student': 6, 'Parent': 7, 'User': 8 };
+        queryMatches.sort((a, b) => (rolePriority[a.role] || 99) - (rolePriority[b.role] || 99));
+        const findUser = queryMatches[0] || null;
 
         if (findUser) {
             if (!findUser.verify) {
@@ -132,6 +147,17 @@ const login = async (req, res) => {
 
                     const { targetDomain, teacherName } = await resolveCustomDomain(findUser);
 
+                    let trialStart = findUser.trialStartDate;
+                    let trialExpires = findUser.trialExpiresAt;
+                    if (findUser.role === 'User' && !trialExpires) {
+                        trialStart = findUser.createdAt || new Date();
+                        trialExpires = new Date(new Date(trialStart).getTime() + 7 * 24 * 60 * 60 * 1000);
+                        await userModel.updateOne(
+                            { _id: findUser._id }, 
+                            { $set: { trialStartDate: trialStart, trialExpiresAt: trialExpires } }
+                        );
+                    }
+
                     res.json({ 
                         message: 'success', 
                         userToken, 
@@ -141,7 +167,10 @@ const login = async (req, res) => {
                         email: findUser.email,
                         schoolName: schoolName,
                         teacherName: teacherName || '',
-                        targetDomain: targetDomain || null
+                        targetDomain: targetDomain || null,
+                        trialStartDate: trialStart,
+                        trialExpiresAt: trialExpires,
+                        isSubscribed: findUser.isSubscribed || false
                     });
                 } else {
                     res.json({ message: 'wrong password' });

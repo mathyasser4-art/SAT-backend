@@ -99,8 +99,7 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const cleanPhone = (email || '').toString().trim();
-        const rawDigits = cleanPhone.replace(/\D/g, '');
-        let findUser = await userModel.findOne({
+        let queryMatches = await userModel.find({
             $or: [
                 { 'email': email },
                 { 'userName': email },
@@ -109,10 +108,16 @@ const login = async (req, res) => {
                 ...(rawDigits ? [{ 'email': `${rawDigits}@satarea.user` }] : [])
             ]
         }).populate('createdBy', 'userName');
+
         // Emails are now saved lowercased; still match accounts regardless of casing
-        if (!findUser && cleanPhone.includes('@')) {
-            findUser = await userModel.findOne({ email: emailQuery(cleanPhone) }).populate('createdBy', 'userName');
+        if (queryMatches.length === 0 && cleanPhone.includes('@')) {
+            queryMatches = await userModel.find({ email: emailQuery(cleanPhone) }).populate('createdBy', 'userName');
         }
+
+        // Prioritize institutional roles over general guest 'User' to ensure enrolled students always log into their class account
+        const rolePriority = { 'Teacher': 1, 'School': 2, 'Admin': 3, 'IT': 4, 'Supervisor': 5, 'Student': 6, 'Parent': 7, 'User': 8 };
+        queryMatches.sort((a, b) => (rolePriority[a.role] || 99) - (rolePriority[b.role] || 99));
+        const findUser = queryMatches[0] || null;
 
         if (findUser) {
             if (!findUser.verify) {
