@@ -305,18 +305,37 @@ const getAssignmentAnswer = async (req, res) => {
         const studentObjId = mongoose.Types.ObjectId.isValid(studentID) ? new mongoose.Types.ObjectId(studentID) : studentID;
         const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID) ? new mongoose.Types.ObjectId(assignmentID) : assignmentID;
 
+        // Optional ?attempt=N opens a specific attempt (e.g. the one the HW view's stats were built from)
+        const requestedAttempt = req.query.attempt ? parseInt(req.query.attempt) : null;
+
+        let answers = null;
+        if (requestedAttempt) {
+            answers = await answerModel.findOne({
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID, attemptNumber: requestedAttempt },
+                    { solveBy: studentObjId, assignment: assignmentObjId, attemptNumber: requestedAttempt }
+                ]
+            })
+            .populate({
+                path: 'assignment',
+                select: 'title totalPoints questions'
+            });
+        }
+
         // Prefer completed answers (with completedAt set)
-        let answers = await answerModel.findOne({ 
-            $or: [
-                { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
-                { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
-            ]
-        })
-        .sort({ attemptNumber: -1, createdAt: -1 })
-        .populate({
-            path: 'assignment',
-            select: 'title totalPoints questions'
-        });
+        if (!answers) {
+            answers = await answerModel.findOne({
+                $or: [
+                    { solveBy: studentID, assignment: assignmentID, completedAt: { $ne: null } },
+                    { solveBy: studentObjId, assignment: assignmentObjId, completedAt: { $ne: null } }
+                ]
+            })
+            .sort({ attemptNumber: -1, createdAt: -1 })
+            .populate({
+                path: 'assignment',
+                select: 'title totalPoints questions'
+            });
+        }
 
         // Fallback: if no completed answer, get any answer
         if (!answers) {

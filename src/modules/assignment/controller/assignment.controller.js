@@ -178,10 +178,76 @@ const duplicateAssignment = async (req, res) => {
     }
 };
 
+const PRIVILEGED_ROLES = ['Admin', 'School', 'Supervisor', 'IT'];
+
+// Check permissions: Privileged roles (Admin, School, Supervisor, IT), creator, or course teacher
+const canViewAssignmentResults = async (userData, assignment, assignmentID) => {
+    const teacherID = userData._id;
+    const isPrivileged = PRIVILEGED_ROLES.includes(userData?.role);
+    if (isPrivileged || !assignment.createdBy || String(assignment.createdBy) === String(teacherID)) return true;
+
+    const courseWithAssignment = await courseModel.exists({
+        teacher: teacherID,
+        $or: [
+            { 'sessions.onlineHw': assignmentID },
+            { 'sessions.onlineClasswork': assignmentID }
+        ]
+    });
+    return !!courseWithAssignment;
+};
+
+// Total possible points: assignment.totalPoints, else sum of question points (default 1), else question count
+const getAssignmentTotalPoints = (assignment) => {
+    let totalPoints = assignment.totalPoints || 0;
+    if ((!totalPoints || totalPoints === 0) && assignment.questions && assignment.questions.length > 0) {
+        totalPoints = assignment.questions.reduce((sum, q) => sum + ((q && typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1), 0);
+    }
+    if (!totalPoints || totalPoints <= 0) {
+        totalPoints = assignment.questions ? assignment.questions.length : 1;
+    }
+    return totalPoints;
+};
+
+// Helper: calculate answer score
+const getAnswerScore = (ans) => {
+    if (!ans) return 0;
+    if (typeof ans.total === 'number' && ans.total > 0) return ans.total;
+    let calc = 0;
+    if (Array.isArray(ans.questions)) {
+        ans.questions.forEach(q => {
+            if (q && q.point && q.point > 0) calc += q.point;
+            else if (q && q.isCorrect) calc += 1;
+        });
+    }
+    return calc;
+};
+
+// Lookup map of answer documents by student ID with the HIGHEST score attempt across all trials
+// (ties prefer a completed attempt). Expects answers sorted { attemptNumber: -1, createdAt: -1 } and solveBy populated
+const getBestAnswerMap = (answers) => {
+    const studentAnswerMap = {};
+    answers.forEach(answer => {
+        if (answer.solveBy && answer.solveBy._id) {
+            const sId = answer.solveBy._id.toString();
+            if (!studentAnswerMap[sId]) {
+                studentAnswerMap[sId] = answer;
+            } else {
+                const currentBestScore = getAnswerScore(studentAnswerMap[sId]);
+                const newScore = getAnswerScore(answer);
+                if (newScore > currentBestScore) {
+                    studentAnswerMap[sId] = answer;
+                } else if (newScore === currentBestScore && !studentAnswerMap[sId].completedAt && answer.completedAt) {
+                    studentAnswerMap[sId] = answer;
+                }
+            }
+        }
+    });
+    return studentAnswerMap;
+};
+
 const getStudentResults = async (req, res) => {
     try {
         const { assignmentID } = req.params;
-        const teacherID = req.userData._id;
 
         // Get assignment and populate questions and classes
         const assignment = await assignmentModel.findById(assignmentID)
@@ -192,21 +258,8 @@ const getStudentResults = async (req, res) => {
             return res.status(404).json({ message: "Assignment not found" });
         }
 
-        // Check permissions: Privileged roles (Admin, School, Supervisor, IT), creator, or course teacher
-        const userRole = req.userData?.role;
-        const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(userRole);
-
-        if (!isPrivileged && assignment.createdBy && String(assignment.createdBy) !== String(teacherID)) {
-            const courseWithAssignment = await courseModel.findOne({
-                teacher: teacherID,
-                $or: [
-                    { 'sessions.onlineHw': assignmentID },
-                    { 'sessions.onlineClasswork': assignmentID }
-                ]
-            });
-            if (!courseWithAssignment) {
-                return res.status(403).json({ message: "Access denied - You don't own this assignment" });
-            }
+        if (!(await canViewAssignmentResults(req.userData, assignment, assignmentID))) {
+            return res.status(403).json({ message: "Access denied - You don't own this assignment" });
         }
 
         // 1. Get all answers submitted for this assignment (sorted by latest attempt first)
@@ -247,31 +300,11 @@ const getStudentResults = async (req, res) => {
         assignedStudents = Array.from(uniqueStudentMap.values());
 
         // Calculate total possible points from questions
-        let totalPoints = assignment.totalPoints || 0;
-        if ((!totalPoints || totalPoints === 0) && assignment.questions && assignment.questions.length > 0) {
-            totalPoints = assignment.questions.reduce((sum, q) => sum + ((typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1), 0);
-        }
-        if (!totalPoints || totalPoints <= 0) {
-            totalPoints = assignment.questions ? assignment.questions.length : 1;
-        }
-
-        // Helper: calculate answer score
-        const getAnswerScore = (ans) => {
-            if (!ans) return 0;
-            if (typeof ans.total === 'number' && ans.total > 0) return ans.total;
-            let calc = 0;
-            if (Array.isArray(ans.questions)) {
-                ans.questions.forEach(q => {
-                    if (q && q.point && q.point > 0) calc += q.point;
-                    else if (q && q.isCorrect) calc += 1;
-                });
-            }
-            return calc;
-        };
+        const totalPoints = getAssignmentTotalPoints(assignment);
 
         // Create lookup map of answer documents by student ID
         // Shows the HIGHEST score attempt across all student trials
-        const studentAnswerMap = {};
+        const studentAnswerMap = getBestAnswerMap(answers);
         const studentAttemptsMap = {};
         answers.forEach(answer => {
             if (answer.solveBy && answer.solveBy._id) {
@@ -285,17 +318,6 @@ const getStudentResults = async (req, res) => {
                     completed: !!answer.completedAt,
                     completedAt: answer.completedAt || null
                 });
-                if (!studentAnswerMap[sId]) {
-                    studentAnswerMap[sId] = answer;
-                } else {
-                    const currentBestScore = getAnswerScore(studentAnswerMap[sId]);
-                    const newScore = getAnswerScore(answer);
-                    if (newScore > currentBestScore) {
-                        studentAnswerMap[sId] = answer;
-                    } else if (newScore === currentBestScore && !studentAnswerMap[sId].completedAt && answer.completedAt) {
-                        studentAnswerMap[sId] = answer;
-                    }
-                }
             }
         });
 
@@ -389,12 +411,207 @@ const getStudentResults = async (req, res) => {
     }
 };
 
+const isFilled = (value) => value !== null && value !== undefined && String(value).trim() !== '';
+
+// Pictures are stored as a URL string; older records may hold a cloudinary object
+const getPicUrl = (pic) => {
+    if (!pic) return null;
+    if (typeof pic === 'string') return pic;
+    return pic.secure_url || null;
+};
+
+const byUserName = (a, b) => String(a.userName).localeCompare(String(b.userName));
+
+// Per-question breakdown of who solved it correctly, wrongly, or skipped it (best attempt per student)
+const getQuestionStats = async (req, res) => {
+    try {
+        const { assignmentID } = req.params;
+        const { courseId } = req.query;
+
+        const assignment = await assignmentModel.findById(assignmentID)
+            .select('questions createdBy title totalPoints timer attemptsNumber explanationMode')
+            .populate({
+                path: 'questions',
+                select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer explanation answerPic'
+            })
+            .lean();
+
+        if (!assignment) {
+            return res.status(404).json({ message: "Assignment not found" });
+        }
+
+        if (!(await canViewAssignmentResults(req.userData, assignment, assignmentID))) {
+            return res.status(403).json({ message: "Access denied - You don't own this assignment" });
+        }
+
+        // Skip deleted questions; index stays the 1-based position among the remaining ones
+        assignment.questions = (assignment.questions || []).filter(q => q && q._id);
+
+        // Optional roster: only a course the requester teaches (or any course for privileged roles)
+        let course = null;
+        let roster = null;
+        if (typeof courseId === 'string' && mongoose.Types.ObjectId.isValid(courseId)) {
+            const foundCourse = await courseModel.findById(courseId)
+                .select('name teacher students')
+                .populate({ path: 'students', select: 'userName' })
+                .lean();
+            const isPrivileged = PRIVILEGED_ROLES.includes(req.userData?.role);
+            if (foundCourse && (isPrivileged || String(foundCourse.teacher) === String(req.userData._id))) {
+                course = { _id: foundCourse._id, name: foundCourse.name };
+                const rosterMap = new Map();
+                (foundCourse.students || []).forEach(st => {
+                    if (st && st._id && !rosterMap.has(st._id.toString())) rosterMap.set(st._id.toString(), st);
+                });
+                roster = Array.from(rosterMap.values());
+            }
+        }
+
+        const answerFilter = { assignment: assignmentID };
+        if (roster) answerFilter.solveBy = { $in: roster.map(st => st._id) };
+        const answers = await answerModel.find(answerFilter)
+            .sort({ attemptNumber: -1, createdAt: -1 })
+            .populate('solveBy', 'userName')
+            .select('total completedAt questions solveBy attemptNumber createdAt')
+            .lean();
+
+        // Same attempt getStudentResults reports for each student
+        const studentAnswerMap = getBestAnswerMap(answers);
+
+        const notStarted = [];
+        let counted = [];
+        if (roster) {
+            roster.forEach(st => {
+                const sId = st._id.toString();
+                const userName = st.userName || 'Student';
+                const answer = studentAnswerMap[sId];
+                if (answer) counted.push({ studentId: st._id, userName, attemptNumber: answer.attemptNumber || 1, answer });
+                else notStarted.push({ studentId: st._id, userName });
+            });
+        } else {
+            counted = Object.values(studentAnswerMap).map(answer => ({
+                studentId: answer.solveBy._id,
+                userName: answer.solveBy.userName || 'Student',
+                attemptNumber: answer.attemptNumber || 1,
+                answer
+            }));
+        }
+        notStarted.sort(byUserName);
+        counted.sort(byUserName);
+
+        const totalPoints = getAssignmentTotalPoints(assignment);
+        const averagePercent = counted.length > 0
+            ? Math.round(counted.reduce((sum, st) => sum + (getAnswerScore(st.answer) / totalPoints) * 100, 0) / counted.length)
+            : null;
+
+        // Per student: question id -> answer entry (entry.question may be populated or a raw id)
+        const entryMaps = counted.map(st => {
+            const entryMap = new Map();
+            (st.answer.questions || []).forEach(entry => {
+                if (!entry || !entry.question) return;
+                const qId = (entry.question._id || entry.question).toString();
+                if (!entryMap.has(qId)) entryMap.set(qId, entry);
+            });
+            return entryMap;
+        });
+
+        const questions = assignment.questions.map((q, i) => {
+            const qId = q._id.toString();
+            const correctStudents = [];
+            const wrongStudents = [];
+            const notAnsweredStudents = [];
+
+            counted.forEach((st, sIdx) => {
+                const entry = entryMaps[sIdx].get(qId);
+                const finalAnswer = entry
+                    ? [entry.fourthAnswer, entry.thirdAnswer, entry.secondAnswer, entry.firstAnswer].find(isFilled)
+                    : undefined;
+                // attemptNumber lets the report link open the same attempt these lists were built from
+                if (entry && entry.isCorrect) {
+                    correctStudents.push({ studentId: st.studentId, userName: st.userName, attemptNumber: st.attemptNumber });
+                } else if (entry && finalAnswer !== undefined) {
+                    wrongStudents.push({
+                        studentId: st.studentId,
+                        userName: st.userName,
+                        attemptNumber: st.attemptNumber,
+                        answer: String(finalAnswer),
+                        stepsPic: (entry.stepPicture && entry.stepPicture.secure_url) || null
+                    });
+                } else {
+                    notAnsweredStudents.push({ studentId: st.studentId, userName: st.userName, attemptNumber: st.attemptNumber });
+                }
+            });
+
+            const answered = correctStudents.length + wrongStudents.length;
+            // lean() skips schema defaults, so a question saved without a type is the default Essay
+            const typeOfAnswer = q.typeOfAnswer || 'Essay';
+            const acceptedAnswers = typeOfAnswer === 'Essay' ? (q.answer || []).filter(isFilled) : [];
+            let correctAnswer = '';
+            if (typeOfAnswer === 'MCQ') correctAnswer = q.correctAnswer || '';
+            else if (typeOfAnswer === 'Essay') correctAnswer = acceptedAnswers.join(', ');
+            else if (typeOfAnswer === 'Graph') correctAnswer = q.correctPicAnswer || '';
+
+            return {
+                _id: q._id,
+                index: i + 1,
+                question: q.question,
+                questionPic: getPicUrl(q.questionPic),
+                typeOfAnswer,
+                questionPoints: (typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1,
+                // Same choice order the homework page shows: unique, non-empty, first four
+                choices: typeOfAnswer === 'MCQ' ? Array.from(new Set((q.wrongAnswer || []).filter(isFilled))).slice(0, 4) : [],
+                correctAnswer: correctAnswer || 'N/A',
+                acceptedAnswers,
+                correctPicAnswer: q.correctPicAnswer || '',
+                wrongPicAnswer: Array.isArray(q.wrongPicAnswer) ? q.wrongPicAnswer : [],
+                explanation: q.explanation || '',
+                answerPic: getPicUrl(q.answerPic) || '',
+                stats: {
+                    correct: correctStudents.length,
+                    wrong: wrongStudents.length,
+                    notAnswered: notAnsweredStudents.length,
+                    answered,
+                    percentCorrect: answered > 0 ? Math.round((correctStudents.length / answered) * 100) : null
+                },
+                correctStudents,
+                wrongStudents,
+                notAnsweredStudents
+            };
+        });
+
+        res.json({
+            message: "success",
+            assignment: {
+                _id: assignment._id,
+                title: assignment.title,
+                totalPoints,
+                totalQuestions: assignment.questions.length,
+                timer: assignment.timer ?? null,
+                attemptsNumber: assignment.attemptsNumber || 1,
+                explanationMode: assignment.explanationMode || 'independent'
+            },
+            course,
+            summary: {
+                rosterCount: roster ? roster.length : null,
+                startedCount: counted.length,
+                completedCount: counted.filter(st => !!st.answer.completedAt).length,
+                averagePercent,
+                notStarted
+            },
+            questions
+        });
+    } catch (error) {
+        console.error('Error in getQuestionStats:', error.message);
+        res.status(502).json({ message: error.message });
+    }
+};
+
 // FIXED: Add getStudentResults and duplicateAssignment to the exports
-module.exports = { 
-    createAssignment, 
-    getAssignment, 
-    updateAssignment, 
+module.exports = {
+    createAssignment,
+    getAssignment,
+    updateAssignment,
     deleteAssignment,
     getStudentResults,
+    getQuestionStats,
     duplicateAssignment  // ADD THIS LINE
 }
