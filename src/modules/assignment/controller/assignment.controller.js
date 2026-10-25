@@ -131,7 +131,7 @@ const duplicateAssignment = async (req, res) => {
             
             // Use new data from request body (title, dates, timer, attempts, classes)
             title: req.body.title,
-            timer: req.body.timer,
+            timer: req.body.timer !== undefined ? req.body.timer : originalAssignment.timer,
             attemptsNumber: req.body.attemptsNumber || originalAssignment.attemptsNumber || 1,
             explanationMode: req.body.explanationMode || originalAssignment.explanationMode || 'independent',
             startDate: req.body.startDate,
