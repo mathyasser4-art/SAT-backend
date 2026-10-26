@@ -82,6 +82,14 @@ const deleteAssignment = async (req, res) => {
     try {
         const teacherID = req.userData._id
         const { assignmentID } = req.params
+        const findAssignment = await assignmentModel.findById(assignmentID)
+        if (!findAssignment) return res.json({ message: "This assignment is not found" })
+        // Only the creator or a privileged role. No course-owner branch (unlike updateAssignment):
+        // a teacher can put any assignment id into their own course's sessions, so that proves nothing.
+        // teacherID is undefined on the no-token dashboard bypass, so it must never count as the creator.
+        const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(req.userData?.role)
+        const isCreator = Boolean(teacherID && findAssignment.createdBy) && String(findAssignment.createdBy) === String(teacherID)
+        if (!isPrivileged && !isCreator) return res.status(403).json({ message: "Access denied - You don't own this assignment" })
         const removeAssignment = await assignmentModel.findByIdAndDelete(assignmentID)
         if (removeAssignment) {
             const getAssignment = await assignmentModel.find({ createdBy: teacherID }).select('-createdBy').populate([{ path: 'questions', select: '-chapter' }, { path: 'classes', select: 'class' }, { path: 'students.solveBy', select: 'userName' }]).sort({ _id: -1 })

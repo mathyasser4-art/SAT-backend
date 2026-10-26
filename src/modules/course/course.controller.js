@@ -1,5 +1,6 @@
 const courseModel = require('../../../DB/models/course.model');
 const userModel = require('../../../DB/models/user.model');
+const assignmentModel = require('../../../DB/models/assignment.model');
 const cloudinary = require('cloudinary').v2;
 const cloudinaryConfig = require('../../services/cloudinary');
 cloudinaryConfig();
@@ -15,6 +16,27 @@ const extractValidIds = (arr) => {
     return [...new Set(valid)];
 };
 
+// Session homework/classwork may only be the course teacher's own assignments: being on a course
+// gives its teacher edit rights over the assignment, so a foreign id would hand those rights out.
+// Ids already on the session are kept so existing courses keep working.
+const keepOwnAssignments = async (arr, teacherId, alreadyThere = []) => {
+    const ids = extractValidIds(arr);
+    if (ids.length === 0) return ids;
+    const existing = new Set(extractValidIds(alreadyThere));
+    const own = await assignmentModel.find({ _id: { $in: ids }, createdBy: teacherId }).select('_id').lean();
+    const allowed = new Set([...existing, ...own.map(a => String(a._id))]);
+    return ids.filter(id => allowed.has(id));
+};
+
+const sanitizeSessions = async (sessions, teacherId) => {
+    if (!Array.isArray(sessions)) return [];
+    return Promise.all(sessions.map(async (s) => ({
+        ...s,
+        onlineHw: await keepOwnAssignments(s && s.onlineHw, teacherId),
+        onlineClasswork: await keepOwnAssignments(s && s.onlineClasswork, teacherId),
+    })));
+};
+
 const createCourse = async (req, res) => {
     try {
         const { name, description, students, sessions } = req.body;
@@ -25,7 +47,7 @@ const createCourse = async (req, res) => {
             description,
             teacher: teacherId,
             students: extractValidIds(students),
-            sessions: sessions || []
+            sessions: await sanitizeSessions(sessions, teacherId)
         });
 
         await course.save();
@@ -110,8 +132,8 @@ const addSession = async (req, res) => {
             recordingUrl,
             pdfExercises: Array.isArray(pdfExercises) ? pdfExercises : [],
             hwPdfs: Array.isArray(hwPdfs) ? hwPdfs : [],
-            onlineHw: extractValidIds(onlineHw),
-            onlineClasswork: extractValidIds(onlineClasswork),
+            onlineHw: await keepOwnAssignments(onlineHw, teacherId),
+            onlineClasswork: await keepOwnAssignments(onlineClasswork, teacherId),
             order: order !== undefined ? order : (course.sessions.length + 1)
         });
 
@@ -229,8 +251,8 @@ const updateSession = async (req, res) => {
         if (recordingUrl !== undefined) session.recordingUrl = recordingUrl;
         if (pdfExercises !== undefined) session.pdfExercises = Array.isArray(pdfExercises) ? pdfExercises : [];
         if (hwPdfs !== undefined) session.hwPdfs = Array.isArray(hwPdfs) ? hwPdfs : [];
-        if (onlineHw !== undefined) session.onlineHw = extractValidIds(onlineHw);
-        if (onlineClasswork !== undefined) session.onlineClasswork = extractValidIds(onlineClasswork);
+        if (onlineHw !== undefined) session.onlineHw = await keepOwnAssignments(onlineHw, teacherId, session.onlineHw);
+        if (onlineClasswork !== undefined) session.onlineClasswork = await keepOwnAssignments(onlineClasswork, teacherId, session.onlineClasswork);
         if (order !== undefined) session.order = order;
 
         await course.save();
