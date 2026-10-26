@@ -21,6 +21,20 @@ npm run dev      # development (nodemon)
 | `SALTROUNDS`          | bcrypt salt rounds (e.g. `10`)                   |
 | `PORT`                | HTTP port (default `3000`)                       |
 
+### AI Copilot (teachers)
+
+The Copilot (`src/modules/ai/copilot/`) runs on Claude. It answers only signed-in teacher, school,
+supervisor, IT and admin accounts, and only reaches that account's own classes, courses and students.
+Changes (create, edit, re-assign, delete homework) wait for the teacher to press Confirm, and every
+confirmed change is logged in the `copilotaudits` collection.
+
+| Variable                       | Description                                                      |
+|--------------------------------|------------------------------------------------------------------|
+| `ANTHROPIC_API_KEY`            | Claude API key. Used by the Copilot and by the students' AI mistakes analysis (which falls back to a built-in keyword classifier without it) |
+| `COPILOT_MODEL`                | Optional, default `claude-opus-5-5`                              |
+| `COPILOT_EFFORT`               | Optional, `low` / `medium` / `high`, default `medium`            |
+| `COPILOT_DEFAULT_COUNTRY_CODE` | Optional, used for WhatsApp links when a phone number starts with 0 |
+
 ---
 
 ## Password Migration

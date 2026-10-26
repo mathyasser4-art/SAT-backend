@@ -1,7 +1,7 @@
 const answerModel = require('../../../DB/models/answer.model');
 const questionModel = require('../../../DB/models/question.model');
 const assignmentModel = require('../../../DB/models/assignment.model');
-const { GoogleGenAI } = require('@google/genai');
+const { askClaude, isClaudeConfigured } = require('./claude');
 
 // Official SAT Math lessons (skills) used for classification
 const LESSONS = [
@@ -28,30 +28,30 @@ const LESSONS = [
     'Circles',
 ];
 
-const MODELS = ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.0-flash'];
-
-const callGemini = async (prompt, json = false) => {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    let lastError;
-    for (const model of MODELS) {
-        try {
-            const response = await ai.models.generateContent({
-                model,
-                contents: prompt,
-                config: json ? { responseMimeType: 'application/json' } : undefined,
-            });
-            if (response && response.text) return response.text;
-        } catch (e) {
-            lastError = e;
-            console.error(`AI model ${model} failed:`, e.message);
-        }
-    }
-    throw lastError || new Error('All Gemini models failed');
+// Structured output: the API holds Claude's reply to this shape (lessons are still re-checked below)
+const CLASSIFY_SCHEMA = {
+    type: 'object',
+    properties: {
+        results: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: { type: 'string' },
+                    lesson: { type: 'string', enum: LESSONS },
+                },
+                required: ['id', 'lesson'],
+                additionalProperties: false,
+            },
+        },
+    },
+    required: ['results'],
+    additionalProperties: false,
 };
 
 const cleanText = (t = '') => String(t).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
 
-// Offline keyword classifier (fallback when Gemini is unavailable)
+// Offline keyword classifier (fallback when Claude is unavailable or not set up)
 const RULES = [
     ['Probability', /probabilit|at random|chosen randomly/i],
     ['Circles', /circle|radius|diameter|\barc\b|circumference|sector/i],
@@ -79,9 +79,12 @@ const localClassify = (q) => {
     return 'Linear equations in one variable';
 };
 
-// Classify questions without a topic, save the result in DB (so each question is classified only once)
+// Classify questions without a topic, save the result in DB (so each question is classified only once).
+// Returns whether Claude is still usable for the rest of this request.
 const classifyQuestions = async (questions) => {
     const pending = questions.filter(q => q && !q.topic);
+    // After one failed call the remaining batches go local, so a student waits on at most one failed call
+    let useClaude = isClaudeConfigured();
     for (let i = 0; i < pending.length; i += 40) {
         const batch = pending.slice(i, i + 40);
         const items = batch.map(q => ({
@@ -89,29 +92,31 @@ const classifyQuestions = async (questions) => {
             text: cleanText(q.question),
             choices: [q.correctAnswer, ...(q.wrongAnswer || [])].filter(Boolean).map(cleanText).slice(0, 4),
         }));
-        const prompt = `You are an SAT Math expert. Classify each question into exactly ONE lesson from this list:
+        const prompt = `Classify each question into exactly ONE lesson from this list:
 ${LESSONS.map(l => `- ${l}`).join('\n')}
 If the text is too short to tell, choose the most likely lesson.
-Return ONLY a JSON array like [{"id":"...","lesson":"..."}].
+Give one result per question, using the question's id.
 Questions:
 ${JSON.stringify(items)}`;
-        try {
-            const raw = await callGemini(prompt, true);
-            const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
-            const ops = [];
-            parsed.forEach(({ id, lesson }) => {
-                if (!LESSONS.includes(lesson)) return;
-                const q = batch.find(b => String(b._id) === String(id));
-                if (q) {
-                    q.topic = lesson;
-                    ops.push({ updateOne: { filter: { _id: q._id }, update: { $set: { topic: lesson } } } });
-                }
-            });
-            if (ops.length) await questionModel.bulkWrite(ops);
-        } catch (e) {
-            console.error('Classification batch failed, using local classifier:', e.message);
+        if (useClaude) {
+            try {
+                const parsed = await askClaude({ system: 'You are an SAT Math expert.', prompt, schema: CLASSIFY_SCHEMA });
+                const ops = [];
+                (Array.isArray(parsed && parsed.results) ? parsed.results : []).forEach(({ id, lesson }) => {
+                    if (!LESSONS.includes(lesson)) return;
+                    const q = batch.find(b => String(b._id) === String(id));
+                    if (q) {
+                        q.topic = lesson;
+                        ops.push({ updateOne: { filter: { _id: q._id }, update: { $set: { topic: lesson } } } });
+                    }
+                });
+                if (ops.length) await questionModel.bulkWrite(ops);
+            } catch (e) {
+                useClaude = false;
+                console.error('Classification batch failed, using local classifier:', e.message);
+            }
         }
-        // Anything Gemini didn't classify gets the local keyword classifier
+        // Anything Claude didn't classify gets the local keyword classifier
         const fallbackOps = [];
         batch.filter(q => !q.topic).forEach(q => {
             q.topic = localClassify(q);
@@ -119,6 +124,7 @@ ${JSON.stringify(items)}`;
         });
         if (fallbackOps.length) await questionModel.bulkWrite(fallbackOps).catch(err => console.error(err.message));
     }
+    return useClaude;
 };
 
 const getWrongQuestions = async (studentId) => {
@@ -139,15 +145,13 @@ const getWrongQuestions = async (studentId) => {
 
 const analyzeMistakes = async (req, res) => {
     try {
-        if (!process.env.GEMINI_API_KEY) {
-            return res.status(400).json({ message: "Gemini API Key is missing on the server." });
-        }
+        // Without ANTHROPIC_API_KEY this still works: local classifier plus the template note below
         const wrong = await getWrongQuestions(req.userData._id);
         if (wrong.length === 0) {
             return res.json({ analysis: "You don't have any recorded mistakes yet! Take a few tests and come back so I can analyze your weak lessons.", topWeaknesses: [] });
         }
 
-        await classifyQuestions(wrong.map(w => w.question));
+        const claudeOk = await classifyQuestions(wrong.map(w => w.question));
 
         const counts = {};
         wrong.forEach(w => {
@@ -161,14 +165,21 @@ const analyzeMistakes = async (req, res) => {
         const breakdown = sorted.map(([lesson, count]) => ({ lesson, count }));
         const weaknessesText = top.map(([l, c]) => `${l} (${c} mistakes)`).join(', ');
 
-        let analysis;
-        try {
-            analysis = await callGemini(`You are a friendly, professional SAT Math tutor.
-A student's mistakes by lesson are: ${breakdown.map(b => `${b.lesson}: ${b.count}`).join('; ')}.
+        let analysis = `Your mistakes are concentrated in these lessons: ${weaknessesText}. Start by revising "${top[0][0]}", re-solve the questions you missed there, then move to the next lessons. Take the practice test below to check your progress.`;
+        // Skipped when Claude already failed above, so the student doesn't wait on a second failure
+        if (claudeOk) {
+            try {
+                const note = await askClaude({
+                    system: 'You are a friendly, professional SAT Math tutor.',
+                    prompt: `A student's mistakes by lesson are: ${breakdown.map(b => `${b.lesson}: ${b.count}`).join('; ')}.
 Their weakest lessons are: ${weaknessesText}.
-Write 3-4 sentences addressed to the student ("You"): name the exact lessons to revise in priority order and give one concrete tip for the weakest lesson. Plain text, no markdown.`);
-        } catch (e) {
-            analysis = `Your mistakes are concentrated in these lessons: ${weaknessesText}. Start by revising "${top[0][0]}", re-solve the questions you missed there, then move to the next lessons. Take the practice test below to check your progress.`;
+Write 3-4 sentences addressed to the student ("You"): name the exact lessons to revise in priority order and give one concrete tip for the weakest lesson. Plain text, no markdown.`,
+                    maxTokens: 4000,
+                });
+                if (note) analysis = note;
+            } catch (e) {
+                console.error('AI tutor note failed, using the template:', e.message);
+            }
         }
 
         res.json({ analysis, topWeaknesses: top.map(([l]) => l), breakdown });
@@ -232,47 +243,4 @@ const generateTest = async (req, res) => {
     }
 };
 
-const { processCopilotChat, auditHomework } = require('./aiCopilot.service');
-
-const copilotChat = async (req, res) => {
-    try {
-        const { message, history, image, brand } = req.body;
-        if ((!message || !message.trim()) && !image) {
-            return res.status(400).json({ message: "Message or image is required" });
-        }
-
-        const userData = req.userData || null;
-        const result = await processCopilotChat({
-            message: (message || '').trim(),
-            userData,
-            history: history || [],
-            image: image || null,
-            brand: brand || req.query?.brand || null
-        });
-
-        res.json({
-            message: "success",
-            ...result
-        });
-    } catch (err) {
-        console.error("Copilot Chat Error:", err);
-        res.status(500).json({ message: "Failed to process AI chat.", error: err.message });
-    }
-};
-
-const auditAssignmentDirect = async (req, res) => {
-    try {
-        const { assignmentId } = req.params;
-        const userData = req.userData || null;
-        const result = await auditHomework({ query: assignmentId, userData });
-        res.json({
-            message: "success",
-            audit: result
-        });
-    } catch (err) {
-        console.error("Audit Direct Error:", err);
-        res.status(500).json({ message: "Failed to audit assignment", error: err.message });
-    }
-};
-
-module.exports = { analyzeMistakes, generateTest, copilotChat, auditAssignmentDirect };
+module.exports = { analyzeMistakes, generateTest };
