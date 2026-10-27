@@ -7,12 +7,19 @@ cloudinaryConfig()
 const mongoose = require('mongoose')
 
 const getChapterQuestion = async (req, res) => {
-    const { chapterID } = req.params
-    const chapter = await chapterModel.findById(chapterID).select("-unit").populate('questions', 'question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer correctAnswer answer explanation')
-    if (chapter) {
-        res.json({ message: "success", chapter })
-    } else {
-        res.json({ message: "This chapter is not found" })
+    try {
+        const { chapterID } = req.params
+        if (!mongoose.isValidObjectId(chapterID)) {
+            return res.status(400).json({ message: "This chapter is not found" })
+        }
+        const chapter = await chapterModel.findById(chapterID).select("-unit").populate('questions', 'question questionPic questionPoints answerPic wrongAnswer autoCorrect typeOfAnswer wrongPicAnswer correctPicAnswer correctAnswer answer explanation')
+        if (chapter) {
+            res.json({ message: "success", chapter })
+        } else {
+            res.json({ message: "This chapter is not found" })
+        }
+    } catch (error) {
+        res.status(502).json({ message: error.message })
     }
 }
 

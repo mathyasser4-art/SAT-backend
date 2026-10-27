@@ -137,12 +137,10 @@ const getResult = async (req, res) => {
             });
         }
     } catch (error) {
+        // Not "success": the attempt was not saved as submitted, and the page must keep the
+        // student's saved progress so they can submit again.
         console.error('getResult error:', error.message);
-        return res.json({
-            message: "success",
-            result: { total: 0, questionsNumber: 0, time: "0:00" },
-            totalSummation: 0
-        });
+        return res.status(500).json({ message: 'Could not submit your homework, please try again' });
     }
 };
 
@@ -844,89 +842,4 @@ const getAllAttempts = async (req, res) => {
     }
 };
 
-// Emergency submit - called via sendBeacon when browser/app closes mid-exam
-const emergencySubmit = async (req, res) => {
-    try {
-        let body = req.body;
-        // sendBeacon sends a Blob; express may not parse it automatically
-        if (!body || !body.assignmentID) {
-            const chunks = [];
-            for await (const chunk of req) chunks.push(chunk);
-            try { body = JSON.parse(Buffer.concat(chunks).toString()); } catch (e) { body = {}; }
-        }
-
-        const { assignmentID, time } = body;
-        if (!assignmentID) return res.status(400).json({ message: 'assignmentID required' });
-
-        // Find the most recent incomplete answer for this assignment
-        // We can't trust req.userData here (sendBeacon may not send auth header reliably),
-        // so we find any unfinished answer for this assignment and mark it complete.
-        const assignmentObjId = mongoose.Types.ObjectId.isValid(assignmentID)
-            ? new mongoose.Types.ObjectId(assignmentID)
-            : null;
-
-        if (!assignmentObjId) return res.status(400).json({ message: 'invalid assignmentID' });
-
-        const incompleteAnswer = await answerModel.findOne({
-            assignment: assignmentObjId,
-            completedAt: null,
-            questionsNumber: { $gt: 0 }
-        }).sort({ createdAt: -1 });
-
-        if (incompleteAnswer) {
-            // Run scoring pass on existing answers
-            const assignment = await assignmentModel.findById(assignmentID).populate({
-                path: 'questions',
-                select: 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer autoCorrect wrongAnswer wrongPicAnswer'
-            });
-
-            let studentTotalScore = 0;
-            if (assignment && assignment.questions) {
-                assignment.questions.forEach(question => {
-                    if (!question) return;
-                    const qPoints = (typeof question.questionPoints === 'number' && question.questionPoints > 0) ? question.questionPoints : 1;
-                    const studentAnswerForQuestion = incompleteAnswer.questions.find(
-                        ans => ans && ans.question && (ans.question._id || ans.question).toString() === question._id.toString()
-                    );
-                    if (studentAnswerForQuestion) {
-                        let isCorrect = studentAnswerForQuestion.isCorrect === true;
-                        if (!isCorrect) {
-                            if (question.typeOfAnswer === 'Graph' && studentAnswerForQuestion.stepPicture?.secure_url) {
-                                isCorrect = checkAnswer(question, studentAnswerForQuestion.stepPicture.secure_url);
-                            } else {
-                                isCorrect = checkAnswer(question, studentAnswerForQuestion.firstAnswer);
-                            }
-                        }
-                        if (isCorrect) {
-                            studentTotalScore += qPoints;
-                            studentAnswerForQuestion.point = qPoints;
-                        } else {
-                            studentAnswerForQuestion.point = 0;
-                        }
-                        studentAnswerForQuestion.isCorrect = isCorrect;
-                    }
-                });
-            }
-
-            // Fallback score if 0 but questions were correct
-            if (studentTotalScore === 0 && incompleteAnswer.questions && incompleteAnswer.questions.length > 0) {
-                incompleteAnswer.questions.forEach(q => {
-                    if (q.point && q.point > 0) studentTotalScore += q.point;
-                    else if (q.isCorrect) studentTotalScore += 1;
-                });
-            }
-
-            incompleteAnswer.total = studentTotalScore;
-            incompleteAnswer.time = time || '0:00';
-            incompleteAnswer.completedAt = new Date();
-            await incompleteAnswer.save();
-        }
-
-        return res.status(200).json({ message: 'success' });
-    } catch (error) {
-        console.error('emergencySubmit error:', error.message);
-        return res.status(200).json({ message: 'success' }); // Always 200 for sendBeacon
-    }
-};
-
-module.exports = { checkAssinmentAnswer, getAssignmentAnswer, getResult, getStudentOwnReport, debugAnswerDocument, getAllAttempts, emergencySubmit }
+module.exports = { checkAssinmentAnswer, getAssignmentAnswer, getResult, getStudentOwnReport, debugAnswerDocument, getAllAttempts }

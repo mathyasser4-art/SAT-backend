@@ -128,7 +128,8 @@ const login = async (req, res) => {
                     <p style="font-size: 20px; font-weight: bold; color: #000;">Welcome, ${findUser.fullName || findUser.userName}. We are happy that you have registered with us. Your account verification code is</p>
                     <p style="font-size: 40px; font-weight: bold; color: #000;">${findUser.verificationCode}</p>
                     </div>`;
-                sendEmail(email, emailMessage, 'Account verification', 'Practice Papers');
+                // `email` is whatever was typed to log in (it can be a username or phone number)
+                sendEmail(findUser.email || email, emailMessage, 'Account verification', 'Practice Papers');
                 res.json({ message: 'this account is not verify check your email to get your code verification', isVerify: false });
             } else {
                 let checkPassword = await bcrypt.compare(password, findUser.password);

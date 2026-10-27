@@ -1,6 +1,16 @@
 const express = require('express')
+// Express 4 ignores the promise an async route returns, so an error thrown in one went
+// unhandled and Node 20 shut the whole server down. This passes it to the error handler
+// at the bottom of this file instead. It must be required before any router is created.
+require('express-async-errors')
 const app = express()
 require('dotenv').config()
+
+// Last line of defence for promises nobody awaits (fire-and-forget calls): log the error
+// instead of letting Node exit and drop every student's in-flight request.
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled promise rejection:', reason);
+});
 
 if (!process.env.TOKEN_SECRET_KEY && process.env.JWT_SECRET) {
     console.warn('TOKEN_SECRET_KEY is missing, falling back to JWT_SECRET');
@@ -93,7 +103,12 @@ app.use(compression());
 app.set('trust proxy', 1);
 
 const connectionDB = require('./DB/connection')
-connectionDB();
+connectionDB().catch((error) => {
+    // No connection string is configured: stop, so the deploy shows as crashed instead of
+    // running with no database (the unhandledRejection logger above would hide this).
+    console.error(error.message);
+    process.exit(1);
+});
 
 // Rate limiting
 // Whole classrooms often share ONE school IP, so the global limit must be generous.
@@ -152,6 +167,15 @@ app.get('/health', async (req, res) => {
 });
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
+// Any error a route throws or passes to next() ends here, so the client always gets JSON
+// (the frontend reads `message`) instead of an HTML page or a request that never answers.
+app.use((err, req, res, next) => {
+    console.error(`${req.method} ${req.originalUrl} failed:`, err);
+    if (res.headersSent) return next(err);
+    const status = err.status || err.statusCode || 500;
+    res.status(status >= 400 && status < 600 ? status : 500).json({ message: err.message || 'Something went wrong, please try again' });
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`);
