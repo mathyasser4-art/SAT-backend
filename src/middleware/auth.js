@@ -2,16 +2,17 @@ const userModel = require('../../DB/models/user.model')
 const jwt = require('jsonwebtoken');
 const getJwtSecret = require('../services/jwtSecret');
 
-// WARNING: When DISABLE_ADMIN_AUTH=true, dashboard requests sent WITHOUT any token
-// are allowed through. The SAT dashboard currently relies on this in production.
-// Set DISABLE_ADMIN_AUTH=false on Railway once the dashboard sends a real admin token.
+// WARNING: When DISABLE_ADMIN_AUTH=true, requests sent WITHOUT any token pass adminAuth.
+// Only adminAuth honours it: the SAT dashboard only calls adminAuth routes (and public ones),
+// so teacher/school/IT/supervisor routes always require a real token.
+// Set DISABLE_ADMIN_AUTH=false on Railway once the dashboard sends its admin token on every call.
 const isDashboardAuthDisabled = () => process.env.DISABLE_ADMIN_AUTH === 'true';
 
-const allowDashboardBypass = (req, next, role = 'admin') => {
+const allowDashboardBypass = (req, next) => {
     if (isDashboardAuthDisabled()) {
         const rawAuthHeader = req.headers['authorization'] || req.headers['auth-token'] || req.headers['authrization'] || req.headers['token'];
         if (!rawAuthHeader) {
-            req.userData = { role };
+            req.userData = { role: 'Admin' };
             next();
             return true;
         }
@@ -19,6 +20,11 @@ const allowDashboardBypass = (req, next, role = 'admin') => {
 
     return false;
 };
+
+// The roles /admin/login lets into the dashboard. It compares them case-insensitively,
+// so adminAuth does too (the stored enum values are 'Admin' and 'IT').
+const DASHBOARD_ROLES = ['admin', 'it', 'superadmin'];
+const isDashboardRole = (role) => typeof role === 'string' && DASHBOARD_ROLES.includes(role.trim().toLowerCase());
 
 // NOTE: 'authrization' (misspelled) is intentional — most frontend API calls send this header.
 const extractTokenFromHeader = (headers) => {
@@ -80,7 +86,7 @@ const userAuth = async (req, res, next) => {
 }
 
 const adminAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'admin')) {
+    if (allowDashboardBypass(req, next)) {
         return;
     }
     try {
@@ -90,9 +96,9 @@ const adminAuth = async (req, res, next) => {
             const { id } = jwt.verify(authHeader, getJwtSecret())
             const userFounded = await userModel.findById(id)
             if (userFounded) {
-                if (userFounded.verify) {
+                if (userFounded.verify !== false) {
                     if (!userFounded.block) {
-                        if (userFounded.role == 'admin') {
+                        if (isDashboardRole(userFounded.role)) {
                             req.userData = userFounded
                             next()
                         } else {
@@ -116,9 +122,6 @@ const adminAuth = async (req, res, next) => {
 }
 
 const teacherAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'Teacher')) {
-        return;
-    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
@@ -185,9 +188,6 @@ const studentAuth = async (req, res, next) => {
 }
 
 const schoolAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'School')) {
-        return;
-    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
@@ -221,9 +221,6 @@ const schoolAuth = async (req, res, next) => {
 }
 
 const itAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'IT')) {
-        return;
-    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
@@ -257,9 +254,6 @@ const itAuth = async (req, res, next) => {
 }
 
 const itOrTeacherAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'IT')) {
-        return;
-    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
@@ -293,9 +287,6 @@ const itOrTeacherAuth = async (req, res, next) => {
 }
 
 const supervisorAuth = async (req, res, next) => {
-    if (allowDashboardBypass(req, next, 'Supervisor')) {
-        return;
-    }
     try {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
