@@ -35,6 +35,19 @@ confirmed change is logged in the `copilotaudits` collection.
 | `COPILOT_EFFORT`               | Optional, `low` / `medium` / `high`, default `medium`            |
 | `COPILOT_DEFAULT_COUNTRY_CODE` | Optional, used for WhatsApp links when a phone number starts with 0 |
 
+### LiveClass (video meetings)
+
+A course teacher starts a LiveClass from the course page and the course's enrolled students join it
+(`src/modules/live/`). Video runs on [LiveKit](https://livekit.io) (LiveKit Cloud or self-hosted);
+this API only checks who may join, hands out room tokens and runs the host controls (waiting room,
+lock, mute, remove, end). Without these variables the `/live/*` routes answer 503.
+
+| Variable             | Description                                         |
+|----------------------|-----------------------------------------------------|
+| `LIVEKIT_URL`        | LiveKit server URL, e.g. `wss://your-project.livekit.cloud` |
+| `LIVEKIT_API_KEY`    | LiveKit API key                                     |
+| `LIVEKIT_API_SECRET` | LiveKit API secret                                  |
+
 ---
 
 ## Password Migration
