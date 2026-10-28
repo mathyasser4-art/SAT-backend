@@ -42,6 +42,11 @@ A course teacher starts a LiveClass from the course page and the course's enroll
 this API only checks who may join, hands out room tokens and runs the host controls (waiting room,
 lock, mute, remove, end). Without these variables the `/live/*` routes answer 503.
 
+Each course also has a guest invite link (`/live/join/<token>`, managed with
+`GET/PUT /live/:courseId/guest-link`). People without an account, or from another course, enter a
+name and always go to the waiting room; the public `/live/guest/:token/*` routes are rate-limited
+and only hand out a LiveKit token (camera and mic only) after the host admits them.
+
 | Variable             | Description                                         |
 |----------------------|-----------------------------------------------------|
 | `LIVEKIT_URL`        | LiveKit server URL, e.g. `wss://your-project.livekit.cloud` |

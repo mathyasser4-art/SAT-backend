@@ -19,7 +19,16 @@ const liveSessionSchema = new mongoose.Schema({
         requestedAt: { type: Date, default: Date.now }
     }],
     admitted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
-    removed: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }]
+    removed: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+    // People who came in through the guest link. They have no account, so they are tracked here by
+    // their LiveKit identity ("guest-…") and a secret only their browser knows (stored hashed).
+    guests: [{
+        identity: { type: String, required: true },
+        name: { type: String, required: true },
+        secretHash: { type: String, required: true },
+        status: { type: String, enum: ['waiting', 'admitted', 'removed'], default: 'waiting' },
+        requestedAt: { type: Date, default: Date.now }
+    }]
 }, { timestamps: true })
 
 liveSessionSchema.index({ course: 1, status: 1 })

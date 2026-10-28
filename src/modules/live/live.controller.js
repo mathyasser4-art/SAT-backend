@@ -1,5 +1,7 @@
+const crypto = require('crypto');
 const { AccessToken, RoomServiceClient, TrackSource } = require('livekit-server-sdk');
 const liveSessionModel = require('../../../DB/models/liveSession.model');
+const liveGuestLinkModel = require('../../../DB/models/liveGuestLink.model');
 const courseModel = require('../../../DB/models/course.model');
 
 // LiveClass = per-course video meetings on LiveKit. Railway needs LIVEKIT_URL (wss://...),
@@ -19,11 +21,20 @@ const getRoomService = (config) => {
 };
 
 const TOKEN_TTL = '6h';
+const GUEST_TOKEN_TTL = '3h';
 const STUDENT_SOURCES = [TrackSource.CAMERA, TrackSource.MICROPHONE];
 const SHARE_SOURCES = [TrackSource.SCREEN_SHARE, TrackSource.SCREEN_SHARE_AUDIO];
+const MAX_WAITING_GUESTS = 50;
 
 const sameId = (a, b) => String(a) === String(b);
 const hasId = (list, id) => (list || []).some((x) => sameId(x, id));
+const isGuestId = (id) => String(id).startsWith('guest-');
+const hashSecret = (secret) => crypto.createHash('sha256').update(String(secret)).digest('hex');
+const secretMatches = (secret, hash) => {
+    const a = Buffer.from(hashSecret(secret), 'hex');
+    const b = Buffer.from(String(hash), 'hex');
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+};
 
 const roomMetadata = (session) => JSON.stringify({
     courseId: String(session.course),
@@ -35,13 +46,16 @@ const roomMetadata = (session) => JSON.stringify({
     startedAt: session.startedAt
 });
 
-const createToken = async (config, session, user, isHost) => {
+// role is 'host', 'student' or 'guest'. Guests get camera and microphone only, never screen share.
+const createToken = async (config, session, { identity, name, role }) => {
+    const isHost = role === 'host';
     const at = new AccessToken(config.apiKey, config.apiSecret, {
-        identity: String(user._id),
-        name: user.userName || 'Participant',
-        metadata: JSON.stringify({ role: isHost ? 'host' : 'student' }),
-        ttl: TOKEN_TTL
+        identity: String(identity),
+        name: name || 'Participant',
+        metadata: JSON.stringify({ role }),
+        ttl: role === 'guest' ? GUEST_TOKEN_TTL : TOKEN_TTL
     });
+    const canShare = isHost || (role === 'student' && session.allowShare);
     at.addGrant({
         room: session.roomName,
         roomJoin: true,
@@ -50,10 +64,11 @@ const createToken = async (config, session, user, isHost) => {
         canPublish: true,
         canPublishData: true,
         canUpdateOwnMetadata: true,
-        canPublishSources: isHost || session.allowShare ? [...STUDENT_SOURCES, ...SHARE_SOURCES] : STUDENT_SOURCES
+        canPublishSources: canShare ? [...STUDENT_SOURCES, ...SHARE_SOURCES] : STUDENT_SOURCES
     });
     return at.toJwt();
 };
+const userToken = (config, session, user, role) => createToken(config, session, { identity: user._id, name: user.userName, role });
 
 const sessionInfo = (session, course) => ({
     id: session._id,
@@ -201,7 +216,7 @@ const startLive = async (req, res) => {
         maxParticipants: 300,
         metadata: roomMetadata(session)
     });
-    const token = await createToken(config, session, req.userData, true);
+    const token = await userToken(config, session, req.userData, 'host');
     res.json({ message: 'success', status: 'joined', role: 'host', url: config.url, token, session: sessionInfo(session, ctx.course) });
 };
 
@@ -217,7 +232,7 @@ const joinLive = async (req, res) => {
     const user = req.userData;
     const info = sessionInfo(session, ctx.course);
     if (ctx.role === 'host') {
-        const token = await createToken(config, session, user, true);
+        const token = await userToken(config, session, user, 'host');
         return res.json({ message: 'success', status: 'joined', role: 'host', url: config.url, token, session: info });
     }
     if (hasId(session.removed, user._id)) {
@@ -239,7 +254,7 @@ const joinLive = async (req, res) => {
         session.waiting = session.waiting.filter((w) => !sameId(w.user, user._id));
         await session.save();
     }
-    const token = await createToken(config, session, user, false);
+    const token = await userToken(config, session, user, 'student');
     res.json({ message: 'success', status: 'joined', role: 'student', url: config.url, token, session: info });
 };
 
@@ -256,16 +271,30 @@ const leaveWaiting = async (req, res) => {
 const getWaiting = async (req, res) => {
     const ctx = await loadHostSession(req, res);
     if (!ctx) return;
-    res.json({ message: 'success', waiting: ctx.session.waiting.map((w) => ({ userId: w.user, name: w.name, requestedAt: w.requestedAt })) });
+    const { session } = ctx;
+    const students = session.waiting.map((w) => ({ userId: w.user, name: w.name, requestedAt: w.requestedAt }));
+    const guests = (session.guests || []).filter((g) => g.status === 'waiting')
+        .map((g) => ({ userId: g.identity, name: g.name, requestedAt: g.requestedAt, guest: true }));
+    const waiting = [...students, ...guests].sort((a, b) => new Date(a.requestedAt) - new Date(b.requestedAt));
+    res.json({ message: 'success', waiting });
 };
+
+const findGuest = (session, identity) => (session.guests || []).find((g) => g.identity === String(identity));
 
 const admit = async (req, res) => {
     const ctx = await loadHostSession(req, res);
     if (!ctx) return;
     const { session } = ctx;
-    const ids = req.body.all ? session.waiting.map((w) => String(w.user)) : [String(req.body.userId)];
+    const ids = req.body.all
+        ? [...session.waiting.map((w) => String(w.user)), ...(session.guests || []).filter((g) => g.status === 'waiting').map((g) => g.identity)]
+        : [String(req.body.userId)];
     ids.forEach((id) => {
-        if (!hasId(session.admitted, id)) session.admitted.push(id);
+        if (isGuestId(id)) {
+            const guest = findGuest(session, id);
+            if (guest && guest.status === 'waiting') guest.status = 'admitted';
+        } else if (!hasId(session.admitted, id)) {
+            session.admitted.push(id);
+        }
     });
     session.waiting = session.waiting.filter((w) => !ids.includes(String(w.user)));
     await session.save();
@@ -277,8 +306,13 @@ const denyWaiting = async (req, res) => {
     if (!ctx) return;
     const { session } = ctx;
     const id = String(req.body.userId);
-    session.waiting = session.waiting.filter((w) => String(w.user) !== id);
-    if (!hasId(session.removed, id)) session.removed.push(id);
+    if (isGuestId(id)) {
+        const guest = findGuest(session, id);
+        if (guest) guest.status = 'removed';
+    } else {
+        session.waiting = session.waiting.filter((w) => String(w.user) !== id);
+        if (!hasId(session.removed, id)) session.removed.push(id);
+    }
     await session.save();
     res.json({ message: 'success' });
 };
@@ -307,7 +341,7 @@ const updateSettings = async (req, res) => {
         const service = getRoomService(config);
         const participants = await service.listParticipants(session.roomName).catch(() => []);
         await Promise.all(participants
-            .filter((p) => !sameId(p.identity, session.teacher))
+            .filter((p) => !sameId(p.identity, session.teacher) && !isGuestId(p.identity))
             .map((p) => service.updateParticipant(session.roomName, p.identity, { permission: sharePermission(session.allowShare) }).catch(() => null)));
     }
     res.json({ message: 'success', session: sessionInfo(session, ctx.course) });
@@ -350,8 +384,13 @@ const removeParticipant = async (req, res) => {
     const { config, session } = ctx;
     const identity = String(req.body.identity);
     if (sameId(identity, session.teacher)) return res.status(400).json({ message: 'The host cannot be removed' });
-    if (!hasId(session.removed, identity)) session.removed.push(identity);
-    session.admitted = session.admitted.filter((id) => !sameId(id, identity));
+    if (isGuestId(identity)) {
+        const guest = findGuest(session, identity);
+        if (guest) guest.status = 'removed';
+    } else {
+        if (!hasId(session.removed, identity)) session.removed.push(identity);
+        session.admitted = session.admitted.filter((id) => !sameId(id, identity));
+    }
     await session.save();
     await getRoomService(config).removeParticipant(session.roomName, identity).catch(() => null);
     res.json({ message: 'success' });
@@ -369,7 +408,127 @@ const endLive = async (req, res) => {
     res.json({ message: 'success' });
 };
 
+// ---- Guest link -------------------------------------------------------------------------------
+// Enrolled students join directly; anyone else with the course's guest link (parents, trial
+// students, logged-in users from other courses) enters a name and always waits for the host.
+
+const newLinkToken = () => crypto.randomBytes(18).toString('base64url');
+
+const guestLinkInfo = (link) => ({ token: link.token, enabled: link.enabled });
+
+const getGuestLink = async (req, res) => {
+    const ctx = await loadCourseRole(req, res);
+    if (!ctx) return;
+    if (ctx.role !== 'host') return res.status(403).json({ message: 'Only the host can do this' });
+    let link = await liveGuestLinkModel.findOne({ course: ctx.course._id });
+    if (!link) link = await liveGuestLinkModel.create({ course: ctx.course._id, token: newLinkToken() });
+    res.json({ message: 'success', link: guestLinkInfo(link) });
+};
+
+const updateGuestLink = async (req, res) => {
+    const ctx = await loadCourseRole(req, res);
+    if (!ctx) return;
+    if (ctx.role !== 'host') return res.status(403).json({ message: 'Only the host can do this' });
+    let link = await liveGuestLinkModel.findOne({ course: ctx.course._id });
+    if (!link) link = await liveGuestLinkModel.create({ course: ctx.course._id, token: newLinkToken() });
+    if (typeof req.body.enabled === 'boolean') link.enabled = req.body.enabled;
+    if (req.body.regenerate === true) link.token = newLinkToken();
+    await link.save();
+    res.json({ message: 'success', link: guestLinkInfo(link) });
+};
+
+// Resolves /live/join/<token> to its course, or answers the request itself (404) when the link is unknown.
+const loadGuestLink = async (req, res) => {
+    const { token } = req.params;
+    const link = /^[A-Za-z0-9_-]{16,64}$/.test(token || '') ? await liveGuestLinkModel.findOne({ token }) : null;
+    const course = link ? await courseModel.findById(link.course).select('name teacher') : null;
+    if (!link || !course) {
+        res.status(404).json({ message: 'This invite link is not valid', status: 'invalid' });
+        return null;
+    }
+    return { link, course };
+};
+
+// Guest names are shown to everyone in the meeting, so keep them short and printable.
+const cleanGuestName = (name) => String(name || '')
+    .replace(/[\u0000-\u001f\u007f<>]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 40);
+
+const guestInfo = async (req, res) => {
+    const ctx = await loadGuestLink(req, res);
+    if (!ctx) return;
+    const config = getConfig();
+    const session = config ? await findLiveSession(config, ctx.course._id) : null;
+    await ctx.course.populate('teacher', 'userName');
+    res.json({
+        message: 'success',
+        enabled: !!config,
+        guestsAllowed: ctx.link.enabled,
+        courseId: ctx.course._id,
+        courseName: ctx.course.name,
+        teacherName: ctx.course.teacher && ctx.course.teacher.userName,
+        live: !!session
+    });
+};
+
+// Guests call this to ask in, then keep calling it with the guestId/secret it gave them while they
+// wait. A LiveKit token is only handed out once the host has admitted them.
+const guestJoin = async (req, res) => {
+    const ctx = await loadGuestLink(req, res);
+    if (!ctx) return;
+    if (!ctx.link.enabled) return res.status(403).json({ message: 'The host has turned off guest access', status: 'guests_off' });
+    const config = requireConfig(res);
+    if (!config) return;
+    const session = await findLiveSession(config, ctx.course._id);
+    if (!session) return res.status(404).json({ message: 'This class is not live right now', status: 'not_live' });
+
+    const { guestId, secret } = req.body;
+    let guest = guestId && secret ? findGuest(session, guestId) : null;
+    if (guest && !secretMatches(secret, guest.secretHash)) guest = null;
+
+    if (guest && guest.status === 'removed') {
+        return res.status(403).json({ message: 'The host removed you from this meeting', status: 'removed' });
+    }
+    if (guest && guest.status === 'admitted') {
+        const token = await createToken(config, session, { identity: guest.identity, name: guest.name, role: 'guest' });
+        return res.json({ message: 'success', status: 'joined', role: 'guest', url: config.url, token, session: sessionInfo(session, ctx.course) });
+    }
+    if (session.locked) return res.status(403).json({ message: 'The host has locked this meeting', status: 'locked' });
+    if (guest) return res.json({ message: 'success', status: 'waiting' });
+
+    const name = cleanGuestName(req.body.name);
+    if (!name) return res.status(400).json({ message: 'Please enter your name', status: 'name_required' });
+    if ((session.guests || []).filter((g) => g.status === 'waiting').length >= MAX_WAITING_GUESTS) {
+        return res.status(429).json({ message: 'The waiting room is full, please try again later', status: 'full' });
+    }
+    const newSecret = crypto.randomBytes(24).toString('base64url');
+    const identity = `guest-${crypto.randomBytes(8).toString('hex')}`;
+    session.guests.push({ identity, name, secretHash: hashSecret(newSecret), status: 'waiting' });
+    await session.save();
+    res.json({ message: 'success', status: 'waiting', guestId: identity, secret: newSecret });
+};
+
+const guestLeave = async (req, res) => {
+    const ctx = await loadGuestLink(req, res);
+    if (!ctx) return;
+    const { guestId, secret } = req.body;
+    const session = await liveSessionModel.findOne({ course: ctx.course._id, status: 'live' });
+    const guest = session && guestId && secret ? findGuest(session, guestId) : null;
+    if (guest && guest.status === 'waiting' && secretMatches(secret, guest.secretHash)) {
+        session.guests = session.guests.filter((g) => g.identity !== guest.identity);
+        await session.save();
+    }
+    res.json({ message: 'success' });
+};
+
 module.exports = {
+    getGuestLink,
+    updateGuestLink,
+    guestInfo,
+    guestJoin,
+    guestLeave,
     getActive,
     getInfo,
     startLive,
