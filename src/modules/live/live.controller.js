@@ -3,6 +3,8 @@ const { AccessToken, RoomServiceClient, TrackSource } = require('livekit-server-
 const liveSessionModel = require('../../../DB/models/liveSession.model');
 const liveGuestLinkModel = require('../../../DB/models/liveGuestLink.model');
 const courseModel = require('../../../DB/models/course.model');
+const liveRecordingModel = require('../../../DB/models/liveRecording.model');
+const { getRecordingConfig, stopRoomRecording } = require('./recording.service');
 
 // LiveClass = per-course video meetings on LiveKit. Railway needs LIVEKIT_URL (wss://...),
 // LIVEKIT_API_KEY and LIVEKIT_API_SECRET; without them every endpoint answers 503.
@@ -43,7 +45,9 @@ const roomMetadata = (session) => JSON.stringify({
     waitingRoom: session.waitingRoom,
     allowShare: session.allowShare,
     spotlight: session.spotlight || '',
-    startedAt: session.startedAt
+    startedAt: session.startedAt,
+    recording: !!session.recordingEgress,
+    recordingStartedAt: session.recordingStartedAt || null
 });
 
 // role is 'host', 'student' or 'guest'. Guests get camera and microphone only, never screen share.
@@ -77,7 +81,9 @@ const sessionInfo = (session, course) => ({
     startedAt: session.startedAt,
     locked: session.locked,
     waitingRoom: session.waitingRoom,
-    allowShare: session.allowShare
+    allowShare: session.allowShare,
+    // Whether the host may record to the cloud (a bucket is configured).
+    canRecord: !!getRecordingConfig()
 });
 
 // A meeting whose LiveKit room has closed (everyone left past emptyTimeout) is marked ended,
@@ -400,6 +406,12 @@ const endLive = async (req, res) => {
     const ctx = await loadHostSession(req, res);
     if (!ctx) return;
     const { config, session } = ctx;
+    // Stop a running recording first so its file is finalised and uploaded.
+    if (session.recordingEgress) {
+        await stopRoomRecording(config, session.recordingEgress).catch(() => null);
+        await liveRecordingModel.updateOne({ egressId: session.recordingEgress, status: 'recording' }, { status: 'processing', endedAt: new Date() });
+        session.recordingEgress = '';
+    }
     session.status = 'ended';
     session.endedAt = new Date();
     session.waiting = [];
@@ -527,6 +539,10 @@ module.exports = {
     getGuestLink,
     updateGuestLink,
     guestInfo,
+    getConfig,
+    loadCourseRole,
+    loadHostSession,
+    pushRoomMetadata,
     guestJoin,
     guestLeave,
     getActive,

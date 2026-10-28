@@ -1,6 +1,7 @@
 const liveRouter = require('express').Router()
 const rateLimit = require('express-rate-limit')
 const live = require('./live.controller')
+const recording = require('./live.recording.controller')
 const { userAuth, teacherAuth } = require('../../middleware/auth')
 
 // Guest endpoints are public, so they get their own limits on top of the global one: a waiting
@@ -43,5 +44,9 @@ liveRouter.post('/live/:courseId/mute', userAuth, live.muteParticipant)
 liveRouter.post('/live/:courseId/mute-all', userAuth, live.muteAll)
 liveRouter.post('/live/:courseId/remove', userAuth, live.removeParticipant)
 liveRouter.post('/live/:courseId/end', userAuth, live.endLive)
+liveRouter.post('/live/:courseId/recording/start', userAuth, recording.startRecording)
+liveRouter.post('/live/:courseId/recording/stop', userAuth, recording.stopRecording)
+liveRouter.get('/live/:courseId/recordings', userAuth, recording.listRecordings)
+liveRouter.delete('/live/:courseId/recordings/:recordingId', userAuth, recording.deleteRecording)
 
 module.exports = liveRouter

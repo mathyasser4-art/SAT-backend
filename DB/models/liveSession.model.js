@@ -13,6 +13,9 @@ const liveSessionSchema = new mongoose.Schema({
     waitingRoom: { type: Boolean, default: true },
     allowShare: { type: Boolean, default: false },
     spotlight: { type: String, default: '' },
+    // The running cloud recording (LiveKit egress id), empty when not recording.
+    recordingEgress: { type: String, default: '' },
+    recordingStartedAt: { type: Date },
     waiting: [{
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
         name: { type: String },
