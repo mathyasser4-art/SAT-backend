@@ -13,6 +13,21 @@ const recordingTitle = (course, date) => `${course.name} — ${date.toISOString(
 
 const fileName = (rec) => `${(rec.title || 'LiveClass').replace(/[^\p{L}\p{N} _-]+/gu, '-').replace(/\s+/g, ' ').replace(/-{2,}/g, '-').trim() || 'LiveClass'}.mp4`;
 
+// LiveKit (in the cloud) opens the recorder page on the site the host started from, so it must be a
+// public https site of ours; RECORDING_PAGE_ORIGIN overrides it. Otherwise LiveKit's plain layout is used.
+const RECORDER_SITES = /(^|\.)(satarea\.tech|mrshahin\.com)$/;
+const recorderPageUrl = (req) => {
+    const fixed = (process.env.RECORDING_PAGE_ORIGIN || '').trim().replace(/\/+$/, '');
+    let origin;
+    try {
+        origin = new URL(fixed || req.headers.origin || '');
+    } catch (e) {
+        return '';
+    }
+    if (!fixed && (origin.protocol !== 'https:' || !RECORDER_SITES.test(origin.hostname))) return '';
+    return `${origin.origin}/live/recorder${req.body && req.body.lang === 'ar' ? '?lang=ar' : ''}`;
+};
+
 const recordingInfo = (rec, storage) => ({
     id: rec._id,
     title: rec.title,
@@ -58,7 +73,7 @@ const startRecording = async (req, res) => {
     const fileKey = `liveclass/${course._id}/${now.toISOString().replace(/[:.]/g, '-')}-${crypto.randomBytes(4).toString('hex')}.mp4`;
     let info;
     try {
-        info = await recording.startRoomRecording(config, storage, session.roomName, fileKey);
+        info = await recording.startRoomRecording(config, storage, session.roomName, fileKey, recorderPageUrl(req));
     } catch (e) {
         console.error('LiveClass recording failed to start:', e.message);
         return res.status(502).json({ message: 'Could not start the recording', status: 'recording_failed' });

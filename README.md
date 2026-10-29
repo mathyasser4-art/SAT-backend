@@ -54,8 +54,9 @@ and only hand out a LiveKit token (camera and mic only) after the host admits th
 | `LIVEKIT_API_SECRET` | LiveKit API secret                                  |
 
 **Cloud recording.** The host can record a LiveClass (`POST /live/:courseId/recording/start|stop`).
-LiveKit Egress records the meeting layout to a 720p MP4 and uploads it to an S3-compatible bucket
-(Cloudflare R2 recommended: no fees when students watch). Recordings are listed with short-lived
+LiveKit Egress records the site's `/live/recorder` page (shared screen with its annotations,
+whiteboard, cameras, opened on the https site the host started from) to a 720p MP4 and uploads it to
+an S3-compatible bucket (Cloudflare R2 recommended: no fees when students watch). Recordings are listed with short-lived
 signed links at `GET /live/:courseId/recordings` (teacher: all, students: ready ones) and deleted
 with `DELETE /live/:courseId/recordings/:id`. Without these variables the Record button is hidden.
 
@@ -66,6 +67,7 @@ with `DELETE /live/:courseId/recordings/:id`. Without these variables the Record
 | `RECORDING_S3_ACCESS_KEY` | Access Key ID of an R2 API token with Object Read & Write      |
 | `RECORDING_S3_SECRET`     | Secret Access Key of that token                                |
 | `RECORDING_S3_REGION`     | Optional, defaults to `auto` (R2)                              |
+| `RECORDING_PAGE_ORIGIN`   | Optional, site whose recorder page is recorded (e.g. a staging URL) |
 
 ---
 

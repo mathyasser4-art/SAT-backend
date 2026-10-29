@@ -28,8 +28,10 @@ const getEgressClient = (config) => {
     return egressClient;
 };
 
-// Records the whole meeting (speaker layout, screen share first) as a 720p MP4 uploaded to the bucket.
-const startRoomRecording = (config, storage, roomName, fileKey) => {
+// Records the whole meeting as a 720p MP4 uploaded to the bucket. With pageUrl LiveKit records our own
+// recorder page (the shared screen with its annotations, the whiteboard, cameras); without it, its
+// plain speaker layout (video only).
+const startRoomRecording = (config, storage, roomName, fileKey, pageUrl) => {
     const file = new EncodedFileOutput({
         fileType: EncodedFileType.MP4,
         filepath: fileKey,
@@ -47,7 +49,8 @@ const startRoomRecording = (config, storage, roomName, fileKey) => {
     });
     return getEgressClient(config).startRoomCompositeEgress(roomName, file, {
         layout: 'speaker',
-        encodingOptions: EncodingOptionsPreset.H264_720P_30
+        encodingOptions: EncodingOptionsPreset.H264_720P_30,
+        ...(pageUrl ? { customBaseUrl: pageUrl } : {})
     });
 };
 

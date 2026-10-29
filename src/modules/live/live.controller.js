@@ -47,7 +47,9 @@ const roomMetadata = (session) => JSON.stringify({
     spotlight: session.spotlight || '',
     startedAt: session.startedAt,
     recording: !!session.recordingEgress,
-    recordingStartedAt: session.recordingStartedAt || null
+    recordingStartedAt: session.recordingStartedAt || null,
+    // The recorder's identity, so the host can send it the boards drawn before it joined.
+    recorder: session.recordingEgress || ''
 });
 
 // role is 'host', 'student' or 'guest'. Guests get camera and microphone only, never screen share.
