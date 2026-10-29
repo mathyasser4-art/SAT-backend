@@ -2,6 +2,7 @@ const userModel = require('../../../../DB/models/user.model')
 const classModel = require('../../../../DB/models/class.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
+const { idOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
 const courseModel = require('../../../../DB/models/course.model')
 const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
@@ -402,9 +403,10 @@ const getStudentHistory = async (req, res) => {
         const studentAnswers = await answerModel.find({ solveBy: studentID })
             .populate({
                 path: 'assignment',
-                select: 'title totalPoints createdAt startDate endDate createdBy'
+                select: 'title questions createdAt startDate endDate createdBy'
             })
-            .sort({ _id: -1 });
+            .sort({ _id: -1 })
+            .lean();
 
         const isPrivileged = ['Admin', 'School', 'Supervisor', 'IT'].includes(req.userData?.role);
         
@@ -455,61 +457,45 @@ const getStudentHistory = async (req, res) => {
             });
         }
 
-        const scores = validAnswers.map(answer => {
-            const totalPossible = (answer.assignment?.totalPoints && answer.assignment.totalPoints > 0)
-                ? answer.assignment.totalPoints
-                : (answer.questionsNumber || (answer.questions ? answer.questions.length : 1));
-            let calculatedScore = 0;
-            if (Array.isArray(answer.questions)) {
-                answer.questions.forEach(q => {
-                    if (q && q.point && q.point > 0) calculatedScore += q.point;
-                    else if (q && q.isCorrect) calculatedScore += 1;
-                });
-            }
-            const score = (typeof answer.total === 'number' && answer.total > 0) ? answer.total : calculatedScore;
-            const percentage = totalPossible > 0 ? (score / totalPossible) * 100 : 0;
-            return isNaN(percentage) ? 0 : percentage;
-        });
+        // One row per assignment: the attempt that counts, marked like every other report
+        const assignmentsById = new Map(validAnswers.map(a => [String(a.assignment._id), a.assignment]));
+        const grades = await gradeAttempts(validAnswers, { assignmentsById });
+        const byAssignment = countedAttemptsBy(validAnswers, grades, a => idOf(a.assignment));
 
-        const totalAssignments = validAnswers.length;
-        const averageScore = scores.reduce((acc, score) => acc + score, 0) / totalAssignments;
-        const highestScore = Math.max(...scores);
-        const lowestScore = Math.min(...scores);
-
-        const assignments = validAnswers.map(answer => {
-            const totalPossible = (answer.assignment?.totalPoints && answer.assignment.totalPoints > 0)
-                ? answer.assignment.totalPoints
-                : (answer.questionsNumber || (answer.questions ? answer.questions.length : 1));
-            let calculatedScore = 0;
-            if (Array.isArray(answer.questions)) {
-                answer.questions.forEach(q => {
-                    if (q && q.point && q.point > 0) calculatedScore += q.point;
-                    else if (q && q.isCorrect) calculatedScore += 1;
-                });
-            }
-            const score = (typeof answer.total === 'number' && answer.total > 0) ? answer.total : calculatedScore;
-            const percentage = totalPossible > 0 ? (score / totalPossible) * 100 : 0;
-            const safePercentage = isNaN(percentage) ? 0 : percentage;
-            let grade = 'F';
-            if (safePercentage >= 90) grade = 'A';
-            else if (safePercentage >= 80) grade = 'B';
-            else if (safePercentage >= 70) grade = 'C';
-            else if (safePercentage >= 60) grade = 'D';
+        const assignments = [...byAssignment.values()].map(({ counted, attempts }) => {
+            const { answer, grade } = counted;
+            const percentage = grade.percentage;
+            let letter = 'F';
+            if (percentage >= 90) letter = 'A';
+            else if (percentage >= 80) letter = 'B';
+            else if (percentage >= 70) letter = 'C';
+            else if (percentage >= 60) letter = 'D';
 
             return {
                 _id: answer._id,
                 assignmentID: answer.assignment._id,
                 assignmentTitle: answer.assignment.title || 'Assignment',
-                score: score,
-                totalPossible: totalPossible,
-                percentage: Math.round(safePercentage * 100) / 100,
-                grade: grade,
+                status: answer.completedAt ? 'Completed' : 'In Progress',
+                attemptNumber: answer.attemptNumber || 1,
+                attemptsCount: attempts.length,
+                score: grade.score,
+                totalPossible: grade.totalPoints,
+                percentage,
+                grade: letter,
                 completedAt: answer.completedAt || answer.createdAt || answer.updatedAt,
-                totalQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : totalPossible),
-                answeredQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : 0),
+                totalQuestions: grade.questions.length,
+                answeredQuestions: grade.answeredCount,
+                correctQuestions: grade.correctCount,
                 timeSpent: answer.time || '0:00'
             };
-        });
+        }).sort((a, b) => new Date(b.completedAt || 0) - new Date(a.completedAt || 0));
+
+        // Statistics over submitted work only
+        const scores = assignments.filter(a => a.status === 'Completed').map(a => a.percentage);
+        const totalAssignments = scores.length;
+        const averageScore = totalAssignments ? scores.reduce((acc, v) => acc + v, 0) / totalAssignments : 0;
+        const highestScore = totalAssignments ? Math.max(...scores) : 0;
+        const lowestScore = totalAssignments ? Math.min(...scores) : 0;
 
         res.json({
             message: 'success',

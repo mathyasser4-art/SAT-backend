@@ -38,7 +38,11 @@ const answerSchema = new mongoose.Schema({
             },
         }
     ],
+    // Questions this attempt was given, saved when it starts, so later edits to the
+    // assignment do not change a mark already earned (see src/services/grading.js)
+    questionSet: [{ type: mongoose.Schema.Types.ObjectId, ref: "question" }],
     total: Number,
+    totalPossible: Number,
     questionsNumber: Number,
 }, { 
     timestamps: true 

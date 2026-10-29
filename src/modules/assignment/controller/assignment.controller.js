@@ -6,6 +6,17 @@ cloudinaryConfig()
 const mongoose = require('mongoose')
 const userModel = require('../../../../DB/models/user.model')
 const courseModel = require('../../../../DB/models/course.model')
+const questionModel = require('../../../../DB/models/question.model')
+const { idOf, sumPoints, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
+
+// Points of a list of question ids, so totalPoints never depends on what the page sent
+const pointsOfQuestionIds = async (ids) => {
+    const list = (Array.isArray(ids) ? ids : [ids]).filter(id => id && mongoose.Types.ObjectId.isValid(String(idOf(id))))
+    if (list.length === 0) return 0
+    const questions = await questionModel.find({ _id: { $in: list.map(idOf) } }).select('questionPoints').lean()
+    const byId = new Map(questions.map(q => [String(q._id), q]))
+    return sumPoints(list.map(id => byId.get(idOf(id))))
+}
 
 const createAssignment = async (req, res) => {
     try {
@@ -21,6 +32,7 @@ const createAssignment = async (req, res) => {
         const today = new Date().toISOString().slice(0, 10)
         req.body.createdAt = today
         req.body.createdBy = teacherID
+        if (req.body.questions !== undefined) req.body.totalPoints = await pointsOfQuestionIds(req.body.questions)
         const addAssignment = new assignmentModel(req.body)
         await addAssignment.save()
         res.json({ message: "success", assignment: addAssignment, addAssignment })
@@ -33,6 +45,12 @@ const getAssignment = async (req, res) => {
     try {
         const teacherID = req.userData._id
         const allAssignment = await assignmentModel.find({ createdBy: teacherID }).populate({ path: 'questions', select: '-correctAnswer -questionPicID -wrongAnswerID -chapter' }).sort({ _id: -1 })
+        // Out-of points always match the questions, even for assignments saved with a wrong total
+        allAssignment.forEach(a => {
+            const points = sumPoints(a.questions)
+            if (a.totalPoints !== points) assignmentModel.updateOne({ _id: a._id }, { totalPoints: points }).exec().catch(() => {})
+            a.totalPoints = points
+        })
         if (allAssignment.length != 0) {
             res.json({ message: "success", allAssignment })
         } else {
@@ -59,6 +77,8 @@ const updateAssignment = async (req, res) => {
             }
             // Student attempt records and ownership are never changed through an edit
             const { students, createdBy, createdAt, _id, ...changes } = req.body
+            delete changes.totalPoints
+            if (changes.questions !== undefined) changes.totalPoints = await pointsOfQuestionIds(changes.questions)
             if (changes.timer === '' || changes.timer === null) {
                 delete changes.timer
                 changes.$unset = { timer: 1 }
@@ -135,7 +155,7 @@ const duplicateAssignment = async (req, res) => {
         const newAssignmentData = {
             // Copy from original assignment
             questions: originalAssignment.questions, // Same questions
-            totalPoints: originalAssignment.totalPoints, // Same total points
+            totalPoints: await pointsOfQuestionIds(originalAssignment.questions),
             
             // Use new data from request body (title, dates, timer, attempts, classes)
             title: req.body.title,
@@ -204,54 +224,12 @@ const canViewAssignmentResults = async (userData, assignment, assignmentID) => {
     return !!courseWithAssignment;
 };
 
-// Total possible points: assignment.totalPoints, else sum of question points (default 1), else question count
-const getAssignmentTotalPoints = (assignment) => {
-    let totalPoints = assignment.totalPoints || 0;
-    if ((!totalPoints || totalPoints === 0) && assignment.questions && assignment.questions.length > 0) {
-        totalPoints = assignment.questions.reduce((sum, q) => sum + ((q && typeof q.questionPoints === 'number' && q.questionPoints > 0) ? q.questionPoints : 1), 0);
-    }
-    if (!totalPoints || totalPoints <= 0) {
-        totalPoints = assignment.questions ? assignment.questions.length : 1;
-    }
-    return totalPoints;
-};
-
-// Helper: calculate answer score
-const getAnswerScore = (ans) => {
-    if (!ans) return 0;
-    if (typeof ans.total === 'number' && ans.total > 0) return ans.total;
-    let calc = 0;
-    if (Array.isArray(ans.questions)) {
-        ans.questions.forEach(q => {
-            if (q && q.point && q.point > 0) calc += q.point;
-            else if (q && q.isCorrect) calc += 1;
-        });
-    }
-    return calc;
-};
-
-// Lookup map of answer documents by student ID with the HIGHEST score attempt across all trials
-// (ties prefer a completed attempt). Expects answers sorted { attemptNumber: -1, createdAt: -1 } and solveBy populated
-const getBestAnswerMap = (answers) => {
-    const studentAnswerMap = {};
-    answers.forEach(answer => {
-        if (answer.solveBy && answer.solveBy._id) {
-            const sId = answer.solveBy._id.toString();
-            if (!studentAnswerMap[sId]) {
-                studentAnswerMap[sId] = answer;
-            } else {
-                const currentBestScore = getAnswerScore(studentAnswerMap[sId]);
-                const newScore = getAnswerScore(answer);
-                if (newScore > currentBestScore) {
-                    studentAnswerMap[sId] = answer;
-                } else if (newScore === currentBestScore && !studentAnswerMap[sId].completedAt && answer.completedAt) {
-                    studentAnswerMap[sId] = answer;
-                }
-            }
-        }
-    });
-    return studentAnswerMap;
-};
+// Highest-scoring submitted attempt per student (see services/grading.js), with every attempt's mark
+const gradeAssignmentAnswers = async (assignment, answers) => {
+    const grades = await gradeAttempts(answers, { assignmentsById: new Map([[String(assignment._id), assignment]]) })
+    const byStudent = countedAttemptsBy(answers, grades, a => a.solveBy && a.solveBy._id ? String(a.solveBy._id) : null)
+    return { grades, byStudent }
+}
 
 const getStudentResults = async (req, res) => {
     try {
@@ -276,7 +254,7 @@ const getStudentResults = async (req, res) => {
         })
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate('solveBy', 'userName email class')
-            .select('total questionsNumber time createdAt completedAt questions solveBy attemptNumber');
+            .select('total totalPossible questionSet questionsNumber time createdAt completedAt questions solveBy attemptNumber');
 
         // 2. Get all students in assigned classes
         let assignedStudents = [];
@@ -307,98 +285,74 @@ const getStudentResults = async (req, res) => {
         });
         assignedStudents = Array.from(uniqueStudentMap.values());
 
-        // Calculate total possible points from questions
-        const totalPoints = getAssignmentTotalPoints(assignment);
+        // Out of the assignment's current questions (an attempt keeps its own total if they changed)
+        const totalPoints = sumPoints(assignment.questions);
+        const totalQuestions = (assignment.questions || []).filter(Boolean).length;
+        // Repair a stored total saved wrong by older pages, so course pages show the same "out of"
+        if (assignment.totalPoints !== totalPoints) assignmentModel.updateOne({ _id: assignment._id }, { totalPoints }).exec().catch(() => {});
+        const { byStudent } = await gradeAssignmentAnswers(assignment, answers);
 
-        // Create lookup map of answer documents by student ID
-        // Shows the HIGHEST score attempt across all student trials
-        const studentAnswerMap = getBestAnswerMap(answers);
-        const studentAttemptsMap = {};
-        answers.forEach(answer => {
-            if (answer.solveBy && answer.solveBy._id) {
-                const sId = answer.solveBy._id.toString();
-                if (!studentAttemptsMap[sId]) studentAttemptsMap[sId] = [];
-                studentAttemptsMap[sId].push({
-                    answerId: answer._id,
-                    attemptNumber: answer.attemptNumber || 1,
-                    score: getAnswerScore(answer),
-                    timeSpent: answer.time || '0:00',
-                    completed: !!answer.completedAt,
-                    completedAt: answer.completedAt || null
-                });
-            }
-        });
-
-        // 3. Build comprehensive student results list with status
+        // 3. One row per student: the attempt that counts (best submitted), plus every trial's mark
         const maxAttempts = assignment.attemptsNumber || 1;
         const students = assignedStudents.map(student => {
             const sId = student._id.toString();
-            const answer = studentAnswerMap[sId];
-            const attempts = (studentAttemptsMap[sId] || []).sort((a, b) => a.attemptNumber - b.attemptNumber);
+            const group = byStudent.get(sId);
+            const counted = group ? group.counted : null;
+            const attempts = (group ? group.attempts : [])
+                .map(({ answer, grade }) => ({
+                    answerId: answer._id,
+                    attemptNumber: answer.attemptNumber || 1,
+                    score: grade.score,
+                    totalPossible: grade.totalPoints,
+                    percentage: grade.percentage,
+                    timeSpent: answer.time || '0:00',
+                    completed: !!answer.completedAt,
+                    completedAt: answer.completedAt || null
+                }))
+                .sort((a, b) => a.attemptNumber - b.attemptNumber);
             const attemptInfo = {
                 attempts,
                 attemptsUsed: attempts.filter(a => a.completed).length,
                 maxAttempts,
-                bestAttemptNumber: answer ? (answer.attemptNumber || 1) : null
+                bestAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null
             };
 
-            if (answer) {
-                let calculatedScore = 0;
-                if (Array.isArray(answer.questions)) {
-                    answer.questions.forEach(q => {
-                        if (q && q.point && q.point > 0) {
-                            calculatedScore += q.point;
-                        } else if (q && q.isCorrect) {
-                            calculatedScore += 1;
-                        }
-                    });
-                }
-
-                const score = (typeof answer.total === 'number' && answer.total > 0)
-                    ? answer.total
-                    : calculatedScore;
-
-                // Self-heal answer.total in DB if it was 0 or unpopulated and we have calculatedScore > 0
-                if ((!answer.total || answer.total === 0) && calculatedScore > 0) {
-                    answerModel.findByIdAndUpdate(answer._id, { total: calculatedScore }).exec().catch(() => {});
-                }
-
-                const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
-                const isCompleted = !!answer.completedAt;
-
+            if (counted) {
+                const { answer, grade } = counted;
                 return {
                     _id: answer._id,
                     studentId: student._id,
                     userName: student.userName || 'Student',
                     email: student.email || '',
-                    status: isCompleted ? 'Completed' : 'In Progress',
-                    answeredQuestions: answer.questionsNumber || (answer.questions ? answer.questions.length : 0),
-                    score: score,
-                    totalPossible: totalPoints,
+                    status: answer.completedAt ? 'Completed' : 'In Progress',
+                    answeredQuestions: grade.answeredCount,
+                    correctQuestions: grade.correctCount,
+                    score: grade.score,
+                    totalPossible: grade.totalPoints,
                     timeSpent: answer.time || '0:00',
-                    percentage: percentage,
+                    percentage: grade.percentage,
                     completedAt: answer.completedAt || answer.createdAt,
-                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints,
-                    ...attemptInfo
-                };
-            } else {
-                // Student has not started this assignment yet
-                return {
-                    _id: student._id,
-                    studentId: student._id,
-                    userName: student.userName || 'Student',
-                    email: student.email || '',
-                    status: 'Not Started',
-                    answeredQuestions: 0,
-                    score: 0,
-                    totalPossible: totalPoints,
-                    timeSpent: '0:00',
-                    percentage: 0,
-                    completedAt: null,
-                    totalQuestions: assignment.questions ? assignment.questions.length : totalPoints,
+                    totalQuestions: grade.questions.length,
                     ...attemptInfo
                 };
             }
+            // Student has not started this assignment yet
+            return {
+                _id: student._id,
+                studentId: student._id,
+                userName: student.userName || 'Student',
+                email: student.email || '',
+                status: 'Not Started',
+                answeredQuestions: 0,
+                correctQuestions: 0,
+                score: 0,
+                totalPossible: totalPoints,
+                timeSpent: '0:00',
+                percentage: 0,
+                completedAt: null,
+                totalQuestions,
+                ...attemptInfo
+            };
         });
 
         res.json({
@@ -408,7 +362,7 @@ const getStudentResults = async (req, res) => {
                 _id: assignment._id,
                 title: assignment.title,
                 totalPoints: totalPoints,
-                totalQuestions: assignment.questions ? assignment.questions.length : 0,
+                totalQuestions,
                 attemptsNumber: maxAttempts,
                 createdAt: assignment.createdAt
             }
@@ -479,11 +433,17 @@ const getQuestionStats = async (req, res) => {
         const answers = await answerModel.find(answerFilter)
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate('solveBy', 'userName')
-            .select('total completedAt questions solveBy attemptNumber createdAt')
+            .select('total totalPossible questionSet completedAt questions solveBy attemptNumber createdAt')
             .lean();
 
         // Same attempt getStudentResults reports for each student
-        const studentAnswerMap = getBestAnswerMap(answers);
+        const { byStudent } = await gradeAssignmentAnswers(assignment, answers);
+        const studentAnswerMap = {};
+        const gradeByAnswer = new Map();
+        byStudent.forEach((group, sId) => {
+            studentAnswerMap[sId] = group.counted.answer;
+            gradeByAnswer.set(String(group.counted.answer._id), group.counted.grade);
+        });
 
         const notStarted = [];
         let counted = [];
@@ -506,9 +466,9 @@ const getQuestionStats = async (req, res) => {
         notStarted.sort(byUserName);
         counted.sort(byUserName);
 
-        const totalPoints = getAssignmentTotalPoints(assignment);
+        const totalPoints = sumPoints(assignment.questions);
         const averagePercent = counted.length > 0
-            ? Math.round(counted.reduce((sum, st) => sum + (getAnswerScore(st.answer) / totalPoints) * 100, 0) / counted.length)
+            ? Math.round(counted.reduce((sum, st) => sum + gradeByAnswer.get(String(st.answer._id)).percentage, 0) / counted.length)
             : null;
 
         // Per student: question id -> answer entry (entry.question may be populated or a raw id)

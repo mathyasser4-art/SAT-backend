@@ -3,6 +3,7 @@ const classModel = require('../../../../DB/models/class.model')
 const courseModel = require('../../../../DB/models/course.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const answerModel = require('../../../../DB/models/answer.model')
+const { idOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
 const questionModel = require('../../../../DB/models/question.model')
 const checkExpiration = require('../../../services/checkExpiration')
 const cloudinaryConfig = require('../../../services/cloudinary')
@@ -530,35 +531,37 @@ const getAssignment = async (req, res) => {
         const { teacherID } = req.params;
         let findStudent = await userModel.findById(studentID).select('class');
         if (findStudent) {
-            const getAssignment = await assignmentModel.find({ createdBy: teacherID }).select('-questions').sort({ _id: -1 });
+            const getAssignment = await assignmentModel.find({ createdBy: teacherID }).sort({ _id: -1 });
             if (getAssignment.length !== 0) {
-                const allAssignment = [];
-                for (let index = 0; index < getAssignment.length; index++) {
-                    const element = getAssignment[index];
-                    if (findStudent.class && element.classes.some(c => (c && c._id ? c._id : c).toString() === findStudent.class.toString())) {
-                        const assignmentObj = element.toObject();
-                        
-                        const studentAnswer = await answerModel.findOne({
-                            solveBy: studentID,
-                            assignment: element._id,
-                            completedAt: { $ne: null }
-                        }).sort({ attemptNumber: -1, createdAt: -1 });
+                const mine = getAssignment.filter(element => findStudent.class && element.classes.some(c => idOf(c) === findStudent.class.toString()));
+                // Submitted attempts only; the mark shown is the counted one, as on the teacher's sheet
+                const answers = await answerModel.find({
+                    solveBy: studentID,
+                    assignment: { $in: mine.map(a => a._id) },
+                    completedAt: { $ne: null }
+                }).lean();
+                const assignmentsById = new Map(mine.map(a => [String(a._id), a]));
+                const grades = await gradeAttempts(answers, { assignmentsById });
+                const byAssignment = countedAttemptsBy(answers, grades, a => idOf(a.assignment));
 
-                        if (studentAnswer) {
-                            assignmentObj.isCompleted = true;
-                            assignmentObj.score = studentAnswer.total || 0;
-                            assignmentObj.totalPossible = element.totalPoints || 0;
-                            assignmentObj.timeSpent = studentAnswer.time || '0:00';
-                            assignmentObj.completedAt = studentAnswer.completedAt;
-                        } else {
-                            assignmentObj.isCompleted = false;
-                            assignmentObj.score = 0;
-                            assignmentObj.totalPossible = element.totalPoints || 0;
-                        }
-                        
-                        allAssignment.push(assignmentObj);
+                const allAssignment = mine.map(element => {
+                    const { questions, ...assignmentObj } = element.toObject();
+                    const counted = byAssignment.get(String(element._id))?.counted;
+                    if (counted) {
+                        assignmentObj.isCompleted = true;
+                        assignmentObj.score = counted.grade.score;
+                        assignmentObj.totalPossible = counted.grade.totalPoints;
+                        assignmentObj.percentage = counted.grade.percentage;
+                        assignmentObj.attemptNumber = counted.answer.attemptNumber || 1;
+                        assignmentObj.timeSpent = counted.answer.time || '0:00';
+                        assignmentObj.completedAt = counted.answer.completedAt;
+                    } else {
+                        assignmentObj.isCompleted = false;
+                        assignmentObj.score = 0;
+                        assignmentObj.totalPossible = element.totalPoints || 0;
                     }
-                }
+                    return assignmentObj;
+                });
                 res.json({ message: 'success', allAssignment });
             } else {
                 res.json({ message: 'There are no assignment available now', allAssignment: [] });

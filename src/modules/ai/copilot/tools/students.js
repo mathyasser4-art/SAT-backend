@@ -4,6 +4,7 @@ const answerModel = require('../../../../../DB/models/answer.model');
 const questionModel = require('../../../../../DB/models/question.model');
 const { getStudentHistory } = require('../../../teacher/controller/teacher.controller');
 const callController = require('../callController');
+const { gradeAttempts, countedAttemptsBy } = require('../../../../services/grading');
 const { ToolError, containsRegex, today } = require('../util');
 
 const pct = (part, whole) => (whole > 0 ? Math.round((part / whole) * 100) : null);
@@ -11,19 +12,13 @@ const pct = (part, whole) => (whole > 0 ? Math.round((part / whole) * 100) : nul
 // Topic of a question for reports: its SAT lesson if classified, else its chapter
 const topicOf = (q) => q.topic || (q.chapter && q.chapter.chapterName) || 'Unclassified';
 
-// Best completed attempt per (student, assignment) as a percentage
-const bestPercentages = (answers, assignmentsById) => {
+// Counted (best submitted) attempt per (student, assignment) as a percentage, the mark the teacher's sheet shows
+const bestPercentages = async (answers, assignmentsById) => {
+    const submitted = answers.filter(ans => ans.completedAt);
+    const grades = await gradeAttempts(submitted, { assignmentsById });
     const best = new Map();
-    answers.forEach(ans => {
-        if (!ans.completedAt) return;
-        const assignment = assignmentsById.get(String(ans.assignment));
-        const possible = (assignment && assignment.totalPoints > 0)
-            ? assignment.totalPoints
-            : (ans.questionsNumber || (ans.questions || []).length || 1);
-        const value = Math.min(100, Math.round(((ans.total || 0) / possible) * 100));
-        const key = `${ans.solveBy}:${ans.assignment}`;
-        if (!best.has(key) || best.get(key) < value) best.set(key, value);
-    });
+    countedAttemptsBy(submitted, grades, ans => `${ans.solveBy}:${ans.assignment}`)
+        .forEach(({ counted }, key) => best.set(key, counted.grade.percentage));
     return best;
 };
 
@@ -188,10 +183,10 @@ const getClassInsights = {
         const answers = await answerModel.find({
             assignment: { $in: assignments.map(a => a._id) },
             solveBy: { $in: students.map(s => s._id) },
-        }).select('assignment solveBy total questionsNumber completedAt questions.question questions.isCorrect').lean();
+        }).select('assignment solveBy attemptNumber total totalPossible questionSet completedAt questions').lean();
 
         const assignmentsById = new Map(assignments.map(a => [String(a._id), a]));
-        const best = bestPercentages(answers, assignmentsById);
+        const best = await bestPercentages(answers, assignmentsById);
         const now = today();
 
         const assignmentRows = assignments.map(a => {

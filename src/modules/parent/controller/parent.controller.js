@@ -2,6 +2,19 @@
 const assignmentModel = require('../../../../DB/models/assignment.model');
 const answerModel = require('../../../../DB/models/answer.model');
 const questionModel = require('../../../../DB/models/question.model');
+const { idOf, percentOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading');
+
+// Submitted attempts of a student, marked by the shared rules, grouped per assignment
+const gradedSubmittedWork = async (studentId) => {
+    const answers = await answerModel.find({ solveBy: studentId, completedAt: { $ne: null } })
+        .populate({ path: 'assignment', select: 'title attemptsNumber questions startDate endDate' })
+        .sort({ completedAt: -1 })
+        .lean();
+    const withAssignment = answers.filter(a => a.assignment);
+    const assignmentsById = new Map(withAssignment.map(a => [String(a.assignment._id), a.assignment]));
+    const grades = await gradeAttempts(withAssignment, { assignmentsById });
+    return { answers, grades, byAssignment: countedAttemptsBy(withAssignment, grades, a => idOf(a.assignment)) };
+};
 
 const getMyChildren = async (req, res) => {
     try {
@@ -14,13 +27,14 @@ const getMyChildren = async (req, res) => {
         const enrichedChildren = await Promise.all(children.map(async (child) => {
             try {
                 const childObj = child.toObject ? child.toObject() : child;
-                const allAnswers = await answerModel.find({ solveBy: child._id });
-                const completedAnswers = allAnswers.filter(a => a.completedAt);
+                const allAnswers = await answerModel.find({ solveBy: child._id }).select('questions.question questions.isCorrect').lean();
+                // Average of the counted mark of each assignment, the same marks the teacher sees
+                const { byAssignment } = await gradedSubmittedWork(child._id);
                 let totalScore = 0; let totalPossible = 0;
-                completedAnswers.forEach(a => { totalScore += a.total || 0; totalPossible += a.totalPossible || 0; });
+                byAssignment.forEach(({ counted }) => { totalScore += counted.grade.score; totalPossible += counted.grade.totalPoints; });
                 const wrongSet = new Set();
                 allAnswers.forEach(ans => { (ans.questions || []).forEach(q => { if (q.isCorrect === false) wrongSet.add(q.question.toString()); }); });
-                return { ...childObj, stats: { totalAssignments: completedAnswers.length, averageScore: totalPossible > 0 ? Math.round((totalScore / totalPossible) * 100) : 0, mistakesCount: wrongSet.size } };
+                return { ...childObj, stats: { totalAssignments: byAssignment.size, averageScore: percentOf(totalScore, totalPossible), mistakesCount: wrongSet.size } };
             } catch (e) { return child.toObject ? child.toObject() : child; }
         }));
         res.json({ message: 'success', parent: { _id: parent._id, userName: parent.userName, email: parent.email, parentPhone: parent.parentPhone }, children: enrichedChildren });
@@ -37,20 +51,25 @@ const getChildAssignments = async (req, res) => {
         if (!isMyChild && !isAdmin) return res.status(403).json({ message: 'Access denied: not your child' });
         const child = await userModel.findById(childId).select('userName email class').populate({ path: 'class', select: 'class' });
         if (!child) return res.status(404).json({ message: 'Student not found' });
-        const answers = await answerModel.find({ solveBy: childId, completedAt: { $ne: null } })
-            .populate({ path: 'assignment', select: 'title attemptsNumber totalPoints startDate endDate' })
-            .sort({ completedAt: -1 });
-        const assignmentMap = {};
-        answers.forEach(a => {
-            if (!a.assignment) return;
-            const aid = a.assignment._id.toString();
-            if (!assignmentMap[aid]) assignmentMap[aid] = { _id: a.assignment._id, title: a.assignment.title || 'Assignment', totalPoints: a.assignment.totalPoints || 0, startDate: a.assignment.startDate, endDate: a.assignment.endDate, attempts: [], bestScore: 0, latestCompletedAt: null };
-            const score = a.total || 0;
-            assignmentMap[aid].attempts.push({ attemptNumber: a.attemptNumber, score, totalPossible: a.assignment.totalPoints || 0, percentage: a.assignment.totalPoints ? Math.round((score / a.assignment.totalPoints) * 100) : 0, timeSpent: a.time || '0:00', completedAt: a.completedAt });
-            if (score > assignmentMap[aid].bestScore) assignmentMap[aid].bestScore = score;
-            if (!assignmentMap[aid].latestCompletedAt || a.completedAt > assignmentMap[aid].latestCompletedAt) assignmentMap[aid].latestCompletedAt = a.completedAt;
-        });
-        res.json({ message: 'success', child: { _id: child._id, userName: child.userName, email: child.email, class: child.class }, assignments: Object.values(assignmentMap) });
+        const { byAssignment } = await gradedSubmittedWork(childId);
+        const assignments = [...byAssignment.values()].map(({ counted, attempts }) => {
+            const a = counted.answer.assignment;
+            const sorted = [...attempts].sort((x, y) => (x.answer.attemptNumber || 1) - (y.answer.attemptNumber || 1));
+            return {
+                _id: a._id,
+                title: a.title || 'Assignment',
+                // The counted (best) attempt: what the teacher's sheet shows
+                totalPoints: counted.grade.totalPoints,
+                bestScore: counted.grade.score,
+                bestPercentage: counted.grade.percentage,
+                countedAttemptNumber: counted.answer.attemptNumber || 1,
+                startDate: a.startDate,
+                endDate: a.endDate,
+                attempts: sorted.map(({ answer, grade }) => ({ attemptNumber: answer.attemptNumber || 1, score: grade.score, totalPossible: grade.totalPoints, percentage: grade.percentage, timeSpent: answer.time || '0:00', completedAt: answer.completedAt })),
+                latestCompletedAt: sorted.reduce((latest, x) => (!latest || x.answer.completedAt > latest) ? x.answer.completedAt : latest, null)
+            };
+        }).sort((x, y) => new Date(y.latestCompletedAt || 0) - new Date(x.latestCompletedAt || 0));
+        res.json({ message: 'success', child: { _id: child._id, userName: child.userName, email: child.email, class: child.class }, assignments });
     } catch (error) { console.error('getChildAssignments error:', error); res.status(502).json({ message: error.message }); }
 };
 
