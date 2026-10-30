@@ -44,6 +44,8 @@ const roomMetadata = (session) => JSON.stringify({
     locked: session.locked,
     waitingRoom: session.waitingRoom,
     allowShare: session.allowShare,
+    // Zoom's "Annotate on shared content" (on unless the host turned it off).
+    allowAnnotate: session.allowAnnotate !== false,
     spotlight: session.spotlight || '',
     startedAt: session.startedAt,
     recording: !!session.recordingEgress,
@@ -84,6 +86,7 @@ const sessionInfo = (session, course) => ({
     locked: session.locked,
     waitingRoom: session.waitingRoom,
     allowShare: session.allowShare,
+    allowAnnotate: session.allowAnnotate !== false,
     // Whether the host may record to the cloud (a bucket is configured).
     canRecord: !!getRecordingConfig()
 });
@@ -338,7 +341,7 @@ const updateSettings = async (req, res) => {
     if (!ctx) return;
     const { session, config } = ctx;
     const shareChanged = typeof req.body.allowShare === 'boolean' && req.body.allowShare !== session.allowShare;
-    ['locked', 'waitingRoom', 'allowShare'].forEach((key) => {
+    ['locked', 'waitingRoom', 'allowShare', 'allowAnnotate'].forEach((key) => {
         if (typeof req.body[key] === 'boolean') session[key] = req.body[key];
     });
     if (typeof req.body.spotlight === 'string') session.spotlight = req.body.spotlight;

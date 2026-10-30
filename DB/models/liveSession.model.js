@@ -12,6 +12,8 @@ const liveSessionSchema = new mongoose.Schema({
     locked: { type: Boolean, default: false },
     waitingRoom: { type: Boolean, default: true },
     allowShare: { type: Boolean, default: false },
+    // Whether participants may draw on shared screens and the whiteboard (the host always may).
+    allowAnnotate: { type: Boolean, default: true },
     spotlight: { type: String, default: '' },
     // The running cloud recording (LiveKit egress id), empty when not recording.
     recordingEgress: { type: String, default: '' },
