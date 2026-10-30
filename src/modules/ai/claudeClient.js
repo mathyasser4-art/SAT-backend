@@ -152,13 +152,16 @@ const describeAccessError = (err) => {
             ? 'Amazon Bedrock refused the key: AWS_BEARER_TOKEN_BEDROCK on the server is wrong or expired.'
             : 'The AI key on the server is wrong or was revoked.';
     }
+    // AWS's own reason, e.g. "... is not available for this account", says more than the status code
+    const awsSays = err && err.error && err.error.error && err.error.error.message ? ` AWS says: "${err.error.error.message}"` : '';
+    const region = bedrockRegion() || 'not set';
     if (err instanceof Anthropic.PermissionDeniedError) {
-        return bedrock
-            ? `Amazon Bedrock does not allow this yet. In the AWS console (region ${bedrockRegion() || 'not set'}), open Bedrock → Model access and make sure ${MODEL} is enabled, and that the key's user may call Bedrock. Or set COPILOT_MODEL=claude-opus-4-8, which Amazon Bedrock opens to all customers.`
-            : 'The AI account does not allow this request. Check the API key\'s workspace and billing.';
+        if (!bedrock) return 'The AI account does not allow this request. Check the API key\'s workspace and billing.';
+        const tryOther = PLAIN_MODEL === 'claude-opus-4-8' ? '' : ' Or try COPILOT_MODEL=claude-opus-4-8.';
+        return `Amazon Bedrock refused ${MODEL} for this AWS account (region ${region}).${awsSays} In the AWS console, open Bedrock → Model catalog, choose the model and request access (Anthropic models may ask for a short use-case form); the AWS account must be on a paid plan with a payment method, and the key's user must be allowed to call Bedrock.${tryOther}`;
     }
     if (err instanceof Anthropic.NotFoundError && bedrock) {
-        return `Amazon Bedrock can't find ${MODEL} in region ${bedrockRegion()}. Check COPILOT_MODEL and AWS_REGION.`;
+        return `Amazon Bedrock can't find ${MODEL} in region ${region}.${awsSays} Try another model (COPILOT_MODEL) or region (AWS_REGION, e.g. us-east-1).`;
     }
     return null;
 };
