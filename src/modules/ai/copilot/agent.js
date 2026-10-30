@@ -4,26 +4,25 @@ const { TOOLS_BY_NAME, TOOL_DEFINITIONS } = require('./tools');
 const { validateInput } = require('./validate');
 const { ToolError, toResultText } = require('./util');
 const { buildSystemPrompt } = require('./prompt');
+const claude = require('../claudeClient');
 
-const MODEL = process.env.COPILOT_MODEL || 'claude-opus-5-5';
+const { MODEL } = claude;
 const EFFORT = process.env.COPILOT_EFFORT || 'medium';
 const MAX_STEPS = 12;
 const MAX_JSON_RETRIES = 2;
-
-// Request features that only some models accept
-const SUPPORTS_FALLBACKS = ['claude-opus-5-5', 'claude-opus-5', 'claude-sonnet-5-5', 'claude-fable-5-1'];
-const SUPPORTS_BLOCK_BINDING = ['claude-opus-5-5', 'claude-sonnet-5-5', 'claude-fable-5-1'];
+const MAX_RELAX_RETRIES = 3;
 
 class CopilotError extends Error {}
 
-let client = null;
 const getClient = () => {
-    if (!process.env.ANTHROPIC_API_KEY) {
-        throw new CopilotError('The AI Copilot is not set up yet: ANTHROPIC_API_KEY is missing on the server.');
-    }
-    if (!client) client = new Anthropic();
-    return client;
+    if (!claude.isConfigured()) throw new CopilotError(`The AI Copilot is not set up yet: ${claude.notConfiguredMessage()}`);
+    return claude.getClient();
 };
+
+// Same definitions every time for a given feature set, so the prompt cache prefix holds
+const toolsForRequest = () => (claude.features.eagerInputStreaming
+    ? TOOL_DEFINITIONS
+    : TOOL_DEFINITIONS.map(({ eager_input_streaming, ...tool }) => tool));
 
 const systemBlocks = new Map();
 const systemFor = (brand) => {
@@ -35,23 +34,25 @@ const systemFor = (brand) => {
 
 const requestParams = (brand, messages) => {
     const betas = [];
+    const { features } = claude;
     const params = {
         model: MODEL,
         max_tokens: 16000,
         system: systemFor(brand),
-        tools: TOOL_DEFINITIONS,
+        tools: toolsForRequest(),
         messages,
-        output_config: { effort: EFFORT },
-        // Caches the conversation so far; the system block above caches the shared prefix
-        cache_control: { type: 'ephemeral' },
         thinking: { type: 'adaptive' },
     };
-    if (SUPPORTS_FALLBACKS.includes(MODEL)) {
+    if (features.effort) params.output_config = { effort: EFFORT };
+    // Caches the conversation so far; the system block above caches the shared prefix
+    if (features.autoCache) params.cache_control = { type: 'ephemeral' };
+    if (features.serverFallbacks) {
         // If a safety classifier declines a request, the API retries it on a fallback model
+        // (on Bedrock the client's refusal middleware does this instead)
         betas.push('server-side-fallback-2026-07-01');
         params.fallbacks = 'default';
     }
-    if (SUPPORTS_BLOCK_BINDING.includes(MODEL)) {
+    if (features.blockBinding) {
         // A conversation whose prefix changed (e.g. after a deploy) drops old reasoning instead of failing
         betas.push('thinking-binding-controls-2026-08-01');
         params.thinking.block_binding = { prefix_mismatch_behavior: 'drop_block' };
@@ -61,13 +62,24 @@ const requestParams = (brand, messages) => {
 };
 
 // One model call, streaming text to the browser as it arrives
-const callClaude = async ({ brand, messages, emit, signal, textSoFar }) => {
+const callClaude = async ({ brand, messages, emit, signal, textSoFar, conversationKey }) => {
+    let relaxed = 0;
     for (let attempt = 0; ; attempt++) {
-        const stream = getClient().beta.messages.stream(requestParams(brand, messages), { signal });
+        const used = claude.featuresInUse();
+        const stream = getClient().beta.messages.stream(requestParams(brand, messages), claude.requestOptions({ signal }, conversationKey));
         stream.on('text', (delta) => emit('text', { delta }));
         try {
-            return await stream.finalMessage();
+            const message = await stream.finalMessage();
+            if (message.stop_reason === 'refusal') claude.forgetFallbackState(conversationKey);
+            return message;
         } catch (err) {
+            // An optional feature this provider doesn't accept: send the request again without it
+            if (relaxed < MAX_RELAX_RETRIES && claude.relaxFor(err, used)) {
+                relaxed += 1;
+                attempt -= 1;
+                continue;
+            }
+            if (err instanceof Anthropic.APIError) claude.forgetFallbackState(conversationKey);
             // Streamed tool inputs can arrive as JSON the SDK can't parse; only that case is retried
             if (err instanceof Anthropic.APIError || err instanceof Anthropic.APIUserAbortError || attempt >= MAX_JSON_RETRIES) throw err;
             console.warn('Copilot: unreadable tool input, asking again:', err.message);
@@ -128,7 +140,26 @@ const runTools = async (toolUses, ctx, emit) => {
     return { results: results.filter(Boolean), actions, ui };
 };
 
-const textOf = (message) => message.content.filter(b => b.type === 'text').map(b => b.text).join('\n\n').trim();
+const joinText = (blocks) => blocks.filter(b => b.type === 'text').map(b => b.text).join('\n\n');
+const opening = (text) => text.replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 24);
+
+/**
+ * On Bedrock a refusal mid-reply is retried on another model by the client's fallback middleware,
+ * which marks each switch with a `fallback` block. Only what follows the last switch stands: the
+ * refused model's reasoning and tool calls are dropped (the docs say not to echo them back), and the
+ * markers are never stored, since they 400 once the middleware is off. The refused model's text is
+ * kept in the reply only when the new model continued it rather than starting over.
+ */
+const settleFallbackSeam = (content) => {
+    const seam = content.map(b => b.type).lastIndexOf('fallback');
+    if (seam === -1) return { content, text: joinText(content).trim() };
+    const before = content.slice(0, seam).filter(b => b.type === 'text' && b.text);
+    const after = content.slice(seam + 1).filter(b => b.type !== 'fallback');
+    const partial = joinText(before);
+    const answer = joinText(after);
+    const restarted = !partial.trim() || (answer.trim() !== '' && opening(answer) === opening(partial));
+    return { content: [...before, ...after], text: (restarted ? answer : partial + answer).trim() };
+};
 
 /**
  * Runs Claude until it answers, or until it proposes changes that need the teacher's decision.
@@ -148,8 +179,7 @@ const runAgent = async ({ brand, messages, firstUserMessage, ctx, emit, save, si
     const ui = [];
 
     for (let step = 0; step < MAX_STEPS; step++) {
-        const message = await callClaude({ brand, messages: history, emit, signal, textSoFar: () => replyParts.join('\n\n') });
-        const assistant = { role: 'assistant', content: message.content };
+        const message = await callClaude({ brand, messages: history, emit, signal, textSoFar: () => replyParts.join('\n\n'), conversationKey: ctx && ctx.conversationId });
 
         if (message.stop_reason === 'refusal') {
             // The partial reply is discarded; the history still ends with the teacher's message
@@ -157,9 +187,10 @@ const runAgent = async ({ brand, messages, firstUserMessage, ctx, emit, save, si
             return { reply: 'Sorry, I can\'t help with that request.', ui, actions: [], refused: true };
         }
 
-        const text = textOf(message);
-        if (text) replyParts.push(text);
-        const toolUses = message.content.filter(b => b.type === 'tool_use');
+        const settled = settleFallbackSeam(message.content);
+        const assistant = { role: 'assistant', content: settled.content };
+        if (settled.text) replyParts.push(settled.text);
+        const toolUses = settled.content.filter(b => b.type === 'tool_use');
         history.push(assistant);
         unsaved.push(assistant);
 
@@ -200,11 +231,18 @@ const runAgent = async ({ brand, messages, firstUserMessage, ctx, emit, save, si
     return { reply: [...replyParts, 'I stopped here because this took many steps. Tell me to continue if you want me to keep going.'].join('\n\n'), ui, actions: [] };
 };
 
-// Turns an API failure into a sentence for the teacher
-const describeError = (err) => {
-    if (err instanceof CopilotError) return err.message;
-    if (err instanceof Anthropic.AuthenticationError) return 'The AI key on the server is wrong or was revoked.';
-    if (err instanceof Anthropic.PermissionDeniedError) return 'The AI account does not allow this request. Check the API key\'s workspace and billing.';
+/**
+ * Turns an API failure into a sentence for the teacher. Setup problems (missing or refused key, model
+ * not enabled) get a short sentence with a code, and the full explanation goes to the server log;
+ * `forOperator` returns the full explanation instead (npm run check-ai).
+ */
+const describeError = (err, { forOperator = false } = {}) => {
+    const setup = err instanceof CopilotError ? err.message : claude.describeAccessError(err);
+    if (setup) {
+        if (forOperator) return setup;
+        console.error(`Copilot setup problem (${claude.accessErrorCode(err)}): ${setup}`);
+        return `The AI isn't set up correctly on the server yet (code ${claude.accessErrorCode(err)}). Please tell the site admin.`;
+    }
     if (err instanceof Anthropic.RateLimitError) return 'The AI is getting too many requests right now. Try again in a minute.';
     if (err instanceof Anthropic.APIConnectionError) return 'The server could not reach the AI service. Try again in a moment.';
     if (err instanceof Anthropic.BadRequestError) return `The AI rejected the request: ${err.message}`;

@@ -28,10 +28,17 @@ supervisor, IT and admin accounts, and only reaches that account's own classes, 
 Changes (create, edit, re-assign, delete homework) wait for the teacher to press Confirm, and every
 confirmed change is logged in the `copilotaudits` collection.
 
+Claude is reached either directly or through Amazon Bedrock; set one of the two. Both the Copilot and
+the students' AI mistakes analysis use it (the analysis falls back to a built-in keyword classifier
+without it). Run `npm run check-ai` where the variables are set to confirm Claude answers.
+
 | Variable                       | Description                                                      |
 |--------------------------------|------------------------------------------------------------------|
-| `ANTHROPIC_API_KEY`            | Claude API key. Used by the Copilot and by the students' AI mistakes analysis (which falls back to a built-in keyword classifier without it) |
-| `COPILOT_MODEL`                | Optional, default `claude-opus-5-5`                              |
+| `ANTHROPIC_API_KEY`            | Direct: a Claude API key from the Claude Console                 |
+| `AWS_BEARER_TOKEN_BEDROCK`     | Amazon Bedrock: a Bedrock API key (used when there is no `ANTHROPIC_API_KEY`) |
+| `AWS_REGION`                   | Amazon Bedrock: the region of that key, e.g. `eu-north-1`        |
+| `AI_PROVIDER`                  | Optional, `anthropic` or `bedrock`, only needed when both are set |
+| `COPILOT_MODEL`                | Optional, default `claude-opus-5-5` (on Bedrock the `anthropic.` prefix is added for you; `claude-opus-4-8` works on every AWS account) |
 | `COPILOT_EFFORT`               | Optional, `low` / `medium` / `high`, default `medium`            |
 | `COPILOT_DEFAULT_COUNTRY_CODE` | Optional, used for WhatsApp links when a phone number starts with 0 |
 
