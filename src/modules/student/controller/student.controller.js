@@ -6,6 +6,8 @@ const answerModel = require('../../../../DB/models/answer.model')
 const { idOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
 const questionModel = require('../../../../DB/models/question.model')
 const checkExpiration = require('../../../services/checkExpiration')
+const { questionOrderFor, choicesFor } = require('../../../services/shuffle')
+const { closeOpenTrials } = require('../../../services/submitAttempt')
 const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
@@ -575,67 +577,67 @@ const getAssignment = async (req, res) => {
     }
 };
 
-const getAssignmentDetails = async (req, res) => {
+// The assignment as this student sees it on this trial: shuffled when the teacher asked for it
+const trialView = (assignment, studentID, attempt) => {
+    const view = assignment.toObject();
+    if (view.shuffle) {
+        view.questions = questionOrderFor(view, studentID, attempt).map(q => (
+            q && q.typeOfAnswer === 'MCQ' ? { ...q, wrongAnswer: choicesFor(q, view, studentID, attempt) } : q
+        ));
+    }
+    view.currentAttempt = attempt;
+    view.totalAttempts = view.attemptsNumber;
+    view.remainingAttempts = view.attemptsNumber - attempt;
+    delete view.students;
+    return view;
+};
+
+// Opens the student's trial. Only one trial is open at a time: an unsubmitted trial is
+// always resumed, and the next trial opens only once every earlier one is submitted.
+const getAssignmentDetails = async (req, res, retried) => {
     try {
         const { assignmentID } = req.params;
         const studentID = req.userData._id;
-        let assignment = await assignmentModel.findById(assignmentID).select('-classes -createdBy').populate({ path: 'questions', select: '-correctAnswer -questionPicID -wrongAnswerID -chapter' });
-        if (assignment) {
-            if (assignment.startDate) {
-                if (checkExpiration(assignment.startDate, assignment.endDate)) {
-                    res.json({ message: "Oops!!You can't open this assignment, it has expired." });
-                    return;
-                }
-            }
-            const findStudent = assignment.students?.filter(e => String(e.solveBy) === String(studentID))[0];
-            if (findStudent) {
-                const completedAnswer = await answerModel.findOne({
-                    solveBy: studentID,
-                    assignment: assignmentID,
-                    attemptNumber: findStudent.attempts,
-                    completedAt: { $ne: null }
-                });
-                if (completedAnswer) {
-                    if (findStudent.attempts >= assignment.attemptsNumber) {
-                        res.json({ message: "Oops!!You can't open this assignment, your number of attempts has expired." });
-                    } else {
-                        const findIndex = assignment.students?.findIndex(object => String(object.solveBy) === String(studentID));
-                        const currentAttemptNumber = findStudent.attempts + 1;
-                        assignment.students[findIndex].attempts = currentAttemptNumber;
-                        await assignment.save();
-
-                        assignment = assignment.toObject();
-                        assignment.currentAttempt = currentAttemptNumber;
-                        assignment.totalAttempts = assignment.attemptsNumber;
-                        assignment.remainingAttempts = assignment.attemptsNumber - currentAttemptNumber;
-
-                        res.json({ message: "success", assignment });
-                    }
-                } else {
-                    assignment = assignment.toObject();
-                    assignment.currentAttempt = findStudent.attempts;
-                    assignment.totalAttempts = assignment.attemptsNumber;
-                    assignment.remainingAttempts = assignment.attemptsNumber - findStudent.attempts;
-
-                    res.json({ message: "success", assignment });
-                }
-            } else {
-                const newStudent = {};
-                newStudent.attempts = 1;
-                newStudent.solveBy = studentID;
-                assignment.students.push(newStudent);
-                await assignment.save();
-                
-                assignment = assignment.toObject();
-                assignment.currentAttempt = 1;
-                assignment.totalAttempts = assignment.attemptsNumber;
-                assignment.remainingAttempts = assignment.attemptsNumber - 1;
-                
-                res.json({ message: "success", assignment });
-            }
-        } else {
-            res.json({ message: "There is no any assignment yet." });
+        const assignment = await assignmentModel.findById(assignmentID).select('-classes -createdBy').populate({ path: 'questions', select: '-correctAnswer -questionPicID -wrongAnswerID -chapter' });
+        if (!assignment) return res.json({ message: "There is no any assignment yet." });
+        if (assignment.startDate && checkExpiration(assignment.startDate, assignment.endDate)) {
+            return res.json({ message: "Oops!!You can't open this assignment, it has expired." });
         }
+
+        const record = assignment.students?.find(e => String(e.solveBy) === String(studentID));
+        if (!record) {
+            // First open: add the student with an atomic push, so students opening at the
+            // same moment never overwrite each other's records
+            const added = await assignmentModel.updateOne(
+                { _id: assignmentID, 'students.solveBy': { $ne: studentID } },
+                { $push: { students: { solveBy: studentID, attempts: 1 } } }
+            );
+            // Opened in another tab at the same moment: read again
+            if (added.modifiedCount === 0 && retried !== true) return getAssignmentDetails(req, res, true);
+            return res.json({ message: "success", assignment: trialView(assignment, studentID, 1) });
+        }
+
+        const current = record.attempts || 1;
+        const submitted = await answerModel.exists({ solveBy: studentID, assignment: assignmentID, attemptNumber: current, completedAt: { $ne: null } });
+        if (!submitted) {
+            // The current trial is still open: resume it
+            return res.json({ message: "success", assignment: trialView(assignment, studentID, current) });
+        }
+        if (current >= (assignment.attemptsNumber || 1)) {
+            return res.json({ message: "Oops!!You can't open this assignment, your number of attempts has expired." });
+        }
+
+        // Earlier trials left open by old records are submitted before a new one opens
+        await closeOpenTrials(studentID, assignment, current);
+        const next = current + 1;
+        // Only moves from this trial to the next, so two tabs cannot skip a trial
+        const moved = await assignmentModel.updateOne(
+            { _id: assignmentID, students: { $elemMatch: { solveBy: studentID, attempts: record.attempts || { $in: [null, 0, 1] } } } },
+            { $set: { 'students.$.attempts': next } }
+        );
+        // Another tab opened the next trial first: read again and resume that one
+        if (moved.modifiedCount === 0 && retried !== true) return getAssignmentDetails(req, res, true);
+        return res.json({ message: "success", assignment: trialView(assignment, studentID, next) });
     } catch (error) {
         console.error('getAssignmentDetails error:', error);
         res.status(502).json({ message: error.message });

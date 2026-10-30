@@ -34,6 +34,17 @@ const assignmentSchema = new mongoose.Schema({
         default: 'independent'
     },
     totalPoints: Number,
+    // Which submitted trial is the student's mark: 'first' or 'best' (see src/services/grading.js)
+    countingRule: {
+        type: String,
+        enum: ['first', 'best'],
+        default: 'first'
+    },
+    // Each student gets the questions, and MCQ choices, in their own order
+    shuffle: {
+        type: Boolean,
+        default: false
+    },
 })
 
 const assignmentModel = mongoose.model('assignment', assignmentSchema)

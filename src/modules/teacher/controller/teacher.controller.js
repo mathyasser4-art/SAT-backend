@@ -403,7 +403,7 @@ const getStudentHistory = async (req, res) => {
         const studentAnswers = await answerModel.find({ solveBy: studentID })
             .populate({
                 path: 'assignment',
-                select: 'title questions createdAt startDate endDate createdBy'
+                select: 'title questions countingRule createdAt startDate endDate createdBy'
             })
             .sort({ _id: -1 })
             .lean();

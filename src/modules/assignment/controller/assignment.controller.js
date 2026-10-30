@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const userModel = require('../../../../DB/models/user.model')
 const courseModel = require('../../../../DB/models/course.model')
 const questionModel = require('../../../../DB/models/question.model')
-const { idOf, sumPoints, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
+const { idOf, sumPoints, countingRuleOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
 
 // Points of a list of question ids, so totalPoints never depends on what the page sent
 const pointsOfQuestionIds = async (ids) => {
@@ -162,6 +162,8 @@ const duplicateAssignment = async (req, res) => {
             timer: req.body.timer !== undefined ? req.body.timer : originalAssignment.timer,
             attemptsNumber: req.body.attemptsNumber || originalAssignment.attemptsNumber || 1,
             explanationMode: req.body.explanationMode || originalAssignment.explanationMode || 'independent',
+            countingRule: req.body.countingRule || countingRuleOf(originalAssignment),
+            shuffle: req.body.shuffle !== undefined ? Boolean(req.body.shuffle) : Boolean(originalAssignment.shuffle),
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             classes: req.body.classes,
@@ -254,7 +256,7 @@ const getStudentResults = async (req, res) => {
         })
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate('solveBy', 'userName email class')
-            .select('total totalPossible questionSet questionsNumber time createdAt completedAt questions solveBy attemptNumber');
+            .select('total totalPossible questionSet manualScore countedByTeacher questionsNumber time createdAt completedAt questions solveBy attemptNumber');
 
         // 2. Get all students in assigned classes
         let assignedStudents = [];
@@ -303,6 +305,8 @@ const getStudentResults = async (req, res) => {
                     answerId: answer._id,
                     attemptNumber: answer.attemptNumber || 1,
                     score: grade.score,
+                    autoScore: grade.autoScore,
+                    manual: grade.manual,
                     totalPossible: grade.totalPoints,
                     percentage: grade.percentage,
                     timeSpent: answer.time || '0:00',
@@ -314,7 +318,10 @@ const getStudentResults = async (req, res) => {
                 attempts,
                 attemptsUsed: attempts.filter(a => a.completed).length,
                 maxAttempts,
-                bestAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null
+                // The trial whose mark counts, and whether the teacher chose it instead of the rule
+                bestAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null,
+                countedAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null,
+                countedByTeacher: Boolean(counted && counted.answer.countedByTeacher)
             };
 
             if (counted) {
@@ -328,6 +335,7 @@ const getStudentResults = async (req, res) => {
                     answeredQuestions: grade.answeredCount,
                     correctQuestions: grade.correctCount,
                     score: grade.score,
+                    manual: grade.manual,
                     totalPossible: grade.totalPoints,
                     timeSpent: answer.time || '0:00',
                     percentage: grade.percentage,
@@ -364,6 +372,8 @@ const getStudentResults = async (req, res) => {
                 totalPoints: totalPoints,
                 totalQuestions,
                 attemptsNumber: maxAttempts,
+                countingRule: countingRuleOf(assignment),
+                shuffle: Boolean(assignment.shuffle),
                 createdAt: assignment.createdAt
             }
         });
@@ -391,7 +401,7 @@ const getQuestionStats = async (req, res) => {
         const { courseId } = req.query;
 
         const assignment = await assignmentModel.findById(assignmentID)
-            .select('questions createdBy title totalPoints timer attemptsNumber explanationMode')
+            .select('questions createdBy title totalPoints timer attemptsNumber explanationMode countingRule shuffle')
             .populate({
                 path: 'questions',
                 select: 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer explanation answerPic'
@@ -433,7 +443,7 @@ const getQuestionStats = async (req, res) => {
         const answers = await answerModel.find(answerFilter)
             .sort({ attemptNumber: -1, createdAt: -1 })
             .populate('solveBy', 'userName')
-            .select('total totalPossible questionSet completedAt questions solveBy attemptNumber createdAt')
+            .select('total totalPossible questionSet manualScore countedByTeacher completedAt questions solveBy attemptNumber createdAt')
             .lean();
 
         // Same attempt getStudentResults reports for each student
@@ -555,7 +565,9 @@ const getQuestionStats = async (req, res) => {
                 totalQuestions: assignment.questions.length,
                 timer: assignment.timer ?? null,
                 attemptsNumber: assignment.attemptsNumber || 1,
-                explanationMode: assignment.explanationMode || 'independent'
+                explanationMode: assignment.explanationMode || 'independent',
+                countingRule: countingRuleOf(assignment),
+                shuffle: Boolean(assignment.shuffle)
             },
             course,
             summary: {
@@ -573,6 +585,87 @@ const getQuestionStats = async (req, res) => {
     }
 };
 
+// Loads what a teacher needs to change one student's marks on an assignment, or answers the request itself
+const loadStudentTrials = async (req, res) => {
+    const { assignmentID, studentID } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(assignmentID) || !mongoose.Types.ObjectId.isValid(studentID)) {
+        res.status(400).json({ message: 'Invalid assignment or student' });
+        return null;
+    }
+    const assignment = await assignmentModel.findById(assignmentID).select('questions createdBy countingRule').lean();
+    if (!assignment) {
+        res.status(404).json({ message: 'Assignment not found' });
+        return null;
+    }
+    if (!(await canViewAssignmentResults(req.userData, assignment, assignmentID))) {
+        res.status(403).json({ message: "Access denied - You don't own this assignment" });
+        return null;
+    }
+    const answers = await answerModel.find({ assignment: assignmentID, solveBy: studentID }).sort({ attemptNumber: 1 });
+    return { assignment, answers };
+};
+
+// The teacher picks which submitted trial is this student's mark (attemptNumber null goes back to the rule)
+const setCountedAttempt = async (req, res) => {
+    try {
+        const loaded = await loadStudentTrials(req, res);
+        if (!loaded) return;
+        const { assignmentID, studentID } = req.params;
+        const raw = req.body?.attemptNumber;
+        const filter = { assignment: assignmentID, solveBy: studentID };
+        const clear = { $set: { countedByTeacher: false }, $unset: { countedSetBy: 1, countedSetAt: 1 } };
+
+        if (raw === null || raw === undefined || raw === '') {
+            await answerModel.updateMany(filter, clear);
+            return res.json({ message: 'success' });
+        }
+        const attemptNumber = parseInt(raw, 10);
+        const target = loaded.answers.find(a => (a.attemptNumber || 1) === attemptNumber);
+        if (!target) return res.status(404).json({ message: 'This trial does not exist' });
+        if (!target.completedAt) return res.status(400).json({ message: 'This trial is not submitted yet' });
+
+        await answerModel.updateMany({ ...filter, _id: { $ne: target._id } }, clear);
+        await answerModel.updateOne({ _id: target._id }, { $set: { countedByTeacher: true, countedSetBy: req.userData?._id, countedSetAt: new Date() } });
+        res.json({ message: 'success' });
+    } catch (error) {
+        console.error('Error in setCountedAttempt:', error.message);
+        res.status(502).json({ message: error.message });
+    }
+};
+
+// The teacher types the mark of one trial (score null goes back to the automatic mark)
+const setAttemptMark = async (req, res) => {
+    try {
+        const loaded = await loadStudentTrials(req, res);
+        if (!loaded) return;
+        const attemptNumber = parseInt(req.params.attemptNumber, 10);
+        const target = loaded.answers.find(a => (a.attemptNumber || 1) === attemptNumber);
+        if (!target) return res.status(404).json({ message: 'This trial does not exist' });
+        if (!target.completedAt) return res.status(400).json({ message: 'This trial is not submitted yet' });
+
+        const raw = req.body?.score;
+        if (raw === null || raw === undefined || raw === '') {
+            // total is brought back to the automatic mark the next time the trial is read
+            await answerModel.updateOne({ _id: target._id }, { $set: { manualScore: null }, $unset: { manualScoreBy: 1, manualScoreAt: 1 } });
+            return res.json({ message: 'success' });
+        }
+        const score = Number(raw);
+        const grades = await gradeAttempts([target.toObject()], { assignmentsById: new Map([[String(loaded.assignment._id), loaded.assignment]]), sync: false });
+        const totalPoints = grades.get(String(target._id)).totalPoints;
+        if (!Number.isFinite(score) || score < 0 || score > totalPoints) {
+            return res.status(400).json({ message: `The mark must be between 0 and ${totalPoints}` });
+        }
+        const manualScore = Math.round(score * 100) / 100;
+        await answerModel.updateOne({ _id: target._id }, {
+            $set: { manualScore, total: manualScore, manualScoreBy: req.userData?._id, manualScoreAt: new Date() }
+        });
+        res.json({ message: 'success' });
+    } catch (error) {
+        console.error('Error in setAttemptMark:', error.message);
+        res.status(502).json({ message: error.message });
+    }
+};
+
 // FIXED: Add getStudentResults and duplicateAssignment to the exports
 module.exports = {
     createAssignment,
@@ -581,5 +674,7 @@ module.exports = {
     deleteAssignment,
     getStudentResults,
     getQuestionStats,
+    setCountedAttempt,
+    setAttemptMark,
     duplicateAssignment  // ADD THIS LINE
 }

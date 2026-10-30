@@ -7,7 +7,7 @@ const { idOf, percentOf, gradeAttempts, countedAttemptsBy } = require('../../../
 // Submitted attempts of a student, marked by the shared rules, grouped per assignment
 const gradedSubmittedWork = async (studentId) => {
     const answers = await answerModel.find({ solveBy: studentId, completedAt: { $ne: null } })
-        .populate({ path: 'assignment', select: 'title attemptsNumber questions startDate endDate' })
+        .populate({ path: 'assignment', select: 'title attemptsNumber questions countingRule startDate endDate' })
         .sort({ completedAt: -1 })
         .lean();
     const withAssignment = answers.filter(a => a.assignment);

@@ -9,9 +9,11 @@
 //   questions plus any question they answered that was later removed, so their saved
 //   answers still count.
 // - Score = points of the questions marked correct. Out of = points of the attempt's questions.
-// - The attempt that counts for a student is the best submitted one (highest percentage,
-//   ties go to the later attempt). With nothing submitted, the latest attempt is shown as
-//   "In Progress".
+//   A mark the teacher typed in (answer.manualScore) replaces the automatic score of that trial.
+// - The trial that counts for a student is a submitted one: the one the teacher picked
+//   (answer.countedByTeacher), else by the assignment's countingRule: 'first' (default) is the
+//   first submitted trial, 'best' the highest percentage (ties go to the later trial).
+//   With nothing submitted, the latest trial is shown as "In Progress".
 const mongoose = require('mongoose')
 const questionModel = require('../../DB/models/question.model')
 const assignmentModel = require('../../DB/models/assignment.model')
@@ -80,8 +82,14 @@ const gradeAttempt = (answer, questionSetIds, questionsById) => {
         questions.push({ questionId: qId, question, entry, points, earned, isCorrect, answered })
     })
 
+    const autoScore = score
+    const manual = Boolean(answer) && typeof answer.manualScore === 'number' && Number.isFinite(answer.manualScore)
+    if (manual) score = Math.min(Math.max(answer.manualScore, 0), totalPoints)
+
     return {
         score,
+        autoScore,
+        manual,
         totalPoints,
         percentage: percentOf(score, totalPoints),
         correctCount,
@@ -104,7 +112,7 @@ const gradeAttempts = async (answers, { assignmentsById, questionFields = QUESTI
     const byId = new Map(assignmentsById ? [...assignmentsById].map(([k, v]) => [String(k), v]) : [])
     const missing = [...new Set(list.map(a => idOf(a.assignment)).filter(id => id && id !== 'null' && id !== 'undefined' && !byId.has(id)))]
     if (missing.length > 0) {
-        const found = await assignmentModel.find({ _id: { $in: missing } }).select('questions').lean()
+        const found = await assignmentModel.find({ _id: { $in: missing } }).select('questions countingRule').lean()
         found.forEach(a => byId.set(String(a._id), a))
     }
 
@@ -126,6 +134,8 @@ const gradeAttempts = async (answers, { assignmentsById, questionFields = QUESTI
     const updates = []
     list.forEach(answer => {
         const grade = gradeAttempt(answer, sets.get(idOf(answer._id)), questionsById)
+        const assignment = byId.get(idOf(answer.assignment))
+        grade.countingRule = countingRuleOf(assignment)
         grades.set(idOf(answer._id), grade)
         if (sync && answer._id && (answer.total !== grade.score || answer.totalPossible !== grade.totalPoints)) {
             updates.push({ updateOne: { filter: { _id: answer._id }, update: { $set: { total: grade.score, totalPossible: grade.totalPoints } } } })
@@ -141,13 +151,22 @@ const gradeOne = async (answer, opts) => {
     return grades.get(idOf(answer._id))
 }
 
-// The attempt that counts. attempts: [{ answer, grade }]
+// Assignments saved before the rule existed count the first trial, like new ones
+const countingRuleOf = (assignment) => (assignment && assignment.countingRule === 'best') ? 'best' : 'first'
+
+// The attempt that counts. attempts: [{ answer, grade }] of one student on one assignment
 const pickCountedAttempt = (attempts) => {
     const list = (attempts || []).filter(a => a && a.answer)
     if (list.length === 0) return null
     const attemptNo = (a) => a.answer.attemptNumber || 1
     const submitted = list.filter(a => a.answer.completedAt)
     if (submitted.length > 0) {
+        const chosen = submitted.find(a => a.answer.countedByTeacher === true)
+        if (chosen) return chosen
+        const rule = submitted[0].grade && submitted[0].grade.countingRule
+        if (rule !== 'best') {
+            return submitted.reduce((first, a) => attemptNo(a) < attemptNo(first) ? a : first)
+        }
         return submitted.reduce((best, a) => {
             if (a.grade.percentage !== best.grade.percentage) return a.grade.percentage > best.grade.percentage ? a : best
             if (a.grade.score !== best.grade.score) return a.grade.score > best.grade.score ? a : best
@@ -177,6 +196,7 @@ module.exports = {
     sumPoints,
     isAnswered,
     percentOf,
+    countingRuleOf,
     questionSetOf,
     gradeAttempt,
     gradeAttempts,

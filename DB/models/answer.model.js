@@ -43,6 +43,14 @@ const answerSchema = new mongoose.Schema({
     questionSet: [{ type: mongoose.Schema.Types.ObjectId, ref: "question" }],
     total: Number,
     totalPossible: Number,
+    // Mark typed in by the teacher; replaces the automatic mark of this trial while set
+    manualScore: { type: Number, default: null },
+    manualScoreBy: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    manualScoreAt: Date,
+    // The teacher chose this trial as the student's mark, overriding the assignment's rule
+    countedByTeacher: { type: Boolean, default: false },
+    countedSetBy: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    countedSetAt: Date,
     questionsNumber: Number,
 }, { 
     timestamps: true 

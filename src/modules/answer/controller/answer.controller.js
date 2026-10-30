@@ -2,13 +2,13 @@ const questionModel = require('../../../../DB/models/question.model')
 const answerModel = require('../../../../DB/models/answer.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const checkAnswer = require('../../../services/checkAnswer')
-const { idOf, pointsOf, sumPoints, questionSetOf, gradeAttempt, gradeAttempts, pickCountedAttempt } = require('../../../services/grading')
+const { submitAttempt } = require('../../../services/submitAttempt')
+const { idOf, pointsOf, sumPoints, countingRuleOf, questionSetOf, gradeAttempt, gradeAttempts, pickCountedAttempt } = require('../../../services/grading')
+const { questionOrderFor } = require('../../../services/shuffle')
 const cloudinaryConfig = require('../../../services/cloudinary')
 cloudinaryConfig()
 const fs = require('fs');
 
-// Fields needed to re-check an answer against its key
-const CHECK_FIELDS = 'questionPoints correctAnswer typeOfAnswer answer correctPicAnswer'
 // Fields a report shows for each question
 const REPORT_FIELDS = 'question questionPic questionPoints typeOfAnswer correctAnswer wrongAnswer answer correctPicAnswer wrongPicAnswer explanation'
 
@@ -18,15 +18,25 @@ const currentAttemptOf = (assignment, studentID) => {
     return record?.attempts || 1;
 };
 
+// The trial the homework page was opened on. Answers from a page left open on an older
+// trial (another tab or device) must not land in a newer trial or change a submitted one.
+const sentAttemptOf = (req) => {
+    const n = parseInt(req.body?.attempt ?? req.query?.attempt, 10);
+    return Number.isFinite(n) && n > 0 ? n : null;
+};
+const TRIAL_CLOSED = 'This trial is closed. Reload the homework to continue.';
+
 const getResult = async (req, res) => {
     try {
         const { assignmentID } = req.params;
         const { time } = req.query;
         const studentID = req.userData._id;
 
-        const assignment = await assignmentModel.findById(assignmentID).select('questions students');
+        const assignment = await assignmentModel.findById(assignmentID).select('questions students shuffle');
         if (!assignment) return res.status(404).json({ message: 'Assignment not found' });
         const currentAttemptNumber = currentAttemptOf(assignment, studentID);
+        const sentAttempt = sentAttemptOf(req);
+        if (sentAttempt && sentAttempt !== currentAttemptNumber) return res.status(409).json({ message: TRIAL_CLOSED });
 
         // Submit THIS attempt only, never an earlier one: an empty trial is submitted as empty
         let findAnswer = await answerModel.findOne({ solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber });
@@ -35,46 +45,14 @@ const getResult = async (req, res) => {
                 solveBy: studentID,
                 assignment: assignmentID,
                 attemptNumber: currentAttemptNumber,
-                questionSet: assignment.questions,
+                questionSet: questionOrderFor(assignment, studentID, currentAttemptNumber),
                 questionsNumber: 0,
                 questions: [],
                 time: "0:00"
             });
         }
 
-        // Freeze the question set on submit for attempts started before it was saved
-        const setIds = questionSetOf(findAnswer, assignment.questions);
-        if (!findAnswer.questionSet || findAnswer.questionSet.length === 0) findAnswer.questionSet = setIds;
-
-        const questions = await questionModel.find({ _id: { $in: setIds } }).select(CHECK_FIELDS).lean();
-        const questionsById = new Map(questions.map(q => [String(q._id), q]));
-
-        // Re-check answers not yet marked correct (e.g. a graph answer sent as a picture)
-        findAnswer.questions.forEach(entry => {
-            if (!entry || !entry.question || entry.isCorrect === true) return;
-            const question = questionsById.get(idOf(entry.question));
-            if (!question) return;
-            const given = question.typeOfAnswer === 'Graph' && entry.stepPicture?.secure_url
-                ? entry.stepPicture.secure_url
-                : entry.firstAnswer;
-            entry.isCorrect = checkAnswer(question, given);
-        });
-
-        const grade = gradeAttempt(findAnswer, setIds, questionsById);
-        const earnedById = new Map(grade.questions.map(g => [g.questionId, g.earned]));
-        findAnswer.questions.forEach(entry => {
-            if (entry && entry.question) entry.point = earnedById.get(idOf(entry.question)) || 0;
-        });
-
-        findAnswer.total = grade.score;
-        findAnswer.totalPossible = grade.totalPoints;
-        findAnswer.questionsNumber = grade.answeredCount;
-        // A second submit of the same attempt keeps its first time and date
-        if (!findAnswer.completedAt) {
-            findAnswer.time = time || "0:00";
-            findAnswer.completedAt = new Date();
-        }
-        await findAnswer.save();
+        const grade = await submitAttempt(findAnswer, assignment, time);
 
         return res.json({
             message: "success",
@@ -114,24 +92,29 @@ const checkAssinmentAnswer = async (req, res) => {
             try { fs.unlinkSync(uploadedFile.path); } catch (e) {}
         }
 
-        const assignment = await assignmentModel.findById(assignmentID).select('questions students');
+        const assignment = await assignmentModel.findById(assignmentID).select('questions students shuffle');
+        if (!assignment) return res.status(404).json({ message: 'Assignment not found' });
         const currentAttemptNumber = currentAttemptOf(assignment, studentID);
+        const sentAttempt = sentAttemptOf(req);
+        if (sentAttempt && sentAttempt !== currentAttemptNumber) return res.status(409).json({ message: TRIAL_CLOSED });
 
         // Find or create answer document for THIS attempt
         let findAnswer = await answerModel.findOne({ solveBy: studentID, assignment: assignmentID, attemptNumber: currentAttemptNumber });
+        // A submitted trial is final: its answers cannot be changed afterwards
+        if (findAnswer && findAnswer.completedAt) return res.status(409).json({ message: 'This trial is already submitted.' });
 
         if (!findAnswer) {
             findAnswer = new answerModel({
                 solveBy: studentID,
                 assignment: assignmentID,
                 attemptNumber: currentAttemptNumber,
-                // The questions this attempt is given; its mark is out of these
-                questionSet: assignment?.questions || [],
+                // The questions this attempt is given, in the order shown; its mark is out of these
+                questionSet: questionOrderFor(assignment, studentID, currentAttemptNumber),
                 questionsNumber: 0,
                 questions: [],
                 time: "0:00"
             });
-        } else if ((!findAnswer.questionSet || findAnswer.questionSet.length === 0) && assignment) {
+        } else if (!findAnswer.questionSet || findAnswer.questionSet.length === 0) {
             findAnswer.questionSet = questionSetOf(findAnswer, assignment.questions);
         }
 
@@ -252,7 +235,7 @@ const reportRow = (question, entry, points, earned, isCorrect, answered) => ({
 // Report of one attempt. With no attempt asked for, it opens the attempt that counts,
 // the same one the teacher's sheets and the student's dashboard show.
 const buildAttemptReport = async (studentID, assignmentID, requestedAttempt) => {
-    const assignment = await assignmentModel.findById(assignmentID).select('title questions attemptsNumber').lean();
+    const assignment = await assignmentModel.findById(assignmentID).select('title questions attemptsNumber countingRule').lean();
     const attempts = await answerModel.find({ solveBy: studentID, assignment: assignmentID })
         .sort({ attemptNumber: 1, createdAt: 1 }).lean();
 
@@ -304,6 +287,12 @@ const buildAttemptReport = async (studentID, assignmentID, requestedAttempt) => 
             questionsNumber: grade.answeredCount,
             attemptNumber: answer.attemptNumber || 1,
             countedAttemptNumber: counted.answer.attemptNumber || 1,
+            countingRule: countingRuleOf(assignment),
+            // How the counted trial was chosen: by the teacher, or by the assignment's rule
+            countedByTeacher: counted.answer.countedByTeacher === true,
+            // This trial's mark was typed in by the teacher
+            manual: grade.manual,
+            autoScore: grade.autoScore,
             completed: !!answer.completedAt,
             completedAt: answer.completedAt || null,
             attemptsList: graded.map(a => ({
@@ -311,6 +300,7 @@ const buildAttemptReport = async (studentID, assignmentID, requestedAttempt) => 
                 total: a.grade.score,
                 totalPoints: a.grade.totalPoints,
                 percentage: a.grade.percentage,
+                manual: a.grade.manual,
                 completed: !!a.answer.completedAt,
                 isCounted: a === counted,
                 time: a.answer.time,
@@ -405,7 +395,7 @@ const getAllAttempts = async (req, res) => {
         const { assignmentID } = req.params;
         const studentID = req.userData._id;
 
-        const assignment = await assignmentModel.findById(assignmentID).select('title attemptsNumber students questions').lean();
+        const assignment = await assignmentModel.findById(assignmentID).select('title attemptsNumber students questions countingRule').lean();
         if (!assignment) return res.status(404).json({ message: 'Assignment not found' });
 
         const allAttempts = await answerModel.find({ solveBy: studentID, assignment: assignmentID })
@@ -433,6 +423,7 @@ const getAllAttempts = async (req, res) => {
                 total: a.grade.score,
                 totalPossible: a.grade.totalPoints,
                 percentage: a.grade.percentage,
+                manual: a.grade.manual,
                 completed: !!a.answer.completedAt,
                 isCounted: a === counted,
                 time: a.answer.time,
@@ -447,7 +438,9 @@ const getAllAttempts = async (req, res) => {
                 remainingAttempts: Math.max(0, maxAttempts - completed.length),
                 hasOpenAttempt,
                 maxAttempts,
-                // The mark that counts: best submitted attempt
+                countingRule: countingRuleOf(assignment),
+                countedByTeacher: Boolean(counted && counted.answer.countedByTeacher),
+                // The mark that counts: the trial chosen by the teacher or by the assignment's rule
                 bestScore: counted && counted.answer.completedAt ? counted.grade.score : 0,
                 bestPercentage: counted && counted.answer.completedAt ? counted.grade.percentage : 0,
                 countedAttemptNumber: counted && counted.answer.completedAt ? (counted.answer.attemptNumber || 1) : null,

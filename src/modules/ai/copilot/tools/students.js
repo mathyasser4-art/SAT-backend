@@ -172,7 +172,7 @@ const getClassInsights = {
         await scope.load();
         scope.requireClass(classId);
         const assignments = await assignmentModel.find({ classes: classId })
-            .select('title startDate endDate totalPoints questions createdBy classes')
+            .select('title startDate endDate totalPoints questions countingRule createdBy classes')
             .sort({ _id: -1 }).limit(lastAssignments).lean();
         const students = await userModel.find(scope.studentFilter({ $and: [{ $or: [{ class: classId }, { classList: classId }] }] }))
             .select('userName').lean();
