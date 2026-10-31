@@ -3,8 +3,7 @@ const classModel = require('../../../../DB/models/class.model');
 const sendEmail = require('../../../services/sendEmail');
 const generateCode = require('../../../services/generateVerificationCode');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const getJwtSecret = require('../../../services/jwtSecret');
+const { issueToken } = require('../../../services/sessions');
 const { emailQuery } = require('../../../services/accountGuard');
 
 // Multi-tenant Domain Registry: maps teacher or school identifiers to custom branded domains.
@@ -142,7 +141,7 @@ const login = async (req, res) => {
                 }
 
                 if (checkPassword) {
-                    const userToken = jwt.sign({ id: findUser._id }, getJwtSecret());
+                    const userToken = await issueToken(findUser, req);
                     const schoolName = findUser.role === 'School' 
                         ? findUser.userName 
                         : (findUser.createdBy?.userName || 'SAT School');

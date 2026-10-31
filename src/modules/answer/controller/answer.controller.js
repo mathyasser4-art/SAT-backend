@@ -3,6 +3,7 @@ const answerModel = require('../../../../DB/models/answer.model')
 const assignmentModel = require('../../../../DB/models/assignment.model')
 const checkAnswer = require('../../../services/checkAnswer')
 const { submitAttempt } = require('../../../services/submitAttempt')
+const { logHwActivity } = require('../../../services/sessions')
 const { idOf, pointsOf, sumPoints, countingRuleOf, questionSetOf, gradeAttempt, gradeAttempts, pickCountedAttempt } = require('../../../services/grading')
 const { questionOrderFor } = require('../../../services/shuffle')
 const cloudinaryConfig = require('../../../services/cloudinary')
@@ -53,6 +54,7 @@ const getResult = async (req, res) => {
         }
 
         const grade = await submitAttempt(findAnswer, assignment, time);
+        logHwActivity(req, { assignment: assignmentID, attemptNumber: findAnswer.attemptNumber, action: 'submit' });
 
         return res.json({
             message: "success",
@@ -155,6 +157,7 @@ const checkAssinmentAnswer = async (req, res) => {
         findAnswer.totalPossible = grade.totalPoints;
         findAnswer.questionsNumber = grade.answeredCount;
         await findAnswer.save();
+        logHwActivity(req, { assignment: assignmentID, attemptNumber: currentAttemptNumber, action: 'answer' });
 
         const savedQuestion = findAnswer.questions.find(
             q => q && q.question && idOf(q.question) === String(questionID)

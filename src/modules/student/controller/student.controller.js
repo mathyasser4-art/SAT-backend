@@ -8,6 +8,7 @@ const questionModel = require('../../../../DB/models/question.model')
 const checkExpiration = require('../../../services/checkExpiration')
 const { questionOrderFor, choicesFor } = require('../../../services/shuffle')
 const { closeOpenTrials } = require('../../../services/submitAttempt')
+const { logHwActivity } = require('../../../services/sessions')
 const cloudinaryConfig = require('../../../services/cloudinary')
 const cloudinary = require("cloudinary").v2;
 cloudinaryConfig()
@@ -614,6 +615,7 @@ const getAssignmentDetails = async (req, res, retried) => {
             );
             // Opened in another tab at the same moment: read again
             if (added.modifiedCount === 0 && retried !== true) return getAssignmentDetails(req, res, true);
+            logHwActivity(req, { assignment: assignmentID, attemptNumber: 1, action: 'open' });
             return res.json({ message: "success", assignment: trialView(assignment, studentID, 1) });
         }
 
@@ -621,6 +623,7 @@ const getAssignmentDetails = async (req, res, retried) => {
         const submitted = await answerModel.exists({ solveBy: studentID, assignment: assignmentID, attemptNumber: current, completedAt: { $ne: null } });
         if (!submitted) {
             // The current trial is still open: resume it
+            logHwActivity(req, { assignment: assignmentID, attemptNumber: current, action: 'open' });
             return res.json({ message: "success", assignment: trialView(assignment, studentID, current) });
         }
         if (current >= (assignment.attemptsNumber || 1)) {
@@ -637,6 +640,7 @@ const getAssignmentDetails = async (req, res, retried) => {
         );
         // Another tab opened the next trial first: read again and resume that one
         if (moved.modifiedCount === 0 && retried !== true) return getAssignmentDetails(req, res, true);
+        logHwActivity(req, { assignment: assignmentID, attemptNumber: next, action: 'open' });
         return res.json({ message: "success", assignment: trialView(assignment, studentID, next) });
     } catch (error) {
         console.error('getAssignmentDetails error:', error);
@@ -717,5 +721,6 @@ module.exports = {
     getAssignment, 
     getAssignmentDetails, 
     getAllStudents,
-    getMyMistakes
+    getMyMistakes,
+    buildStudentQuery
 };

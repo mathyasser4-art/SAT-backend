@@ -75,7 +75,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'authorization', 'auth-token', 'authrization', 'token']
+  allowedHeaders: ['Content-Type', 'Authorization', 'authorization', 'auth-token', 'authrization', 'token', 'x-device-id', 'x-device-name']
 };
 
 app.use(cors(corsOptions));
@@ -133,8 +133,8 @@ const authLimiter = rateLimit({
 app.use(globalLimiter);
 app.use(['/auth/login', '/auth/register', '/auth/google'], authLimiter);
 
-const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter, videoRouter, liveRouter } = require('./router/allRoutes');
-app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter, videoRouter, liveRouter);
+const { authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter, videoRouter, liveRouter, sessionRouter } = require('./router/allRoutes');
+app.use(authRouter, userRouter, systemRouter, questionTypeRouter, unitRouter, chapterRouter, questionRouter, adminRouter, subjectRouter, classRouter, schoolRouter, schoolSubjectRouter, teacherRouter, studentRouter, assignmentRouter, answerRouter, itRouter, supervisorRouter, uploadRouter, courseRouter, practiceRouter, parentRouter, journeyRouter, aiRouter, questionReportRouter, videoRouter, liveRouter, sessionRouter);
 
 const CronJob = require('cron').CronJob;
 const { startHwCleanupCron } = require('./src/services/hwCleanupCron');

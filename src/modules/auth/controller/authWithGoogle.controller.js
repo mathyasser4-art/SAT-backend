@@ -1,7 +1,6 @@
 const userModel = require('../../../../DB/models/user.model')
-const jwt = require('jsonwebtoken');
 const axios = require('axios');
-const getJwtSecret = require('../../../services/jwtSecret');
+const { issueToken } = require('../../../services/sessions');
 const { normalizeEmail, emailQuery } = require('../../../services/accountGuard');
 
 const authWithGoogle = async (req, res) => {
@@ -23,13 +22,13 @@ const authWithGoogle = async (req, res) => {
                     const addUser = new userModel(req.body)
                     const userData = await addUser.save()
                     if (userData) {
-                        const userToken = jwt.sign({ id: userData._id }, getJwtSecret());
+                        const userToken = await issueToken(userData, req);
                         res.json({ message: 'success', userToken })
                     } else {
                         res.json({ message: 'Error... This account has not been registered to our servers. Please try again' })
                     }
                 } else {
-                    const userToken = jwt.sign({ id: findUser._id }, getJwtSecret());
+                    const userToken = await issueToken(findUser, req);
                     res.json({ message: 'success', userToken })
                 }
             } else {

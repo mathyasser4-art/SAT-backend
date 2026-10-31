@@ -1,7 +1,6 @@
 const userModel = require('../../../../DB/models/user.model')
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const getJwtSecret = require('../../../services/jwtSecret');
+const { issueToken } = require('../../../services/sessions');
 const { normalizeEmail, emailQuery } = require('../../../services/accountGuard');
 
 const register = async (req, res) => {
@@ -41,7 +40,7 @@ const register = async (req, res) => {
                 const userData = await addUser.save();
                 if (userData) {
                     // Generate token for immediate login
-                    const userToken = jwt.sign({ id: userData._id }, getJwtSecret());
+                    const userToken = await issueToken(userData, req);
                     res.status(201).json({ 
                         message: 'success',
                         userToken,

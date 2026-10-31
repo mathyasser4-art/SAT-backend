@@ -8,6 +8,7 @@ const userModel = require('../../../../DB/models/user.model')
 const courseModel = require('../../../../DB/models/course.model')
 const questionModel = require('../../../../DB/models/question.model')
 const { idOf, sumPoints, countingRuleOf, gradeAttempts, countedAttemptsBy } = require('../../../services/grading')
+const { hwDevicesBy } = require('../../../services/sessions')
 
 // Points of a list of question ids, so totalPoints never depends on what the page sent
 const pointsOfQuestionIds = async (ids) => {
@@ -293,6 +294,7 @@ const getStudentResults = async (req, res) => {
         // Repair a stored total saved wrong by older pages, so course pages show the same "out of"
         if (assignment.totalPoints !== totalPoints) assignmentModel.updateOne({ _id: assignment._id }, { totalPoints }).exec().catch(() => {});
         const { byStudent } = await gradeAssignmentAnswers(assignment, answers);
+        const devicesByTrial = await hwDevicesBy(assignment._id);
 
         // 3. One row per student: the attempt that counts (best submitted), plus every trial's mark
         const maxAttempts = assignment.attemptsNumber || 1;
@@ -311,7 +313,8 @@ const getStudentResults = async (req, res) => {
                     percentage: grade.percentage,
                     timeSpent: answer.time || '0:00',
                     completed: !!answer.completedAt,
-                    completedAt: answer.completedAt || null
+                    completedAt: answer.completedAt || null,
+                    devices: devicesByTrial.get(`${sId}:${answer.attemptNumber || 1}`) || []
                 }))
                 .sort((a, b) => a.attemptNumber - b.attemptNumber);
             const attemptInfo = {
@@ -321,7 +324,12 @@ const getStudentResults = async (req, res) => {
                 // The trial whose mark counts, and whether the teacher chose it instead of the rule
                 bestAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null,
                 countedAttemptNumber: counted ? (counted.answer.attemptNumber || 1) : null,
-                countedByTeacher: Boolean(counted && counted.answer.countedByTeacher)
+                countedByTeacher: Boolean(counted && counted.answer.countedByTeacher),
+                // Devices that opened, answered or submitted each trial (logged since device tracking began)
+                trialDevices: [...devicesByTrial.entries()]
+                    .filter(([key]) => key.startsWith(sId + ':'))
+                    .map(([key, devices]) => ({ attemptNumber: Number(key.split(':')[1]), devices }))
+                    .sort((a, b) => a.attemptNumber - b.attemptNumber)
             };
 
             if (counted) {

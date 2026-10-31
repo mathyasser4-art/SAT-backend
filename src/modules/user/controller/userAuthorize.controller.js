@@ -1,12 +1,11 @@
 const userModel = require('../../../../DB/models/user.model')
-const jwt = require('jsonwebtoken');
-const getJwtSecret = require('../../../services/jwtSecret');
+const { verifySessionToken } = require('../../../services/sessions');
 
 const userAuthroize = async (req, res) => {
     try {
         const { userToken } = req.params
-        const { id } = jwt.verify(userToken, getJwtSecret())
-        const findUser = await userModel.findById(id).select('userName email password role verify createdBy').populate({ path: 'createdBy', select: 'userName' })
+        const { id } = await verifySessionToken(req, userToken)
+        const findUser = await userModel.findById(id).select('userName email role verify createdBy').populate({ path: 'createdBy', select: 'userName' })
         if (findUser) {
             if (findUser.verify) {
                 res.json({ message: 'success', userInfo: findUser })
@@ -17,7 +16,7 @@ const userAuthroize = async (req, res) => {
             res.json({ message: 'this email is not founed' })
         }
     } catch (error) {
-        res.json({ message: error.message })
+        res.json({ message: error.message, code: error.code })
     }
 }
 

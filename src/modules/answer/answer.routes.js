@@ -11,7 +11,7 @@ answerRouter.get('/answer/getResult/:assignmentID', studentAuth, getResult)
 answerRouter.get('/answer/getAllAttempts/:assignmentID', studentAuth, getAllAttempts)
 
 
-// Debug endpoint - can be accessed by both teacher and student
-answerRouter.get('/answer/debug/:studentID/:assignmentID', debugAnswerDocument)
+// Debug endpoint: staff only, it shows the questions with their correct answers
+answerRouter.get('/answer/debug/:studentID/:assignmentID', teacherAuth, debugAnswerDocument)
 
 module.exports = answerRouter

@@ -1,6 +1,5 @@
 const userModel = require('../../DB/models/user.model')
-const jwt = require('jsonwebtoken');
-const getJwtSecret = require('../services/jwtSecret');
+const { verifySessionToken } = require('../services/sessions');
 
 // WARNING: When DISABLE_ADMIN_AUTH=true, requests sent WITHOUT any token pass adminAuth.
 // Only adminAuth honours it: the SAT dashboard only calls adminAuth routes (and public ones),
@@ -57,7 +56,7 @@ const userAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify) {
@@ -81,7 +80,7 @@ const userAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -93,7 +92,7 @@ const adminAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -117,7 +116,7 @@ const adminAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -126,7 +125,7 @@ const teacherAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -150,7 +149,7 @@ const teacherAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -159,7 +158,7 @@ const studentAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -183,7 +182,7 @@ const studentAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -192,7 +191,7 @@ const schoolAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -216,7 +215,7 @@ const schoolAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -225,7 +224,7 @@ const itAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -249,7 +248,7 @@ const itAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -258,7 +257,7 @@ const itOrTeacherAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -282,7 +281,7 @@ const itOrTeacherAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -291,7 +290,7 @@ const supervisorAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -315,7 +314,7 @@ const supervisorAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
@@ -324,7 +323,7 @@ const parentAuth = async (req, res, next) => {
         const rawAuthHeader = extractTokenFromHeader(req.headers);
         const authHeader = getTokenFromAuthHeader(rawAuthHeader);
         if (authHeader) {
-            const { id } = jwt.verify(authHeader, getJwtSecret())
+            const { id } = await verifySessionToken(req, authHeader)
             const userFounded = await userModel.findById(id)
             if (userFounded) {
                 if (userFounded.verify !== false) {
@@ -348,7 +347,7 @@ const parentAuth = async (req, res, next) => {
             res.status(401).json({ message: 'this user access token is not found' })
         }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(error.status || 500).json({ message: error.message, code: error.code })
     }
 }
 
