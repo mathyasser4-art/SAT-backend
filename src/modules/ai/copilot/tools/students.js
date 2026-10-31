@@ -118,7 +118,7 @@ const getStudentReport = {
     name: 'get_student_report',
     kind: 'read',
     status: () => 'Reading the student\'s history',
-    description: 'Full progress report for one student: every assignment they did with score, percentage, grade and time, overall statistics, and their weakest topics. Needs a studentId from list_students.',
+    description: 'Full progress report for one student: every assignment they did with score, percentage, grade and time, overall statistics, and their weakest topics. A row with status "In Progress" was opened but never submitted: it has no mark or time yet, only the answers saved so far, and is left out of the statistics. Needs a studentId from list_students.',
     input_schema: {
         type: 'object',
         properties: { studentId: { type: 'string' } },
@@ -140,15 +140,23 @@ const getStudentReport = {
         return {
             student: { studentId, name: student.userName, email: student.email, className: scope.className(student.class) },
             statistics: history.body.statistics,
-            assignments: (history.body.assignments || []).map(a => ({
+            assignments: (history.body.assignments || []).map(a => a.status === 'Completed' ? {
                 assignmentId: String(a.assignmentID),
                 title: a.assignmentTitle,
+                status: 'Completed',
                 percentage: a.percentage,
                 grade: a.grade,
                 score: `${a.score}/${a.totalPossible}`,
                 completedAt: a.completedAt,
                 timeSpent: a.timeSpent,
-            })),
+            } : {
+                // Opened but never submitted: not a mark, so no score, grade or time
+                assignmentId: String(a.assignmentID),
+                title: a.assignmentTitle,
+                status: 'In Progress',
+                savedSoFar: `${a.answeredQuestions} of ${a.totalQuestions} questions answered, ${a.correctQuestions} correct`,
+                startedAt: a.completedAt,
+            }),
             weakTopics,
         };
     },
